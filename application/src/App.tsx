@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
@@ -16,29 +16,28 @@ function getHiddenImage(path: string) {
         width: 0,
         height: 0,
       }}
-    >
-    </div>
+    ></div>
   );
 }
 
 export function renderScouterNavBar() {
   return (
-      <nav className="nav-bar">
-        {getHiddenImage("./src/assets/Crescendo Map.png")}
-        {getHiddenImage("./src/assets/Blue Auto Map.png")}
-        {getHiddenImage("./src/assets/Red Auto Map.png")}
-        <ul>
-          <li>
-            <Link to="/">Match List</Link>
-          </li>
-          <li>
-            <Link to="/ScouterTab">Scout Game</Link>
-          </li>
-          <li>
-            <Link to="/ScannerTab">Scan Match</Link>
-          </li>
-        </ul>
-      </nav>
+    <nav className="nav-bar">
+      {getHiddenImage("./src/assets/Crescendo Map.png")}
+      {getHiddenImage("./src/assets/Blue Auto Map.png")}
+      {getHiddenImage("./src/assets/Red Auto Map.png")}
+      <ul>
+        <li>
+          <Link to="/">Match List</Link>
+        </li>
+        <li>
+          <Link to="/ScouterTab">Scout Game</Link>
+        </li>
+        <li>
+          <Link to="/ScannerTab">Scan Match</Link>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
@@ -56,9 +55,23 @@ export function renderStrategyNavBar() {
     </nav>
   );
 }
+export interface TabProps {
+  state?;
+}
 
+const pages = {
+  "/ScannerTab": ScanningTab,
+  "/": MatchList,
+  "/ScouterTab": ScouterTab,
+  "/TeamTab": TeamTab,
+  "/GeneralTab": GeneralTab,
+};
 const App: React.FC = () => {
-  
+  const [currentPage, setCurrentPage] = useState<React.FC<TabProps>>(MatchList);
+
+  const navigate = (path: string, state?) => {
+    setCurrentPage();
+  };
   return (
     <BrowserRouter>
       <Routes>

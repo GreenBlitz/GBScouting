@@ -3,14 +3,14 @@ import Collapsible from "react-collapsible";
 import React, { useState } from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
 import { getServerHostname } from "../Utils";
-import { renderScouterNavBar } from "../App";
+import { renderScouterNavBar, TabProps } from "../App";
 
 export const matchName = "Qual";
 const matchesTab = "Matches/";
 
 const collapsibleSize = 10;
 
-const MatchList: React.FC = () => {
+const MatchList: React.FC<TabProps> = ({state}) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -20,8 +20,8 @@ const MatchList: React.FC = () => {
       .map((matchName) => JSON.parse(localStorage.getItem(matchName) || "{}"))
   );
 
-  const latestMatch = location.state;
-  location.state = {};
+  const latestMatch = state;
+  state = {};
 
   if (latestMatch?.[matchName]) {
     matches.push(latestMatch);

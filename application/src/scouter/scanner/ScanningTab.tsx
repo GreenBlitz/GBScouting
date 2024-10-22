@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import "./QRStyles.css";
 import QrScanner from "qr-scanner";
 import React from "react";
-import { renderScouterNavBar } from "../../App";
+import { renderScouterNavBar, TabProps } from "../../App";
 import * as serde from "../../Serde";
 import {decode} from "uint8-to-base64";
 
-const ScanningTab = () => {
+const ScanningTab: React.FC<TabProps> = () => {
   const navigate = useNavigate();
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
