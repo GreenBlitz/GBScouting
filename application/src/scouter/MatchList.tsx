@@ -1,18 +1,15 @@
-import { useLocation, useNavigate } from "react-router-dom";
 import Collapsible from "react-collapsible";
 import React, { useState } from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
 import { getServerHostname } from "../Utils";
-import { renderScouterNavBar, TabProps } from "../App";
+import {  TabProps } from "../App";
 
 export const matchName = "Qual";
 const matchesTab = "Matches/";
 
 const collapsibleSize = 10;
 
-const MatchList: React.FC<TabProps> = ({state}) => {
-  const location = useLocation();
-  const navigate = useNavigate();
+const MatchList: React.FC<TabProps> = ({navBar, navigate, state}) => {
 
   const [matches, setMatches] = useState<Record<string, string>[]>(
     Object.keys(localStorage)
@@ -56,7 +53,7 @@ const MatchList: React.FC<TabProps> = ({state}) => {
 
   return (
     <div className="match-list">
-      {renderScouterNavBar()}
+      {navBar()}
       {matches.length === 0 && <h1>No Matches Saved</h1>}
       {matches.map((match, index) => (
         <Collapsible

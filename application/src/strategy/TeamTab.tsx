@@ -10,8 +10,8 @@ import {
 } from "../Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
-import { renderStrategyNavBar } from "../App";
 import AutoTab from "./AutoSection";
+import { TabProps } from "../App";
 
 interface TeamTabProps {}
 
@@ -32,7 +32,7 @@ function getComments(matches: Match[]): [string, string][] {
     .filter(([comment, qual]) => comment !== "") as [string, string][];
 }
 
-const TeamTab: React.FC<TeamTabProps> = () => {
+const TeamTab: React.FC<TabProps> = ({navBar}) => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
 
@@ -53,7 +53,7 @@ const TeamTab: React.FC<TeamTabProps> = () => {
 
   return (
     <div className="strategy-app">
-      {renderStrategyNavBar()}
+      {navBar()}
       <br />
       <br />
       <div className="team-picker">

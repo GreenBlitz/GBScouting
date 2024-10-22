@@ -1,16 +1,14 @@
 import { localStorageTabName } from "./ScouterQuery";
-import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import PreMatch from "./tabs/PreMatch";
 import Autonomous from "./tabs/Autonomous";
 import Teleoperated from "./tabs/Teleoperated";
 import PostMatch from "./tabs/PostMatch";
-import { renderScouterNavBar } from "../App";
+import {  TabProps } from "../App";
 
 const sections: React.FC[] = [PreMatch, Autonomous, Teleoperated, PostMatch];
 
-function ScouterTab() {
-  const navigate = useNavigate();
+const ScouterTab: React.FC<TabProps> = ({navBar, navigate})=> {
   const [currentSectionNumber, setSectionNumber] = useState<number>(0);
 
   const [areYouSure, setAreYouSure] = useState<boolean>(false);
@@ -26,7 +24,7 @@ function ScouterTab() {
           localStorage.removeItem(item);
         }
       });
-    navigate("/", { state: formValues });
+    navigate("/", formValues );
   }
 
   function clearQueryStorage() {
@@ -42,7 +40,7 @@ function ScouterTab() {
 
   return (
     <div className="scouting-tab">
-      {renderScouterNavBar()}
+      {navBar()}
       <h1>{sections[currentSectionNumber].name}</h1>
       {sections[currentSectionNumber].apply({})}
       {currentSectionNumber !== 0 && (

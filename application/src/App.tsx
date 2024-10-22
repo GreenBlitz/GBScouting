@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
@@ -20,43 +19,10 @@ function getHiddenImage(path: string) {
   );
 }
 
-export function renderScouterNavBar() {
-  return (
-    <nav className="nav-bar">
-      {getHiddenImage("./src/assets/Crescendo Map.png")}
-      {getHiddenImage("./src/assets/Blue Auto Map.png")}
-      {getHiddenImage("./src/assets/Red Auto Map.png")}
-      <ul>
-        <li>
-          <Link to="/">Match List</Link>
-        </li>
-        <li>
-          <Link to="/ScouterTab">Scout Game</Link>
-        </li>
-        <li>
-          <Link to="/ScannerTab">Scan Match</Link>
-        </li>
-      </ul>
-    </nav>
-  );
-}
-
-export function renderStrategyNavBar() {
-  return (
-    <nav className="nav-bar">
-      <ul>
-        <li>
-          <Link to="/TeamTab">Team Data</Link>
-        </li>
-        <li>
-          <Link to="/GeneralTab">General</Link>
-        </li>
-      </ul>
-    </nav>
-  );
-}
 export interface TabProps {
-  state?;
+  navigate: (path: string, state?) => void;
+  state: any;
+  navBar: () => React.JSX.Element;
 }
 
 const pages = {
@@ -67,21 +33,59 @@ const pages = {
   "/GeneralTab": GeneralTab,
 };
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<React.FC<TabProps>>(MatchList);
+  const [currentPage, setCurrentPage] = useState<React.FC<TabProps>>();
+  const [currentState, setCurrentState] = useState<any>({});
+
+  function renderScouterNavBar() {
+    return (
+      <nav className="nav-bar">
+        {getHiddenImage("./src/assets/Crescendo Map.png")}
+        {getHiddenImage("./src/assets/Blue Auto Map.png")}
+        {getHiddenImage("./src/assets/Red Auto Map.png")}
+        <ul>
+          <li>
+            <button onClick={() => navigate("/")}>Match List</button>
+          </li>
+          <li>
+            <button onClick={() => navigate("/ScouterTab")}>Scout Game</button>
+          </li>
+          <li>
+            <button onClick={() => navigate("/ScannerTab")}>Scan Match</button>
+          </li>
+        </ul>
+      </nav>
+    );
+  }
+
+  function renderStrategyNavBar() {
+    return (
+      <nav className="nav-bar">
+        <ul>
+          <li>
+            <button onClick={() => navigate("/TeamTab")}>TeamData</button>
+          </li>
+          <li>
+            <button onClick={() => navigate("/GeneralTab")}>General</button>
+          </li>
+        </ul>
+      </nav>
+    );
+  }
 
   const navigate = (path: string, state?) => {
-    setCurrentPage();
+    const page = pages[path] || MatchList; // Default to MatchList if page not found
+
+    setCurrentPage(() => page);
+    setCurrentState(state);
   };
+
+  const CurrentPageComponent = currentPage || MatchList;
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/ScannerTab" Component={ScanningTab} />
-        <Route path="/" Component={MatchList} />
-        <Route path="/ScouterTab" Component={ScouterTab} />
-        <Route path="/TeamTab" Component={TeamTab} />
-        <Route path="/GeneralTab" Component={GeneralTab} />
-      </Routes>
-    </BrowserRouter>
+    <CurrentPageComponent
+      navBar={renderScouterNavBar}
+      navigate={navigate}
+      state={{}}
+    />
   );
 };
 

@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./QRStyles.css";
 import QrScanner from "qr-scanner";
 import React from "react";
-import { renderScouterNavBar, TabProps } from "../../App";
+import {  TabProps } from "../../App";
 import * as serde from "../../Serde";
 import {decode} from "uint8-to-base64";
 
-const ScanningTab: React.FC<TabProps> = () => {
-  const navigate = useNavigate();
+const ScanningTab: React.FC<TabProps> = ({navBar, navigate}) => {
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
   const qrBoxEl = useRef<HTMLDivElement>(null);
@@ -20,7 +18,7 @@ const ScanningTab: React.FC<TabProps> = () => {
     const DecodedData = serde.serdeRecord(serde.qrSerde).deserializer(decode(result.data))[0];
     console.log("decoded: " + DecodedData);
 
-    navigate("/", { state: DecodedData });
+    navigate("/", DecodedData);
   };
 
   const onScanFail = (err: string | Error) => {
@@ -99,7 +97,7 @@ const ScanningTab: React.FC<TabProps> = () => {
 
   return (
     <div className="qr-reader">
-      {renderScouterNavBar()}
+      {navBar()}
       {/* Conditionally render the button if the QR scanner is off */}
       {!qrOn && (
         <button

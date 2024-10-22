@@ -3,7 +3,7 @@ import TableChart from "./charts/TableChart";
 import { getMatchesByCriteria, FRCTeamList } from "../Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
-import { renderStrategyNavBar } from "../App";
+import { TabProps } from "../App";
 
 interface GeneralTabProps {}
 
@@ -22,7 +22,7 @@ function processTeamData(
   };
   return table;
 }
-const GeneralTab: React.FC<GeneralTabProps> = () => {
+const GeneralTab: React.FC<TabProps> = ({navBar}) => {
   const [teamTable, setTeamTable] = useState<Record<string, string>[]>([]);
 
   //bruh this is kinda deep
@@ -46,7 +46,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
   }, []);
   return (
     <>
-      {renderStrategyNavBar()}
+      {navBar()}
       <div className="section">
         <h2>Table</h2>
         <TableChart
