@@ -1,7 +1,6 @@
 import { useState } from "react";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
-import MapChart, { DataPoint, PassingPoint } from "./charts/MapChart";
 import {
   getMatchesByCriteria,
   FRCTeamList,
@@ -10,21 +9,9 @@ import {
 } from "../Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
-import AutoTab from "./AutoSection";
 import { TabProps } from "../App";
 
 interface TeamTabProps {}
-
-function getAllPoints(matches: Match[]) {
-  let points: (DataPoint | PassingPoint)[] = [];
-  matches.forEach((match) => {
-    const mapPoints: (DataPoint | PassingPoint)[] = JSON.parse(
-      match[TeamData.mapName + "/Points"]
-    );
-    points = [...points, ...mapPoints];
-  });
-  return points;
-}
 
 function getComments(matches: Match[]): [string, string][] {
   return matches
@@ -32,7 +19,7 @@ function getComments(matches: Match[]): [string, string][] {
     .filter(([comment, qual]) => comment !== "") as [string, string][];
 }
 
-const TeamTab: React.FC<TabProps> = ({navBar}) => {
+const TeamTab: React.FC<TabProps> = ({ navBar }) => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
 
@@ -89,15 +76,6 @@ const TeamTab: React.FC<TabProps> = ({navBar}) => {
         />
       </div>
 
-      <div className="section">
-        <h2>Map</h2>
-        <MapChart
-          width={540 * 0.8}
-          height={240 * 0.8}
-          imagePath={"./src/assets/Crescendo Map.png"}
-          dataPoints={getAllPoints(recentMatches)}
-        />
-      </div>
       <br />
 
       <div className="section">
@@ -133,7 +111,7 @@ const TeamTab: React.FC<TabProps> = ({navBar}) => {
           width={400}
           dataSets={{
             Score: ["green", teamData.getAsLine("Speaker/Auto/Score")],
-            Miss: ["red", teamData.getAsLine("Speaker/Auto/Miss")]
+            Miss: ["red", teamData.getAsLine("Speaker/Auto/Miss")],
           }}
         />
       </div>
@@ -191,17 +169,11 @@ const TeamTab: React.FC<TabProps> = ({navBar}) => {
           }}
         />
       </div>
-
-      <br />
-      <div className="section">
-        <h1>Autonomus</h1>
-        <AutoTab matches={recentMatches} />
-      </div>
       <br />
       <div>
         <h1>Comments</h1>
         {getComments(recentMatches).map((comment) => (
-          <h3>{comment[0] + "...Qual number" + comment[1]}</h3>
+          <h3>{comment[0] + "... Qual number " + comment[1]}</h3>
         ))}
       </div>
     </div>
