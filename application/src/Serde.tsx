@@ -1,110 +1,124 @@
 // TODO renmare serialied(string,num) to serializedData (since other thing may be present)
 
-function combineByteArrays(array1: Uint8Array, array2: Uint8Array): Uint8Array {
-  let combined: Uint8Array = new Uint8Array(array1.length + array2.length);
-
-  let i = 0;
-  array1.forEach((byte) => (combined[i++] = byte));
-  array2.forEach((byte) => (combined[i++] = byte));
-
-  return combined;
+function rangeArr(rangeStart: number, rangeEnd: number): number[] {
+  return Array(rangeEnd - rangeStart)
+    .fill(0)
+    .map((_, i) => i + rangeStart);
 }
 
-function splitByteArrayAt(
-  combined: Uint8Array,
-  splitIndex: number
-): [Uint8Array, Uint8Array] {
-  if (combined.length - splitIndex < 0) {
-    console.log(
-      "invalid index " +
-        splitIndex +
-        " while trying to split byte array " +
-        combined
-    );
-  }
-  let arr1: Uint8Array = new Uint8Array(splitIndex);
-  let arr2: Uint8Array = new Uint8Array(combined.length - splitIndex);
+class BitArray {
+  boolArr: Array<boolean>;
+  bitCount: number;
 
-  for (let i = 0; i < splitIndex; i++) {
-    arr1[i] = combined[i];
-  }
-  for (let i = splitIndex; i < combined.length; i++) {
-    arr2[i - splitIndex] = combined[i];
-  }
-
-  return [arr1, arr2];
-}
-
-function serdeNum(byteCount: number) {
-  function serializer(bytes: number, num: number): Uint8Array {
-    let arr = new Uint8Array(bytes);
-    for (let i = 0; i < bytes; i++) {
-      arr[i] = num % 256;
-      num = Math.floor(num / 256);
+  constructor(arr?: Uint8Array) {
+    this.boolArr = new Array();
+    if (arr !== undefined) {
+      this.insert(arr, arr.length * 8);
     }
-    return arr;
   }
-  function deserializer(
-    bytes: number,
-    serializedNum: Uint8Array
-  ): [number, number] {
+
+  insert(data: Uint8Array, totalBitCount: number): void;
+  insert(bitArray: BitArray): void;
+  insert(data: BitArray | Uint8Array, totalBitCount?: number) {
+    function insertBitArray(bitArr1: BitArray, bitArr2: BitArray) {
+      bitArr1.boolArr = bitArr1.boolArr.concat(bitArr2.boolArr);
+      bitArr1.bitCount += bitArr2.bitCount;
+    }
+    function insertBits(bitArr: BitArray, data: Uint8Array, bitCount: number) {
+      rangeArr(0, bitCount).forEach((i) => {
+        bitArr.boolArr.push((data[Math.floor(i / 8)] & (1 << i % 8)) !== 0);
+      });
+      bitArr.bitCount += bitCount;
+    }
+
+    if (totalBitCount !== undefined) {
+      insertBits(this, data as Uint8Array, totalBitCount);
+    } else {
+      insertBitArray(this, data as BitArray);
+    }
+  }
+
+  consumeBits(bitCount: number): Uint8Array {
+    let returnedArr = new Uint8Array(Math.ceil(bitCount / 8));
+    rangeArr(0, bitCount).forEach((i) => {
+      returnedArr[Math.floor(i / 8)] |= (this.boolArr.shift() ? 1 : 0) << i % 8;
+    });
+    this.bitCount -= bitCount;
+    return returnedArr;
+  }
+
+  insertBool(bool: boolean) {
+    this.boolArr.push(bool);
+    this.bitCount++;
+  }
+
+  consumeBool(): boolean {
+    this.bitCount--;
+    return this.boolArr.shift() as boolean;
+  }
+
+  consume(): Uint8Array {
+    return this.consumeBits(this.bitCount);
+  }
+}
+
+// TODO add signed support!
+function serdeNum(bitCount: number) {
+  const bits = bitCount;
+  function serializer(serialiedData: BitArray, num: number) {
+    let arr = new BitArray();
+
+    for (let i = 0; i < bits; i++) {
+      arr.insertBool(num % 2 === 1);
+      num = Math.floor(num / 2);
+    }
+    serialiedData.insert(arr);
+  }
+  function deserializer(serializedNum: BitArray): number {
     let num = 0;
 
-    for (let i = 0; i < bytes; i++) {
-      num += Math.pow(256, i) * serializedNum[i];
+    for (let i = 0; i < bits; i++) {
+      num += Math.pow(2, i) * (serializedNum.consumeBool() ? 1 : 0);
     }
-    return [num, bytes];
+    return num;
   }
   return {
-    serializer: function (num) {
-      return serializer(byteCount, num);
-    },
-    deserializer: function (serializedNum) {
-      return deserializer(byteCount, serializedNum);
-    },
+    serializer,
+    deserializer,
   };
 }
 
-function serdeStringifiedNum(byteCount: number) {
-  function serializer(bytes: number, num: string): Uint8Array {
-    return serdeNum(bytes).serializer(Number(num));
+function serdeStringifiedNum(bitCount: number) {
+  const bits = bitCount;
+  function serializer(seriailzedData: BitArray, num: string) {
+    return serdeNum(bits).serializer(seriailzedData, Number(num));
   }
-  function deserializer(bytes: number, arr: Uint8Array): [string, number] {
-    let [data, consumedBytes] = serdeNum(bytes).deserializer(arr);
-    return [data.toString(), consumedBytes];
+  function deserializer(seriailzedData: BitArray): string {
+    return serdeNum(bits).deserializer(seriailzedData).toString();
   }
   return {
-    serializer: function (stringifiedNum) {
-      return serializer(byteCount, stringifiedNum);
-    },
-    deserializer: function (serializedStringifiedNum) {
-      return deserializer(byteCount, serializedStringifiedNum);
-    },
+    serializer,
+    deserializer,
   };
 }
 
 function serdeString() {
-  const STRING_LENGTH_BYTES_COUNT: number = 4;
-  function serializer(string: string): Uint8Array {
+  const STRING_LENGTH_BIT_COUNT: number = 4 * 8;
+  function serializer(serializedData: BitArray, string: string) {
     const encodedString: Uint8Array = new TextEncoder().encode(string);
-    return combineByteArrays(
-      serdeNum(STRING_LENGTH_BYTES_COUNT).serializer(encodedString.length),
-      encodedString
+
+    serdeNum(STRING_LENGTH_BIT_COUNT).serializer(
+      serializedData,
+      encodedString.length
     );
+    serializedData.insert(encodedString, encodedString.length * 8);
   }
-  function deserializer(serializedString: Uint8Array): [string, number] {
-    let [encodedStringLength, _string_length_bytes_count] = serdeNum(
-      STRING_LENGTH_BYTES_COUNT
-    ).deserializer(serializedString);
-    let encodedString = splitByteArrayAt(
-      splitByteArrayAt(serializedString, STRING_LENGTH_BYTES_COUNT)[1],
-      encodedStringLength
-    )[0];
-    let returnValue: [string, number] = [
-      new TextDecoder().decode(encodedString),
-      encodedStringLength + STRING_LENGTH_BYTES_COUNT,
-    ];
-    return returnValue;
+  function deserializer(serializedString: BitArray): string {
+    let encodedStringLength = serdeNum(STRING_LENGTH_BIT_COUNT).deserializer(
+      serializedString
+    );
+    let encodedString = serializedString.consumeBits(encodedStringLength);
+    return new TextDecoder().decode(encodedString);
   }
   return {
     serializer: serializer,
@@ -112,12 +126,12 @@ function serdeString() {
   };
 }
 
-type Serializer = (data: any) => Uint8Array;
+type Serializer = (seriailzedData: BitArray, data: any) => void;
 // return field name, and its appropriate Serializer
 type RecordSerializer = Record<string, Serializer>;
 
-// returns the deserializeData, and the number of consumedBytes
-type Deserializer = (data: Uint8Array) => [any, number];
+// returns the deserializedData
+type Deserializer = (serializedData: BitArray) => any;
 // return field name, and its appropriate Deserializer
 type RecordDeserializer = Record<string, Deserializer>;
 
@@ -134,11 +148,11 @@ function serdeOptionalFieldsRecord(fieldsSerde: RecordFieldsSerde) {
     return Math.ceil(Object.keys(fields).length / 8);
   }
   function serializer(
+    serializedData: BitArray,
     fieldsSerializers: RecordSerializer,
     data: Record<string, any>
-  ): Uint8Array {
+  ) {
     let fieldsExistenceValues = 0;
-    let serializedData: Uint8Array = new Uint8Array(0);
     for (const fieldIndex in Object.keys(fieldsSerializers)) {
       let field = Object.keys(fieldsSerializers)[fieldIndex];
       fieldsExistenceValues = fieldsExistenceValues << 1;
