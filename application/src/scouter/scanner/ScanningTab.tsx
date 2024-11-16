@@ -17,10 +17,10 @@ const ScanningTab = () => {
   const onScanSuccess = (result: QrScanner.ScanResult) => {
     console.log("raw " + result.data);
 
-    const DecodedData = serde.serdeRecord(serde.qrSerde).deserializer(decode(result.data))[0];
-    console.log("decoded: " + DecodedData);
+    const data = serde.deserialize(serde.serdeRecord(serde.qrSerde).deserializer,decode(result.data));
+    console.log("data: " + data);
 
-    navigate("/", { state: DecodedData });
+    navigate("/", { state: data });
   };
 
   const onScanFail = (err: string | Error) => {
