@@ -41,6 +41,20 @@ MongoClient.connect(mongoURI)
 
 // Define routes
 
+app.get("/messages", async (req, res) => {
+  if (!db) {
+    res.status(500).send("No database");
+  }
+  const messageCollection = db.collection("messages"  );
+  try {
+    const messages = await messageCollection.find().toArray();
+    res.status(200).json(messages);
+  }
+  catch (exception) {
+    res.status(500).send("Cant get collection")
+  }
+})
+
 
 
 
