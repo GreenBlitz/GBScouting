@@ -26,7 +26,7 @@ function ScouterTab() {
           localStorage.removeItem(item);
         }
       });
-      
+
     navigate("/", { state: formValues });
   }
 
