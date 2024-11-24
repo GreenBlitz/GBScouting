@@ -11,7 +11,6 @@ import {
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
-import AutoTab from "./AutoSection";
 
 interface TeamTabProps {}
 
@@ -193,10 +192,7 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       </div>
 
       <br />
-      <div className="section">
-        <h1>Autonomus</h1>
-        <AutoTab matches={recentMatches} />
-      </div>
+      
       <br />
       <div>
         <h1>Comments</h1>
