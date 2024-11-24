@@ -69,7 +69,7 @@ const App: React.FC = () => {
         <Route path="/GeneralTab" Component={GeneralTab} />
       </Routes>
     </BrowserRouter>
-  );
+  ); 
 };
 
 export default App;
