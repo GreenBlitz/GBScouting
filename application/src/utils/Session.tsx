@@ -51,3 +51,5 @@ export default class Session implements Storage {
     return new Session(this, prefix);
   }
 }
+
+export const localSession = new Session(localStorage);
