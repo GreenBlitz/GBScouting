@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Collapsible from "react-collapsible";
 import React, { useState } from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
-import { getServerHostname } from "../Utils";
+import { fetchData, getServerHostname } from "../Utils";
 import { renderScouterNavBar } from "../App";
 import { matchFolder as matchesFolder } from "../utils/FolderStorage";
 
@@ -39,11 +39,7 @@ const MatchList: React.FC = () => {
   }
 
   function sendMatch(match: Record<string, string>, index: number) {
-    fetch(`https://${getServerHostname()}/Match`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(match),
-    })
+    fetchData("Match")
       .then(() => {
         alert("Succesfully Sent Match✅");
         removeMatch(match?.[matchName], index);

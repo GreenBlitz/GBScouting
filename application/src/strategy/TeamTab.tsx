@@ -105,9 +105,15 @@ const TeamTab: React.FC<TeamTabProps> = () => {
           height={300}
           width={400}
           dataSets={{
-            Speaker: ["pink", teamData.getAsLine("Speaker Score")],
-            Amp: ["yellow", teamData.getAsLine("Amp Score")],
-            Pass: ["purple", teamData.getAsLine("Pass Successful")],
+            Speaker: {
+              color: "pink",
+              data: teamData.getAsLine("Speaker Score"),
+            },
+            Amp: { color: "yellow", data: teamData.getAsLine("Amp Score") },
+            Pass: {
+              color: "purple",
+              data: teamData.getAsLine("Pass Successful"),
+            },
           }}
         />
       </div>
@@ -118,9 +124,15 @@ const TeamTab: React.FC<TeamTabProps> = () => {
           height={300}
           width={400}
           dataSets={{
-            Speaker: ["pink", teamData.getAsLine("Speaker Miss")],
-            Amp: ["yellow", teamData.getAsLine("Amp Miss")],
-            Pass: ["purple", teamData.getAsLine("Pass Unsuccessful")],
+            Speaker: {
+              color: "pink",
+              data: teamData.getAsLine("Speaker Miss"),
+            },
+            Amp: { color: "yellow", data: teamData.getAsLine("Amp Miss") },
+            Pass: {
+              color: "purple",
+              data: teamData.getAsLine("Pass Unsuccessful"),
+            },
           }}
         />
       </div>
@@ -131,8 +143,14 @@ const TeamTab: React.FC<TeamTabProps> = () => {
           height={300}
           width={400}
           dataSets={{
-            Score: ["green", teamData.getAsLine("Speaker/Auto/Score")],
-            Miss: ["red", teamData.getAsLine("Speaker/Auto/Miss")]
+            Score: {
+              color: "green",
+              data: teamData.getAsLine("Speaker/Auto/Score"),
+            },
+            Miss: {
+              color: "red",
+              data: teamData.getAsLine("Speaker/Auto/Miss"),
+            },
           }}
         />
       </div>
@@ -166,8 +184,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Amp Accuracy</h2>
         <PieChart
           pieData={{
-            Score: [ampAccuracy, "green"],
-            Miss: [100 - ampAccuracy, "crimson"],
+            Score: {label: ampAccuracy, color: "green"},
+            Miss: {label: 100 - ampAccuracy, color: "crimson"},
           }}
         />
       </div>
@@ -176,8 +194,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Speaker Accuracy</h2>
         <PieChart
           pieData={{
-            Score: [speakerAccuracy, "green"],
-            Miss: [100 - speakerAccuracy, "crimson"],
+            Score: {label: speakerAccuracy, color: "green"},
+            Miss: {label: 100 - speakerAccuracy, color: "crimson"},
           }}
         />
       </div>
@@ -185,14 +203,14 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Pass Accuracy</h2>
         <PieChart
           pieData={{
-            Score: [passAccuracy, "green"],
-            Miss: [100 - passAccuracy, "crimson"],
+            Score: {label: passAccuracy, color: "green"},
+            Miss: {label: 100 - passAccuracy, color: "crimson"},
           }}
         />
       </div>
 
       <br />
-      
+
       <br />
       <div>
         <h1>Comments</h1>

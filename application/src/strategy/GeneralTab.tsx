@@ -44,6 +44,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
     }
     updateTeamTable();
   }, []);
+  
   return (
     <>
       {renderStrategyNavBar()}

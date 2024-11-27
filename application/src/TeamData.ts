@@ -1,3 +1,5 @@
+import { SectionData } from "./strategy/charts/PieChart";
+
 export class TeamData {
   public readonly matches: Record<string, Record<string, string>>;
   [key: string]: any;
@@ -14,7 +16,10 @@ export class TeamData {
         return (
           points.filter((point) => {
             if (data === "Pass" && point[0]) {
-              return  point[0]["data"] === "Pass" && point[0]["successfulness"] === succesfulness;
+              return (
+                point[0]["data"] === "Pass" &&
+                point[0]["successfulness"] === succesfulness
+              );
             }
             return (
               point["data"] === data &&
@@ -78,14 +83,17 @@ export class TeamData {
     return dataSet;
   }
 
-  getAsPie(data: string, colorMap: Record<string, string>) {
-    const dataSet: Record<string, [number, string]> = {};
+  getAsPie(
+    data: string,
+    colorMap: Record<string, string>
+  ): Record<string, SectionData> {
+    const dataSet: Record<string, SectionData> = {};
     Object.entries(this.matches).forEach(([_, match]) => {
       const dataValue = match[data];
       if (!dataSet[dataValue]) {
-        dataSet[dataValue] = [0, colorMap[dataValue]];
+        dataSet[dataValue] = { color: colorMap[dataValue], label: 0 };
       }
-      dataSet[dataValue][0]++;
+      dataSet[dataValue].label++;
     });
     return dataSet;
   }
