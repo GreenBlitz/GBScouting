@@ -3,9 +3,9 @@ export default class FolderStorage implements Storage {
   length: number;
 
   private prefix: string;
-  public readonly parent: Storage | FolderStorage;
+  public readonly parent: Storage;
 
-  constructor(parent: Storage | FolderStorage, prefix?: string) {
+  constructor(parent: Storage, prefix?: string) {
     this.prefix = prefix ? prefix : "";
     this.parent = parent;
   }
