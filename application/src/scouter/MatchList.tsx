@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
 import { getServerHostname } from "../Utils";
 import { renderScouterNavBar } from "../App";
+import { matchFolder as matchesFolder } from "../utils/FolderStorage";
 
 export const matchName = "Qual";
-const matchesTab = "Matches/";
 
 const collapsibleSize = 10;
 
@@ -15,24 +15,23 @@ const MatchList: React.FC = () => {
   const navigate = useNavigate();
 
   const [matches, setMatches] = useState<Record<string, string>[]>(
-    Object.keys(localStorage)
-      .filter((match) => match.startsWith(matchesTab))
-      .map((matchName) => JSON.parse(localStorage.getItem(matchName) || "{}"))
+    matchesFolder.keys()
+      .map((matchName) => JSON.parse(matchesFolder.getItem(matchName) || "{}"))
   );
 
-  const latestMatch = location.state;
+  const latestMatch: Record<string,string> | undefined = location.state;
   location.state = {};
 
   if (latestMatch?.[matchName]) {
     matches.push(latestMatch);
-    localStorage.setItem(
-      matchesTab + latestMatch[matchName],
+    matchesFolder.setItem(
+      latestMatch[matchName],
       JSON.stringify(latestMatch)
     );
   }
 
   function removeMatch(qualNumber: string, index: number) {
-    localStorage.removeItem(matchesTab + qualNumber);
+    matchesFolder.removeItem(qualNumber);
     const filtered = [...matches];
     filtered.splice(index, 1);
     setMatches(filtered);

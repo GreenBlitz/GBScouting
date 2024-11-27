@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { localStorageTabName } from "../ScouterQuery";
+import { queryFolder } from "../../utils/FolderStorage";
 
 interface ListQueryProps {
   name: string;
@@ -8,10 +8,9 @@ interface ListQueryProps {
 }
 
 const ListQuery: React.FC<ListQueryProps> = ({ name, required, list }) => {
-  const localStorageKey = localStorageTabName + name;
   useEffect(() => {
-    if (!localStorage.getItem(localStorageKey)) {
-      localStorage.setItem(localStorageKey, list[0]);
+    if (!queryFolder.getItem(name)) {
+      queryFolder.setItem(name, list[0]);
     }
   });
   return (
@@ -19,9 +18,9 @@ const ListQuery: React.FC<ListQueryProps> = ({ name, required, list }) => {
       name={name}
       id={name}
       required={required}
-      defaultValue={localStorage.getItem(localStorageKey) || ""}
+      defaultValue={queryFolder.getItem(name) || ""}
       onChange={(event) =>
-        localStorage.setItem(localStorageKey, event.target.value)
+        queryFolder.setItem(name, event.target.value)
       }
     >
       {list?.map((item, index) => (

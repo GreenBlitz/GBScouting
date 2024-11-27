@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { localStorageTabName } from "../ScouterQuery";
+import { queryFolder } from "../../utils/FolderStorage";
 
 interface RadioQueryProps {
   name: string;
@@ -8,13 +8,12 @@ interface RadioQueryProps {
 }
 
 const RadioQuery: React.FC<RadioQueryProps> = ({ name, required, list }) => {
-  const localStorageKey = localStorageTabName + name;
   useEffect(() => {
-    if (!localStorage.getItem(localStorageKey)) {
-      localStorage.setItem(localStorageKey, "");
+    if (!queryFolder.getItem(name)) {
+      queryFolder.setItem(name, "");
     }
   });
-  return list?.map((item, index) => (
+  return list.map((item, index) => (
     <React.Fragment key={index}>
       <input
         type="radio"
@@ -22,8 +21,8 @@ const RadioQuery: React.FC<RadioQueryProps> = ({ name, required, list }) => {
         name={name}
         value={item}
         required={required}
-        onChange={() => localStorage.setItem(localStorageKey, item)}
-        defaultChecked={item === localStorage.getItem(localStorageKey)}
+        onChange={() => queryFolder.setItem(name, item)}
+        defaultChecked={item === queryFolder.getItem(name)}
       />
       <label htmlFor={item}>{item}</label>
     </React.Fragment>

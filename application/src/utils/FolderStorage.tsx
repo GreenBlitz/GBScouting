@@ -1,11 +1,11 @@
-export default class Session implements Storage {
+export default class FolderStorage implements Storage {
   [name: string]: any;
   length: number;
 
   private prefix: string;
-  private parent: Storage | Session;
+  public readonly parent: Storage | FolderStorage;
 
-  constructor(parent: Storage | Session, prefix?: string) {
+  constructor(parent: Storage | FolderStorage, prefix?: string) {
     this.prefix = prefix ? prefix : "";
     this.parent = parent;
   }
@@ -48,8 +48,13 @@ export default class Session implements Storage {
   }
 
   with(prefix: string) {
-    return new Session(this, prefix);
+    return new FolderStorage(this, prefix);
   }
 }
 
-export const localSession = new Session(localStorage);
+export const localFolder = new FolderStorage(localStorage);
+export const sessionFolder = new FolderStorage(sessionStorage);
+
+export const queryFolder = localFolder.with("Queries/");
+export const matchFolder = localFolder.with("Matches/")
+

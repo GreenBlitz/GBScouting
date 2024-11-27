@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { localStorageTabName } from "../ScouterQuery";
+import { queryFolder } from "../../utils/FolderStorage";
 
 interface CheckboxQueryProps {
   name: string;
@@ -7,16 +7,15 @@ interface CheckboxQueryProps {
 }
 
 const CheckboxQuery: React.FC<CheckboxQueryProps> = ({ name, required }) => {
-  const localStorageKey = localStorageTabName + name;
   function updateCheckbox() {
     const newValue =
-      localStorage.getItem(localStorageKey) === "true" ? "false" : "true";
-    localStorage.setItem(localStorageKey, newValue);
+      queryFolder.getItem(name) === "true" ? "false" : "true";
+    queryFolder.setItem(name, newValue);
   }
 
   useEffect(() => {
-    if (!localStorage.getItem(localStorageKey)) {
-      localStorage.setItem(localStorageKey, "false");
+    if (!queryFolder.getItem(name)) {
+      queryFolder.setItem(name, "false");
     }
   });
   return (
@@ -26,7 +25,7 @@ const CheckboxQuery: React.FC<CheckboxQueryProps> = ({ name, required }) => {
       name={name}
       required={required}
       onChange={updateCheckbox}
-      defaultChecked={localStorage.getItem(localStorageKey) === "true"}
+      defaultChecked={queryFolder.getItem(name) === "true"}
     />
   );
 };

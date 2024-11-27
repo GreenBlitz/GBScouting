@@ -3,14 +3,13 @@ import CheckboxQuery from "./querytypes/CheckboxQuery";
 import CounterQuery from "./querytypes/CounterQuery";
 import ListQuery from "./querytypes/ListQuery";
 import RadioQuery from "./querytypes/RadioQuery";
+import { queryFolder } from "../utils/FolderStorage";
 interface ScouterQueryProps {
   name: string;
   queryType: "text" | "counter" | "checkbox" | "number" | "list" | "radio";
   required?: boolean | undefined;
   list?: string[];
 }
-
-export const localStorageTabName = "Queries/";
 
 const ScouterQuery: React.FC<ScouterQueryProps> = ({
   name,
@@ -33,10 +32,9 @@ const ScouterQuery: React.FC<ScouterQueryProps> = ({
           <RadioQuery name={name} required={required} list={list ? list : []} />
         );
       default:
-        const storageName = localStorageTabName + name;
         useEffect(() => {
-          if (!localStorage.getItem(storageName))
-            localStorage.setItem(storageName, "");
+          if (!queryFolder.getItem(name))
+            queryFolder.setItem(name, "");
         });
         return (
           <input
@@ -44,9 +42,9 @@ const ScouterQuery: React.FC<ScouterQueryProps> = ({
             id={name}
             name={name}
             required={required}
-            defaultValue={localStorage.getItem(storageName) || ""}
+            defaultValue={queryFolder.getItem(name) || ""}
             onChange={(event) =>
-              localStorage.setItem(storageName, event.target.value)
+              queryFolder.setItem(name, event.target.value)
             }
           />
         );
