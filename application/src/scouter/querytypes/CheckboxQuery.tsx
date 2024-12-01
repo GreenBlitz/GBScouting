@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery from "../ScouterQuery";
 
-class CheckboxQuery extends ScouterQuery<boolean, {}> {
+class CheckboxQuery extends ScouterQuery<boolean> {
   getStartingState(): {} {
     return {};
   }

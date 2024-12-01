@@ -1,15 +1,5 @@
-import React, { useEffect } from "react";
-import c from "./querytypes/CheckboxQuery";
-import CounterQuery from "./querytypes/CounterQuery";
-import ListQuery from "./querytypes/ListQuery";
-import RadioQuery from "./querytypes/RadioQuery";
+import React from "react";
 import { queryFolder } from "../utils/FolderStorage";
-interface ScouterQueryProps {
-  name: string;
-  queryType: "text" | "counter" | "checkbox" | "number" | "list" | "radio";
-  required?: boolean | undefined;
-  list?: string[];
-}
 
 export interface QueryProps<T> {
   name: string;
@@ -20,7 +10,7 @@ export interface QueryProps<T> {
 abstract class ScouterQuery<
   T,
   State extends {} = {},
-  Props = {}
+  Props extends {} = {}
 > extends React.Component<QueryProps<T> & Props, State> {
   constructor(props: QueryProps<T> & Props) {
     super(props);
