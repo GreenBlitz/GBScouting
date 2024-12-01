@@ -1,6 +1,4 @@
-export default class FolderStorage implements Storage {
-  [name: string]: any;
-  length: number;
+export default class FolderStorage {
 
   private prefix: string;
   public readonly parent: Storage | FolderStorage;
