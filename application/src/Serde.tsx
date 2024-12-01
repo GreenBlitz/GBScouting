@@ -178,7 +178,7 @@ function serdeOptionalFieldsRecord<T>(fieldsSerde: FieldsRecordSerde<T>): Serde<
   ): Record<string, T> {
     let data: Record<string, any> = {};
 
-    let fieldsExistence: boolean[] = rangeArr(0, fieldsExistenceBitCount(fieldsDeserializers)).reduce<boolean[]>((accumulator, _) => accumulator.concat([serializedData.consumeBool()]), []);
+    let fieldsExistence: boolean[] = Array.from(rangeArr(0, fieldsExistenceBitCount(fieldsDeserializers)).map(_ => serializedData.consumeBool()));
 
     const deserializersKeys = Object.keys(fieldsDeserializers);
     for (let i = 0; i < deserializersKeys.length; i++) {
