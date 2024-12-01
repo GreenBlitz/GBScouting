@@ -1,5 +1,5 @@
 import { SectionData } from "./strategy/charts/PieChart";
-
+import { DataPoint, PassingPoint } from "./strategy/charts/MapChart"
 export class TeamData {
   public readonly matches: Record<string, Record<string, string>>;
   [key: string]: any;
@@ -107,5 +107,21 @@ export class TeamData {
       sum2 += parseInt(match[data2]);
     });
     return (sum1 / (sum1 + sum2)) * 100;
+  }
+  getComments(): [string, string][] {
+    return Object.values(this.matches)
+      .map((match) => [match["Comment"], match["Qual"]])
+      .filter(([comment, qual]) => comment !== "") as [string, string][];
+  }
+
+  getAllPoints() {
+    let points: (DataPoint | PassingPoint)[] = [];
+    Object.values(this.matches).forEach((match) => {
+      const mapPoints: (DataPoint | PassingPoint)[] = JSON.parse(
+        match[TeamData.mapName + "/Points"]
+      );
+      points = [...points, ...mapPoints];
+    });
+    return points;
   }
 }

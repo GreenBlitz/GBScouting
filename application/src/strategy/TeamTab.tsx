@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
-import MapChart, { DataPoint, PassingPoint } from "./charts/MapChart";
+import MapChart from "./charts/MapChart";
 import {
   getMatchesByCriteria,
   FRCTeamList,
@@ -13,23 +13,6 @@ import React from "react";
 import { renderStrategyNavBar } from "../App";
 
 interface TeamTabProps {}
-
-function getAllPoints(matches: Match[]) {
-  let points: (DataPoint | PassingPoint)[] = [];
-  matches.forEach((match) => {
-    const mapPoints: (DataPoint | PassingPoint)[] = JSON.parse(
-      match[TeamData.mapName + "/Points"]
-    );
-    points = [...points, ...mapPoints];
-  });
-  return points;
-}
-
-function getComments(matches: Match[]): [string, string][] {
-  return matches
-    .map((match) => [match["Comment"], match["Qual"]])
-    .filter(([comment, qual]) => comment !== "") as [string, string][];
-}
 
 const TeamTab: React.FC<TeamTabProps> = () => {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -93,7 +76,7 @@ const TeamTab: React.FC<TeamTabProps> = () => {
           width={540 * 0.8}
           height={240 * 0.8}
           imagePath={"./src/assets/Crescendo Map.png"}
-          dataPoints={getAllPoints(recentMatches)}
+          dataPoints={teamData.getAllPoints()}
         />
       </div>
       <br />
@@ -183,8 +166,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Amp Accuracy</h2>
         <PieChart
           pieData={{
-            Score: {label: ampAccuracy, color: "green"},
-            Miss: {label: 100 - ampAccuracy, color: "crimson"},
+            Score: { label: ampAccuracy, color: "green" },
+            Miss: { label: 100 - ampAccuracy, color: "crimson" },
           }}
         />
       </div>
@@ -193,8 +176,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Speaker Accuracy</h2>
         <PieChart
           pieData={{
-            Score: {label: speakerAccuracy, color: "green"},
-            Miss: {label: 100 - speakerAccuracy, color: "crimson"},
+            Score: { label: speakerAccuracy, color: "green" },
+            Miss: { label: 100 - speakerAccuracy, color: "crimson" },
           }}
         />
       </div>
@@ -202,8 +185,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Pass Accuracy</h2>
         <PieChart
           pieData={{
-            Score: {label: passAccuracy, color: "green"},
-            Miss: {label: 100 - passAccuracy, color: "crimson"},
+            Score: { label: passAccuracy, color: "green" },
+            Miss: { label: 100 - passAccuracy, color: "crimson" },
           }}
         />
       </div>
@@ -213,7 +196,7 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <br />
       <div>
         <h1>Comments</h1>
-        {getComments(recentMatches).map((comment) => (
+        {teamData.getComments().map((comment) => (
           <h3>{comment[0] + "...Qual number" + comment[1]}</h3>
         ))}
       </div>
