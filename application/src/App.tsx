@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import SendMsg from "./initialProject/SendMsg";
 
 const App: React.FC = () => {
   const [some, setSome] = useState<number>(0);
@@ -21,15 +22,9 @@ const App: React.FC = () => {
 
   return (
     <>
-      {button}
-      {button2}
-      {some}
-
-      {names.map((item) => (
-        <h2>{item}</h2>
-      ))}
+      <SendMsg></SendMsg>
     </>
   );
 };
-
+  
 export default App;
