@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Point } from "chart.js";
 import React from "react";
-import { localStorageTabName } from "../ScouterQuery";
 import CounterQuery from "./CounterQuery";
+import { queryFolder } from "../../utils/FolderStorage";
 interface MapQueryProps {
   name: string;
   side: "blue" | "red";
@@ -34,9 +34,9 @@ const MapQuery: React.FC<MapQueryProps> = ({
   imagePath,
   side,
 }) => {
-  const localStorageKey = localStorageTabName + name + "/Points";
+  const mapFolder = queryFolder.with(name + "/")
   const [dataPoints, setDataPoints] = useState<(DataPoint | PassingPoint)[]>(
-    JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+    JSON.parse(mapFolder.getItem("Points") || "[]")
   );
 
   const [pressedButton, setPressedButton] = useState<string>(defaultButton);
@@ -129,7 +129,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
   }
 
   useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(dataPoints));
+    mapFolder.setItem("Points", JSON.stringify(dataPoints));
     drawPoints();
   }, [dataPoints, addPoint]);
 

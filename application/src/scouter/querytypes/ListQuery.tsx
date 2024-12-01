@@ -1,36 +1,34 @@
 import React, { useEffect } from "react";
-import { localStorageTabName } from "../ScouterQuery";
+import { queryFolder } from "../../utils/FolderStorage";
+import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
-interface ListQueryProps {
-  name: string;
-  required: boolean | undefined;
-  list: string[];
+class ListQuery extends ScouterQuery<string, {}, { list: string[] }> {
+  getStartingState(props: QueryProps<string> & { list: string[] }): {} {
+    return {};
+  }
+
+  renderInput(): React.ReactNode {
+    return (
+      <select
+        name={this.props.name}
+        id={this.props.name}
+        required={this.props.required}
+        defaultValue={queryFolder.getItem(this.props.name) || ""}
+        onChange={(event) =>
+          queryFolder.setItem(this.props.name, event.target.value)
+        }
+      >
+        {this.props.list.map((item, index) => (
+          <option value={item} key={index}>
+            {item}
+          </option>
+        ))}
+      </select>
+    );
+  }
+  getInitialValue(props: QueryProps<string> & { list: string[] }): string {
+    return props.list[0];
+  }
 }
-
-const ListQuery: React.FC<ListQueryProps> = ({ name, required, list }) => {
-  const localStorageKey = localStorageTabName + name;
-  useEffect(() => {
-    if (!localStorage.getItem(localStorageKey)) {
-      localStorage.setItem(localStorageKey, list[0]);
-    }
-  });
-  return (
-    <select
-      name={name}
-      id={name}
-      required={required}
-      defaultValue={localStorage.getItem(localStorageKey) || ""}
-      onChange={(event) =>
-        localStorage.setItem(localStorageKey, event.target.value)
-      }
-    >
-      {list?.map((item, index) => (
-        <option value={item} key={index}>
-          {item}
-        </option>
-      ))}
-    </select>
-  );
-};
 
 export default ListQuery;

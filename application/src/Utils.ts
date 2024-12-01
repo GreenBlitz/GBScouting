@@ -14,37 +14,37 @@ export function matchToSheet(match: Record<string, string>) {
   return `${keys}\n${values}`;
 }
 
-export async function getMatchesByCriteria(field?: string, value?: string) {
-  const searchedField = field && value ? `/${field}/${value}` : ``;
-  const data: Record<string, string>[] = await fetch(
-    `https://${getServerHostname()}/Matches${searchedField}`,
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
+export async function fetchData(field: string);
+export async function fetchData(
+  field: string,
+  method: string = "GET",
+  body?: string
+) {
+  return await fetch(`https://${getServerHostname()}/${field}`, {
+    method: method,
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body,
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       return response.json();
     })
-    .catch((error) => {
-      console.log(error);
-      return [];
-    });
-  return data;
+}
+
+export async function getMatchesByCriteria(field?: string, value?: string) {
+  const searchedField = field && value ? `${field}/${value}` : ``;
+  return await fetchData(searchedField);
 }
 
 export function sortMatches(matches: Match[]) {
-  return matches.sort(
-    (match1, match2) => {
-      return parseInt(match1["Qual"]) - parseInt(match2["Qual"]);
-        }
-  );
+  return matches.sort((match1, match2) => {
+    return parseInt(match1["Qual"]) - parseInt(match2["Qual"]);
+  });
 }
 
 export type Match = Record<string, string>;

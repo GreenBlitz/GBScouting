@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import CounterQuery from "../querytypes/CounterQuery";
-import AutoMap from "../querytypes/AutoMap";
 interface AutonomousProps {}
 
 const Autonomous: React.FC<AutonomousProps> = () => {
@@ -21,11 +20,7 @@ const Autonomous: React.FC<AutonomousProps> = () => {
         </div>
       </div>
       <br />
-      <AutoMap
-        side={
-          localStorage.getItem("Queries/Game Side") === "Red" ? "red" : "blue"
-        }
-      />
+      
     </>
   );
 };
