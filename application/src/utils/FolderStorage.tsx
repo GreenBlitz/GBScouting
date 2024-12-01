@@ -3,9 +3,9 @@ export default class FolderStorage implements Storage {
   length: number;
 
   private prefix: string;
-  public readonly parent: Storage;
+  public readonly parent: Storage | FolderStorage;
 
-  constructor(parent: Storage, prefix?: string) {
+  constructor(parent: Storage | FolderStorage, prefix?: string) {
     this.prefix = prefix ? prefix : "";
     this.parent = parent;
   }
@@ -36,7 +36,11 @@ export default class FolderStorage implements Storage {
   }
 
   keys() {
-    return Object.keys(this.parent)
+    const isParentFolder = this.parent.keys !== undefined;
+    const parentKeys = isParentFolder
+      ? this.parent.keys()
+      : Object.keys(this.parent);
+    return parentKeys
       .filter((key) => key.startsWith(this.prefix))
       .map((key) => key.slice(this.prefix.length));
   }
@@ -56,5 +60,4 @@ export const localFolder = new FolderStorage(localStorage);
 export const sessionFolder = new FolderStorage(sessionStorage);
 
 export const queryFolder = localFolder.with("Queries/");
-export const matchFolder = localFolder.with("Matches/")
-
+export const matchFolder = localFolder.with("Matches/");
