@@ -40,7 +40,6 @@ const TeamTab: React.FC<TeamTabProps> = () => {
     recentMatches.splice(0, recentMatches.length - recency);
   }
 
-  console.log(recentMatches);
   const teamData = new TeamData(recentMatches);
 
   const ampAccuracy = teamData.getAccuracy("Amp Score", "Amp Miss");

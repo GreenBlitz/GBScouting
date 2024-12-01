@@ -22,7 +22,7 @@ export default class FolderStorage implements Storage {
     let count = 0;
     for (const key in this.keys()) {
       if (count === index) {
-        return key.slice(this.prefix.length);
+        return key;
       }
       count++;
     }

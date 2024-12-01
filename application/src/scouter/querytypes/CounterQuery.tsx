@@ -1,48 +1,57 @@
-import { useEffect, useState } from "react";
 import React from "react";
 import { queryFolder } from "../../utils/FolderStorage";
+import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
-interface CounterQueryProps {
-  name: string;
-  color?: string;
-}
-
-const CounterQuery: React.FC<CounterQueryProps> = ({ name, color }) => {
-  const initialValue = queryFolder.getItem(name) || "";
-  const startingNumber = initialValue === "" ? 0 : parseInt(initialValue);
-  const [count, setCountState] = useState(startingNumber);
-
-  function setCount(newCount: number) {
-    queryFolder.setItem(name, newCount + "");
-    setCountState(newCount);
+class CounterQuery extends ScouterQuery<
+  number,
+  { count: number },
+  { color?: string }
+> {
+  getStartingState(props: QueryProps<number>) {
+    const savedValue = queryFolder.getItem(props.name);
+    let initialValue: number = props.defaultValue || 0;
+    if (savedValue) {
+      initialValue = parseInt(savedValue);
+    }
+    return { count: initialValue };
   }
 
-  useEffect(() => {
-    if (!queryFolder.getItem(name)) {
-      queryFolder.setItem(name, "0");
-    }
-  }, []);
+  getInitialValue(): number {
+    return 0;
+  }
 
-  return (
-    <>
-      <button
-        type="button"
-        onClick={() => setCount(Math.max(count - 1, 0))}
-        style={{ backgroundColor: color }}
-      >
-        -
-      </button>
-      <h3>{count}</h3>
-      <input type="hidden" id={name} name={name} value={count} />
-      <button
-        type="button"
-        onClick={() => setCount(count + 1)}
-        style={{ backgroundColor: color }}
-      >
-        +
-      </button>
-    </>
-  );
-};
+  renderInput(): React.ReactNode {
+    const setCount = (newCount: number) => {
+      queryFolder.setItem(this.props.name, newCount + "");
+      this.setState({ count: newCount });
+    };
+
+    return (
+      <>
+        <button
+          type="button"
+          onClick={() => setCount(Math.max(this.state.count - 1, 0))}
+          style={{ backgroundColor: this.props.color }}
+        >
+          -
+        </button>
+        <h3>{this.state.count}</h3>
+        <input
+          type="hidden"
+          id={this.props.name}
+          name={this.props.name}
+          value={this.state.count}
+        />
+        <button
+          type="button"
+          onClick={() => setCount(this.state.count + 1)}
+          style={{ backgroundColor: this.props.color }}
+        >
+          +
+        </button>
+      </>
+    );
+  }
+}
 
 export default CounterQuery;

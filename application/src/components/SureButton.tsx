@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 interface SureButtonProps {
-    name: string;
+  name: string;
   onClick: () => void;
 }
 
@@ -34,6 +34,5 @@ const SureButton: React.FC<SureButtonProps> = ({ onClick, name }) => {
     </>
   );
 };
-
 
 export default SureButton;

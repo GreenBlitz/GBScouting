@@ -1,17 +1,18 @@
 import React from "react";
-import ScouterQuery from "../ScouterQuery";
+import TextQuery from "../querytypes/TextQuery";
+import NumberQuery from "../querytypes/NumberQuery";
+import ListQuery from "../querytypes/ListQuery";
 
 interface PreGameProps {}
 
 const PreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
-      <ScouterQuery queryType="text" name="Scouter Name" />
-      <ScouterQuery queryType="number" name="Qual" />
-      <ScouterQuery queryType="number" name="Team Number" />
-      <ScouterQuery queryType="list" name="Game Side" list={["Blue", "Red"]} />
-      <ScouterQuery
-        queryType="list"
+      <TextQuery name="Scouter Name" />
+      <NumberQuery name="Qual" />
+      <NumberQuery name="Team Number" />
+      <ListQuery name="Game Side" list={["Blue", "Red"]} />
+      <ListQuery
         name={"Starting Position"}
         list={["Amp Side", "Middle", "Source Side", "No Show"]}
       />

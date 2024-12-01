@@ -5,18 +5,6 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
 .strategy-app {
   .section {
@@ -72,10 +60,33 @@
   height: 20%;
   padding: 20px;
 }
+
 .map-buttons {
   grid-gap: 0px;
   display: flex;
   justify-content: space-between;
+}
+
+
+.collapsible-trigger {
+  border-style: solid;
+}
+
+.cool-radio-input {
+  height: 20px;
+  width: 20px;
+}
+
+.auto-chart {
+  display: flex;
+}
+
+.team-picker {
+  select,
+  input,
+  label {
+    font-size: 20px;
+  }
 }
 
 .nav-bar {
@@ -107,31 +118,4 @@
 
 .nav-bar a:hover {
   text-decoration: underline;
-}
-
-.auto-chart {
-  display: flex;
-}
-.team-picker {
-  select,
-  input,
-  label {
-    font-size: 20px;
-  }
-}
-.collapsible-trigger {
-  border-style: solid;
-}
-
-.cool-radio-input {
-  height: 20px;
-  width: 20px;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

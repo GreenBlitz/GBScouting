@@ -10,6 +10,7 @@ import { queryFolder } from "../utils/FolderStorage";
 
 const sections: React.FC[] = [PreMatch, Autonomous, Teleoperated, PostMatch];
 
+
 const constantValues = ["Scouter Name", "Game Side"]
 
 function ScouterTab() {

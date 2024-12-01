@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import CheckboxQuery from "./querytypes/CheckboxQuery";
+import c from "./querytypes/CheckboxQuery";
 import CounterQuery from "./querytypes/CounterQuery";
 import ListQuery from "./querytypes/ListQuery";
 import RadioQuery from "./querytypes/RadioQuery";
@@ -11,52 +11,41 @@ interface ScouterQueryProps {
   list?: string[];
 }
 
-const ScouterQuery: React.FC<ScouterQueryProps> = ({
-  name,
-  queryType,
-  required,
-  list,
-}) => {
-  function renderInput() {
-    switch (queryType) {
-      case "counter":
-        return <CounterQuery name={name} />;
-      case "checkbox":
-        return <CheckboxQuery name={name} required={required} />;
-      case "list":
-        return (
-          <ListQuery name={name} required={required} list={list ? list : []} />
-        );
-      case "radio":
-        return (
-          <RadioQuery name={name} required={required} list={list ? list : []} />
-        );
-      default:
-        useEffect(() => {
-          if (!queryFolder.getItem(name))
-            queryFolder.setItem(name, "");
-        });
-        return (
-          <input
-            type={queryType}
-            id={name}
-            name={name}
-            required={required}
-            defaultValue={queryFolder.getItem(name) || ""}
-            onChange={(event) =>
-              queryFolder.setItem(name, event.target.value)
-            }
-          />
-        );
+export interface QueryProps<T> {
+  name: string;
+  required?: boolean | undefined;
+  defaultValue?: T;
+}
+
+abstract class ScouterQuery<
+  T,
+  State extends {} = {},
+  Props = {}
+> extends React.Component<QueryProps<T> & Props, State> {
+  constructor(props: QueryProps<T> & Props) {
+    super(props);
+
+    if (!queryFolder.getItem(props.name)) {
+      queryFolder.setItem(
+        props.name,
+        (this.props.defaultValue || this.getInitialValue(props)) + ""
+      );
     }
+    this.state = this.getStartingState(props);
   }
 
-  return (
-    <div className="scouter-query">
-      <h2>{name}</h2>
-      {renderInput()}
-    </div>
-  );
-};
+  render(): React.ReactNode {
+    return (
+      <div className="scouter-query">
+        <h2>{this.props.name}</h2>
+        {this.renderInput()}
+      </div>
+    );
+  }
+
+  abstract getStartingState(props: QueryProps<T> & Props): State;
+  abstract renderInput(): React.ReactNode;
+  abstract getInitialValue(props: QueryProps<T> & Props): T;
+}
 
 export default ScouterQuery;
