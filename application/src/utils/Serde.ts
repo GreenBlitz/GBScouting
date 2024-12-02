@@ -113,7 +113,7 @@ function serdeOptionalFieldsRecord<T>(fieldsSerde: FieldsRecordSerde<T>): Serde<
     fieldsDeserializers: RecordDeserializer<T>,
     serializedData: BitArray
   ): Record<string, T> {
-    let data: Record<string, any> = {};
+    let data: Record<string, T> = {};
 
     let fieldsExistence: boolean[] = Array.from(rangeArr(0, fieldsExistenceBitCount(fieldsDeserializers)).map(_ => serializedData.consumeBool()));
 
@@ -143,7 +143,7 @@ export function serdeRecord<T>(fieldsSerde: FieldsRecordSerde<T>): Serde<Record<
   function serializer(
     serializedData: BitArray,
     fieldsSerializers: RecordSerializer<T>,
-    data: Record<string, any>
+    data: Record<string, T>
   ) {
     for (const fieldIndex in Object.keys(fieldsSerializers)) {
       const field = Object.keys(fieldsSerializers)[fieldIndex];
@@ -153,8 +153,8 @@ export function serdeRecord<T>(fieldsSerde: FieldsRecordSerde<T>): Serde<Record<
   function deserializer(
     fieldsDeserializers: RecordDeserializer<T>,
     serializedData: BitArray
-  ): Record<string, any> {
-    let data: Record<string, any> = {};
+  ): Record<string, T> {
+    let data: Record<string, T> = {};
     for (const fieldIndex in Object.keys(fieldsDeserializers)) {
       let field = Object.keys(fieldsDeserializers)[fieldIndex];
       let fieldData =
@@ -176,7 +176,7 @@ export function serdeRecord<T>(fieldsSerde: FieldsRecordSerde<T>): Serde<Record<
 const ARRAY_LENGTH_DEFAULT_BIT_COUNT: number = 14;
 function serdeArray<T>(itemSerde: Serde<T>, bitCount = ARRAY_LENGTH_DEFAULT_BIT_COUNT): Serde<T[]> {
   const ARRAY_LENGTH_SERDE = serdeUnsignedInt(bitCount);
-  function serializer(itemSerializer: Serializer<T>, serializedData: BitArray, arr: any[]) {
+  function serializer(itemSerializer: Serializer<T>, serializedData: BitArray, arr: T[]) {
     ARRAY_LENGTH_SERDE.serializer(serializedData, arr.length);
     for (const index in arr) {
       itemSerializer(serializedData, arr[index]);
@@ -185,17 +185,17 @@ function serdeArray<T>(itemSerde: Serde<T>, bitCount = ARRAY_LENGTH_DEFAULT_BIT_
   function deserializer(
     itemDeserializer: Deserializer<T>,
     serializedData: BitArray,
-  ): any[] {
+  ): T[] {
     const arrayLength = ARRAY_LENGTH_SERDE.deserializer(serializedData);
 
-    let arr: any[] = [];
+    let arr: T[] = [];
     for (let i = 0; i < arrayLength; i++) {
       arr.push(itemDeserializer(serializedData));
     }
     return arr;
   }
   return {
-    serializer: function(serializedData: BitArray, arr: any[]) {
+    serializer: function(serializedData: BitArray, arr: T[]) {
       return serializer(itemSerde.serializer, serializedData, arr);
     },
     deserializer: function(serializedData: BitArray) {
