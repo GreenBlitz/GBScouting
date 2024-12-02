@@ -4,7 +4,7 @@ import "./QRStyles.css";
 import QrScanner from "qr-scanner";
 import React from "react";
 import { renderScouterNavBar } from "../../App";
-import * as serde from "../../Serde";
+import * as serde from "../../utils/Serde";
 import {decode} from "uint8-to-base64";
 
 const ScanningTab = () => {

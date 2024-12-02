@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import React from "react";
-import * as serde from "../Serde";
+import * as serde from "../utils/Serde";
 import {encode} from "uint8-to-base64";
 
 interface QRCodeGeneratorProps {
