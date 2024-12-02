@@ -10,8 +10,8 @@ class BitArray {
 
   constructor(arr?: Uint8Array) {
     this.bitCount = 0;
-    this.boolArr = new Array();
-    if (arr !== undefined) {
+    this.boolArr = [];
+    if (arr) {
       this.insert(arr, arr.length * 8);
     }
   }
@@ -76,7 +76,7 @@ function serdeUnsignedInt(bitCount: number): Serde<number> {
     let num = 0;
 
     for (let i = 0; i < bitCount; i++) {
-      num += Math.pow(2, i) * (serializedData.consumeBool() ? 1 : 0);
+      num += (serializedData.consumeBool() ? 1 : 0) << i;
     }
     return num;
   }
@@ -157,17 +157,13 @@ function serdeOptionalFieldsRecord<T>(fieldsSerde: FieldsRecordSerde<T>): Serde<
 
     for (const fieldIndex in Object.keys(fieldsSerializers)) {
       let field = Object.keys(fieldsSerializers)[fieldIndex];
-      try {
-        let fieldValue = data[field];
-        if (fieldValue == undefined) {
-          fieldsExistenceArray.insertBool(false);
-          continue;
-        }
-        fieldsExistenceArray.insertBool(true);
-        fieldsSerializers[field](serializedFields, fieldValue);
-      } catch (error) {
+      let fieldValue = data[field];
+      if (!fieldValue) {
         fieldsExistenceArray.insertBool(false);
+        continue;
       }
+      fieldsExistenceArray.insertBool(true);
+      fieldsSerializers[field](serializedFields, fieldValue);
     }
     serializedData.insert(fieldsExistenceArray);
     serializedData.insert(serializedFields);
