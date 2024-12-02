@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import CounterQuery from "../querytypes/CounterQuery";
 import AutoMap from "../querytypes/AutoMap";
 interface AutonomousProps {}

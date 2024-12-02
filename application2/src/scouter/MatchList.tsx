@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import Collapsible from "react-collapsible";
+import { Collapsible } from "@/components/Collapsible";
 import React, { useState } from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
 import { getServerHostname } from "../Utils";

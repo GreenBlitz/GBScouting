@@ -7,7 +7,7 @@ import Teleoperated from "./tabs/Teleoperated";
 import PostMatch from "./tabs/PostMatch";
 import { renderScouterNavBar } from "../App";
 
-const sections: React.FC[] = [PreMatch, Autonomous, Teleoperated, PostMatch];
+const sections: React.FC<{}>[] = [PreMatch, Autonomous, Teleoperated, PostMatch];
 
 function ScouterTab() {
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ function ScouterTab() {
     <div className="scouting-tab">
       {renderScouterNavBar()}
       <h1>{sections[currentSectionNumber].name}</h1>
-      {sections[currentSectionNumber].apply({})}
       {currentSectionNumber !== 0 && (
         <button
           type="button"

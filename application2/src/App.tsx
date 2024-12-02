@@ -1,12 +1,17 @@
 import React from "react";
 import "./App.css";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { NavigationContainer, NavigationProp, NavigationState, useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Button } from "react-native";
+
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
 import GeneralTab from "./strategy/GeneralTab";
 import TeamTab from "./strategy/TeamTab";
+
+const Stack = createStackNavigator();
 
 function getHiddenImage(path: string) {
   return (
@@ -21,7 +26,7 @@ function getHiddenImage(path: string) {
   );
 }
 
-export function renderScouterNavBar() {
+export function renderScouterNavBar(navigation: (Omit<NavigationProp<ReactNavigation.RootParamList>, "getState"> & { getState(): NavigationState | undefined; }) | undefined) {
   return (
       <nav className="nav-bar">
         {getHiddenImage("./src/assets/Crescendo Map.png")}
@@ -29,7 +34,7 @@ export function renderScouterNavBar() {
         {getHiddenImage("./src/assets/Red Auto Map.png")}
         <ul>
           <li>
-            <Link to="/">Match List</Link>
+            <Button title="Match List" onPress={() => navigation.navigate("/")} />
           </li>
           <li>
             <Link to="/ScouterTab">Scout Game</Link>
@@ -60,15 +65,15 @@ export function renderStrategyNavBar() {
 const App: React.FC = () => {
   
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/ScannerTab" Component={ScanningTab} />
-        <Route path="/" Component={MatchList} />
-        <Route path="/ScouterTab" Component={ScouterTab} />
-        <Route path="/TeamTab" Component={TeamTab} />
-        <Route path="/GeneralTab" Component={GeneralTab} />
-      </Routes>
-    </BrowserRouter>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="/ScannerTab" component={ScanningTab} />
+        <Stack.Screen name="/" component={MatchList} />
+        <Stack.Screen name="/ScouterTab" component={ScouterTab} />
+        <Stack.Screen name="/TeamTab" component={TeamTab} />
+        <Stack.Screen name="/GeneralTab" component={GeneralTab} />
+      </Stack.Navigator>
+    </NavigationContainer>
   ); 
 };
 
