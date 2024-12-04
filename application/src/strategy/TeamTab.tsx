@@ -12,9 +12,8 @@ import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
 
-interface TeamTabProps {}
 
-const TeamTab: React.FC<TeamTabProps> = () => {
+const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
 
@@ -73,8 +72,6 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Map</h2>
         <MapChart
-          width={540 * 0.8}
-          height={240 * 0.8}
           imagePath={"./src/assets/Crescendo Map.png"}
           dataPoints={teamData.getAllPoints()}
         />
@@ -84,8 +81,6 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Scoring</h2>
         <LineChart
-          height={300}
-          width={400}
           dataSets={{
             Speaker: {
               color: "pink",
@@ -103,8 +98,6 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Miss</h2>
         <LineChart
-          height={300}
-          width={400}
           dataSets={{
             Speaker: {
               color: "pink",
@@ -122,8 +115,6 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Auto</h2>
         <LineChart
-          height={300}
-          width={400}
           dataSets={{
             Score: {
               color: "green",

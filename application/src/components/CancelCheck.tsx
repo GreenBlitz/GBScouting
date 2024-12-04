@@ -1,23 +1,23 @@
 import React from "react";
 import { useState } from "react";
 
-interface SureButtonProps {
+interface CancelCheck {
   name: string;
   onClick: () => void;
 }
 
-const SureButton: React.FC<SureButtonProps> = ({ onClick, name }) => {
-  const [areYouSure, setAreYouSure] = useState<boolean>(false);
+const CancelCheck: React.FC<CancelCheck> = ({ onClick, name }) => {
+  const [showCheck, setShowCheck] = useState<boolean>(false);
 
   return (
     <>
-      {areYouSure ? (
+      {showCheck ? (
         <>
           <h2>Are You Sure?</h2>
           <button type="button" onClick={onClick}>
             Yes
           </button>
-          <button type="button" onClick={() => setAreYouSure(false)}>
+          <button type="button" onClick={() => setShowCheck(false)}>
             No
           </button>
         </>
@@ -26,7 +26,7 @@ const SureButton: React.FC<SureButtonProps> = ({ onClick, name }) => {
           <br />
           <br />
           <br />
-          <button type="button" onClick={() => setAreYouSure(true)}>
+          <button type="button" onClick={() => setShowCheck(true)}>
             {name}
           </button>
         </>
@@ -35,4 +35,4 @@ const SureButton: React.FC<SureButtonProps> = ({ onClick, name }) => {
   );
 };
 
-export default SureButton;
+export default CancelCheck;

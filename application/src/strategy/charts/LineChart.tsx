@@ -12,6 +12,7 @@ import { Line } from "react-chartjs-2";
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Legend);
 
 
+const DefaultSize = { width: 400, height: 300 };
 
 type Color = string;
 
@@ -22,8 +23,8 @@ interface DataSet {
 
 interface LineChartProps {
   dataSets: Record<string, DataSet>;
-  height: number;
-  width: number;
+  height?: number;
+  width?: number;
 }
 const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
   const data = {
@@ -42,8 +43,8 @@ const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
   return (
     <div style={{ width: "100%", maxWidth: "600px" }}>
       <Line
-        height={height}
-        width={width}
+        height={height || DefaultSize.height}
+        width={width || DefaultSize.width}
         data={data}
         options={{ maintainAspectRatio: true, responsive: true }}
       />

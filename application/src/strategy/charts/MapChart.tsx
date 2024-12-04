@@ -2,14 +2,17 @@ import { Point } from "chart.js";
 import React from "react";
 import { useEffect, useRef } from "react";
 
+
+const DefaultSize = {width: 432, height: 192}
+
 export interface DataPoint extends Point {
   data: string;
   successfulness: number;
 }
 export type PassingPoint = [DataPoint, Point];
 interface MapChartProps {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   imagePath: string;
   dataPoints: (DataPoint | PassingPoint)[];
 }
@@ -23,11 +26,12 @@ const colorMap: Record<string, string> = {
 };
 const pointRadius = 5;
 const MapChart: React.FC<MapChartProps> = ({
-  width,
-  height,
+  width: mapWidth,
+  height: mapHeight,
   imagePath,
   dataPoints,
 }) => {
+  const [width, height] = [mapWidth || DefaultSize.width, mapHeight || DefaultSize.height];
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current ? canvasRef.current.getContext("2d") : null;
   function drawPoints() {

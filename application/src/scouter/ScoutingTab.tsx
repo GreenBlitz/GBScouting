@@ -5,8 +5,8 @@ import Autonomous from "./tabs/Autonomous";
 import Teleoperated from "./tabs/Teleoperated";
 import PostMatch from "./tabs/PostMatch";
 import { renderScouterNavBar } from "../App";
-import SureButton from "../components/SureButton";
 import { queryFolder } from "../utils/FolderStorage";
+import CancelCheck from "../components/CancelCheck";
 
 const sections: React.FC[] = [PreMatch, Autonomous, Teleoperated, PostMatch];
 
@@ -65,7 +65,7 @@ function ScouterTab() {
           Next
         </button>
       )}
-      <br /> <SureButton name="Reset" onClick={handleReset} />
+      <br /> <CancelCheck name="Reset" onClick={handleReset} />
     </div>
   );
 }
