@@ -1,34 +1,28 @@
 import React, { useEffect } from "react";
-import { localStorageTabName } from "../ScouterQuery";
+import { queryFolder } from "../../utils/FolderStorage";
+import ScouterQuery from "../ScouterQuery";
 
-interface CheckboxQueryProps {
-  name: string;
-  required: boolean | undefined;
-}
-
-const CheckboxQuery: React.FC<CheckboxQueryProps> = ({ name, required }) => {
-  const localStorageKey = localStorageTabName + name;
-  function updateCheckbox() {
-    const newValue =
-      localStorage.getItem(localStorageKey) === "true" ? "false" : "true";
-    localStorage.setItem(localStorageKey, newValue);
+class CheckboxQuery extends ScouterQuery<boolean> {
+  renderInput(): React.ReactNode {
+    const updateCheckbox = () => {
+      const newValue =
+        queryFolder.getItem(this.props.name) === "true" ? "false" : "true";
+      queryFolder.setItem(this.props.name, newValue);
+    };
+    return (
+      <input
+        type="checkbox"
+        id={this.props.name}
+        name={this.props.name}
+        required={this.props.required}
+        onChange={updateCheckbox}
+        defaultChecked={queryFolder.getItem(this.props.name) === "true"}
+      />
+    );
   }
-
-  useEffect(() => {
-    if (!localStorage.getItem(localStorageKey)) {
-      localStorage.setItem(localStorageKey, "false");
-    }
-  });
-  return (
-    <input
-      type="checkbox"
-      id={name}
-      name={name}
-      required={required}
-      onChange={updateCheckbox}
-      defaultChecked={localStorage.getItem(localStorageKey) === "true"}
-    />
-  );
-};
+  getInitialValue(): boolean {
+    return this.props.defaultValue || false;
+  }
+}
 
 export default CheckboxQuery;

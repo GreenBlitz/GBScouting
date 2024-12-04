@@ -1,13 +1,14 @@
 import React from "react";
 import ScouterQuery from "../ScouterQuery";
+import ListQuery from "../querytypes/ListQuery";
+import TextQuery from "../querytypes/TextQuery";
 
 interface PostMatchProps {}
 
 const PostMatch: React.FC<PostMatchProps> = () => {
   return (
     <>
-      <ScouterQuery
-        queryType="list"
+      <ListQuery
         name="Climb"
         list={[
           "Off Stage",
@@ -17,12 +18,11 @@ const PostMatch: React.FC<PostMatchProps> = () => {
           "Harmony Three Robots",
         ]}
       />
-      <ScouterQuery
-        queryType="list"
+      <ListQuery
         name="Trap"
         list={["Didn't Score", "Scored", "Miss"]}
       />
-      <ScouterQuery queryType="text" name="Comment" />
+      <TextQuery name="Comment" />
     </>
   );
 };

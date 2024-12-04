@@ -1,33 +1,28 @@
 import React, { useEffect } from "react";
-import { localStorageTabName } from "../ScouterQuery";
+import { queryFolder } from "../../utils/FolderStorage";
+import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
-interface RadioQueryProps {
-  name: string;
-  required: boolean | undefined;
-  list: string[];
-}
+class RadioQuery extends ScouterQuery<string, { list: string[] }> {
 
-const RadioQuery: React.FC<RadioQueryProps> = ({ name, required, list }) => {
-  const localStorageKey = localStorageTabName + name;
-  useEffect(() => {
-    if (!localStorage.getItem(localStorageKey)) {
-      localStorage.setItem(localStorageKey, "");
-    }
-  });
-  return list?.map((item, index) => (
-    <React.Fragment key={index}>
-      <input
-        type="radio"
-        id={item}
-        name={name}
-        value={item}
-        required={required}
-        onChange={() => localStorage.setItem(localStorageKey, item)}
-        defaultChecked={item === localStorage.getItem(localStorageKey)}
-      />
-      <label htmlFor={item}>{item}</label>
-    </React.Fragment>
-  ));
-};
+  renderInput(): React.ReactNode {
+    return this.props.list.map((item, index) => (
+      <React.Fragment key={index}>
+        <input
+          type="radio"
+          id={item}
+          name={this.props.name}
+          value={item}
+          required={this.props.required}
+          onChange={() => queryFolder.setItem(this.props.name, item)}
+          defaultChecked={item === queryFolder.getItem(this.props.name)}
+        />
+        <label htmlFor={item}>{item}</label>
+      </React.Fragment>
+    ));
+  }
+  getInitialValue(props: QueryProps<string> & { list: string[] }): string {
+    return props.list[0];
+  }
+} 
 
 export default RadioQuery;
