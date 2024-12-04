@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import SendMsg from "./initialProject/SendMsg";
+import ToDoList from "./initialProject/ToDoList";
 
 const App: React.FC = () => {
   const [some, setSome] = useState<number>(0);
@@ -22,7 +23,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <SendMsg></SendMsg>
+      <ToDoList></ToDoList>
     </>
   );
 };
