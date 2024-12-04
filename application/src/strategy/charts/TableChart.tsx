@@ -1,4 +1,4 @@
-import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridCellParams, GridColDef, GridTreeNode } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import React from "react";
 
@@ -10,6 +10,7 @@ interface TableChartProps {
   idName: string;
   height: number;
   widthOfItem: number;
+  cellClassName?: (params: GridCellParams<any, any, any, GridTreeNode>) => string
 }
 
 const TableChart: React.FC<TableChartProps> = ({
@@ -18,6 +19,7 @@ const TableChart: React.FC<TableChartProps> = ({
   calculations,
   height,
   widthOfItem,
+  cellClassName
 }) => {
   const matchesData: Record<string,string>[] = matches.map((match) => {
     return { ...match };
@@ -57,6 +59,7 @@ const TableChart: React.FC<TableChartProps> = ({
           border: 0,
         }}
         getRowId={(row) => row[idName]}
+        getCellClassName={cellClassName}
       />
     </Paper>
   );
