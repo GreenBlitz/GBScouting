@@ -29,7 +29,7 @@ app.use(cors());
 
 const mongoURI = "mongodb://localhost:27017";
 
-let db: Db;
+let db: Db = undefined;
 
 // Connect to MongoDB
 MongoClient.connect(mongoURI)
@@ -44,8 +44,9 @@ MongoClient.connect(mongoURI)
 app.get("/messages", async (req, res) => {
   if (!db) {
     res.status(500).send("No database");
+    return ;
   }
-  const messageCollection = db.collection("messages"  );
+  const messageCollection = db.collection("messages");
   try {
     const messages = await messageCollection.find().toArray();
     res.status(200).json(messages);

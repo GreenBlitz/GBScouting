@@ -7,7 +7,7 @@ const SendMsg: React.FC=()=>{
         console.log(counter)
     }
 
-    const title = <h2>Please Enter Message {counter}</h2>
+    const title = <h2>Please Enter Messasadge {counter}</h2>
     const enterMsgField = <input onChange={() => {}} placeholder="ur mama"/>
     const submitButton = <button onClick={alertWhenPressed}>Click Me</button>
     const writtenMessages = <ul></ul>
