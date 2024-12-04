@@ -3,9 +3,6 @@ import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery from "../ScouterQuery";
 
 class CheckboxQuery extends ScouterQuery<boolean> {
-  getStartingState(): {} {
-    return {};
-  }
   renderInput(): React.ReactNode {
     const updateCheckbox = () => {
       const newValue =

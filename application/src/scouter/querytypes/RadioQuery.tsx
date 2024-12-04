@@ -3,9 +3,6 @@ import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class RadioQuery extends ScouterQuery<string, { list: string[] }> {
-  getStartingState(props: QueryProps<string> & { list: string[] }): {} {
-    return {};
-  }
 
   renderInput(): React.ReactNode {
     return this.props.list.map((item, index) => (

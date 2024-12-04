@@ -3,9 +3,6 @@ import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class TextQuery extends ScouterQuery<string> {
-  getStartingState(props: QueryProps<string>) {
-    return {};
-  }
 
   getInitialValue(): string {
     return "";

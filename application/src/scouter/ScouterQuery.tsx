@@ -22,7 +22,10 @@ abstract class ScouterQuery<
         (this.props.defaultValue || this.getInitialValue(props)) + ""
       );
     }
-    this.state = this.getStartingState(props);
+    const startingState = this.getStartingState(props);
+    if (startingState) {
+      this.state = startingState;
+    }
   }
 
   render(): React.ReactNode {
@@ -34,7 +37,9 @@ abstract class ScouterQuery<
     );
   }
 
-  abstract getStartingState(props: QueryProps<T> & Props): State;
+  getStartingState(props: QueryProps<T> & Props): State | undefined {
+    return undefined;
+  };
   abstract renderInput(): React.ReactNode;
   abstract getInitialValue(props: QueryProps<T> & Props): T;
 }

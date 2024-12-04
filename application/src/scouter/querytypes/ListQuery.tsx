@@ -3,10 +3,6 @@ import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class ListQuery extends ScouterQuery<string, { list: string[] }> {
-  getStartingState(props: QueryProps<string> & { list: string[] }): {} {
-    return {};
-  }
-
   renderInput(): React.ReactNode {
     return (
       <select
