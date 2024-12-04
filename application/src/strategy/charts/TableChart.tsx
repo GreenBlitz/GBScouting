@@ -1,6 +1,12 @@
-import { DataGrid, GridCellParams, GridColDef, GridTreeNode } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridCellParams,
+  GridColDef,
+  GridTreeNode,
+} from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import React from "react";
+import { FRCTeamList } from "../../Utils";
 
 const paginationModel = { page: 0, pageSize: 5 };
 
@@ -10,7 +16,9 @@ interface TableChartProps {
   idName: string;
   height: number;
   widthOfItem: number;
-  cellClassName?: (params: GridCellParams<any, any, any, GridTreeNode>) => string
+  cellClassName?: (
+    params: GridCellParams<any, any, any, GridTreeNode>
+  ) => string;
 }
 
 const TableChart: React.FC<TableChartProps> = ({
@@ -19,9 +27,9 @@ const TableChart: React.FC<TableChartProps> = ({
   calculations,
   height,
   widthOfItem,
-  cellClassName
+  cellClassName,
 }) => {
-  const matchesData: Record<string,string>[] = matches.map((match) => {
+  const matchesData: Record<string, string>[] = matches.map((match) => {
     return { ...match };
   });
 
@@ -54,7 +62,7 @@ const TableChart: React.FC<TableChartProps> = ({
         rows={matchesData}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10, 67]}
+        pageSizeOptions={[5, 10, FRCTeamList.length]}
         sx={{
           border: 0,
         }}

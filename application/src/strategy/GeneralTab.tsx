@@ -4,6 +4,7 @@ import { getMatchesByCriteria, FRCTeamList } from "../Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
+import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 
 interface GeneralTabProps {}
 
@@ -44,6 +45,10 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
     }
     updateTeamTable();
   }, []);
+  function cellClassName(params: GridCellParams<any, any, any, GridTreeNode>): string {
+    return "";
+  }
+
   return (
     <>
       {renderStrategyNavBar()}
@@ -54,6 +59,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
           idName={"Team Number"}
           height={540}
           widthOfItem={130}
+          cellClassName={cellClassName}
         />
       </div>
     </>
