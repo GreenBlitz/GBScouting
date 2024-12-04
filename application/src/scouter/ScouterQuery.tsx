@@ -9,8 +9,9 @@ export interface QueryProps<T> {
 
 abstract class ScouterQuery<
   T,
-  State extends {} = {},
-  Props extends {} = {}
+  Props extends {} = {},
+  State extends {} = {}
+
 > extends React.Component<QueryProps<T> & Props, State> {
   constructor(props: QueryProps<T> & Props) {
     super(props);

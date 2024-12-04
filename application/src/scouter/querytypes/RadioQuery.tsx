@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
-class RadioQuery extends ScouterQuery<string, {}, { list: string[] }> {
+class RadioQuery extends ScouterQuery<string, { list: string[] }> {
   getStartingState(props: QueryProps<string> & { list: string[] }): {} {
     return {};
   }

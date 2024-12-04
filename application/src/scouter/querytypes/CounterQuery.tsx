@@ -4,8 +4,8 @@ import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class CounterQuery extends ScouterQuery<
   number,
-  { count: number },
-  { color?: string }
+  { color?: string },
+  { count: number }
 > {
   getStartingState(props: QueryProps<number>) {
     const savedValue = queryFolder.getItem(props.name);
