@@ -109,7 +109,7 @@ app.get("/Matches/:type/:value", async (req, res) => {
     res.status(500).send(error);
   }
 });
-console.log("Is Production: " + process.env.PRODUCTION);
+console.log("Is Production: " + !!process.env.PRODUCTION);
 
 const server = (
   sslOptions.key === "" ? app : https.createServer(sslOptions, app)
