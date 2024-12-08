@@ -14,7 +14,7 @@ export class BitArray {
 
   insert(data: Uint8Array, totalBitCount: number): void;
   insert(bitArray: BitArray): void;
-  insert(data: BitArray | Uint8Array, totalBitCount?: number) {
+  insert(data: BitArray | Uint8Array, totalBitCount?: number): void {
     function insertBitArray(bitArr1: BitArray, bitArr2: BitArray) {
       bitArr1.boolArr = bitArr1.boolArr.concat(bitArr2.boolArr);
       bitArr1.bitCount += bitArr2.bitCount;
