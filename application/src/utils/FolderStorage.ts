@@ -32,7 +32,7 @@ export default class FolderStorage {
     this.parent.setItem(this.prefix + key, value);
   }
 
-  keys() : string[] {
+  keys(): string[] {
     const isParentFolder = this.parent.keys !== undefined;
     const parentKeys = isParentFolder
       ? this.parent.keys()
@@ -67,16 +67,15 @@ abstract class Storable<T> {
     this.storage = storage;
   }
 
-  get(): T
+  get(): T;
   get(checker?: T): T {
     const stringRepresentation = this.storage.getItem(this.name) + "";
 
-
     const typeCheck = checker || "";
-    if (typeof typeCheck === "string") {//very stupid string shenanigans
+    if (typeof typeCheck === "string") {
+      //very stupid string shenanigans
       return stringRepresentation as T;
     }
-
 
     return JSON.parse(stringRepresentation);
   }
@@ -93,29 +92,44 @@ abstract class Storable<T> {
     return JSON.stringify(this.get());
   }
 
-  exists() : boolean {
+  exists(): boolean {
     return !!queryFolder.getItem(this.name);
   }
 }
 
 export class QueryStorable<T> extends Storable<T> {
   constructor(name: string) {
-    super(name, queryFolder)
+    super(name, queryFolder);
   }
 }
 
 export class Queries {
-  static readonly ScouterName: QueryStorable<string> = new QueryStorable("Scouter Name");
+  static readonly ScouterName: QueryStorable<string> = new QueryStorable(
+    "Scouter Name"
+  );
   static readonly Qual: QueryStorable<number> = new QueryStorable("Qual");
-  static readonly TeamNumber: QueryStorable<number> = new QueryStorable("Team Number");
-  static readonly GameSide: QueryStorable<string> = new QueryStorable("Game Side");
-  static readonly StartingPosition: QueryStorable<string> = new QueryStorable("Starting Position");
-  static readonly SpeakerAutoScore: QueryStorable<number> = new QueryStorable("Speaker/Auto/Score");
-  static readonly SpeakerAutoMiss: QueryStorable<number> = new QueryStorable("Speaker/Auto/Miss");
-  static readonly AmpScore: QueryStorable<number> = new QueryStorable("CRESCENDO/Amp/Score");
-  static readonly AmpMiss: QueryStorable<number> = new QueryStorable("CRESCENDO/Amp/Miss");
+  static readonly TeamNumber: QueryStorable<number> = new QueryStorable(
+    "Team Number"
+  );
+  static readonly GameSide: QueryStorable<string> = new QueryStorable(
+    "Game Side"
+  );
+  static readonly StartingPosition: QueryStorable<string> = new QueryStorable(
+    "Starting Position"
+  );
+  static readonly SpeakerAutoScore: QueryStorable<number> = new QueryStorable(
+    "Speaker/Auto/Score"
+  );
+  static readonly SpeakerAutoMiss: QueryStorable<number> = new QueryStorable(
+    "Speaker/Auto/Miss"
+  );
+  static readonly AmpScore: QueryStorable<number> = new QueryStorable(
+    "CRESCENDO/Amp/Score"
+  );
+  static readonly AmpMiss: QueryStorable<number> = new QueryStorable(
+    "CRESCENDO/Amp/Miss"
+  );
   static readonly Climb: QueryStorable<string> = new QueryStorable("Climb");
   static readonly Trap: QueryStorable<string> = new QueryStorable("Trap");
   static readonly Comment: QueryStorable<string> = new QueryStorable("Comment");
-
 }
