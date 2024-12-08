@@ -2,6 +2,7 @@ import React from "react";
 import ScouterQuery from "../ScouterQuery";
 import ListQuery from "../querytypes/ListQuery";
 import TextQuery from "../querytypes/TextQuery";
+import { Queries } from "../../utils/FolderStorage";
 
 interface PostMatchProps {}
 
@@ -9,7 +10,7 @@ const PostMatch: React.FC<PostMatchProps> = () => {
   return (
     <>
       <ListQuery
-        name="Climb"
+        storage={Queries.Climb}
         list={[
           "Off Stage",
           "Park",
@@ -18,11 +19,8 @@ const PostMatch: React.FC<PostMatchProps> = () => {
           "Harmony Three Robots",
         ]}
       />
-      <ListQuery
-        name="Trap"
-        list={["Didn't Score", "Scored", "Miss"]}
-      />
-      <TextQuery name="Comment" />
+      <ListQuery storage={Queries.Trap} list={["Didn't Score", "Scored", "Miss"]} />
+      <TextQuery storage={Queries.Comment} />
     </>
   );
 };

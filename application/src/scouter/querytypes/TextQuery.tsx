@@ -3,7 +3,6 @@ import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class TextQuery extends ScouterQuery<string> {
-
   getInitialValue(): string {
     return "";
   }
@@ -12,12 +11,12 @@ class TextQuery extends ScouterQuery<string> {
     return (
       <input
         type="text"
-        id={this.props.name}
-        name={this.props.name}
+        id={this.props.storage.name}
+        name={this.props.storage.name}
         required={this.props.required}
-        defaultValue={queryFolder.getItem(this.props.name) || ""}
+        defaultValue={this.props.storage.get()}
         onChange={(event) =>
-          queryFolder.setItem(this.props.name, event.target.value)
+          this.props.storage.set(event.target.value)
         }
       />
     );

@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
-import { queryFolder } from "../../utils/FolderStorage";
+import React from "react";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class ListQuery extends ScouterQuery<string, { list: string[] }> {
   renderInput(): React.ReactNode {
     return (
       <select
-        name={this.props.name}
-        id={this.props.name}
+        name={this.props.storage.name}
+        id={this.props.storage.name}
         required={this.props.required}
-        defaultValue={queryFolder.getItem(this.props.name) || ""}
+        defaultValue={this.props.storage.get()}
         onChange={(event) =>
-          queryFolder.setItem(this.props.name, event.target.value)
+          this.props.storage.set(event.target.value)
         }
       >
         {this.props.list.map((item, index) => (

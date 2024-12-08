@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Point } from "chart.js";
 import React from "react";
 import CounterQuery from "./CounterQuery";
-import { queryFolder } from "../../utils/FolderStorage";
+import { Queries, queryFolder } from "../../utils/FolderStorage";
 interface MapQueryProps {
   name: string;
   side: "blue" | "red";
@@ -34,7 +34,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
   imagePath,
   side,
 }) => {
-  const mapFolder = queryFolder.with(name + "/")
+  const mapFolder = queryFolder.with(name + "/");
   const [dataPoints, setDataPoints] = useState<(DataPoint | PassingPoint)[]>(
     JSON.parse(mapFolder.getItem("Points") || "[]")
   );
@@ -193,9 +193,9 @@ const MapQuery: React.FC<MapQueryProps> = ({
     <div className={"map-amp"}>
       <h2>AMP</h2>
       <br />
-      <CounterQuery name={name + "/Amp/Score"} color="#12a119" />
+      <CounterQuery storage={Queries.AmpScore} color="#12a119" />
       <br />
-      <CounterQuery name={name + "/Amp/Miss"} color="#8f0a0e" />
+      <CounterQuery storage={Queries.AmpMiss} color="#8f0a0e" />
     </div>
   );
 

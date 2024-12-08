@@ -1,5 +1,4 @@
 import React from "react";
-import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 import { Color } from "../../utils/Color";
 
@@ -9,12 +8,8 @@ class CounterQuery extends ScouterQuery<
   { count: number }
 > {
   getStartingState(props: QueryProps<number>) {
-    const savedValue = queryFolder.getItem(props.name);
-    let initialValue: number = props.defaultValue || 0;
-    if (savedValue) {
-      initialValue = parseInt(savedValue);
-    }
-    return { count: initialValue };
+    const savedValue = props.storage.get();
+    return { count: savedValue || 0 };
   }
 
   getInitialValue(): number {
@@ -23,7 +18,7 @@ class CounterQuery extends ScouterQuery<
 
   renderInput(): React.ReactNode {
     const setCount = (newCount: number) => {
-      queryFolder.setItem(this.props.name, newCount + "");
+      this.props.storage.set(newCount);
       this.setState({ count: newCount });
     };
 
@@ -39,8 +34,8 @@ class CounterQuery extends ScouterQuery<
         <h3>{this.state.count}</h3>
         <input
           type="hidden"
-          id={this.props.name}
-          name={this.props.name}
+          id={this.props.storage.name}
+          name={this.props.storage.name}
           value={this.state.count}
         />
         <button

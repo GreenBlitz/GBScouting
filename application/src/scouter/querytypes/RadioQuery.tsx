@@ -10,11 +10,11 @@ class RadioQuery extends ScouterQuery<string, { list: string[] }> {
         <input
           type="radio"
           id={item}
-          name={this.props.name}
+          name={this.props.storage.name}
           value={item}
           required={this.props.required}
-          onChange={() => queryFolder.setItem(this.props.name, item)}
-          defaultChecked={item === queryFolder.getItem(this.props.name)}
+          onChange={() => this.props.storage.set(item)}
+          defaultChecked={item === this.props.storage.get()}
         />
         <label htmlFor={item}>{item}</label>
       </React.Fragment>
