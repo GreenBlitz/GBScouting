@@ -1,5 +1,6 @@
 import { SectionData } from "./strategy/charts/PieChart";
-import { DataPoint, PassingPoint } from "./strategy/charts/MapChart"
+import { DataPoint, PassingPoint } from "./strategy/charts/MapChart";
+import { Color } from "./utils/Color";
 export class TeamData {
   public readonly matches: Record<string, Record<string, string>>;
   [key: string]: any;
@@ -85,15 +86,15 @@ export class TeamData {
 
   getAsPie(
     data: string,
-    colorMap: Record<string, string>
+    colorMap: Record<string, Color>
   ): Record<string, SectionData> {
     const dataSet: Record<string, SectionData> = {};
     Object.entries(this.matches).forEach(([_, match]) => {
       const dataValue = match[data];
       if (!dataSet[dataValue]) {
-        dataSet[dataValue] = { color: colorMap[dataValue], label: 0 };
+        dataSet[dataValue] = { color: colorMap[dataValue], numberLabel: 0 };
       }
-      dataSet[dataValue].label++;
+      dataSet[dataValue].numberLabel++;
     });
     return dataSet;
   }
@@ -108,6 +109,7 @@ export class TeamData {
     });
     return (sum1 / (sum1 + sum2)) * 100;
   }
+  
   getComments(): [string, string][] {
     return Object.values(this.matches)
       .map((match) => [match["Comment"], match["Qual"]])

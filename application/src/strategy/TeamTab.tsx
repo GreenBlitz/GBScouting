@@ -12,7 +12,6 @@ import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
 
-
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
@@ -157,8 +156,8 @@ const TeamTab: React.FC = () => {
         <h2>Amp Accuracy</h2>
         <PieChart
           pieData={{
-            Score: { label: ampAccuracy, color: "green" },
-            Miss: { label: 100 - ampAccuracy, color: "crimson" },
+            Score: { numberLabel: ampAccuracy, color: "green" },
+            Miss: { numberLabel: 100 - ampAccuracy, color: "crimson" },
           }}
         />
       </div>
@@ -167,8 +166,8 @@ const TeamTab: React.FC = () => {
         <h2>Speaker Accuracy</h2>
         <PieChart
           pieData={{
-            Score: { label: speakerAccuracy, color: "green" },
-            Miss: { label: 100 - speakerAccuracy, color: "crimson" },
+            Score: { numberLabel: speakerAccuracy, color: "green" },
+            Miss: { numberLabel: 100 - speakerAccuracy, color: "crimson" },
           }}
         />
       </div>
@@ -176,8 +175,8 @@ const TeamTab: React.FC = () => {
         <h2>Pass Accuracy</h2>
         <PieChart
           pieData={{
-            Score: { label: passAccuracy, color: "green" },
-            Miss: { label: 100 - passAccuracy, color: "crimson" },
+            Score: { numberLabel: passAccuracy, color: "green" },
+            Miss: { numberLabel: 100 - passAccuracy, color: "crimson" },
           }}
         />
       </div>

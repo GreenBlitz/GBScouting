@@ -8,13 +8,13 @@ import {
 } from "chart.js";
 import React from "react";
 import { Line } from "react-chartjs-2";
+import { Color } from "../../utils/Color";
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Legend);
 
 
 const DefaultSize = { width: 400, height: 300 };
 
-type Color = string;
 
 interface DataSet {
   color: Color;

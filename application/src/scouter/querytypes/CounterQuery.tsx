@@ -1,10 +1,11 @@
 import React from "react";
 import { queryFolder } from "../../utils/FolderStorage";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
+import { Color } from "../../utils/Color";
 
 class CounterQuery extends ScouterQuery<
   number,
-  { color?: string },
+  { color?: Color },
   { count: number }
 > {
   getStartingState(props: QueryProps<number>) {

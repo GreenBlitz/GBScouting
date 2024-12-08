@@ -1,12 +1,13 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+import { Color } from "../../utils/Color";
 
 Chart.register(ArcElement, Tooltip, Legend);
 
 export interface SectionData {
-  label: number;
-  color: string;
+  numberLabel: number;
+  color: Color;
 }
 interface PieChartProps {
   pieData: Record<string, SectionData>;
@@ -15,7 +16,7 @@ interface PieChartProps {
 const PieChart: React.FC<PieChartProps> = ({ pieData }) => {
   const names = Object.keys(pieData);
   const data = Object.values(pieData).map((section) => {
-    return section.label;
+    return section.numberLabel;
   });
   const backgroundColor = Object.values(pieData).map((section) => {
     return section.color;
