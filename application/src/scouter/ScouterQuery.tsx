@@ -1,64 +1,47 @@
-import React, { useEffect } from "react";
-import CheckboxQuery from "./querytypes/CheckboxQuery";
-import CounterQuery from "./querytypes/CounterQuery";
-import ListQuery from "./querytypes/ListQuery";
-import RadioQuery from "./querytypes/RadioQuery";
-interface ScouterQueryProps {
+import React from "react";
+import { queryFolder } from "../utils/FolderStorage";
+
+export interface QueryProps<T> {
   name: string;
-  queryType: "text" | "counter" | "checkbox" | "number" | "list" | "radio";
   required?: boolean | undefined;
-  list?: string[];
+  defaultValue?: T;
 }
 
-export const localStorageTabName = "Queries/";
+abstract class ScouterQuery<
+  T,
+  Props extends {} = {},
+  State extends {} = {}
 
-const ScouterQuery: React.FC<ScouterQueryProps> = ({
-  name,
-  queryType,
-  required,
-  list,
-}) => {
-  function renderInput() {
-    switch (queryType) {
-      case "counter":
-        return <CounterQuery name={name} />;
-      case "checkbox":
-        return <CheckboxQuery name={name} required={required} />;
-      case "list":
-        return (
-          <ListQuery name={name} required={required} list={list ? list : []} />
-        );
-      case "radio":
-        return (
-          <RadioQuery name={name} required={required} list={list ? list : []} />
-        );
-      default:
-        const storageName = localStorageTabName + name;
-        useEffect(() => {
-          if (!localStorage.getItem(storageName))
-            localStorage.setItem(storageName, "");
-        });
-        return (
-          <input
-            type={queryType}
-            id={name}
-            name={name}
-            required={required}
-            defaultValue={localStorage.getItem(storageName) || ""}
-            onChange={(event) =>
-              localStorage.setItem(storageName, event.target.value)
-            }
-          />
-        );
+> extends React.Component<QueryProps<T> & Props, State> {
+  constructor(props: QueryProps<T> & Props) {
+    super(props);
+
+    if (!queryFolder.getItem(props.name)) {
+      queryFolder.setItem(
+        props.name,
+        (this.props.defaultValue || this.getInitialValue(props)) + ""
+      );
+    }
+    const startingState = this.getStartingState(props);
+    if (startingState) {
+      this.state = startingState;
     }
   }
 
-  return (
-    <div className="scouter-query">
-      <h2>{name}</h2>
-      {renderInput()}
-    </div>
-  );
-};
+  render(): React.ReactNode {
+    return (
+      <div className="scouter-query">
+        <h2>{this.props.name}</h2>
+        {this.renderInput()}
+      </div>
+    );
+  }
+
+  getStartingState(props: QueryProps<T> & Props): State | undefined {
+    return undefined;
+  };
+  abstract renderInput(): React.ReactNode;
+  abstract getInitialValue(props: QueryProps<T> & Props): T;
+}
 
 export default ScouterQuery;

@@ -1,3 +1,6 @@
+import { SectionData } from "./strategy/charts/PieChart";
+import { DataPoint, PassingPoint } from "./strategy/charts/MapChart";
+import { Color } from "./utils/Color";
 export class TeamData {
   public readonly matches: Record<string, Record<string, string>>;
   [key: string]: any;
@@ -14,7 +17,10 @@ export class TeamData {
         return (
           points.filter((point) => {
             if (data === "Pass" && point[0]) {
-              return  point[0]["data"] === "Pass" && point[0]["successfulness"] === succesfulness;
+              return (
+                point[0]["data"] === "Pass" &&
+                point[0]["successfulness"] === succesfulness
+              );
             }
             return (
               point["data"] === data &&
@@ -78,14 +84,17 @@ export class TeamData {
     return dataSet;
   }
 
-  getAsPie(data: string, colorMap: Record<string, string>) {
-    const dataSet: Record<string, [number, string]> = {};
+  getAsPie(
+    data: string,
+    colorMap: Record<string, Color>
+  ): Record<string, SectionData> {
+    const dataSet: Record<string, SectionData> = {};
     Object.entries(this.matches).forEach(([_, match]) => {
       const dataValue = match[data];
       if (!dataSet[dataValue]) {
-        dataSet[dataValue] = [0, colorMap[dataValue]];
+        dataSet[dataValue] = { color: colorMap[dataValue], numberLabel: 0 };
       }
-      dataSet[dataValue][0]++;
+      dataSet[dataValue].numberLabel++;
     });
     return dataSet;
   }
@@ -99,5 +108,22 @@ export class TeamData {
       sum2 += parseInt(match[data2]);
     });
     return (sum1 / (sum1 + sum2)) * 100;
+  }
+  
+  getComments(): [string, string][] {
+    return Object.values(this.matches)
+      .map((match) => [match["Comment"], match["Qual"]])
+      .filter(([comment, qual]) => comment !== "") as [string, string][];
+  }
+
+  getAllPoints() {
+    let points: (DataPoint | PassingPoint)[] = [];
+    Object.values(this.matches).forEach((match) => {
+      const mapPoints: (DataPoint | PassingPoint)[] = JSON.parse(
+        match[TeamData.mapName + "/Points"]
+      );
+      points = [...points, ...mapPoints];
+    });
+    return points;
   }
 }
