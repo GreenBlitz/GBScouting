@@ -41,7 +41,7 @@ function serdeStringifiedNum(bitCount: number): Serde<string> {
 }
 
 function serdeString(): Serde<string> {
-  const STRING_LENGTH_BIT_COUNT: number = 4 * 8;
+  const STRING_LENGTH_BIT_COUNT: number = 12;
   function serializer(serializedData: BitArray, string: string) {
     const encodedString: Uint8Array = new TextEncoder().encode(string);
 
@@ -173,7 +173,7 @@ export function serdeRecord<T>(fieldsSerde: FieldsRecordSerde<T>): Serde<Record<
   };
 }
 
-const ARRAY_LENGTH_DEFAULT_BIT_COUNT: number = 14;
+const ARRAY_LENGTH_DEFAULT_BIT_COUNT: number = 12;
 function serdeArray<T>(itemSerde: Serde<T>, bitCount = ARRAY_LENGTH_DEFAULT_BIT_COUNT): Serde<T[]> {
   const ARRAY_LENGTH_SERDE = serdeUnsignedInt(bitCount);
   function serializer(itemSerializer: Serializer<T>, serializedData: BitArray, arr: T[]) {
@@ -362,11 +362,11 @@ const CLIMB_POSSIBLE_VALUES = [
 
 const GAME_SIDE_POSSIBLE_VALUES = ["Blue", "Red"];
 
-const QUAL_BIT_COUNT = 2 * 8;
+const QUAL_BIT_COUNT = 9;
 
-const SPEAKER_SCORE_MISS_BIT_COUNT = 2 * 8;
+const SPEAKER_SCORE_MISS_BIT_COUNT = 5;
 
-const CRESCENDO_POINTS_CORDS_BIT_COUNT = 2 * 8;
+const CRESCENDO_POINTS_CORDS_BIT_COUNT = 8;
 const CRESCENDO_POINTS_DATA_POSSIBLE_VALUES = ["Speaker", "Pass"];
 const CRESSENDO_POINTS_INNER_SERDE_RECORD_FIELDS = serdeRecordFieldsBuilder([
   ["x", serdeUnsignedInt(CRESCENDO_POINTS_CORDS_BIT_COUNT)],
@@ -384,9 +384,9 @@ const CRESCENDO_POINTS_ARRAY_SERDE: Serde<string> = serdeStringifiedArray(
   )
 );
 
-const CRESCENDO_AMP_MISS_BIT_COUNT = 2 * 8;
+const CRESCENDO_AMP_MISS_BIT_COUNT = 8;
 
-const CRESCENDO_AMP_SCORE_BIT_COUNT = 2 * 8;
+const CRESCENDO_AMP_SCORE_BIT_COUNT = 8;
 
 const AUTOMAP_STARTING_SIDE_POSSIBLE_VALUES = ["blue", "red"];
 
