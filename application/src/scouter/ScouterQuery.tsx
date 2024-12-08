@@ -5,6 +5,7 @@ export interface QueryProps<T> {
   name: string;
   required?: boolean | undefined;
   defaultValue?: T;
+  hideLabel?: boolean;
 }
 
 abstract class ScouterQuery<
@@ -27,7 +28,9 @@ abstract class ScouterQuery<
   render(): React.ReactNode {
     return (
       <div className="scouter-query">
-        <h2>{this.props.name}</h2>
+        {!this.props.hideLabel && (
+          <h2 className="text-lg font-medium text-gray-200 mb-2">{this.props.name}</h2>
+        )}
         {this.renderInput()}
       </div>
     );
