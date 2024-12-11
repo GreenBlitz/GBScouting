@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
@@ -16,29 +22,28 @@ function getHiddenImage(path: string) {
         width: 0,
         height: 0,
       }}
-    >
-    </div>
+    ></div>
   );
 }
 
 export function renderScouterNavBar() {
   return (
-      <nav className="nav-bar">
-        {getHiddenImage("./src/assets/Crescendo Map.png")}
-        {getHiddenImage("./src/assets/Blue Auto Map.png")}
-        {getHiddenImage("./src/assets/Red Auto Map.png")}
-        <ul>
-          <li>
-            <Link to="/">Match List</Link>
-          </li>
-          <li>
-            <Link to="/ScouterTab">Scout Game</Link>
-          </li>
-          <li>
-            <Link to="/ScannerTab">Scan Match</Link>
-          </li>
-        </ul>
-      </nav>
+    <nav className="nav-bar">
+      {getHiddenImage("./src/assets/Crescendo Map.png")}
+      {getHiddenImage("./src/assets/Blue Auto Map.png")}
+      {getHiddenImage("./src/assets/Red Auto Map.png")}
+      <ul>
+        <li>
+          <Link to="/">Match List</Link>
+        </li>
+        <li>
+          <Link to="/ScouterTab">Scout Game</Link>
+        </li>
+        <li>
+          <Link to="/ScannerTab">Scan Match</Link>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
@@ -59,6 +64,23 @@ export function renderStrategyNavBar() {
 
 const App: React.FC = () => {
   
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      // Prevent default behavior and show a warning dialog
+      event.preventDefault();
+      event.returnValue = ""; // This triggers the browser's warning dialog.
+    };
+
+    // Attach the event listener for refresh and tab close
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      // Clean up the event listener
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+
   return (
     <BrowserRouter>
       <Routes>
@@ -69,7 +91,7 @@ const App: React.FC = () => {
         <Route path="/GeneralTab" Component={GeneralTab} />
       </Routes>
     </BrowserRouter>
-  ); 
+  );
 };
 
 export default App;
