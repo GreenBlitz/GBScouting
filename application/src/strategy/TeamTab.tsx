@@ -72,7 +72,7 @@ const TeamTab: React.FC = () => {
         <h2>Map</h2>
         <MapChart
           imagePath={"./src/assets/Crescendo Map.png"}
-          dataPoints={teamData.getAllPoints()}
+          fieldObjects={teamData.getAllFieldObjects()}
         />
       </div>
       <br />

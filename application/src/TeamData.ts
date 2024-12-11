@@ -1,9 +1,5 @@
 import { SectionData } from "./strategy/charts/PieChart";
-import {
-  FieldPoint,
-  FieldLine,
-  FieldObject,
-} from "./strategy/charts/MapChart";
+import { FieldLine, FieldObject, FieldPoint } from "./strategy/charts/MapChart";
 import { Color } from "./utils/Color";
 
 interface Comment {
@@ -21,20 +17,24 @@ export class TeamData {
   constructor(teamMatches: Record<string, string>[]) {
     this.matches = {};
     teamMatches.forEach((match) => {
-      const points: any[] = JSON.parse(match[TeamData.mapName + "/Points"]);
+      const fieldObjects: FieldObject[] = JSON.parse(
+        match[TeamData.mapName + "/Points"]
+      );
       const matchNumber = match[TeamData.matchName];
       function countDataFromMap(data: string, succesfulness: boolean) {
         return (
-          points.filter((point) => {
-            if (data === "Pass" && point[0]) {
+          fieldObjects.filter((fieldObject) => {
+            const isLine = (fieldObject as FieldPoint).x === undefined;
+            if (isLine) {
+              const fieldLine = fieldObject as FieldLine;
               return (
-                point[0]["data"] === "Pass" &&
-                point[0]["successfulness"] === succesfulness
+                fieldLine.data === data &&
+                fieldObject.successfulness === succesfulness
               );
             }
             return (
-              point["data"] === data &&
-              point["successfulness"] === succesfulness
+              fieldObject.data === data &&
+              fieldObject.successfulness === succesfulness
             );
           }).length + ""
         );
@@ -126,7 +126,7 @@ export class TeamData {
     });
   }
 
-  getAllPoints(): FieldObject[] {
+  getAllFieldObjects(): FieldObject[] {
     let points: FieldObject[] = [];
     Object.values(this.matches).forEach((match) => {
       const mapPoints: FieldObject[] = JSON.parse(

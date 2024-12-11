@@ -3,7 +3,11 @@ import { Point } from "chart.js";
 import React from "react";
 import CounterQuery from "./CounterQuery";
 import { Queries, queryFolder } from "../../utils/FolderStorage";
-import {FieldLine, FieldObject, FieldPoint} from "../../strategy/charts/MapChart.tsx"
+import {
+  FieldLine,
+  FieldObject,
+  FieldPoint,
+} from "../../strategy/charts/MapChart.tsx";
 interface MapQueryProps {
   name: string;
   side: "blue" | "red";
@@ -29,14 +33,14 @@ const MapQuery: React.FC<MapQueryProps> = ({
   side,
 }) => {
   const mapFolder = queryFolder.with(name + "/");
-  const [dataPoints, setDataPoints] = useState<FieldObject[]>(
+  const [fieldObjects, setFieldObjects] = useState<FieldObject[]>(
     JSON.parse(mapFolder.getItem("Points") || "[]")
   );
 
   const [pressedButton, setPressedButton] = useState<string>(defaultButton);
   const [lastClickedPoint, setLastClickedPoint] = useState<Point>();
 
-  const [passingPoint, setPassingPoint] = useState<FieldPoint>();
+  const [passingPoint, setFieldLine] = useState<FieldPoint>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current ? canvasRef.current.getContext("2d") : null;
@@ -45,7 +49,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
     return pressedButton !== "";
   }
 
-  function addPoint(point: Point, successfulness: boolean) {
+  function addObjects(point: Point, successfulness: boolean) {
     if (!isButtonPressed()) {
       return;
     }
@@ -58,30 +62,30 @@ const MapQuery: React.FC<MapQueryProps> = ({
     };
     setLastClickedPoint(undefined);
     if (pressedButton === "Pass" && successfulness) {
-      setPassingPoint(clickedPoint);
+      setFieldLine(clickedPoint);
       return;
     }
-    setDataPoints((prev) => [...prev, clickedPoint]);
+    setFieldObjects((prev) => [...prev, clickedPoint]);
   }
 
-  function removeLastPoint() {
-    dataPoints.pop();
-    setDataPoints((prev) => {
-      prev = dataPoints;
+  function removeLastObject() {
+    fieldObjects.pop();
+    setFieldObjects((prev) => {
+      prev = fieldObjects;
       return [...prev];
     });
   }
 
-  function drawPoints() {
+  function drawObjects() {
     if (!context) {
       return;
     }
     context.clearRect(0, 0, width, height);
 
-    for (let point of dataPoints) {
+    for (let point of fieldObjects) {
       const isLine = (point as FieldPoint).x === undefined;
       if (isLine) {
-        const [startPoint, endPoint] = point as FieldLine;
+        const { startPoint, endPoint } = point as FieldLine;
         context.strokeStyle = crescendoButtons["Pass"];
         context.beginPath();
         context.moveTo(startPoint.x, startPoint.y);
@@ -113,8 +117,14 @@ const MapQuery: React.FC<MapQueryProps> = ({
     };
 
     if (passingPoint) {
-      setDataPoints((prev) => [...prev, [passingPoint, clickedPoint]]);
-      setPassingPoint(undefined);
+      const fieldLine: FieldLine = {
+        data: passingPoint.data,
+        successfulness: passingPoint.successfulness,
+        startPoint: passingPoint,
+        endPoint: clickedPoint,
+      };
+      setFieldObjects((prev) => [...prev, fieldLine]);
+      setFieldLine(undefined);
       setPressedButton(defaultButton);
 
       return;
@@ -123,9 +133,9 @@ const MapQuery: React.FC<MapQueryProps> = ({
   }
 
   useEffect(() => {
-    mapFolder.setItem("Points", JSON.stringify(dataPoints));
-    drawPoints();
-  }, [dataPoints, addPoint]);
+    mapFolder.setItem("Points", JSON.stringify(fieldObjects));
+    drawObjects();
+  }, [fieldObjects, addObjects]);
 
   const dataOptions = (
     <div className={"map-options"}>
@@ -135,7 +145,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
         <div>
           Set Passing Destination
           <br />
-          <button type="button" onClick={() => setPassingPoint(undefined)}>
+          <button type="button" onClick={() => setFieldLine(undefined)}>
             Undo Pass
           </button>
         </div>
@@ -175,7 +185,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
           })}
           <br />
           <br />
-          <button type="button" onClick={removeLastPoint}>
+          <button type="button" onClick={removeLastObject}>
             Undo
           </button>
         </div>
@@ -212,10 +222,16 @@ const MapQuery: React.FC<MapQueryProps> = ({
             : 0,
         }}
       >
-        <button type="button" onClick={() => addPoint(lastClickedPoint, true)}>
+        <button
+          type="button"
+          onClick={() => addObjects(lastClickedPoint, true)}
+        >
           ✅Score
         </button>
-        <button type="button" onClick={() => addPoint(lastClickedPoint, false)}>
+        <button
+          type="button"
+          onClick={() => addObjects(lastClickedPoint, false)}
+        >
           ❌Miss
         </button>
         <button type="button" onClick={() => setLastClickedPoint(undefined)}>
@@ -258,7 +274,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
           type="hidden"
           id={name}
           name={name}
-          value={JSON.stringify(dataPoints)}
+          value={JSON.stringify(fieldObjects)}
         />
       </div>
       {canvasRef.current &&

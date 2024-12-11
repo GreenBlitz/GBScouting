@@ -4,18 +4,23 @@ import { useEffect, useRef } from "react";
 
 const DefaultSize = { width: 432, height: 192 };
 
-export interface FieldPoint extends Point {
+interface FieldData {
   data: string;
   successfulness: boolean;
 }
-export type FieldLine = [FieldPoint, Point];
+
+export interface FieldPoint extends Point, FieldData {}
+export interface FieldLine extends FieldData {
+  startPoint: Point;
+  endPoint: Point;
+}
 
 export type FieldObject = FieldLine | FieldPoint;
 interface MapChartProps {
   width?: number;
   height?: number;
   imagePath: string;
-  dataPoints: FieldObject[];
+  fieldObjects: FieldObject[];
 }
 
 const colorMap: Record<string, string> = {
@@ -30,7 +35,7 @@ const MapChart: React.FC<MapChartProps> = ({
   width: mapWidth,
   height: mapHeight,
   imagePath,
-  dataPoints,
+  fieldObjects,
 }) => {
   const [width, height] = [
     mapWidth || DefaultSize.width,
@@ -44,10 +49,10 @@ const MapChart: React.FC<MapChartProps> = ({
     }
     context.clearRect(0, 0, width, height);
 
-    for (let point of dataPoints) {
-      const isPassing = (point as FieldPoint).x === undefined;
+    for (let fieldObject of fieldObjects) {
+      const isPassing = (fieldObject as FieldPoint).x === undefined;
       if (isPassing) {
-        const [startPoint, endPoint] = point as FieldLine;
+        const { startPoint, endPoint } = fieldObject as FieldLine;
         context.strokeStyle = colorMap["Pass"];
         context.beginPath();
         context.moveTo(startPoint.x, startPoint.y);
@@ -58,26 +63,26 @@ const MapChart: React.FC<MapChartProps> = ({
         context.beginPath();
         context.arc(startPoint.x, startPoint.y, pointRadius, 0, 2 * Math.PI);
         context.fill();
-        point = {
+        fieldObject = {
           x: endPoint.x,
           y: endPoint.y,
           data: "Note",
-          successfulness: startPoint.successfulness,
+          successfulness: fieldObject.successfulness,
         };
       }
-      point = point as FieldPoint;
-      context.fillStyle = colorMap[point.data];
-      if (point.data === "Speaker") {
+      fieldObject = fieldObject as FieldPoint;
+      context.fillStyle = colorMap[fieldObject.data];
+      if (fieldObject.data === "Speaker") {
         context.fillStyle =
-          colorMap[`Speaker ${point.successfulness ? "Score" : "Miss"}`];
+          colorMap[`Speaker ${fieldObject.successfulness ? "Score" : "Miss"}`];
       }
       context.beginPath();
-      context.arc(point.x, point.y, pointRadius, 0, 2 * Math.PI);
+      context.arc(fieldObject.x, fieldObject.y, pointRadius, 0, 2 * Math.PI);
       context.fill();
     }
   }
 
-  useEffect(drawPoints, [dataPoints]);
+  useEffect(drawPoints, [fieldObjects]);
   return (
     <div
       style={{
