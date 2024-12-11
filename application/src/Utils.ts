@@ -18,13 +18,20 @@ export async function fetchData(
     },
     body: body,
   })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
+
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
 }
+
+export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
+  return Array.from({length:rangeEnd - rangeStart})
+    .map((_, i) => i + rangeStart);
+}
+
 
 export async function getMatchesByCriteria(field?: string, value?: string) {
   const searchedField = field && value ? `${field}/${value}` : ``;

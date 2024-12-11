@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import React from "react";
-import * as serde from "../Serde";
+import * as serde from "../utils/Serde";
 import {encode} from "uint8-to-base64";
 
 interface QRCodeGeneratorProps {
@@ -12,7 +12,7 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ text }) => {
   const [qrCodeData, setQrCodeData] = useState<string | null>(null);
   console.log("raw data:");
   console.log(JSON.parse(text));
-  let serialized=serde.serdeRecord(serde.qrSerde).serializer(JSON.parse(text));
+  let serialized = serde.serialize(serde.serdeRecord(serde.qrSerde).serializer,JSON.parse(text));
   console.log(serialized);
 
   useEffect(() => {
