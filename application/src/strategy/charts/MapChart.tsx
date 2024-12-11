@@ -2,19 +2,20 @@ import { Point } from "chart.js";
 import React from "react";
 import { useEffect, useRef } from "react";
 
+const DefaultSize = { width: 432, height: 192 };
 
-const DefaultSize = {width: 432, height: 192}
-
-export interface DataPoint extends Point {
+export interface FieldPoint extends Point {
   data: string;
-  successfulness: number;
+  successfulness: boolean;
 }
-export type PassingPoint = [DataPoint, Point];
+export type FieldLine = [FieldPoint, Point];
+
+export type FieldObject = FieldLine | FieldPoint;
 interface MapChartProps {
   width?: number;
   height?: number;
   imagePath: string;
-  dataPoints: (DataPoint | PassingPoint)[];
+  dataPoints: FieldObject[];
 }
 
 const colorMap: Record<string, string> = {
@@ -31,7 +32,10 @@ const MapChart: React.FC<MapChartProps> = ({
   imagePath,
   dataPoints,
 }) => {
-  const [width, height] = [mapWidth || DefaultSize.width, mapHeight || DefaultSize.height];
+  const [width, height] = [
+    mapWidth || DefaultSize.width,
+    mapHeight || DefaultSize.height,
+  ];
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current ? canvasRef.current.getContext("2d") : null;
   function drawPoints() {
@@ -41,9 +45,9 @@ const MapChart: React.FC<MapChartProps> = ({
     context.clearRect(0, 0, width, height);
 
     for (let point of dataPoints) {
-      const isPassing = (point as DataPoint).x === undefined;
+      const isPassing = (point as FieldPoint).x === undefined;
       if (isPassing) {
-        const [startPoint, endPoint] = point as PassingPoint;
+        const [startPoint, endPoint] = point as FieldLine;
         context.strokeStyle = colorMap["Pass"];
         context.beginPath();
         context.moveTo(startPoint.x, startPoint.y);
@@ -61,7 +65,7 @@ const MapChart: React.FC<MapChartProps> = ({
           successfulness: startPoint.successfulness,
         };
       }
-      point = point as DataPoint;
+      point = point as FieldPoint;
       context.fillStyle = colorMap[point.data];
       if (point.data === "Speaker") {
         context.fillStyle =

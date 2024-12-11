@@ -69,15 +69,15 @@ abstract class Storable<T> {
 
   get(): T;
   get(checker?: T): T {
-    const stringRepresentation = this.storage.getItem(this.name) + "";
+    const unparsedItem = this.storage.getItem(this.name) + "";
 
     const typeCheck = checker || "";
     if (typeof typeCheck === "string") {
       //very stupid string shenanigans
-      return stringRepresentation as T;
+      return unparsedItem as T;
     }
 
-    return JSON.parse(stringRepresentation);
+    return JSON.parse(unparsedItem);
   }
 
   set(value: T): void {

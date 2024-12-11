@@ -1,6 +1,5 @@
 import React from "react";
-import { queryFolder } from "../../utils/FolderStorage";
-import ScouterQuery, { QueryProps } from "../ScouterQuery";
+import ScouterQuery from "../ScouterQuery";
 
 class TextQuery extends ScouterQuery<string> {
   getInitialValue(): string {

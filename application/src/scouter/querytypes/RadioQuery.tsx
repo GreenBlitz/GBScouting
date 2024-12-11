@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { queryFolder } from "../../utils/FolderStorage";
+import React from "react";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class RadioQuery extends ScouterQuery<string, { list: string[] }> {

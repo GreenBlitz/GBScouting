@@ -1,5 +1,5 @@
 import React from "react";
-import { queryFolder, QueryStorable } from "../utils/FolderStorage";
+import { QueryStorable } from "../utils/FolderStorage";
 
 export interface QueryProps<T> {
   storage: QueryStorable<T>;
@@ -16,7 +16,7 @@ abstract class ScouterQuery<
     super(props);
 
     if (!props.storage.exists()) {
-      props.storage.set(this.props.defaultValue || this.getInitialValue(props))
+      props.storage.set(this.props.defaultValue || this.getInitialValue(props));
     }
     const startingState = this.getStartingState(props);
     if (startingState) {

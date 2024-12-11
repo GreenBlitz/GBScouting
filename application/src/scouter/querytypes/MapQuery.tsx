@@ -3,6 +3,7 @@ import { Point } from "chart.js";
 import React from "react";
 import CounterQuery from "./CounterQuery";
 import { Queries, queryFolder } from "../../utils/FolderStorage";
+import {FieldLine, FieldObject, FieldPoint} from "../../strategy/charts/MapChart.tsx"
 interface MapQueryProps {
   name: string;
   side: "blue" | "red";
@@ -10,13 +11,6 @@ interface MapQueryProps {
   height: number;
   imagePath: string;
 }
-
-interface DataPoint extends Point {
-  data: string;
-  successfulness: boolean;
-}
-
-type PassingPoint = [DataPoint, Point];
 
 const pointRadius: number = 5;
 const succesfulnessOffset = [80, -60];
@@ -35,14 +29,14 @@ const MapQuery: React.FC<MapQueryProps> = ({
   side,
 }) => {
   const mapFolder = queryFolder.with(name + "/");
-  const [dataPoints, setDataPoints] = useState<(DataPoint | PassingPoint)[]>(
+  const [dataPoints, setDataPoints] = useState<FieldObject[]>(
     JSON.parse(mapFolder.getItem("Points") || "[]")
   );
 
   const [pressedButton, setPressedButton] = useState<string>(defaultButton);
   const [lastClickedPoint, setLastClickedPoint] = useState<Point>();
 
-  const [passingPoint, setPassingPoint] = useState<DataPoint>();
+  const [passingPoint, setPassingPoint] = useState<FieldPoint>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current ? canvasRef.current.getContext("2d") : null;
@@ -56,7 +50,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
       return;
     }
 
-    const clickedPoint: DataPoint = {
+    const clickedPoint: FieldPoint = {
       x: point.x,
       y: point.y,
       data: pressedButton,
@@ -85,9 +79,9 @@ const MapQuery: React.FC<MapQueryProps> = ({
     context.clearRect(0, 0, width, height);
 
     for (let point of dataPoints) {
-      const isPassing = (point as DataPoint).x === undefined;
-      if (isPassing) {
-        const [startPoint, endPoint] = point as PassingPoint;
+      const isLine = (point as FieldPoint).x === undefined;
+      if (isLine) {
+        const [startPoint, endPoint] = point as FieldLine;
         context.strokeStyle = crescendoButtons["Pass"];
         context.beginPath();
         context.moveTo(startPoint.x, startPoint.y);
@@ -95,7 +89,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
         context.lineWidth = pointRadius;
         context.stroke();
       } else {
-        point = point as DataPoint;
+        point = point as FieldPoint;
         if (point.data === "Speaker" && !point.successfulness) {
           context.fillStyle = "red";
         } else {

@@ -1,25 +1,20 @@
-import React, { useEffect } from "react";
-import { queryFolder } from "../../utils/FolderStorage";
+import React from "react";
 import ScouterQuery from "../ScouterQuery";
 
 class CheckboxQuery extends ScouterQuery<boolean> {
   renderInput(): React.ReactNode {
-    const updateCheckbox = () => {
-      const newValue =
-        queryFolder.getItem(this.props.name) === "true" ? "false" : "true";
-      queryFolder.setItem(this.props.name, newValue);
-    };
     return (
       <input
         type="checkbox"
-        id={this.props.name}
-        name={this.props.name}
+        id={this.props.storage.name}
+        name={this.props.storage.name}
         required={this.props.required}
-        onChange={updateCheckbox}
-        defaultChecked={queryFolder.getItem(this.props.name) === "true"}
+        onChange={() => this.props.storage.set(!this.props.storage.get())}
+        defaultChecked={this.props.storage.get()}
       />
     );
   }
+  
   getInitialValue(): boolean {
     return this.props.defaultValue || false;
   }

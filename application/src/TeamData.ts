@@ -1,6 +1,16 @@
 import { SectionData } from "./strategy/charts/PieChart";
-import { DataPoint, PassingPoint } from "./strategy/charts/MapChart";
+import {
+  FieldPoint,
+  FieldLine,
+  FieldObject,
+} from "./strategy/charts/MapChart";
 import { Color } from "./utils/Color";
+
+interface Comment {
+  body: string;
+  qual: number;
+}
+
 export class TeamData {
   public readonly matches: Record<string, Record<string, string>>;
   [key: string]: any;
@@ -109,17 +119,17 @@ export class TeamData {
     });
     return (sum1 / (sum1 + sum2)) * 100;
   }
-  
-  getComments(): [string, string][] {
-    return Object.values(this.matches)
-      .map((match) => [match["Comment"], match["Qual"]])
-      .filter(([comment, qual]) => comment !== "") as [string, string][];
+
+  getComments(): Comment[] {
+    return Object.values(this.matches).map((match) => {
+      return { body: match["Comment"], qual: parseInt(match["Qual"]) };
+    });
   }
 
-  getAllPoints() {
-    let points: (DataPoint | PassingPoint)[] = [];
+  getAllPoints(): FieldObject[] {
+    let points: FieldObject[] = [];
     Object.values(this.matches).forEach((match) => {
-      const mapPoints: (DataPoint | PassingPoint)[] = JSON.parse(
+      const mapPoints: FieldObject[] = JSON.parse(
         match[TeamData.mapName + "/Points"]
       );
       points = [...points, ...mapPoints];

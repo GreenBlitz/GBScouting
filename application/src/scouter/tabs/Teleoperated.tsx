@@ -1,6 +1,6 @@
 import React from "react";
 import MapQuery from "../querytypes/MapQuery";
-import { queryFolder } from "../../utils/FolderStorage";
+import Queries from "../Queries";
 
 interface TeleoperatedProps {}
 
@@ -10,7 +10,7 @@ const Teleoperated: React.FC<TeleoperatedProps> = () => {
       <MapQuery
         name={"CRESCENDO"}
         side={
-          queryFolder.getItem("Game Side") === "Red" ? "red" : "blue"
+          Queries.GameSide.get() === "Red" ? "red" : "blue"
         }
         width={540 * 0.8}
         height={240 * 0.8}
