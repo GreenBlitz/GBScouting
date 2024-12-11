@@ -388,20 +388,6 @@ const CRESCENDO_AMP_MISS_BIT_COUNT = 8;
 
 const CRESCENDO_AMP_SCORE_BIT_COUNT = 8;
 
-const AUTOMAP_STARTING_SIDE_POSSIBLE_VALUES = ["blue", "red"];
-
-const AUTOMAP_NOTES_CORDS_BIT_COUNT = CRESCENDO_POINTS_CORDS_BIT_COUNT;
-const AUTOMAP_NOTE_POSSIBLE_COLORS = ["orange", "green", "red"];
-const AUTOMAP_NOTES_SERDE = serdeStringifiedArray(
-  serdeRecord(
-    serdeRecordFieldsBuilder([
-      ["y", serdeUnsignedInt(AUTOMAP_NOTES_CORDS_BIT_COUNT)],
-      ["x", serdeUnsignedInt(AUTOMAP_NOTES_CORDS_BIT_COUNT)],
-      ["color", serdeEnumedString(AUTOMAP_NOTE_POSSIBLE_COLORS)],
-    ])
-  )
-);
-
 const STARTING_POSITION_POSSIBLE_VALUES = [
   "Amp Side",
   "Middle",
@@ -418,11 +404,9 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["Speaker/Auto/Score", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
   ["Scouter Name", serdeString()],
   ["Comment", serdeString()],
-  ["CRESCENDO/Points", CRESCENDO_POINTS_ARRAY_SERDE],
-  ["CRESCENDO/Amp/Score", serdeStringifiedNum(CRESCENDO_AMP_SCORE_BIT_COUNT)],
-  ["AutoMap/Side", serdeEnumedString(AUTOMAP_STARTING_SIDE_POSSIBLE_VALUES)],
-  ["Automap/Notes", AUTOMAP_NOTES_SERDE],
-  ["CRESCENDO/Amp/Miss", serdeStringifiedNum(CRESCENDO_AMP_MISS_BIT_COUNT)],
+  ["MapPoints", CRESCENDO_POINTS_ARRAY_SERDE],
+  ["MapAmpScore", serdeStringifiedNum(CRESCENDO_AMP_SCORE_BIT_COUNT)],
+  ["MapAmpMiss", serdeStringifiedNum(CRESCENDO_AMP_MISS_BIT_COUNT)],
   ["Starting Position", serdeEnumedString(STARTING_POSITION_POSSIBLE_VALUES)],
   ["Speaker/Auto/Miss", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
 ]);

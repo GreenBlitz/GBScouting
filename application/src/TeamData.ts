@@ -1,6 +1,7 @@
 import { SectionData } from "./strategy/charts/PieChart";
 import { FieldLine, FieldObject, FieldPoint } from "./strategy/charts/MapChart";
 import { Color } from "./utils/Color";
+import { Match } from "./Utils";
 
 interface Comment {
   body: string;
@@ -8,17 +9,17 @@ interface Comment {
 }
 
 export class TeamData {
-  public readonly matches: Record<string, Record<string, string>>;
+  public readonly matches: Record<string, Match>;
   [key: string]: any;
 
   public static readonly matchName = "Qual";
-  public static readonly mapName = "CRESCENDO";
+  public static readonly mapName = "Map";
 
-  constructor(teamMatches: Record<string, string>[]) {
+  constructor(teamMatches: Match[]) {
     this.matches = {};
     teamMatches.forEach((match) => {
       const fieldObjects: FieldObject[] = JSON.parse(
-        match[TeamData.mapName + "/Points"]
+        match[TeamData.mapName + "Points"]
       );
       const matchNumber = match[TeamData.matchName];
       function countDataFromMap(data: string, succesfulness: boolean) {

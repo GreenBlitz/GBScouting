@@ -34,7 +34,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
   imagePath,
   side,
 }) => {
-  const mapFolder = queryFolder.with(name + "/");
+  const mapFolder = queryFolder.with(name);
   const [fieldObjects, setFieldObjects] = useState<FieldObject[]>(
     JSON.parse(mapFolder.getItem("Points") || "[]")
   );

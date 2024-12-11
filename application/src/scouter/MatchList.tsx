@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Collapsible from "react-collapsible";
 import React, { useState } from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
-import { fetchData, getServerHostname } from "../Utils";
+import { fetchData } from "../Utils";
 import { renderScouterNavBar } from "../App";
 import { matchFolder as matchesFolder } from "../utils/FolderStorage";
 
@@ -14,20 +14,19 @@ const MatchList: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+
   const [matches, setMatches] = useState<Record<string, string>[]>(
-    matchesFolder.keys()
+    matchesFolder
+      .keys()
       .map((matchName) => JSON.parse(matchesFolder.getItem(matchName) || "{}"))
   );
 
-  const latestMatch: Record<string,string> | undefined = location.state;
+  const latestMatch: Record<string, string> | undefined = location.state;
   location.state = {};
 
   if (latestMatch?.[matchName]) {
     matches.push(latestMatch);
-    matchesFolder.setItem(
-      latestMatch[matchName],
-      JSON.stringify(latestMatch)
-    );
+    matchesFolder.setItem(latestMatch[matchName], JSON.stringify(latestMatch));
   }
 
   function removeMatch(qualNumber: string, index: number) {
@@ -55,9 +54,9 @@ const MatchList: React.FC = () => {
       {matches.length === 0 && <h1>No Matches Saved</h1>}
       {matches.map((match, index) => (
         <Collapsible
-          trigger={`${"ㅤ".repeat(
-            collapsibleSize - match[matchName].length
-          )}${match["Team Number"]} ${matchName} ${match[matchName]} ${"ㅤ".repeat(
+          trigger={`${"ㅤ".repeat(collapsibleSize - match[matchName].length)}${
+            match["Team Number"]
+          } ${matchName} ${match[matchName]} ${"ㅤ".repeat(
             collapsibleSize - match[matchName].length
           )}`}
           triggerClassName={"collapsible-trigger"}

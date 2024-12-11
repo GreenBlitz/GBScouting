@@ -1,4 +1,7 @@
 import { Point } from "chart.js";
+import Queries from "./scouter/Queries";
+import ScouterQuery from "./scouter/ScouterQuery";
+import { FieldObject } from "./strategy/charts/MapChart";
 
 export const getServerHostname = () => {
   return location.host;
@@ -17,21 +20,19 @@ export async function fetchData(
       "Content-Type": "application/json",
     },
     body: body,
-  })
-
-  .then((response) => {
+  }).then((response) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     return response.json();
-  })
+  });
 }
 
 export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
-  return Array.from({length:rangeEnd - rangeStart})
-    .map((_, i) => i + rangeStart);
+  return Array.from({ length: rangeEnd - rangeStart }).map(
+    (_, i) => i + rangeStart
+  );
 }
-
 
 export async function getMatchesByCriteria(field?: string, value?: string) {
   const searchedField = field && value ? `${field}/${value}` : ``;
@@ -40,11 +41,16 @@ export async function getMatchesByCriteria(field?: string, value?: string) {
 
 export function sortMatches(matches: Match[]) {
   return matches.sort((match1, match2) => {
-    return parseInt(match1["Qual"]) - parseInt(match2["Qual"]);
+    return match1.Qual - match2.Qual;
   });
 }
 
-export type Match = Record<string, string>;
+
+export type Match = Omit<{
+  [K in keyof typeof Queries]: (typeof Queries)[K] extends ScouterQuery<infer U,any,any> ? U : never;
+}, "prototype" | "render"> & {MapPoints: FieldObject[]};
+
+
 export interface Note extends Point {
   color: "green" | "red" | "orange";
 }

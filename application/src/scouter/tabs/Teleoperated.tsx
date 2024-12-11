@@ -9,7 +9,7 @@ const Teleoperated: React.FC<TeleoperatedProps> = () => {
   return (
     <>
       <MapQuery
-        name={"CRESCENDO"}
+        name={"Map"}
         side={
           queryFolder.getItem(Queries.GameSide.props.name) as ("Blue" | "Red")
         }
