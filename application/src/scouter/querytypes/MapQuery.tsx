@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { Point } from "chart.js";
 import React from "react";
 import CounterQuery from "./CounterQuery";
-import { Queries, queryFolder } from "../../utils/FolderStorage";
+import {  queryFolder } from "../../utils/FolderStorage";
+
 import {
   FieldLine,
   FieldObject,
   FieldPoint,
 } from "../../strategy/charts/MapChart.tsx";
+import Queries from "../Queries.ts";
 interface MapQueryProps {
   name: string;
-  side: "blue" | "red";
+  side: "Blue" | "Red";
   width: number;
   height: number;
   imagePath: string;
@@ -197,9 +199,9 @@ const MapQuery: React.FC<MapQueryProps> = ({
     <div className={"map-amp"}>
       <h2>AMP</h2>
       <br />
-      <CounterQuery storage={Queries.AmpScore} color="#12a119" />
+      {Queries.AmpScore.render()}
       <br />
-      <CounterQuery storage={Queries.AmpMiss} color="#8f0a0e" />
+      {Queries.AmpMiss.render()}
     </div>
   );
 
@@ -244,7 +246,7 @@ const MapQuery: React.FC<MapQueryProps> = ({
   return (
     <>
       <div className="map-buttons">
-        {side === "blue" ? (
+        {side === "Blue" ? (
           <>
             {ampOptions}
             {dataOptions}

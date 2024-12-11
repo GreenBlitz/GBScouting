@@ -10,13 +10,11 @@ class NumberQuery extends ScouterQuery<number> {
     return (
       <input
         type="number"
-        id={this.props.storage.name}
-        name={this.props.storage.name}
+        id={this.storage.name}
+        name={this.storage.name}
         required={this.props.required}
-        defaultValue={this.props.storage.get()}
-        onChange={(event) =>
-          this.props.storage.set(parseInt(event.target.value))
-        }
+        defaultValue={this.storage.get()}
+        onChange={(event) => this.storage.set(parseInt(event.target.value))}
       />
     );
   }

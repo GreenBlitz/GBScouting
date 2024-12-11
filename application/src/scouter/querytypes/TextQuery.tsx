@@ -10,12 +10,12 @@ class TextQuery extends ScouterQuery<string> {
     return (
       <input
         type="text"
-        id={this.props.storage.name}
-        name={this.props.storage.name}
+        id={this.storage.name}
+        name={this.storage.name}
         required={this.props.required}
-        defaultValue={this.props.storage.get()}
+        defaultValue={this.storage.get()}
         onChange={(event) =>
-          this.props.storage.set(event.target.value)
+          this.storage.set(event.target.value)
         }
       />
     );

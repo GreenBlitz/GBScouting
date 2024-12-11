@@ -2,7 +2,7 @@ import React from "react";
 import { QueryStorable } from "../utils/FolderStorage";
 
 export interface QueryProps<T> {
-  storage: QueryStorable<T>;
+  name: string;
   required?: boolean | undefined;
   defaultValue?: T;
 }
@@ -12,11 +12,12 @@ abstract class ScouterQuery<
   Props extends {} = {},
   State extends {} = {}
 > extends React.Component<QueryProps<T> & Props, State> {
+  protected readonly storage: QueryStorable<T>;
   constructor(props: QueryProps<T> & Props) {
     super(props);
-
-    if (!props.storage.exists()) {
-      props.storage.set(this.props.defaultValue || this.getInitialValue(props));
+    this.storage = new QueryStorable<T>(this.props.name);
+    if (!this.storage.exists()) {
+      this.storage.set(this.props.defaultValue || this.getInitialValue(props));
     }
     const startingState = this.getStartingState(props);
     if (startingState) {
@@ -27,7 +28,7 @@ abstract class ScouterQuery<
   render(): React.ReactNode {
     return (
       <div className="scouter-query">
-        <h2>{this.props.storage.name}</h2>
+        <h2>{this.storage.name}</h2>
         {this.renderInput()}
       </div>
     );

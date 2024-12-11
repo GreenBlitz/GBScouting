@@ -8,7 +8,7 @@ class CounterQuery extends ScouterQuery<
   { count: number }
 > {
   getStartingState(props: QueryProps<number>) {
-    const savedValue = props.storage.get();
+    const savedValue = this.storage.get();
     return { count: savedValue || 0 };
   }
 
@@ -18,7 +18,7 @@ class CounterQuery extends ScouterQuery<
 
   renderInput(): React.ReactNode {
     const setCount = (newCount: number) => {
-      this.props.storage.set(newCount);
+      this.storage.set(newCount);
       this.setState({ count: newCount });
     };
 
@@ -34,8 +34,8 @@ class CounterQuery extends ScouterQuery<
         <h3>{this.state.count}</h3>
         <input
           type="hidden"
-          id={this.props.storage.name}
-          name={this.props.storage.name}
+          id={this.storage.name}
+          name={this.storage.name}
           value={this.state.count}
         />
         <button

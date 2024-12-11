@@ -5,13 +5,11 @@ class ListQuery extends ScouterQuery<string, { list: string[] }> {
   renderInput(): React.ReactNode {
     return (
       <select
-        name={this.props.storage.name}
-        id={this.props.storage.name}
+        name={this.storage.name}
+        id={this.storage.name}
         required={this.props.required}
-        defaultValue={this.props.storage.get()}
-        onChange={(event) =>
-          this.props.storage.set(event.target.value)
-        }
+        defaultValue={this.storage.get()}
+        onChange={(event) => this.storage.set(event.target.value)}
       >
         {this.props.list.map((item, index) => (
           <option value={item} key={index}>

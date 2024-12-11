@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import CounterQuery from "../querytypes/CounterQuery";
-import { Queries } from "../../utils/FolderStorage";
+import Queries from "../Queries";
 interface AutonomousProps {}
 
 const Autonomous: React.FC<AutonomousProps> = () => {
@@ -11,13 +11,13 @@ const Autonomous: React.FC<AutonomousProps> = () => {
           <h3>SCORE </h3>
           <br />
 
-          <CounterQuery storage={Queries.SpeakerAutoScore} color="#12a119" />
+          {Queries.SpeakerAutoScore.render()}
         </div>
         <div className="speaker-auto">
           <h3>MISS</h3>
           <br />
 
-          <CounterQuery storage={Queries.SpeakerAutoMiss} color="#8f0a0e" />
+          {Queries.SpeakerAutoMiss.render()}
         </div>
       </div>
       <br />

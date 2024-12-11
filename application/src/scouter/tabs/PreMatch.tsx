@@ -1,22 +1,12 @@
 import React from "react";
-import TextQuery from "../querytypes/TextQuery";
-import NumberQuery from "../querytypes/NumberQuery";
-import ListQuery from "../querytypes/ListQuery";
-import { Queries } from "../../utils/FolderStorage";
+import Queries from "../Queries";
 
 interface PreGameProps {}
 
 const PreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
-      <TextQuery storage={Queries.ScouterName} />
-      <NumberQuery storage={Queries.Qual} />
-      <NumberQuery storage={Queries.TeamNumber} />
-      <ListQuery storage={Queries.GameSide} list={["Blue", "Red"]} />
-      <ListQuery
-        storage={Queries.StartingPosition}
-        list={["Amp Side", "Middle", "Source Side", "No Show"]}
-      />
+      {Queries.render([Queries.ScouterName, Queries.Qual, Queries.TeamNumber, Queries.GameSide, Queries.StartingPosition])}
     </>
   );
 };

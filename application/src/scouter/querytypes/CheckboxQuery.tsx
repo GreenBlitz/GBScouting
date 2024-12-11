@@ -6,15 +6,15 @@ class CheckboxQuery extends ScouterQuery<boolean> {
     return (
       <input
         type="checkbox"
-        id={this.props.storage.name}
-        name={this.props.storage.name}
+        id={this.storage.name}
+        name={this.storage.name}
         required={this.props.required}
-        onChange={() => this.props.storage.set(!this.props.storage.get())}
-        defaultChecked={this.props.storage.get()}
+        onChange={() => this.storage.set(!this.storage.get())}
+        defaultChecked={this.storage.get()}
       />
     );
   }
-  
+
   getInitialValue(): boolean {
     return this.props.defaultValue || false;
   }
