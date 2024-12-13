@@ -10,7 +10,7 @@ class CheckboxQuery extends ScouterQuery<boolean> {
         name={this.storage.name}
         required={this.props.required}
         onChange={() => this.storage.set(!this.storage.get())}
-        defaultChecked={this.storage.get()}
+        defaultChecked={this.storage.get() || false}
       />
     );
   }

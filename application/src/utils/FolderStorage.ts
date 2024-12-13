@@ -1,3 +1,5 @@
+import { Match } from "../Utils";
+
 export default class FolderStorage {
   private prefix: string;
   public readonly parent: Storage | FolderStorage;
@@ -41,14 +43,14 @@ export default class FolderStorage {
       .filter((key) => key.startsWith(this.prefix))
       .map((key) => key.slice(this.prefix.length));
   }
-  entries() {
+  entries(): [string, string | null][] {
     return this.keys().map((key) => [key, this.getItem(key)]);
   }
-  values() {
+  values(): (string | null)[] {
     return this.keys().map((key) => this.getItem(key));
   }
 
-  with(prefix: string) {
+  with(prefix: string): FolderStorage {
     return new FolderStorage(this, prefix);
   }
 }
@@ -57,9 +59,8 @@ export const localFolder = new FolderStorage(localStorage);
 export const sessionFolder = new FolderStorage(sessionStorage);
 
 export const queryFolder = localFolder.with("Queries/");
-export const matchFolder = localFolder.with("Matches/");
 
-abstract class Storable<T> {
+export class Storable<T> {
   public readonly name: string;
   private readonly storage: FolderStorage | Storage;
   constructor(name: string, storage: FolderStorage | Storage) {
@@ -67,9 +68,13 @@ abstract class Storable<T> {
     this.storage = storage;
   }
 
-  get(): T;
-  get(checker?: T): T {
-    const unparsedItem = this.storage.getItem(this.name) + "";
+  get(): T | null;
+  get(checker?: T): T | null {
+    const unparsedItem = this.storage.getItem(this.name);
+
+    if (unparsedItem === null) {
+      return null;
+    }
 
     const typeCheck = checker || "";
     if (typeof typeCheck === "string") {
@@ -91,6 +96,10 @@ abstract class Storable<T> {
     this.storage.setItem(this.name, JSON.stringify(value));
   }
 
+  remove() {
+    this.storage.removeItem(this.name)
+  }
+
   toString() {
     return JSON.stringify(this.get());
   }
@@ -99,6 +108,8 @@ abstract class Storable<T> {
     return !!queryFolder.getItem(this.name);
   }
 }
+
+
 
 export class QueryStorable<T> extends Storable<T> {
   constructor(name: string) {

@@ -13,7 +13,7 @@ export async function fetchData(
   method: string = "GET",
   body?: string
 ) {
-  return await fetch(`https://${getServerHostname()}/${field}`, {
+  return await fetch(`http://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
@@ -45,9 +45,9 @@ export function sortMatches(matches: Match[]) {
   });
 }
 
-
 export type Match = Omit<{
-  [K in keyof typeof Queries]: (typeof Queries)[K] extends ScouterQuery<infer U,any,any> ? U : never;
+  [K in keyof typeof Queries]: 
+  (typeof Queries)[K] extends ScouterQuery<infer U,any,any> ? U : never;
 }, "prototype" | "render"> & {MapPoints: FieldObject[]};
 
 

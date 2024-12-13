@@ -7,32 +7,39 @@ import PostMatch from "./tabs/PostMatch";
 import { renderScouterNavBar } from "../App";
 import { queryFolder } from "../utils/FolderStorage";
 import CancelCheck from "../components/CancelCheck";
+import Queries from "./Queries";
+import ScouterQuery from "./ScouterQuery";
+import { Match } from "../Utils";
+import Matches from "./Matches";
 
 const sections: React.FC[] = [PreMatch, Autonomous, Teleoperated, PostMatch];
 
-
-const constantValues = ["Scouter Name", "Game Side"]
+const constantValues = ["Scouter Name", "Game Side"];
 
 function ScouterTab() {
   const navigate = useNavigate();
   const [currentSectionNumber, setSectionNumber] = useState<number>(0);
 
   function handleSubmit() {
-    const formValues: Record<string, string> = {};
-    queryFolder.keys().forEach((item) => {
-        formValues[item] =
-          queryFolder.getItem(item) + "";
-        if (!constantValues.includes(item)) {
-          queryFolder.removeItem(item);
-        }
-      });
 
-    navigate("/", { state: formValues });
+    const matchValues: Record<string,any> = {};
+
+    Object.entries(Queries).filter(
+      ([_, value]) => value instanceof ScouterQuery
+    ).forEach(([key, value]) => {
+      const query = value as ScouterQuery<any,any,any>;
+      matchValues[query.storage.name] = query.storage.get();
+      if (!constantValues.includes(query.storage.name)) {
+        query.storage.remove();
+      }
+    });
+
+    Matches.add(matchValues as Match);
+    navigate("/");
   }
 
   function clearQueryStorage() {
-    queryFolder.keys()
-      .forEach((item) => queryFolder.removeItem(item));
+    queryFolder.keys().forEach((item) => queryFolder.removeItem(item));
   }
 
   function handleReset() {

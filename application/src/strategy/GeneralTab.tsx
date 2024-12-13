@@ -12,13 +12,13 @@ function processTeamData(
   teamNumber: string
 ): Record<string, string> {
   const table: Record<string, string> = {
-    "Team Number": teamNumber,
-    Amp: data.getAverage("Amp Score") + "",
-    "Amp Miss": data.getAverage("Amp Miss") + "",
-    Speaker: data.getAverage("Speaker Score") + "",
-    "Speaker Miss": data.getAverage("Speaker Miss") + "",
-    "Auto Speaker": data.getAverage("Speaker/Auto/Score") + "",
-    "Auto Speaker Miss": data.getAverage("Speaker/Auto/Miss") + "",
+    // "Team Number": teamNumber,
+    // Amp: data.getAverage("Amp Score") + "",
+    // "Amp Miss": data.getAverage("Amp Miss") + "",
+    // Speaker: data.getAverage("Speaker Score") + "",
+    // "Speaker Miss": data.getAverage("Speaker Miss") + "",
+    // "Auto Speaker": data.getAverage("Speaker/Auto/Score") + "",
+    // "Auto Speaker Miss": data.getAverage("Speaker/Auto/Miss") + "",
   };
   return table;
 }

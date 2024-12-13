@@ -12,7 +12,7 @@ abstract class ScouterQuery<
   Props extends {} = {},
   State extends {} = {}
 > extends React.Component<QueryProps<T> & Props, State> {
-  protected readonly storage: QueryStorable<T>;
+  public readonly storage: QueryStorable<T>;
   constructor(props: QueryProps<T> & Props) {
     super(props);
     this.storage = new QueryStorable<T>(this.props.name);
@@ -37,6 +37,7 @@ abstract class ScouterQuery<
   getStartingState(props: QueryProps<T> & Props): State | undefined {
     return undefined;
   }
+
   abstract renderInput(): React.ReactNode;
   abstract getInitialValue(props: QueryProps<T> & Props): T;
 }
