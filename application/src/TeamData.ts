@@ -15,11 +15,14 @@ export class TeamData {
     this.matches = matches;
   }
 
-  getAsLine(field: keyof Match): Record<number,string> {
+  getAsLine(field: keyof Match): Record<string,number> {
     return Object.assign(
       {},
       ...Object.values(this.matches).map((match) => {
-        return { [match.Qual]: (match[field] + "") };
+        if (typeof match[field] !== "number") {
+          return {};
+        }
+        return { [match.Qual + ""]: match[field] };
       })
     );
   }
