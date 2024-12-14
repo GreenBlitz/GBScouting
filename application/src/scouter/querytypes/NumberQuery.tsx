@@ -13,7 +13,7 @@ class NumberQuery extends ScouterQuery<number> {
         id={this.storage.name}
         name={this.storage.name}
         required={this.props.required}
-        defaultValue={this.storage.get()}
+        defaultValue={this.storage.get() || 0}
         onChange={(event) => this.storage.set(parseInt(event.target.value))}
       />
     );

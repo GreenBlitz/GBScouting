@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import PreMatch from "./tabs/PreMatch";
 import Autonomous from "./tabs/Autonomous";
@@ -20,6 +20,12 @@ function ScouterTab() {
   const navigate = useNavigate();
   const [currentSectionNumber, setSectionNumber] = useState<number>(0);
 
+
+  const navigateToSection = (section: number) => {
+    setSectionNumber(section)
+    navigate(sections[section].name)
+  }
+
   function handleSubmit() {
 
     const matchValues: Record<string,any> = {};
@@ -33,9 +39,6 @@ function ScouterTab() {
         query.storage.remove();
       }
     });
-
-    matchValues["MapPoints"] = queryFolder.getItem("MapPoints"); //temporary until mapquery is better
-    queryFolder.removeItem("MapPoints")
 
     Matches.add(matchValues as Match);
     navigate("/");
@@ -53,12 +56,12 @@ function ScouterTab() {
   return (
     <div className="scouting-tab">
       {renderScouterNavBar()}
-      <h1>{sections[currentSectionNumber].name}</h1>
-      {sections[currentSectionNumber].apply({})}
+      {sections[currentSectionNumber].name}
+      <Outlet />
       {currentSectionNumber !== 0 && (
         <button
           type="button"
-          onClick={() => setSectionNumber(currentSectionNumber - 1)}
+          onClick={() => navigateToSection(currentSectionNumber - 1)}
         >
           Back
         </button>
@@ -70,7 +73,7 @@ function ScouterTab() {
       ) : (
         <button
           type="button"
-          onClick={() => setSectionNumber(currentSectionNumber + 1)}
+          onClick={() => navigateToSection(currentSectionNumber + 1)}
         >
           Next
         </button>

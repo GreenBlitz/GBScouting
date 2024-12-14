@@ -48,7 +48,7 @@ export function sortMatches(matches: Match[]) {
 export type Match = Omit<{
   [K in keyof typeof Queries]: 
   (typeof Queries)[K] extends ScouterQuery<infer U,any,any> ? U : never;
-}, "prototype" | "render"> & {MapPoints: FieldObject[]};
+}, "prototype" | "render">
 
 
 export interface Note extends Point {

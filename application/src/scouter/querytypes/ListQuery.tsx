@@ -8,7 +8,7 @@ class ListQuery extends ScouterQuery<string, { list: string[] }> {
         name={this.storage.name}
         id={this.storage.name}
         required={this.props.required}
-        defaultValue={this.storage.get()}
+        defaultValue={this.storage.get() || this.props.list[0]}
         onChange={(event) => this.storage.set(event.target.value)}
       >
         {this.props.list.map((item, index) => (

@@ -6,13 +6,13 @@ import TextQuery from "./querytypes/TextQuery";
 import ScouterQuery from "./ScouterQuery";
 
 export default class Queries {
-
-  static render(queries: ScouterQuery<any,any,any>[]) {
+  static render(queries: ScouterQuery<any, any, any>[]) {
     return queries.map((query) => query.render());
   }
 
   static readonly ScouterName = new TextQuery({
     name: "Scouter Name",
+    header: "Name"
   });
   static readonly Qual = new NumberQuery({
     name: "Qual",
@@ -38,8 +38,11 @@ export default class Queries {
   });
 
   static readonly MapPoints = new MapQuery({
-    name:"MapPoints",
-  })
+    name: "MapPoints",
+    width: 540 * 0.8,
+    height: 240 * 0.8,
+    imagePath: "./src/assets/Crescendo Map.png",
+  });
 
   static readonly AmpScore = new CounterQuery({
     name: "Amp Score",

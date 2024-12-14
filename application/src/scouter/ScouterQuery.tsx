@@ -3,6 +3,7 @@ import { QueryStorable } from "../utils/FolderStorage";
 
 export interface QueryProps<T> {
   name: string;
+  header?: string ;
   required?: boolean | undefined;
   defaultValue?: T;
 }
@@ -24,11 +25,13 @@ abstract class ScouterQuery<
 
   render(): React.ReactNode {
     if (!this.storage.exists()) {
-      this.storage.set(this.props.defaultValue || this.getInitialValue(this.props));
+      this.storage.set(
+        this.props.defaultValue || this.getInitialValue(this.props)
+      );
     }
     return (
       <div className="scouter-query">
-        <h2>{this.storage.name}</h2>
+        {this.props.header && <h2>{this.props.header}</h2>}
         {this.renderInput()}
       </div>
     );
@@ -37,7 +40,7 @@ abstract class ScouterQuery<
   getStartingState(props: QueryProps<T> & Props): State | undefined {
     return undefined;
   }
-  
+
   abstract renderInput(): React.ReactNode;
   abstract getInitialValue(props: QueryProps<T> & Props): T;
 }
