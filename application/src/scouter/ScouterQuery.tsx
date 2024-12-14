@@ -16,9 +16,6 @@ abstract class ScouterQuery<
   constructor(props: QueryProps<T> & Props) {
     super(props);
     this.storage = new QueryStorable<T>(this.props.name);
-    if (!this.storage.exists()) {
-      this.storage.set(this.props.defaultValue || this.getInitialValue(props));
-    }
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
@@ -26,6 +23,9 @@ abstract class ScouterQuery<
   }
 
   render(): React.ReactNode {
+    if (!this.storage.exists()) {
+      this.storage.set(this.props.defaultValue || this.getInitialValue(this.props));
+    }
     return (
       <div className="scouter-query">
         <h2>{this.storage.name}</h2>

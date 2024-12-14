@@ -9,14 +9,20 @@ import Matches from "./Matches";
 
 const MatchList: React.FC = () => {
 
-  const matches = Matches.getAll();
-  console.log(matches);
+  const navigate = useNavigate();
+
+  const matches: Match[] = Matches.getAll();
+
+  function removeMatch(match: Match) {
+    Matches.remove(match);
+    navigate("/")
+  }
 
   function sendMatch(match: Match) {
     fetchData("Match")
       .then(() => {
         alert("Succesfully Sent Match✅");
-        Matches.remove(match);
+        removeMatch(match)
       })
       .catch(() => {
         console.log(match);
@@ -37,7 +43,7 @@ const MatchList: React.FC = () => {
         >
           <QRCodeGenerator text={JSON.stringify(match)} />
           <br />
-          <button type="button" onClick={() => Matches.remove(match)}>
+          <button type="button" onClick={() => removeMatch(match)}>
             Delete
           </button>
           <button type="button" onClick={() => sendMatch(match)}>

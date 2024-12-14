@@ -14,7 +14,18 @@ export default class Matches {
     if (matches === null) {
       return;
     }
-    this.storage.set(matches.filter((match) => removedMatch !== match));
+
+    function isMatchEqual(match1: Match, match2: Match) {
+      Object.values(match1).every(
+        (value, index) => Object.values(match2)[index] === value
+      )
+    }
+
+    this.storage.set(
+      matches.filter((match) =>
+        isMatchEqual(match, removedMatch)
+      )
+    );
   }
 
   static getAll(): Match[] {

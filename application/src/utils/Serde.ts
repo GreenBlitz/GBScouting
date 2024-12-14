@@ -396,17 +396,17 @@ const STARTING_POSITION_POSSIBLE_VALUES = [
 ];
 
 export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
-  ["Team Number", serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT)],
+  ["TeamNumber", serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT)],
   ["Trap", serdeEnumedString(TRAP_POSSIBLE_VALUES)],
   ["Climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
-  ["Game Side", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
+  ["GameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["Qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
-  ["Speaker/Auto/Score", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
-  ["Scouter Name", serdeString()],
+  ["SpeakerAutoScore", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
+  ["ScouterName", serdeString()],
   ["Comment", serdeString()],
   ["MapPoints", CRESCENDO_POINTS_ARRAY_SERDE],
   ["MapAmpScore", serdeStringifiedNum(CRESCENDO_AMP_SCORE_BIT_COUNT)],
   ["MapAmpMiss", serdeStringifiedNum(CRESCENDO_AMP_MISS_BIT_COUNT)],
-  ["Starting Position", serdeEnumedString(STARTING_POSITION_POSSIBLE_VALUES)],
-  ["Speaker/Auto/Miss", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
+  ["StartingPosition", serdeEnumedString(STARTING_POSITION_POSSIBLE_VALUES)],
+  ["SpeakerAutoMiss", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
 ]);

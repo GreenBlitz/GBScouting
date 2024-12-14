@@ -72,20 +72,15 @@ export class Storable<T> {
   get(checker?: T): T | null {
     const unparsedItem = this.storage.getItem(this.name);
 
-    if (unparsedItem === null) {
+    if (unparsedItem === null || undefined) {
       return null;
     }
 
-    const typeCheck = checker || "";
-    if (typeof typeCheck === "string") {
-      //very stupid string shenanigans
-      if (unparsedItem === "null") {
-        return "" as T;
-      }
+    try {
+      return JSON.parse(unparsedItem);
+    } catch {
       return unparsedItem as T;
     }
-
-    return JSON.parse(unparsedItem);
   }
 
   set(value: T): void {
@@ -97,7 +92,7 @@ export class Storable<T> {
   }
 
   remove() {
-    this.storage.removeItem(this.name)
+    this.storage.removeItem(this.name);
   }
 
   toString() {
@@ -108,8 +103,6 @@ export class Storable<T> {
     return !!queryFolder.getItem(this.name);
   }
 }
-
-
 
 export class QueryStorable<T> extends Storable<T> {
   constructor(name: string) {

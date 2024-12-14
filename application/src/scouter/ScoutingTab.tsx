@@ -26,13 +26,16 @@ function ScouterTab() {
 
     Object.entries(Queries).filter(
       ([_, value]) => value instanceof ScouterQuery
-    ).forEach(([key, value]) => {
+    ).forEach(([queryName, value]) => {
       const query = value as ScouterQuery<any,any,any>;
-      matchValues[query.storage.name] = query.storage.get();
-      if (!constantValues.includes(query.storage.name)) {
+      matchValues[queryName] = query.storage.get();
+      if (!constantValues.includes(queryName)) {
         query.storage.remove();
       }
     });
+
+    matchValues["MapPoints"] = queryFolder.getItem("MapPoints"); //temporary
+    queryFolder.removeItem("MapPoints")
 
     Matches.add(matchValues as Match);
     navigate("/");

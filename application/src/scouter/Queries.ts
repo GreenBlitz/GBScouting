@@ -36,11 +36,11 @@ export default class Queries {
     color: "#8f0a0e",
   });
   static readonly AmpScore = new CounterQuery({
-    name: "CRESCENDO/Amp/Score",
+    name: "Amp Score",
     color: "#12a119",
   });
   static readonly AmpMiss = new CounterQuery({
-    name: "CRESCENDO/Amp/Miss",
+    name: "Amp Miss",
     color: "#8f0a0e",
   });
   static readonly Climb = new ListQuery({
