@@ -1,5 +1,6 @@
 import CounterQuery from "./querytypes/CounterQuery";
 import ListQuery from "./querytypes/ListQuery";
+import MapQuery from "./querytypes/MapQuery";
 import NumberQuery from "./querytypes/NumberQuery";
 import TextQuery from "./querytypes/TextQuery";
 import ScouterQuery from "./ScouterQuery";
@@ -35,6 +36,11 @@ export default class Queries {
     name: "Speaker/Auto/Miss",
     color: "#8f0a0e",
   });
+
+  static readonly MapPoints = new MapQuery({
+    name:"MapPoints",
+  })
+
   static readonly AmpScore = new CounterQuery({
     name: "Amp Score",
     color: "#12a119",

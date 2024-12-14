@@ -1,17 +1,12 @@
 import React from "react";
-import ScouterQuery, { QueryProps } from "../ScouterQuery";
+import ScouterQuery from "../ScouterQuery";
 import { Color } from "../../utils/Color";
 
 class CounterQuery extends ScouterQuery<
   number,
   { color?: Color },
-  { count: number }
+  {}
 > {
-  getStartingState(props: QueryProps<number>) {
-    const savedValue = this.storage.get();
-    return { count: savedValue || 0 };
-  }
-
   getInitialValue(): number {
     return 0;
   }
@@ -19,28 +14,31 @@ class CounterQuery extends ScouterQuery<
   renderInput(): React.ReactNode {
     const setCount = (newCount: number) => {
       this.storage.set(newCount);
-      this.setState({ count: newCount });
     };
+
+    const getCurrentCount = () => {
+      return this.storage.get() || 0;
+    }
 
     return (
       <>
         <button
           type="button"
-          onClick={() => setCount(Math.max(this.state.count - 1, 0))}
+          onClick={() => setCount(Math.max(getCurrentCount() - 1, 0))}
           style={{ backgroundColor: this.props.color }}
         >
           -
         </button>
-        <h3>{this.state.count}</h3>
+        <h3>{getCurrentCount()}</h3>
         <input
           type="hidden"
           id={this.storage.name}
           name={this.storage.name}
-          value={this.state.count}
+          value={getCurrentCount()}
         />
         <button
           type="button"
-          onClick={() => setCount(this.state.count + 1)}
+          onClick={() => setCount(getCurrentCount() + 1)}
           style={{ backgroundColor: this.props.color }}
         >
           +

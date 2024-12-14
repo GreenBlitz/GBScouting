@@ -37,7 +37,7 @@ abstract class ScouterQuery<
   getStartingState(props: QueryProps<T> & Props): State | undefined {
     return undefined;
   }
-
+  
   abstract renderInput(): React.ReactNode;
   abstract getInitialValue(props: QueryProps<T> & Props): T;
 }
