@@ -12,7 +12,6 @@ export default class Queries {
 
   static readonly ScouterName = new TextQuery({
     name: "Scouter Name",
-    header: "Name"
   });
   static readonly Qual = new NumberQuery({
     name: "Qual",
@@ -31,10 +30,12 @@ export default class Queries {
   static readonly SpeakerAutoScore = new CounterQuery({
     name: "Speaker/Auto/Score",
     color: "#12a119",
+    isNameHidden: true,
   });
   static readonly SpeakerAutoMiss = new CounterQuery({
     name: "Speaker/Auto/Miss",
     color: "#8f0a0e",
+    isNameHidden: true,
   });
 
   static readonly MapPoints = new MapQuery({
@@ -42,6 +43,7 @@ export default class Queries {
     width: 540 * 0.8,
     height: 240 * 0.8,
     imagePath: "./src/assets/Crescendo Map.png",
+    isNameHidden: true,
   });
 
   static readonly AmpScore = new CounterQuery({

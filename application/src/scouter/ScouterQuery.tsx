@@ -3,7 +3,7 @@ import { QueryStorable } from "../utils/FolderStorage";
 
 export interface QueryProps<T> {
   name: string;
-  header?: string ;
+  isNameHidden?: boolean;
   required?: boolean | undefined;
   defaultValue?: T;
 }
@@ -31,7 +31,7 @@ abstract class ScouterQuery<
     }
     return (
       <div className="scouter-query">
-        {this.props.header && <h2>{this.props.header}</h2>}
+        {!this.props.isNameHidden && <h2>{this.props.name}</h2>}
         {this.renderInput()}
       </div>
     );
