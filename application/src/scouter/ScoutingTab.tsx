@@ -34,7 +34,7 @@ function ScouterTab() {
       }
     });
 
-    matchValues["MapPoints"] = queryFolder.getItem("MapPoints"); //temporary
+    matchValues["MapPoints"] = queryFolder.getItem("MapPoints"); //temporary until mapquery is better
     queryFolder.removeItem("MapPoints")
 
     Matches.add(matchValues as Match);

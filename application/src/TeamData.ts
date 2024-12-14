@@ -9,7 +9,18 @@ interface Comment {
 }
 
 export class TeamData {
+  private matches: Match[];
+
   constructor(matches: Match[]) {
-    console.log(matches)
+    this.matches = matches;
+  }
+
+  getAsLine(field: keyof Match): Record<number,string> {
+    return Object.assign(
+      {},
+      ...Object.values(this.matches).map((match) => {
+        return { [match.Qual]: (match[field] + "") };
+      })
+    );
   }
 }
