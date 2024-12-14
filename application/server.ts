@@ -99,10 +99,25 @@ app.get("/Matches/:type/:value", async (req, res) => {
   }
 });
 
+
+app.get("/TheBlueAlliance/:subject/:", async(req, res) =>{
+  const options = {
+    headers: {
+      "X-TBA-Auth-Key": fs.readFileSync(path.resolve(dirName, "TBAkey.txt")), 
+      "Content-Type": "application/json", 
+     
+    },
+  };
+  
+});
+
+
 const server = (
   sslOptions.key === "" ? app : https.createServer(sslOptions, app)
 ).listen(port, hostname, () =>
   console.log(`Server is listening on ${hostname}:${port}`)
 );
+
+
 
 ViteExpress.bind(app, server);
