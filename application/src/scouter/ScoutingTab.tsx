@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import PreMatch from "./tabs/PreMatch";
 import Autonomous from "./tabs/Autonomous";
@@ -12,7 +12,7 @@ import ScouterQuery from "./ScouterQuery";
 import { Match } from "../Utils";
 import Matches from "./Matches";
 
-const sections: React.FC[] = [PreMatch, Autonomous, Teleoperated, PostMatch];
+const sectionNames: string[] = [PreMatch, Autonomous, Teleoperated, PostMatch].map((section) => section.name);
 
 const constantValues = ["Scouter Name", "Game Side"];
 
@@ -23,7 +23,7 @@ function ScouterTab() {
 
   const navigateToSection = (section: number) => {
     setSectionNumber(section)
-    navigate(sections[section].name)
+    navigate(sectionNames[section])
   }
 
   function handleSubmit() {
@@ -56,7 +56,7 @@ function ScouterTab() {
   return (
     <div className="scouting-tab">
       {renderScouterNavBar()}
-      {sections[currentSectionNumber].name}
+      <h1>{sectionNames[currentSectionNumber]}</h1>
       <Outlet />
       {currentSectionNumber !== 0 && (
         <button
@@ -66,7 +66,7 @@ function ScouterTab() {
           Back
         </button>
       )}
-      {currentSectionNumber === sections.length - 1 ? (
+      {currentSectionNumber === sectionNames.length - 1 ? (
         <button type="button" onClick={handleSubmit}>
           Submit
         </button>

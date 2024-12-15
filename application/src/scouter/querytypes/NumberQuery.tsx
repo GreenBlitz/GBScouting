@@ -2,8 +2,8 @@ import React from "react";
 import ScouterQuery from "../ScouterQuery";
 
 class NumberQuery extends ScouterQuery<number> {
-  Instantiate(): React.JSX.Element {
-    return <NumberQuery {...this.props}/>
+  instantiate(): React.JSX.Element {
+    return <NumberQuery {...this.props} />;
   }
   getInitialValue(): number {
     return 0;

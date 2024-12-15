@@ -2,7 +2,7 @@ import React from "react";
 import ScouterQuery from "../ScouterQuery";
 
 class TextQuery extends ScouterQuery<string> {
-  Instantiate(): React.JSX.Element {
+  instantiate(): React.JSX.Element {
     return <TextQuery {...this.props} />;
   }
   getInitialValue(): string {

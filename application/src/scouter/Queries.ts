@@ -3,12 +3,13 @@ import ListQuery from "./querytypes/ListQuery";
 import MapQuery from "./querytypes/MapQuery";
 import NumberQuery from "./querytypes/NumberQuery";
 import TextQuery from "./querytypes/TextQuery";
-import ScouterQuery, { QueryProps } from "./ScouterQuery";
+import ScouterQuery from "./ScouterQuery";
 
 export default class Queries {
-  
-  static render(queries: ScouterQuery<any, any, any>[]): React.JSX.Element[] {
-    return queries.map((query) => query.Instantiate());
+  static instantiate(
+    queries: ScouterQuery<any, any, any>[]
+  ): React.JSX.Element[] {
+    return queries.map((query) => query.instantiate());
   }
 
   static readonly ScouterName = new TextQuery({
@@ -43,7 +44,7 @@ export default class Queries {
     name: "MapPoints",
     width: 540 * 0.8,
     height: 240 * 0.8,
-    imagePath: "./src/assets/Crescendo Map.png",
+    imagePath: "../src/assets/Crescendo Map.png",
     isNameHidden: true,
   });
 

@@ -2,13 +2,9 @@ import React from "react";
 import ScouterQuery from "../ScouterQuery";
 import { Color } from "../../utils/Color";
 
-class CounterQuery extends ScouterQuery<
-  number,
-  { color?: Color },
-  {}
-> {
-  Instantiate(): React.JSX.Element {
-    return <CounterQuery {...this.props} />
+class CounterQuery extends ScouterQuery<number, { color?: Color }, {}> {
+  instantiate(): React.JSX.Element {
+    return <CounterQuery {...this.props} />;
   }
   getInitialValue(): number {
     return 0;
@@ -21,7 +17,7 @@ class CounterQuery extends ScouterQuery<
 
     const getCurrentCount = () => {
       return this.storage.get() || 0;
-    }
+    };
 
     return (
       <>

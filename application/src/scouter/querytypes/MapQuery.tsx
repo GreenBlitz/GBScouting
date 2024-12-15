@@ -33,8 +33,15 @@ interface MapStates {
 }
 
 class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
-  Instantiate(): React.JSX.Element {
-    return <MapQuery {...this.props} />
+  private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
+
+  constructor(props) {
+    super(props);
+    this.canvasRef = React.createRef<HTMLCanvasElement>();
+  }
+
+  instantiate(): React.JSX.Element {
+    return <MapQuery {...this.props} />;
   }
   getStartingState(
     props: QueryProps<FieldObject[]> & MapQueryProps
@@ -45,10 +52,8 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
   renderInput(): React.ReactNode {
     const side = Queries.GameSide.storage.get() || "Blue";
 
-
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const context = canvasRef.current
-      ? canvasRef.current.getContext("2d")
+    const context = this.canvasRef.current
+      ? this.canvasRef.current.getContext("2d")
       : null;
 
     const isButtonPressed = () => {
@@ -61,8 +66,7 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
       this.storage.set(previousPoints);
 
       drawObjects();
-
-    }
+    };
 
     const addPoint = (point: Point, successfulness: boolean) => {
       if (!isButtonPressed()) {
@@ -140,11 +144,14 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
           startPoint: this.state.passingPoint,
           endPoint: clickedPoint,
         };
-        addObject(fieldLine)
-        this.setState({passingPoint:undefined, pressedButton: defaultButton});
+        addObject(fieldLine);
+        this.setState({
+          passingPoint: undefined,
+          pressedButton: defaultButton,
+        });
         return;
       }
-      this.setState({lastClickedPoint: undefined});
+      this.setState({ lastClickedPoint: undefined });
     };
 
     const dataOptions = (
@@ -155,7 +162,10 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
           <div>
             Set Passing Destination
             <br />
-            <button type="button" onClick={() => this.setState({passingPoint: undefined})}>
+            <button
+              type="button"
+              onClick={() => this.setState({ passingPoint: undefined })}
+            >
               Undo Pass
             </button>
           </div>
@@ -171,7 +181,9 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
                       name={name + "-buttons"}
                       id={buttonName}
                       value={buttonName}
-                      onChange={() => this.setState({pressedButton: buttonName})}
+                      onChange={() =>
+                        this.setState({ pressedButton: buttonName })
+                      }
                       defaultChecked
                       className="cool-radio-input"
                     />
@@ -186,7 +198,9 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
                     name={name + "-buttons"}
                     id={buttonName}
                     value={buttonName}
-                    onChange={() => this.setState({pressedButton: buttonName})}
+                    onChange={() =>
+                      this.setState({ pressedButton: buttonName })
+                    }
                     className="cool-radio-input"
                   />
                   <label htmlFor={buttonName}>{buttonName}</label>
@@ -207,9 +221,9 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
       <div className={"map-amp"}>
         <h2>AMP</h2>
         <br />
-        {Queries.AmpScore.render()}
+        {Queries.AmpScore.instantiate()}
         <br />
-        {Queries.AmpMiss.render()}
+        {Queries.AmpMiss.instantiate()}
       </div>
     );
 
@@ -223,14 +237,16 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
         <div
           className="succesfulness"
           style={{
-            left: canvasRef.current
-              ? canvasRef.current.offsetLeft +
+            left: this.canvasRef.current
+              ? this.canvasRef.current.offsetLeft +
                 lastClickedPoint.x +
                 offsetLeft -
                 60
               : 0,
-            top: canvasRef.current
-              ? canvasRef.current.offsetTop + lastClickedPoint.y + offsetTop
+            top: this.canvasRef.current
+              ? this.canvasRef.current.offsetTop +
+                lastClickedPoint.y +
+                offsetTop
               : 0,
           }}
         >
@@ -246,12 +262,15 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
           >
             ❌Miss
           </button>
-          <button type="button" onClick={() => this.setState({lastClickedPoint: undefined})}>
+          <button
+            type="button"
+            onClick={() => this.setState({ lastClickedPoint: undefined })}
+          >
             Cancel
           </button>
         </div>
       );
-    }
+    };
 
     return (
       <>
@@ -277,7 +296,7 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
           }}
         >
           <canvas
-            ref={canvasRef}
+            ref={this.canvasRef}
             width={this.props.width}
             height={this.props.height}
             onClick={handleClick}
@@ -289,9 +308,10 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
             value={JSON.stringify(this.storage.get() || [])}
           />
         </div>
-        {canvasRef.current &&
+        {this.canvasRef.current &&
         this.state.lastClickedPoint &&
-        canvasRef.current.offsetLeft + this.state.lastClickedPoint.x < this.props.width
+        this.canvasRef.current.offsetLeft + this.state.lastClickedPoint.x <
+          this.props.width
           ? getSuccesfulness(succesfulnessOffset[0], succesfulnessOffset[1])
           : getSuccesfulness(-succesfulnessOffset[0], succesfulnessOffset[1])}
 

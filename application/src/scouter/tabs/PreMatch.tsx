@@ -6,7 +6,13 @@ interface PreGameProps {}
 const PreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
-      {Queries.render([Queries.ScouterName, Queries.Qual, Queries.TeamNumber, Queries.GameSide, Queries.StartingPosition])}
+      {Queries.instantiate([
+        Queries.ScouterName,
+        Queries.Qual,
+        Queries.TeamNumber,
+        Queries.GameSide,
+        Queries.StartingPosition,
+      ])}
     </>
   );
 };
