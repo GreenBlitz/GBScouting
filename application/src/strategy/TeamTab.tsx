@@ -23,11 +23,11 @@ const TeamTab: React.FC = () => {
 
   const teamData = new TeamData(recentMatches);
 
-  const ampAccuracy = teamData.getAccuracy("Amp Score", "Amp Miss");
-  const speakerAccuracy = teamData.getAccuracy("Speaker Score", "Speaker Miss");
+  const ampAccuracy = teamData.getAccuracy("AmpScore", "AmpMiss");
+  const speakerAccuracy = teamData.getAccuracy("SpeakerScore", "SpeakerMiss");
   const passAccuracy = teamData.getAccuracy(
-    "Pass Successful",
-    "Pass Unsuccessful"
+    "PassSuccessful",
+    "PassUnSuccessful"
   );
 
   return (
@@ -83,12 +83,12 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Speaker: {
               color: "pink",
-              data: teamData.getAsLine("Speaker Score"),
+              data: teamData.getAsLine("SpeakerScore"),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine("Amp Score") },
+            Amp: { color: "yellow", data: teamData.getAsLine("AmpScore") },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("Pass Successful"),
+              data: teamData.getAsLine("PassSuccessful"),
             },
           }}
         />
@@ -100,12 +100,12 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Speaker: {
               color: "pink",
-              data: teamData.getAsLine("Speaker Miss"),
+              data: teamData.getAsLine("SpeakerMiss"),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine("Amp Miss") },
+            Amp: { color: "yellow", data: teamData.getAsLine("AmpMiss") },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("Pass Unsuccessful"),
+              data: teamData.getAsLine("PassUnSuccessful"),
             },
           }}
         />
@@ -117,11 +117,11 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Score: {
               color: "green",
-              data: teamData.getAsLine("Speaker/Auto/Score"),
+              data: teamData.getAsLine("SpeakerAutoScore"),
             },
             Miss: {
               color: "red",
-              data: teamData.getAsLine("Speaker/Auto/Miss"),
+              data: teamData.getAsLine("SpeakerAutoMiss"),
             },
           }}
         />
@@ -187,7 +187,7 @@ const TeamTab: React.FC = () => {
       <div>
         <h1>Comments</h1>
         {teamData.getComments().map((comment) => (
-          <h3>{comment[0] + "...Qual number" + comment[1]}</h3>
+          <h3>{comment.body + "...Qual number" + comment.qual}</h3>
         ))}
       </div>
     </div>

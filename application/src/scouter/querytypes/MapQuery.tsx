@@ -25,7 +25,7 @@ interface MapButton {
   isLine: boolean;
 }
 
-const MapButtons: MapButton[] = [
+const mapButtons: MapButton[] = [
   {
     name: "Speaker",
     successColor: "green",
@@ -46,7 +46,7 @@ interface MapStates {
   passingPoint?: FieldPoint;
 }
 
-const defaultButton = MapButtons[0];
+const defaultButton = mapButtons[0];
 
 class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -174,7 +174,7 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
           </div>
         ) : (
           <div className="cool-radio">
-            {MapButtons.map((button, index) => {
+            {mapButtons.map((button, index) => {
               if (button === this.state.pressedButton) {
                 return (
                   <React.Fragment key={index}>
