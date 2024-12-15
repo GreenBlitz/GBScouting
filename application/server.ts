@@ -100,7 +100,7 @@ app.get("/Matches/:type/:value", async (req, res) => {
   try {
     const items = (await matchCollection.find().toArray()).filter((item) => {
       if (req.params.type) {
-        return item[req.params.type] === req.params.value;
+        return item[req.params.type] + ""=== req.params.value;
       }
       return true;
     });

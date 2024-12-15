@@ -154,7 +154,7 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
         });
         return;
       }
-      this.setState({ lastClickedPoint: undefined });
+      this.setState({ lastClickedPoint: clickedPoint });
     };
 
     const dataOptions = (
@@ -302,12 +302,6 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
             width={this.props.width}
             height={this.props.height}
             onClick={handleClick}
-          />
-          <input
-            type="hidden"
-            id={this.props.name}
-            name={this.props.name}
-            value={JSON.stringify(this.storage.get() || [])}
           />
         </div>
         {this.canvasRef.current &&

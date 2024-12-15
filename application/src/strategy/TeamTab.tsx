@@ -44,7 +44,7 @@ const TeamTab: React.FC = () => {
           onChange={async (event) =>
             setMatches(
               await getMatchesByCriteria(
-                "Team Number",
+                "TeamNumber",
                 event.target.value.slice(0, 4) || "0"
               )
             )

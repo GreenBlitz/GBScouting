@@ -1,13 +1,13 @@
 import { Point } from "chart.js";
 import Queries from "./scouter/Queries";
 import ScouterQuery from "./scouter/ScouterQuery";
-import { FieldObject } from "./strategy/charts/MapChart";
 
 export const getServerHostname = () => {
   return location.host;
 };
 
 export async function fetchData(field: string);
+export async function fetchData(field: string, method: string, body: string)
 export async function fetchData(
   field: string,
   method: string = "GET",
@@ -36,7 +36,7 @@ export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
 
 export async function getMatchesByCriteria(field?: string, value?: string) {
   const searchedField = field && value ? `${field}/${value}` : ``;
-  return await fetchData(searchedField);
+  return await fetchData("Matches/" + searchedField);
 }
 
 export function sortMatches(matches: Match[]) {
@@ -48,7 +48,7 @@ export function sortMatches(matches: Match[]) {
 export type Match = Omit<{
   [K in keyof typeof Queries]: 
   (typeof Queries)[K] extends ScouterQuery<infer U,any,any> ? U : never;
-}, "prototype" | "render">
+}, "prototype" | "instantiate">
 
 
 export interface Note extends Point {

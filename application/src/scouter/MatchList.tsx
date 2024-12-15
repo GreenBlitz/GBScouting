@@ -19,7 +19,7 @@ const MatchList: React.FC = () => {
   }
 
   function sendMatch(match: Match) {
-    fetchData("Match")
+    fetchData("Match","POST", JSON.stringify(match))
       .then(() => {
         alert("Succesfully Sent Match✅");
         removeMatch(match)
