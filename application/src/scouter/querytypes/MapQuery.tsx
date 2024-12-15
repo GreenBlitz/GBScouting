@@ -1,8 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { Point } from "chart.js";
 import React from "react";
-import CounterQuery from "./CounterQuery";
-import { queryFolder } from "../../utils/FolderStorage";
 
 import {
   FieldLine,
@@ -11,6 +8,7 @@ import {
 } from "../../strategy/charts/MapChart.tsx";
 import Queries from "../Queries.ts";
 import ScouterQuery, { QueryProps } from "../ScouterQuery.tsx";
+import { Color } from "../../utils/Color.ts";
 interface MapQueryProps {
   width: number;
   height: number;
@@ -20,17 +18,35 @@ interface MapQueryProps {
 const pointRadius: number = 5;
 const succesfulnessOffset = [80, -60];
 
-const crescendoButtons: Record<string, string> = {
-  Speaker: "green",
-  Pass: "purple",
-};
-const defaultButton = "Speaker";
+interface MapButton {
+  name: string;
+  successColor: Color;
+  unsuccessColor: Color;
+  isLine: boolean;
+}
+
+const MapButtons: MapButton[] = [
+  {
+    name: "Speaker",
+    successColor: "green",
+    unsuccessColor: "red",
+    isLine: false,
+  },
+  {
+    name: "Pass",
+    successColor: "purple",
+    unsuccessColor: "purple",
+    isLine: true,
+  },
+];
 
 interface MapStates {
-  pressedButton: string;
+  pressedButton: MapButton;
   lastClickedPoint?: Point;
   passingPoint?: FieldPoint;
 }
+
+const defaultButton = MapButtons[0];
 
 class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -56,10 +72,6 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
       ? this.canvasRef.current.getContext("2d")
       : null;
 
-    const isButtonPressed = () => {
-      return this.state.pressedButton !== "";
-    };
-
     const addObject = (object: FieldObject) => {
       const previousPoints = this.storage.get() || [];
       previousPoints.push(object);
@@ -69,18 +81,14 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
     };
 
     const addPoint = (point: Point, successfulness: boolean) => {
-      if (!isButtonPressed()) {
-        return;
-      }
-
       const clickedPoint: FieldPoint = {
         x: point.x,
         y: point.y,
-        data: this.state.pressedButton,
+        data: this.state.pressedButton.name,
         successfulness: successfulness,
       };
       this.setState({ lastClickedPoint: undefined });
-      if (this.state.pressedButton === "Pass" && successfulness) {
+      if (this.state.pressedButton.isLine && successfulness) {
         this.setState({ lastClickedPoint: clickedPoint });
         return;
       }
@@ -103,9 +111,12 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
 
       for (let point of this.storage.get() || []) {
         const isLine = (point as FieldPoint).x === undefined;
+        const color = (point.successfulness
+          ? this.state.pressedButton.successColor
+          : this.state.pressedButton.unsuccessColor);
         if (isLine) {
           const { startPoint, endPoint } = point as FieldLine;
-          context.strokeStyle = crescendoButtons["Pass"];
+          context.strokeStyle = color;
           context.beginPath();
           context.moveTo(startPoint.x, startPoint.y);
           context.lineTo(endPoint.x, endPoint.y);
@@ -113,11 +124,7 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
           context.stroke();
         } else {
           point = point as FieldPoint;
-          if (point.data === "Speaker" && !point.successfulness) {
-            context.fillStyle = "red";
-          } else {
-            context.fillStyle = crescendoButtons[point.data];
-          }
+          context.fillStyle = color;
           context.beginPath();
           context.arc(point.x, point.y, pointRadius, 0, 2 * Math.PI);
           context.fill();
@@ -128,10 +135,6 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
     const handleClick = (
       event: React.MouseEvent<HTMLCanvasElement, MouseEvent>
     ) => {
-      if (!isButtonPressed()) {
-        return;
-      }
-
       const clickedPoint = {
         x: event.pageX - event.currentTarget.offsetLeft,
         y: event.pageY - event.currentTarget.offsetTop,
@@ -171,23 +174,22 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
           </div>
         ) : (
           <div className="cool-radio">
-            {Object.entries(crescendoButtons).map((option, index) => {
-              const buttonName = option[0];
-              if (buttonName === this.state.pressedButton) {
+            {MapButtons.map((button, index) => {
+              if (button === this.state.pressedButton) {
                 return (
                   <React.Fragment key={index}>
                     <input
                       type="radio"
                       name={name + "-buttons"}
-                      id={buttonName}
-                      value={buttonName}
+                      id={button.name}
+                      value={button.name}
                       onChange={() =>
-                        this.setState({ pressedButton: buttonName })
+                        this.setState({ pressedButton: button })
                       }
                       defaultChecked
                       className="cool-radio-input"
                     />
-                    <label htmlFor={buttonName}>{buttonName}</label>
+                    <label htmlFor={button.name}>{button.name}</label>
                   </React.Fragment>
                 );
               }
@@ -196,14 +198,14 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
                   <input
                     type="radio"
                     name={name + "-buttons"}
-                    id={buttonName}
-                    value={buttonName}
+                    id={button.name}
+                    value={button.name}
                     onChange={() =>
-                      this.setState({ pressedButton: buttonName })
+                      this.setState({ pressedButton: button })
                     }
                     className="cool-radio-input"
                   />
-                  <label htmlFor={buttonName}>{buttonName}</label>
+                  <label htmlFor={button.name}>{button.name}</label>
                 </React.Fragment>
               );
             })}
