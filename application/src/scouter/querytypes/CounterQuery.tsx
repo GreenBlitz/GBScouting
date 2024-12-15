@@ -7,6 +7,9 @@ class CounterQuery extends ScouterQuery<
   { color?: Color },
   {}
 > {
+  Instantiate(): React.JSX.Element {
+    return <CounterQuery {...this.props} />
+  }
   getInitialValue(): number {
     return 0;
   }

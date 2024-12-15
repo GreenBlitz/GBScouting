@@ -3,11 +3,12 @@ import ListQuery from "./querytypes/ListQuery";
 import MapQuery from "./querytypes/MapQuery";
 import NumberQuery from "./querytypes/NumberQuery";
 import TextQuery from "./querytypes/TextQuery";
-import ScouterQuery from "./ScouterQuery";
+import ScouterQuery, { QueryProps } from "./ScouterQuery";
 
 export default class Queries {
-  static render(queries: ScouterQuery<any, any, any>[]) {
-    return queries.map((query) => query.render());
+  
+  static render(queries: ScouterQuery<any, any, any>[]): React.JSX.Element[] {
+    return queries.map((query) => query.Instantiate());
   }
 
   static readonly ScouterName = new TextQuery({

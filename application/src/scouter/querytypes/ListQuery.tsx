@@ -2,6 +2,9 @@ import React from "react";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class ListQuery extends ScouterQuery<string, { list: string[] }> {
+  Instantiate(): React.JSX.Element {
+    return <ListQuery {...this.props}/>
+  }
   renderInput(): React.ReactNode {
     return (
       <select

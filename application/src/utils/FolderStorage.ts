@@ -68,8 +68,7 @@ export class Storable<T> {
     this.storage = storage;
   }
 
-  get(): T | null;
-  get(checker?: T): T | null {
+  get(): T | null {
     const unparsedItem = this.storage.getItem(this.name);
 
     if (unparsedItem === null || undefined) {

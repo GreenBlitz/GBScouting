@@ -43,6 +43,7 @@ abstract class ScouterQuery<
 
   abstract renderInput(): React.ReactNode;
   abstract getInitialValue(props: QueryProps<T> & Props): T;
+  abstract Instantiate(): React.JSX.Element;
 }
 
 export default ScouterQuery;

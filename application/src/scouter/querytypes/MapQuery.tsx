@@ -33,6 +33,9 @@ interface MapStates {
 }
 
 class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
+  Instantiate(): React.JSX.Element {
+    return <MapQuery {...this.props} />
+  }
   getStartingState(
     props: QueryProps<FieldObject[]> & MapQueryProps
   ): MapStates | undefined {

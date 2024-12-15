@@ -8,7 +8,7 @@ interface TeleoperatedProps {}
 const Teleoperated: React.FC<TeleoperatedProps> = () => {
   return (
     <>
-      {Queries.MapPoints.render()}
+      {Queries.MapPoints.Instantiate()}
     </>
   );
 };

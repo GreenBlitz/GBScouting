@@ -2,6 +2,9 @@ import React from "react";
 import ScouterQuery, { QueryProps } from "../ScouterQuery";
 
 class RadioQuery extends ScouterQuery<string, { list: string[] }> {
+  Instantiate(): React.JSX.Element {
+    return <RadioQuery {...this.props}/>
+  }
   renderInput(): React.ReactNode {
     return this.props.list.map((item, index) => (
       <React.Fragment key={index}>

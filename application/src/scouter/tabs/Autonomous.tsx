@@ -11,13 +11,13 @@ const Autonomous: React.FC<AutonomousProps> = () => {
           <h3>SCORE </h3>
           <br />
 
-          {Queries.SpeakerAutoScore.render()}
+          {Queries.SpeakerAutoScore.Instantiate()}
         </div>
         <div className="speaker-auto">
           <h3>MISS</h3>
           <br />
 
-          {Queries.SpeakerAutoMiss.render()}
+          {Queries.SpeakerAutoMiss.Instantiate()}
         </div>
       </div>
       <br />

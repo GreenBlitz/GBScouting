@@ -2,6 +2,9 @@ import React from "react";
 import ScouterQuery from "../ScouterQuery";
 
 class TextQuery extends ScouterQuery<string> {
+  Instantiate(): React.JSX.Element {
+    return <TextQuery {...this.props} />;
+  }
   getInitialValue(): string {
     return "";
   }
@@ -14,9 +17,7 @@ class TextQuery extends ScouterQuery<string> {
         name={this.storage.name}
         required={this.props.required}
         defaultValue={this.storage.get()?.toString()}
-        onChange={(event) =>
-          this.storage.set(event.target.value)
-        }
+        onChange={(event) => this.storage.set(event.target.value)}
       />
     );
   }

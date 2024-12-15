@@ -1,6 +1,4 @@
 import React from "react";
-import ListQuery from "../querytypes/ListQuery";
-import TextQuery from "../querytypes/TextQuery";
 import Queries from "../Queries";
 
 interface PostMatchProps {}
