@@ -8,7 +8,7 @@ import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
 import Inputs from "./Inputs.ts";
-import ScouterInput from "./ScouterInput.ts";
+import ScouterInput from "./ScouterInput.tsx";
 import { Match } from "../Utils";
 import Matches from "./Matches";
 

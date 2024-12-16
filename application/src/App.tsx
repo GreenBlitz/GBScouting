@@ -67,10 +67,10 @@ const App: React.FC = () => {
         <Route path="/ScannerTab" Component={ScanningTab} />
         <Route path="/" Component={MatchList} />
         <Route path="/ScouterTab" Component={ScouterTab}>
-          <Route path="/PreMatch" Component={PreMatch} />
-          <Route path="/Teleoperated" Component={Teleoperated} />
-          <Route path="/Autonomous" Component={Autonomous} />
-          <Route path="/PostMatch" Component={PostMatch} />
+          <Route path="PreMatch" Component={PreMatch} />
+          <Route path="Teleoperated" Component={Teleoperated} />
+          <Route path="Autonomous" Component={Autonomous} />
+          <Route path="PostMatch" Component={PostMatch} />
         </Route>
         <Route path="/TeamTab" Component={TeamTab} />
         <Route path="/GeneralTab" Component={GeneralTab} />

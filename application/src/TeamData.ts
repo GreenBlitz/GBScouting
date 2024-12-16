@@ -1,7 +1,8 @@
+import {Color} from "./utils/Color";
 import { Match } from "./Utils";
-import { FieldLine, FieldObject, FieldPoint } from "./strategy/charts/MapChart";
+import { FieldObject } from "./strategy/charts/MapChart";
 import { SectionData } from "./strategy/charts/PieChart";
-import { Color } from "./utils/Color";
+import Percent from "./utils/Percent";
 
 interface Comment {
   body: string;

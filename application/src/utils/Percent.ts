@@ -1,4 +1,4 @@
-class Percent {
+export default class Percent {
   public static readonly Multiplier = 100;
 
   public readonly value: number;

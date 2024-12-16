@@ -1,6 +1,10 @@
+import { all as htmlColorNames } from "html-colors";
+
+const colorNames = htmlColorNames();
+
 type RGB = `rgb(${number}, ${number}, ${number})`;
 type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
 type HEX = `#${string}`;
-type NAME = string // pink, red, etc.. (im not going to go through every one)
+type NAME = keyof typeof colorNames ;
 
 export type Color = RGB | RGBA | HEX | NAME;
