@@ -1,16 +1,16 @@
 export default class Percent {
-  public static readonly Multiplier = 100;
+  public static readonly PERCENTAGE_BASE = 100;
 
   public readonly value: number;
-  public readonly opposite: number;
+  public readonly complement: number;
 
   constructor(value: number) {
     this.value = value;
-    this.opposite = Percent.Multiplier - value;
+    this.complement = Percent.PERCENTAGE_BASE - value;
   }
 
   static fromRatio(numerator: number, denominator: number): Percent {
-    return new Percent((numerator * this.Multiplier) / denominator);
+    return new Percent((numerator * this.PERCENTAGE_BASE) / denominator);
   }
 
   static fromList(list: number[]): Percent[] {

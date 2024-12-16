@@ -98,7 +98,7 @@ export class TeamData {
     return this.matches
       .map((match) => {
         if (typeof match[field] !== "number") {
-          throw new Error("Invalid Field: " + field);
+          throw new Error("Invalid field: " + field);
         }
         return match[field];
       })
@@ -114,7 +114,7 @@ export class TeamData {
     const dataSet: Record<string, SectionData> = {};
     Object.entries(this.matches).forEach(([_, match]) => {
       if (typeof match[field] !== "string") {
-        throw new Error("Invalid Field: " + field);
+        throw new Error("Invalid field: " + field);
       }
       const dataValue = match[field];
       if (!dataSet[dataValue]) {
