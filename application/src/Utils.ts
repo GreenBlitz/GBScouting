@@ -1,32 +1,5 @@
-import { Point } from "chart.js";
 import Inputs from "./scouter/Inputs";
 import ScouterInput from "./scouter/ScouterInput";
-
-export const getServerHostname = () => {
-  return location.host;
-};
-
-export async function fetchData(field: string);
-export async function fetchData(field: string, method: string, body: string);
-export async function fetchData(
-  field: string,
-  method: string = "GET",
-  body?: string
-) {
-  return await fetch(`https://${getServerHostname()}/${field}`, {
-    method: method,
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: body,
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  });
-}
 
 export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
   return Array.from({ length: rangeEnd - rangeStart }).map(
@@ -34,10 +7,6 @@ export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
   );
 }
 
-export async function getMatchesByCriteria(field?: string, value?: string) {
-  const searchedField = field && value ? `${field}/${value}` : ``;
-  return await fetchData("Matches/" + searchedField);
-}
 
 export function sortMatches(matches: Match[]) {
   return matches.sort((match1, match2) => match1.Qual - match2.Qual);
@@ -56,18 +25,7 @@ export type Match = Omit<
   "prototype" | "instantiate"
 >;
 
-export interface Note extends Point {
-  color: "green" | "red" | "orange";
-}
 
-export const autoNotePositions: Point[] = [250, 200, 150, 100, 50].map(
-  (height) => {
-    return { x: 280, y: height };
-  }
-);
-export const autoBlueNotePositions: Point[] = [150, 100, 50].map((height) => {
-  return { x: 90, y: height };
-});
 
 export const FRCTeamList = [
   "1574\tMisCar",

@@ -2,26 +2,26 @@ import { useNavigate } from "react-router-dom";
 import Collapsible from "react-collapsible";
 import React from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
-import { fetchData, Match } from "../Utils";
+import { Match } from "../Utils";
 import { renderScouterNavBar } from "../App";
 import Matches from "./Matches";
+import { postMatch } from "../utils/Fetches";
 
 const MatchList: React.FC = () => {
-
   const navigate = useNavigate();
 
   const matches: Match[] = Matches.getAll();
 
   function removeMatch(match: Match) {
     Matches.remove(match);
-    navigate("/")
+    navigate("/");
   }
 
   function sendMatch(match: Match) {
-    fetchData("Match","POST", JSON.stringify(match))
+    postMatch(match)
       .then(() => {
         alert("Succesfully Sent Match✅");
-        removeMatch(match)
+        removeMatch(match);
       })
       .catch(() => {
         console.log(match);

@@ -2,15 +2,11 @@ import { useState } from "react";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
 import MapChart from "./charts/MapChart";
-import {
-  getMatchesByCriteria,
-  FRCTeamList,
-  Match,
-  sortMatches,
-} from "../Utils";
+import { FRCTeamList, Match, sortMatches } from "../Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
+import { fetchMatchesByCriteria } from "../utils/Fetches";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -43,7 +39,7 @@ const TeamTab: React.FC = () => {
           name="team number"
           onChange={async (event) =>
             setMatches(
-              await getMatchesByCriteria(
+              await fetchMatchesByCriteria(
                 "TeamNumber",
                 event.target.value.slice(0, 4) || "0"
               )

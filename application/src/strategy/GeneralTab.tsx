@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import TableChart from "./charts/TableChart";
-import { getMatchesByCriteria, FRCTeamList } from "../Utils";
+import { FRCTeamList } from "../Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
+import { fetchMatchesByCriteria } from "../utils/Fetches";
 
 interface GeneralTabProps {}
 
@@ -34,7 +35,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
             const teamNumber = team.slice(0, team.indexOf(`\t`));
             return processTeamData(
               new TeamData(
-                await getMatchesByCriteria("TeamNumber", teamNumber)
+                await fetchMatchesByCriteria("TeamNumber", teamNumber)
               ),
               teamNumber
             );
