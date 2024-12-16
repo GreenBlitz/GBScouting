@@ -9,13 +9,13 @@ export default class Percent {
     this.opposite = Percent.Multiplier - value;
   }
 
-  static fromFraction(value: number): Percent {
-    return new Percent(value * this.Multiplier);
+  static fromRatio(numerator: number, denominator: number): Percent {
+    return new Percent((numerator * this.Multiplier) / denominator);
   }
 
   static fromList(list: number[]): Percent[] {
     const sum = list.reduce((accumulator, value) => accumulator + value);
-    return list.map((value) => this.fromFraction(value / sum));
+    return list.map((value) => this.fromRatio(value, sum));
   }
 
   static fromRecord(record: Record<string, number>): Record<string, Percent> {

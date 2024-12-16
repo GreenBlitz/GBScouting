@@ -12,13 +12,11 @@ import { Color } from "../../utils/Color";
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Legend);
 
-
 const DefaultSize = { width: 400, height: 300 };
-
 
 interface DataSet {
   color: Color;
-  data: Record<string,number>;
+  data: Record<string, number>;
 }
 
 interface LineChartProps {

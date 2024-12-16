@@ -1,12 +1,10 @@
 import { Chart, CategoryScale, LinearScale, BarElement } from "chart.js";
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import { Color } from "../../utils/Color";
 
 Chart.register(CategoryScale, LinearScale, BarElement);
-
-
-type Color = string;
-
+ 
 interface DataSet {
   color: Color;
   data: Record<string,number>;

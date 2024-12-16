@@ -1,4 +1,4 @@
-import { rangeArr } from "../Utils"
+import { rangeArr } from "../Utils";
 
 export class BitArray {
   boolArr: boolean[];

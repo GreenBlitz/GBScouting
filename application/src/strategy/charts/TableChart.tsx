@@ -1,4 +1,4 @@
-import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import React from "react";
 
@@ -19,7 +19,7 @@ const TableChart: React.FC<TableChartProps> = ({
   height,
   widthOfItem,
 }) => {
-  const matchesData: Record<string,string>[] = matches.map((match) => {
+  const matchesData: Record<string, string>[] = matches.map((match) => {
     return { ...match };
   });
 
