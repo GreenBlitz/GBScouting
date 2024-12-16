@@ -14,6 +14,7 @@ export default class Inputs {
 
   static readonly ScouterName = new TextInput({
     name: "Scouter Name",
+    doesReset: false,
   });
   static readonly Qual = new NumberInput({
     name: "Qual",
@@ -24,6 +25,7 @@ export default class Inputs {
   static readonly GameSide = new ListInput({
     name: "Game Side",
     list: ["Blue", "Red"],
+    doesReset: false,
   });
   static readonly StartingPosition = new ListInput({
     name: "Starting Position",

@@ -19,8 +19,6 @@ const sectionNames: string[] = [
   PostMatch,
 ].map((section) => section.name);
 
-const constantValues = ["Scouter Name", "Game Side"];
-
 function ScouterTab() {
   const navigate = useNavigate();
   const [currentSectionNumber, setSectionNumber] = useState<number>(0);
@@ -38,7 +36,7 @@ function ScouterTab() {
       .forEach(([inputName, value]) => {
         const input = value as ScouterInput<any, any, any>;
         matchValues[inputName] = input.storage.get();
-        if (!constantValues.includes(inputName)) {
+        if (!input.shouldReset()) {
           input.storage.remove();
         }
       });

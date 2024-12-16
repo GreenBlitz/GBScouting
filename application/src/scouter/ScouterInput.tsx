@@ -4,8 +4,9 @@ import { InputStorable } from "../utils/FolderStorage";
 export interface InputProps<T> {
   name: string;
   isNameHidden?: boolean;
-  required?: boolean | undefined;
+  required?: boolean;
   defaultValue?: T;
+  doesReset? : boolean
 }
 
 abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
@@ -38,6 +39,10 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
 
   getStartingState(props: InputProps<T> & Props): State | undefined {
     return undefined;
+  }
+
+  shouldReset(): boolean {
+    return !!this.props.doesReset;
   }
 
   abstract renderInput(): React.ReactNode;
