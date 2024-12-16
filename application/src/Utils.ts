@@ -14,9 +14,7 @@ export function sortMatches(matches: Match[]) {
 export type Match = Omit<
   {
     [K in keyof typeof Inputs]: 
-    (typeof Inputs)[K] extends ScouterInput<infer U,any,any>
-      ? U
-      : never;
+    (typeof Inputs)[K] extends ScouterInput<infer U,any,any> ? U : never;
   },
   "prototype" | "instantiate"
 >;
