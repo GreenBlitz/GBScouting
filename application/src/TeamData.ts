@@ -1,8 +1,8 @@
-import {Color} from "./utils/Color";
+import { Color } from "./utils/Color";
 import { Match } from "./Utils";
-import { FieldObject } from "./strategy/charts/MapChart";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
+import { FieldObject, mapButtons } from "./scouter/inputtypes/MapInput";
 
 interface Comment {
   body: string;
@@ -31,7 +31,9 @@ export class TeamData {
       StartingPosition: "Amp Side",
       SpeakerAutoScore: 3,
       SpeakerAutoMiss: 4,
-      MapPoints: [{ x: 100, y: 300, successfulness: true, data: "Speaker" }],
+      MapPoints: [
+        { x: 100, y: 300, successfulness: true, pressedButton: mapButtons[0] },
+      ],
       AmpScore: 2,
       AmpMiss: 1,
       Climb: "Park",
@@ -44,7 +46,8 @@ export class TeamData {
     function getFromMap(match: Match, name: string, successfulness: boolean) {
       return match.MapPoints.filter(
         (object) =>
-          object.data === name && object.successfulness === successfulness
+          object.pressedButton.name === name &&
+          object.successfulness === successfulness
       ).length;
     }
     this.matches = matches.map((match) => {

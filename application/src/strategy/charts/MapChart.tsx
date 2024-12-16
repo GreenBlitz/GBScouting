@@ -1,21 +1,16 @@
 import { Point } from "chart.js";
 import React from "react";
 import { useEffect, useRef } from "react";
+import {
+  FieldLine,
+  FieldObject,
+  FieldPoint,
+  MapButton,
+} from "../../scouter/inputtypes/MapInput";
+import { Color } from "../../utils/Color";
 
 const DefaultSize = { width: 432, height: 192 };
 
-interface FieldData {
-  data: string;
-  successfulness: boolean;
-}
-
-export interface FieldPoint extends Point, FieldData {}
-export interface FieldLine extends FieldData {
-  startPoint: Point;
-  endPoint: Point;
-}
-
-export type FieldObject = FieldLine | FieldPoint;
 interface MapChartProps {
   width?: number;
   height?: number;
@@ -23,13 +18,23 @@ interface MapChartProps {
   fieldObjects: FieldObject[];
 }
 
-const colorMap: Record<string, string> = {
-  "Speaker Score": "green",
-  "Speaker Miss": "red",
-  Pass: "purple",
-  Note: "#947325",
-  StartPass: "#155237",
-};
+const linePointsColors = { start: "#155237", end: "#947325" };
+
+const possibleMapObjects: MapButton[] = [
+  {
+    name: "Speaker",
+    successColor: "green",
+    unsuccessColor: "red",
+    isLine: false,
+  },
+  {
+    name: "Pass",
+    successColor: "purple",
+    unsuccessColor: "purple",
+    isLine: true,
+  },
+];
+
 const pointRadius = 5;
 const MapChart: React.FC<MapChartProps> = ({
   width: mapWidth,
@@ -47,38 +52,34 @@ const MapChart: React.FC<MapChartProps> = ({
     if (!context) {
       return;
     }
-    context.clearRect(0, 0, width, height);
 
-    for (let fieldObject of fieldObjects) {
-      const isPassing = (fieldObject as FieldPoint).x === undefined;
-      if (isPassing) {
-        const { startPoint, endPoint } = fieldObject as FieldLine;
-        context.strokeStyle = colorMap["Pass"];
+    const drawPoint = (point: Point, color: Color) => {
+      context.fillStyle = color.toString();
+      context.beginPath();
+      context.arc(point.x, point.y, pointRadius, 0, 2 * Math.PI);
+      context.fill();
+    };
+
+    context.clearRect(0, 0, this.props.width, this.props.height);
+
+    for (let point of fieldObjects) {
+      const isLine = (point as FieldPoint).x === undefined;
+      const color = point.successfulness
+        ? point.pressedButton.successColor
+        : point.pressedButton.unsuccessColor;
+      if (isLine) {
+        const { startPoint, endPoint } = point as FieldLine;
+        context.strokeStyle = color.toString();
         context.beginPath();
         context.moveTo(startPoint.x, startPoint.y);
         context.lineTo(endPoint.x, endPoint.y);
         context.lineWidth = pointRadius;
         context.stroke();
-        context.fillStyle = colorMap["StartPass"];
-        context.beginPath();
-        context.arc(startPoint.x, startPoint.y, pointRadius, 0, 2 * Math.PI);
-        context.fill();
-        fieldObject = {
-          x: endPoint.x,
-          y: endPoint.y,
-          data: "Note",
-          successfulness: fieldObject.successfulness,
-        };
+        drawPoint(startPoint, linePointsColors.start);
+        drawPoint(endPoint, linePointsColors.end);
+      } else {
+        drawPoint(point as FieldPoint, color);
       }
-      fieldObject = fieldObject as FieldPoint;
-      context.fillStyle = colorMap[fieldObject.data];
-      if (fieldObject.data === "Speaker") {
-        context.fillStyle =
-          colorMap[`Speaker ${fieldObject.successfulness ? "Score" : "Miss"}`];
-      }
-      context.beginPath();
-      context.arc(fieldObject.x, fieldObject.y, pointRadius, 0, 2 * Math.PI);
-      context.fill();
     }
   }
 

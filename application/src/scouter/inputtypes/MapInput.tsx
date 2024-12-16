@@ -1,11 +1,5 @@
 import { Point } from "chart.js";
 import React from "react";
-
-import {
-  FieldLine,
-  FieldObject,
-  FieldPoint,
-} from "../../strategy/charts/MapChart.tsx";
 import Inputs from "../Inputs.ts";
 import ScouterInput, { InputProps } from "../ScouterInput.tsx";
 import { Color } from "../../utils/Color.ts";
@@ -18,14 +12,27 @@ interface MapInputProps {
 const pointRadius: number = 5;
 const succesfulnessOffset = [80, -60];
 
-interface MapButton {
+interface FieldData {
+  pressedButton: MapButton;
+  successfulness: boolean;
+}
+
+export interface FieldPoint extends Point, FieldData {}
+export interface FieldLine extends FieldData {
+  startPoint: Point;
+  endPoint: Point;
+}
+
+export type FieldObject = FieldLine | FieldPoint;
+
+export interface MapButton {
   name: string;
   successColor: Color;
   unsuccessColor: Color;
   isLine: boolean;
 }
 
-const mapButtons: MapButton[] = [
+export const mapButtons: MapButton[] = [
   {
     name: "Speaker",
     successColor: "green",
@@ -84,12 +91,12 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       const clickedPoint: FieldPoint = {
         x: point.x,
         y: point.y,
-        data: this.state.pressedButton.name,
+        pressedButton: this.state.pressedButton,
         successfulness: successfulness,
       };
       this.setState({ lastClickedPoint: undefined });
       if (this.state.pressedButton.isLine && successfulness) {
-        this.setState({ lastClickedPoint: clickedPoint });
+        this.setState({ passingPoint: clickedPoint });
         return;
       }
       addObject(clickedPoint);
@@ -112,11 +119,11 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       for (let point of this.storage.get() || []) {
         const isLine = (point as FieldPoint).x === undefined;
         const color = point.successfulness
-          ? this.state.pressedButton.successColor
-          : this.state.pressedButton.unsuccessColor;
+          ? point.pressedButton.successColor
+          : point.pressedButton.unsuccessColor;
         if (isLine) {
           const { startPoint, endPoint } = point as FieldLine;
-          context.strokeStyle = color;
+          context.strokeStyle = color.toString();
           context.beginPath();
           context.moveTo(startPoint.x, startPoint.y);
           context.lineTo(endPoint.x, endPoint.y);
@@ -124,7 +131,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
           context.stroke();
         } else {
           point = point as FieldPoint;
-          context.fillStyle = color;
+          context.fillStyle = color.toString();
           context.beginPath();
           context.arc(point.x, point.y, pointRadius, 0, 2 * Math.PI);
           context.fill();
@@ -142,7 +149,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
 
       if (this.state.passingPoint) {
         const fieldLine: FieldLine = {
-          data: this.state.passingPoint.data,
+          pressedButton: this.state.passingPoint.pressedButton,
           successfulness: this.state.passingPoint.successfulness,
           startPoint: this.state.passingPoint,
           endPoint: clickedPoint,
