@@ -60,7 +60,7 @@ const MapChart: React.FC<MapChartProps> = ({
       context.fill();
     };
 
-    context.clearRect(0, 0, this.props.width, this.props.height);
+    context.clearRect(0, 0, width, height);
 
     for (let point of fieldObjects) {
       const isLine = (point as FieldPoint).x === undefined;
