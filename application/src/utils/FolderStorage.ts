@@ -19,15 +19,8 @@ export default class FolderStorage {
     return this.parent.getItem(this.prefix + key);
   }
 
-  key(index: number): string | null {
-    let count = 0;
-    for (const key in this.keys()) {
-      if (count === index) {
-        return key;
-      }
-      count++;
-    }
-    return null;
+  key(index: number): string {
+    return this.keys()[index];
   }
 
   removeItem(key: string): void {
