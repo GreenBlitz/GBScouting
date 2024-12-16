@@ -4,7 +4,6 @@ import React from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
 import { fetchData, Match } from "../Utils";
 import { renderScouterNavBar } from "../App";
-import {} from "module";
 import Matches from "./Matches";
 
 const MatchList: React.FC = () => {

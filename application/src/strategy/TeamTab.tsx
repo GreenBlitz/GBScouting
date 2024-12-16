@@ -156,8 +156,8 @@ const TeamTab: React.FC = () => {
         <h2>Amp Accuracy</h2>
         <PieChart
           pieData={{
-            Score: { numberLabel: ampAccuracy, color: "green" },
-            Miss: { numberLabel: 100 - ampAccuracy, color: "crimson" },
+            Score: { percentage: ampAccuracy.value, color: "green" },
+            Miss: { percentage: 100 - ampAccuracy.opposite, color: "crimson" },
           }}
         />
       </div>
@@ -166,8 +166,8 @@ const TeamTab: React.FC = () => {
         <h2>Speaker Accuracy</h2>
         <PieChart
           pieData={{
-            Score: { numberLabel: speakerAccuracy, color: "green" },
-            Miss: { numberLabel: 100 - speakerAccuracy, color: "crimson" },
+            Score: { percentage: speakerAccuracy.value, color: "green" },
+            Miss: { percentage: speakerAccuracy.opposite, color: "crimson" },
           }}
         />
       </div>
@@ -175,8 +175,8 @@ const TeamTab: React.FC = () => {
         <h2>Pass Accuracy</h2>
         <PieChart
           pieData={{
-            Score: { numberLabel: passAccuracy, color: "green" },
-            Miss: { numberLabel: 100 - passAccuracy, color: "crimson" },
+            Score: { percentage: passAccuracy.value, color: "green" },
+            Miss: { percentage: passAccuracy.opposite, color: "crimson" },
           }}
         />
       </div>

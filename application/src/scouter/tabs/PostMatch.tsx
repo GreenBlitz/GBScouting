@@ -1,12 +1,10 @@
 import React from "react";
-import Queries from "../Queries";
+import Inputs from "../Inputs";
 
 interface PostMatchProps {}
 
 const PostMatch: React.FC<PostMatchProps> = () => {
-  return (
-    <>{Queries.instantiate([Queries.Climb, Queries.Trap, Queries.Comment])}</>
-  );
+  return <>{Inputs.instantiate([Inputs.Climb, Inputs.Trap, Inputs.Comment])}</>;
 };
 
 export default PostMatch;

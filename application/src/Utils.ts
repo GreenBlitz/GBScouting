@@ -1,19 +1,19 @@
 import { Point } from "chart.js";
-import Queries from "./scouter/Queries";
-import ScouterQuery from "./scouter/ScouterQuery";
+import Inputs from "./scouter/Inputs";
+import ScouterInput from "./scouter/ScouterInput";
 
 export const getServerHostname = () => {
   return location.host;
 };
 
 export async function fetchData(field: string);
-export async function fetchData(field: string, method: string, body: string)
+export async function fetchData(field: string, method: string, body: string);
 export async function fetchData(
   field: string,
   method: string = "GET",
   body?: string
 ) {
-  return await fetch(`http://${getServerHostname()}/${field}`, {
+  return await fetch(`https://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
@@ -40,16 +40,21 @@ export async function getMatchesByCriteria(field?: string, value?: string) {
 }
 
 export function sortMatches(matches: Match[]) {
-  return matches.sort((match1, match2) => {
-    return match1.Qual - match2.Qual;
-  });
+  return matches.sort((match1, match2) => match1.Qual - match2.Qual);
 }
 
-export type Match = Omit<{
-  [K in keyof typeof Queries]: 
-  (typeof Queries)[K] extends ScouterQuery<infer U,any,any> ? U : never;
-}, "prototype" | "instantiate">
-
+export type Match = Omit<
+  {
+    [K in keyof typeof Inputs]: (typeof Inputs)[K] extends ScouterInput<
+      infer U,
+      any,
+      any
+    >
+      ? U
+      : never;
+  },
+  "prototype" | "instantiate"
+>;
 
 export interface Note extends Point {
   color: "green" | "red" | "orange";

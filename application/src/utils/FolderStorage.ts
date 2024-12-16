@@ -14,9 +14,11 @@ export default class FolderStorage {
       .filter((key) => key.startsWith(this.prefix))
       .forEach((key) => this.removeItem(key));
   }
+
   getItem(key: string): string | null {
     return this.parent.getItem(this.prefix + key);
   }
+
   key(index: number): string | null {
     let count = 0;
     for (const key in this.keys()) {
@@ -27,9 +29,11 @@ export default class FolderStorage {
     }
     return null;
   }
+
   removeItem(key: string): void {
     this.parent.removeItem(this.prefix + key);
   }
+
   setItem(key: string, value: string): void {
     this.parent.setItem(this.prefix + key, value);
   }
@@ -43,9 +47,11 @@ export default class FolderStorage {
       .filter((key) => key.startsWith(this.prefix))
       .map((key) => key.slice(this.prefix.length));
   }
+
   entries(): [string, string | null][] {
     return this.keys().map((key) => [key, this.getItem(key)]);
   }
+
   values(): (string | null)[] {
     return this.keys().map((key) => this.getItem(key));
   }
@@ -58,7 +64,7 @@ export default class FolderStorage {
 export const localFolder = new FolderStorage(localStorage);
 export const sessionFolder = new FolderStorage(sessionStorage);
 
-export const queryFolder = localFolder.with("Queries/");
+export const inputFolder = localFolder.with("Inputs/");
 
 export class Storable<T> {
   public readonly name: string;
@@ -99,12 +105,12 @@ export class Storable<T> {
   }
 
   exists(): boolean {
-    return !!queryFolder.getItem(this.name);
+    return !!inputFolder.getItem(this.name);
   }
 }
 
-export class QueryStorable<T> extends Storable<T> {
+export class InputStorable<T> extends Storable<T> {
   constructor(name: string) {
-    super(name, queryFolder);
+    super(name, inputFolder);
   }
 }

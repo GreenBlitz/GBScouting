@@ -1,9 +1,9 @@
 import React from "react";
-import ScouterQuery from "../ScouterQuery";
+import ScouterInput from "../ScouterInput";
 
-class CheckboxQuery extends ScouterQuery<boolean> {
+class CheckboxInput extends ScouterInput<boolean> {
   instantiate(): React.JSX.Element {
-    return <CheckboxQuery {...this.props} />;
+    return <CheckboxInput {...this.props} />;
   }
   renderInput(): React.ReactNode {
     return (
@@ -23,4 +23,4 @@ class CheckboxQuery extends ScouterQuery<boolean> {
   }
 }
 
-export default CheckboxQuery;
+export default CheckboxInput;

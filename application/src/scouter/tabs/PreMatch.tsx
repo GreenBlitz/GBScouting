@@ -1,17 +1,17 @@
 import React from "react";
-import Queries from "../Queries";
+import Inputs from "../Inputs";
 
 interface PreGameProps {}
 
 const PreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
-      {Queries.instantiate([
-        Queries.ScouterName,
-        Queries.Qual,
-        Queries.TeamNumber,
-        Queries.GameSide,
-        Queries.StartingPosition,
+      {Inputs.instantiate([
+        Inputs.ScouterName,
+        Inputs.Qual,
+        Inputs.TeamNumber,
+        Inputs.GameSide,
+        Inputs.StartingPosition,
       ])}
     </>
   );

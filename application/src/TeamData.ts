@@ -62,9 +62,9 @@ export class TeamData {
       {},
       ...Object.values(this.matches).map((match) => {
         if (typeof match[field] !== "number") {
-          return {};
+          throw new Error("Invalid field: " + field);
         }
-        return { [match.Qual + ""]: match[field] };
+        return { [match.Qual.toString()]: match[field] };
       })
     );
   }
@@ -82,27 +82,28 @@ export class TeamData {
   getAccuracy(
     percentField: keyof FullMatch,
     compareField: keyof FullMatch
-  ): number {
+  ): Percent {
+    const averages = [
+      this.getAverage(percentField),
+      this.getAverage(compareField),
+    ];
+    return Percent.fromList(averages)[0];
+  }
+
+  getAverage(field: keyof FullMatch): number {
     if (this.matches.length === 0) {
       return 0;
     }
-    const bothSummed = this.matches
+    return this.matches
       .map((match) => {
-        if (
-          typeof match[percentField] !== "number" ||
-          typeof match[compareField] !== "number"
-        ) {
-          return { percent: 0, compare: 0 };
+        if (typeof match[field] !== "number") {
+          throw new Error("Invalid Field: " + field);
         }
-        return { percent: match[percentField], compare: match[compareField] };
+        return match[field];
       })
       .reduce((accumulator, value) => {
-        return {
-          percent: accumulator.percent + value.percent,
-          compare: accumulator.compare + value.compare,
-        };
+        return accumulator + value;
       });
-    return bothSummed.percent / (bothSummed.compare + bothSummed.percent) * 100;
   }
 
   getAsPie(
@@ -112,13 +113,13 @@ export class TeamData {
     const dataSet: Record<string, SectionData> = {};
     Object.entries(this.matches).forEach(([_, match]) => {
       if (typeof match[field] !== "string") {
-        return;
+        throw new Error("Invalid Field: " + field);
       }
       const dataValue = match[field];
       if (!dataSet[dataValue]) {
-        dataSet[dataValue] = { numberLabel: 0, color: colorMap[dataValue] };
+        dataSet[dataValue] = { percentage: 0, color: colorMap[dataValue] };
       }
-      dataSet[dataValue].numberLabel++;
+      dataSet[dataValue].percentage++;
     });
     return dataSet;
   }

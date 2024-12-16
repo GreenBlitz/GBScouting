@@ -5,14 +5,19 @@ import Autonomous from "./tabs/Autonomous";
 import Teleoperated from "./tabs/Teleoperated";
 import PostMatch from "./tabs/PostMatch";
 import { renderScouterNavBar } from "../App";
-import { queryFolder } from "../utils/FolderStorage";
-import CancelCheck from "../components/CancelCheck";
-import Queries from "./Queries";
-import ScouterQuery from "./ScouterQuery";
+import { inputFolder } from "../utils/FolderStorage";
+import CancelConfirmation from "../components/CancelConfirmation";
+import Inputs from "./Inputs.ts";
+import ScouterInput from "./ScouterInput.ts";
 import { Match } from "../Utils";
 import Matches from "./Matches";
 
-const sectionNames: string[] = [PreMatch, Autonomous, Teleoperated, PostMatch].map((section) => section.name);
+const sectionNames: string[] = [
+  PreMatch,
+  Autonomous,
+  Teleoperated,
+  PostMatch,
+].map((section) => section.name);
 
 const constantValues = ["Scouter Name", "Game Side"];
 
@@ -20,36 +25,34 @@ function ScouterTab() {
   const navigate = useNavigate();
   const [currentSectionNumber, setSectionNumber] = useState<number>(0);
 
-
   const navigateToSection = (section: number) => {
-    setSectionNumber(section)
-    navigate(sectionNames[section])
-  }
+    setSectionNumber(section);
+    navigate(sectionNames[section]);
+  };
 
   function handleSubmit() {
+    const matchValues: Record<string, any> = {};
 
-    const matchValues: Record<string,any> = {};
-
-    Object.entries(Queries).filter(
-      ([_, value]) => value instanceof ScouterQuery
-    ).forEach(([queryName, value]) => {
-      const query = value as ScouterQuery<any,any,any>;
-      matchValues[queryName] = query.storage.get();
-      if (!constantValues.includes(queryName)) {
-        query.storage.remove();
-      }
-    });
+    Object.entries(Inputs)
+      .filter(([_, value]) => value instanceof ScouterInput)
+      .forEach(([inputName, value]) => {
+        const input = value as ScouterInput<any, any, any>;
+        matchValues[inputName] = input.storage.get();
+        if (!constantValues.includes(inputName)) {
+          input.storage.remove();
+        }
+      });
 
     Matches.add(matchValues as Match);
     navigate("/");
   }
 
-  function clearQueryStorage() {
-    queryFolder.keys().forEach((item) => queryFolder.removeItem(item));
+  function clearInputStorage() {
+    inputFolder.keys().forEach((item) => inputFolder.removeItem(item));
   }
 
   function handleReset() {
-    clearQueryStorage();
+    clearInputStorage();
     navigate("/");
   }
 
@@ -78,7 +81,7 @@ function ScouterTab() {
           Next
         </button>
       )}
-      <br /> <CancelCheck name="Reset" onClick={handleReset} />
+      <br /> <CancelConfirmation name="Reset" onClick={handleReset} />
     </div>
   );
 }

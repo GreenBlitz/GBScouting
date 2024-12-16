@@ -6,10 +6,10 @@ import {
   FieldObject,
   FieldPoint,
 } from "../../strategy/charts/MapChart.tsx";
-import Queries from "../Queries.ts";
-import ScouterQuery, { QueryProps } from "../ScouterQuery.tsx";
+import Inputs from "../Inputs.ts";
+import ScouterInput, { InputProps } from "../ScouterInput.tsx";
 import { Color } from "../../utils/Color.ts";
-interface MapQueryProps {
+interface MapInputProps {
   width: number;
   height: number;
   imagePath: string;
@@ -48,7 +48,7 @@ interface MapStates {
 
 const defaultButton = mapButtons[0];
 
-class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
+class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
 
   constructor(props) {
@@ -57,16 +57,16 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
   }
 
   instantiate(): React.JSX.Element {
-    return <MapQuery {...this.props} />;
+    return <MapInput {...this.props} />;
   }
   getStartingState(
-    props: QueryProps<FieldObject[]> & MapQueryProps
+    props: InputProps<FieldObject[]> & MapInputProps
   ): MapStates | undefined {
     return { pressedButton: defaultButton };
   }
 
   renderInput(): React.ReactNode {
-    const side = Queries.GameSide.storage.get() || "Blue";
+    const side = Inputs.GameSide.storage.get() || "Blue";
 
     const context = this.canvasRef.current
       ? this.canvasRef.current.getContext("2d")
@@ -111,9 +111,9 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
 
       for (let point of this.storage.get() || []) {
         const isLine = (point as FieldPoint).x === undefined;
-        const color = (point.successfulness
+        const color = point.successfulness
           ? this.state.pressedButton.successColor
-          : this.state.pressedButton.unsuccessColor);
+          : this.state.pressedButton.unsuccessColor;
         if (isLine) {
           const { startPoint, endPoint } = point as FieldLine;
           context.strokeStyle = color;
@@ -183,9 +183,7 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
                       name={name + "-buttons"}
                       id={button.name}
                       value={button.name}
-                      onChange={() =>
-                        this.setState({ pressedButton: button })
-                      }
+                      onChange={() => this.setState({ pressedButton: button })}
                       defaultChecked
                       className="cool-radio-input"
                     />
@@ -200,9 +198,7 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
                     name={name + "-buttons"}
                     id={button.name}
                     value={button.name}
-                    onChange={() =>
-                      this.setState({ pressedButton: button })
-                    }
+                    onChange={() => this.setState({ pressedButton: button })}
                     className="cool-radio-input"
                   />
                   <label htmlFor={button.name}>{button.name}</label>
@@ -223,9 +219,9 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
       <div className={"map-amp"}>
         <h2>AMP</h2>
         <br />
-        {Queries.AmpScore.instantiate()}
+        {Inputs.AmpScore.instantiate()}
         <br />
-        {Queries.AmpMiss.instantiate()}
+        {Inputs.AmpMiss.instantiate()}
       </div>
     );
 
@@ -316,9 +312,9 @@ class MapQuery extends ScouterQuery<FieldObject[], MapQueryProps, MapStates> {
     );
   }
   getInitialValue(
-    props: QueryProps<FieldObject[]> & MapQueryProps
+    props: InputProps<FieldObject[]> & MapInputProps
   ): FieldObject[] {
     return [];
   }
 }
-export default MapQuery;
+export default MapInput;

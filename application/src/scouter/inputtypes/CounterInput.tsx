@@ -1,19 +1,19 @@
 import React from "react";
-import ScouterQuery, { QueryProps } from "../ScouterQuery";
+import ScouterInput, { InputProps } from "../ScouterInput";
 import { Color } from "../../utils/Color";
 
-class CounterQuery extends ScouterQuery<
+class CounterInput extends ScouterInput<
   number,
   { color?: Color },
   { count: number }
 > {
   getStartingState(
-    props: QueryProps<number> & { color?: Color }
+    props: InputProps<number> & { color?: Color }
   ): { count: number } | undefined {
     return { count: this.storage.get() || 0 };
   }
   instantiate(): React.JSX.Element {
-    return <CounterQuery {...this.props} />;
+    return <CounterInput {...this.props} />;
   }
   getInitialValue(): number {
     return 0;
@@ -53,4 +53,4 @@ class CounterQuery extends ScouterQuery<
   }
 }
 
-export default CounterQuery;
+export default CounterInput;

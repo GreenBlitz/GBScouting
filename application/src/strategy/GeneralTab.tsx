@@ -12,13 +12,13 @@ function processTeamData(
   teamNumber: string
 ): Record<string, string> {
   const table: Record<string, string> = {
-    // "Team Number": teamNumber,
-    // Amp: data.getAverage("Amp Score") + "",
-    // "Amp Miss": data.getAverage("Amp Miss") + "",
-    // Speaker: data.getAverage("Speaker Score") + "",
-    // "Speaker Miss": data.getAverage("Speaker Miss") + "",
-    // "Auto Speaker": data.getAverage("Speaker/Auto/Score") + "",
-    // "Auto Speaker Miss": data.getAverage("Speaker/Auto/Miss") + "",
+    "Team Number": teamNumber,
+    Amp: data.getAverage("AmpScore").toString(),
+    "Amp Miss": data.getAverage("AmpMiss").toString(),
+    Speaker: data.getAverage("SpeakerScore").toString(),
+    "Speaker Miss": data.getAverage("SpeakerMiss").toString(),
+    "Auto Speaker": data.getAverage("SpeakerAutoScore").toString(),
+    "Auto Speaker Miss": data.getAverage("SpeakerAutoMiss").toString(),
   };
   return table;
 }
@@ -34,7 +34,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
             const teamNumber = team.slice(0, team.indexOf(`\t`));
             return processTeamData(
               new TeamData(
-                await getMatchesByCriteria("Team Number", teamNumber)
+                await getMatchesByCriteria("TeamNumber", teamNumber)
               ),
               teamNumber
             );

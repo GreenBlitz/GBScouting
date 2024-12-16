@@ -1,22 +1,21 @@
 import React from "react";
-import { QueryStorable } from "../utils/FolderStorage";
+import { InputStorable } from "../utils/FolderStorage";
 
-export interface QueryProps<T> {
+export interface InputProps<T> {
   name: string;
   isNameHidden?: boolean;
   required?: boolean | undefined;
   defaultValue?: T;
 }
 
-abstract class ScouterQuery<
-  T,
-  Props extends {} = {},
-  State extends {} = {}
-> extends React.Component<QueryProps<T> & Props, State> {
-  public readonly storage: QueryStorable<T>;
-  constructor(props: QueryProps<T> & Props) {
+abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
+  InputProps<T> & Props,
+  State
+> {
+  public readonly storage: InputStorable<T>;
+  constructor(props: InputProps<T> & Props) {
     super(props);
-    this.storage = new QueryStorable<T>(this.props.name);
+    this.storage = new InputStorable<T>(this.props.name);
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
@@ -30,20 +29,20 @@ abstract class ScouterQuery<
       );
     }
     return (
-      <div className="scouter-query">
+      <div className="scouter-input">
         {!this.props.isNameHidden && <h2>{this.props.name}</h2>}
         {this.renderInput()}
       </div>
     );
   }
 
-  getStartingState(props: QueryProps<T> & Props): State | undefined {
+  getStartingState(props: InputProps<T> & Props): State | undefined {
     return undefined;
   }
 
   abstract renderInput(): React.ReactNode;
-  abstract getInitialValue(props: QueryProps<T> & Props): T;
+  abstract getInitialValue(props: InputProps<T> & Props): T;
   abstract instantiate(): React.JSX.Element;
 }
 
-export default ScouterQuery;
+export default ScouterInput;

@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
-import CounterQuery from "../querytypes/CounterQuery";
-import Queries from "../Queries";
+import React from "react";
+import Inputs from "../Inputs";
 interface AutonomousProps {}
 
 const Autonomous: React.FC<AutonomousProps> = () => {
@@ -11,13 +10,13 @@ const Autonomous: React.FC<AutonomousProps> = () => {
           <h3>SCORE </h3>
           <br />
 
-          {Queries.SpeakerAutoScore.instantiate()}
+          {Inputs.SpeakerAutoScore.instantiate()}
         </div>
         <div className="speaker-auto">
           <h3>MISS</h3>
           <br />
 
-          {Queries.SpeakerAutoMiss.instantiate()}
+          {Inputs.SpeakerAutoMiss.instantiate()}
         </div>
       </div>
       <br />

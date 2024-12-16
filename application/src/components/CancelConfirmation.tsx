@@ -1,12 +1,15 @@
 import React from "react";
 import { useState } from "react";
 
-interface CancelCheck {
+interface CancelConfirmationProps {
   name: string;
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const CancelCheck: React.FC<CancelCheck> = ({ onClick, name }) => {
+const CancelConfirmation: React.FC<CancelConfirmationProps> = ({
+  onClick,
+  name,
+}) => {
   const [showCheck, setShowCheck] = useState<boolean>(false);
 
   return (
@@ -35,4 +38,4 @@ const CancelCheck: React.FC<CancelCheck> = ({ onClick, name }) => {
   );
 };
 
-export default CancelCheck;
+export default CancelConfirmation;

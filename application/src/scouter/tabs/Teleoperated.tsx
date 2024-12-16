@@ -1,10 +1,10 @@
 import React from "react";
-import Queries from "../Queries";
+import Inputs from "../Inputs";
 
 interface TeleoperatedProps {}
 
 const Teleoperated: React.FC<TeleoperatedProps> = () => {
-  return <>{Queries.MapPoints.instantiate()}</>;
+  return <>{Inputs.MapPoints.instantiate()}</>;
 };
 
 export default Teleoperated;

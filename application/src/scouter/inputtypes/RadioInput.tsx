@@ -1,10 +1,11 @@
 import React from "react";
-import ScouterQuery, { QueryProps } from "../ScouterQuery";
+import ScouterInput, { InputProps } from "../ScouterInput";
 
-class RadioQuery extends ScouterQuery<string, { list: string[] }> {
-  Instantiate(): React.JSX.Element {
-    return <RadioQuery {...this.props}/>
+class RadioInput extends ScouterInput<string, { list: string[] }> {
+  instantiate(): React.JSX.Element {
+    return <RadioInput {...this.props} />;
   }
+
   renderInput(): React.ReactNode {
     return this.props.list.map((item, index) => (
       <React.Fragment key={index}>
@@ -21,9 +22,9 @@ class RadioQuery extends ScouterQuery<string, { list: string[] }> {
       </React.Fragment>
     ));
   }
-  getInitialValue(props: QueryProps<string> & { list: string[] }): string {
+  getInitialValue(props: InputProps<string> & { list: string[] }): string {
     return props.list[0];
   }
 }
 
-export default RadioQuery;
+export default RadioInput;

@@ -6,7 +6,7 @@ import { Color } from "../../utils/Color";
 Chart.register(ArcElement, Tooltip, Legend);
 
 export interface SectionData {
-  numberLabel: number;
+  percentage: number;
   color: Color;
 }
 interface PieChartProps {
@@ -16,7 +16,7 @@ interface PieChartProps {
 const PieChart: React.FC<PieChartProps> = ({ pieData }) => {
   const names = Object.keys(pieData);
   const data = Object.values(pieData).map((section) => {
-    return section.numberLabel;
+    return section.percentage;
   });
   const backgroundColor = Object.values(pieData).map((section) => {
     return section.color;

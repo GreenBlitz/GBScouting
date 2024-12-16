@@ -1,9 +1,9 @@
 import React from "react";
-import ScouterQuery from "../ScouterQuery";
+import ScouterInput from "../ScouterInput";
 
-class TextQuery extends ScouterQuery<string> {
+class TextInput extends ScouterInput<string> {
   instantiate(): React.JSX.Element {
-    return <TextQuery {...this.props} />;
+    return <TextInput {...this.props} />;
   }
   getInitialValue(): string {
     return "";
@@ -23,4 +23,4 @@ class TextQuery extends ScouterQuery<string> {
   }
 }
 
-export default TextQuery;
+export default TextInput;

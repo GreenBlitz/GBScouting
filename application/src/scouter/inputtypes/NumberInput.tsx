@@ -1,9 +1,9 @@
 import React from "react";
-import ScouterQuery from "../ScouterQuery";
+import ScouterInput from "../ScouterInput";
 
-class NumberQuery extends ScouterQuery<number> {
+class NumberInput extends ScouterInput<number> {
   instantiate(): React.JSX.Element {
-    return <NumberQuery {...this.props} />;
+    return <NumberInput {...this.props} />;
   }
   getInitialValue(): number {
     return 0;
@@ -23,4 +23,4 @@ class NumberQuery extends ScouterQuery<number> {
   }
 }
 
-export default NumberQuery;
+export default NumberInput;

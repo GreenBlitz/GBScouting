@@ -1,9 +1,9 @@
 import React from "react";
-import ScouterQuery, { QueryProps } from "../ScouterQuery";
+import ScouterInput, { InputProps } from "../ScouterInput";
 
-class ListQuery extends ScouterQuery<string, { list: string[] }> {
+class ListInput extends ScouterInput<string, { list: string[] }> {
   instantiate(): React.JSX.Element {
-    return <ListQuery {...this.props} />;
+    return <ListInput {...this.props} />;
   }
   renderInput(): React.ReactNode {
     return (
@@ -22,9 +22,9 @@ class ListQuery extends ScouterQuery<string, { list: string[] }> {
       </select>
     );
   }
-  getInitialValue(props: QueryProps<string> & { list: string[] }): string {
+  getInitialValue(props: InputProps<string> & { list: string[] }): string {
     return props.list[0];
   }
 }
 
-export default ListQuery;
+export default ListInput;
