@@ -1,9 +1,9 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 
-class ListInput extends ScouterInput<string, { options: string[] }> {
+class DropdownInput extends ScouterInput<string, { options: string[] }> {
   create(): React.JSX.Element {
-    return <ListInput {...this.props} />;
+    return <DropdownInput {...this.props} />;
   }
   renderInput(): React.ReactNode {
     return (
@@ -27,4 +27,4 @@ class ListInput extends ScouterInput<string, { options: string[] }> {
   }
 }
 
-export default ListInput;
+export default DropdownInput;
