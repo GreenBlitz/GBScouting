@@ -6,7 +6,7 @@ export interface InputProps<T> {
   isNameHidden?: boolean;
   required?: boolean;
   defaultValue?: T;
-  doesReset? : boolean
+  doesReset?: boolean;
 }
 
 abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
@@ -26,7 +26,7 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   render(): React.ReactNode {
     if (!this.storage.exists()) {
       this.storage.set(
-        this.props.defaultValue || this.getInitialValue(this.props)
+        this.props.defaultValue || this.initialValue(this.props)
       );
     }
     return (
@@ -46,8 +46,8 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   }
 
   abstract renderInput(): React.ReactNode;
-  abstract getInitialValue(props: InputProps<T> & Props): T;
-  abstract instantiate(): React.JSX.Element;
+  abstract initialValue(props: InputProps<T> & Props): T;
+  abstract create(): React.JSX.Element;
 }
 
 export default ScouterInput;

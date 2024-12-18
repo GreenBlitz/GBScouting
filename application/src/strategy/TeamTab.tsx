@@ -2,7 +2,7 @@ import { useState } from "react";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
 import MapChart from "./charts/MapChart";
-import { FRCTeamList, Match, sortMatches } from "../Utils";
+import { FRCTeamList, Match, sortMatches } from "../utils/Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
@@ -21,10 +21,7 @@ const TeamTab: React.FC = () => {
 
   const ampAccuracy = teamData.getAccuracy("AmpScore", "AmpMiss");
   const speakerAccuracy = teamData.getAccuracy("SpeakerScore", "SpeakerMiss");
-  const passAccuracy = teamData.getAccuracy(
-    "PassSuccessful",
-    "PassUnSuccessful"
-  );
+  const passAccuracy = teamData.getAccuracy("PassSuccessful", "PassFail");
 
   return (
     <div className="strategy-app">
@@ -101,7 +98,7 @@ const TeamTab: React.FC = () => {
             Amp: { color: "yellow", data: teamData.getAsLine("AmpMiss") },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("PassUnSuccessful"),
+              data: teamData.getAsLine("PassFail"),
             },
           }}
         />
@@ -183,7 +180,7 @@ const TeamTab: React.FC = () => {
       <div>
         <h1>Comments</h1>
         {teamData.getComments().map((comment) => (
-          <h3>{comment.body + "...Qual number" + comment.qual}</h3>
+          <h3>{"Qual #" + comment.qual + ": " + comment.body}</h3>
         ))}
       </div>
     </div>

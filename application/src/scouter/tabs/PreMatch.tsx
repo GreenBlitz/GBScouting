@@ -6,7 +6,7 @@ interface PreGameProps {}
 const PreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
-      {Inputs.instantiate([
+      {Inputs.create([
         Inputs.ScouterName,
         Inputs.Qual,
         Inputs.TeamNumber,

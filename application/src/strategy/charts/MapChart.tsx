@@ -20,21 +20,6 @@ interface MapChartProps {
 
 const linePointsColors = { start: "#155237", end: "#947325" };
 
-const possibleMapObjects: MapButton[] = [
-  {
-    name: "Speaker",
-    successColor: "green",
-    unsuccessColor: "red",
-    isLine: false,
-  },
-  {
-    name: "Pass",
-    successColor: "purple",
-    unsuccessColor: "purple",
-    isLine: true,
-  },
-];
-
 const pointRadius = 5;
 const MapChart: React.FC<MapChartProps> = ({
   width: mapWidth,
@@ -66,7 +51,7 @@ const MapChart: React.FC<MapChartProps> = ({
       const isLine = (point as FieldPoint).x === undefined;
       const color = point.successfulness
         ? point.pressedButton.successColor
-        : point.pressedButton.unsuccessColor;
+        : point.pressedButton.failColor;
       if (isLine) {
         const { startPoint, endPoint } = point as FieldLine;
         context.strokeStyle = color.toString();

@@ -1,5 +1,5 @@
 import { Color } from "./utils/Color";
-import { Match } from "./Utils";
+import { Match } from "./utils/Utils";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { FieldObject, mapButtons } from "./scouter/inputtypes/MapInput";
@@ -14,7 +14,7 @@ interface MapFields {
   SpeakerMiss: number;
 
   PassSuccessful: number;
-  PassUnSuccessful: number;
+  PassFail: number;
 }
 
 type FullMatch = Match & MapFields;
@@ -56,7 +56,7 @@ export class TeamData {
         SpeakerScore: getFromMap(match, "Speaker", true),
         SpeakerMiss: getFromMap(match, "Speaker", false),
         PassSuccessful: getFromMap(match, "Pass", true),
-        PassUnSuccessful: getFromMap(match, "Pass", false),
+        PassFail: getFromMap(match, "Pass", false),
       };
     });
   }

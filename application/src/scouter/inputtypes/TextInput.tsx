@@ -2,10 +2,10 @@ import React from "react";
 import ScouterInput from "../ScouterInput";
 
 class TextInput extends ScouterInput<string> {
-  instantiate(): React.JSX.Element {
+  create(): React.JSX.Element {
     return <TextInput {...this.props} />;
   }
-  getInitialValue(): string {
+  initialValue(): string {
     return "";
   }
 

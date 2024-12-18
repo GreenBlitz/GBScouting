@@ -10,13 +10,13 @@ const Autonomous: React.FC<AutonomousProps> = () => {
           <h3>SCORE </h3>
           <br />
 
-          {Inputs.SpeakerAutoScore.instantiate()}
+          {Inputs.SpeakerAutoScore.create()}
         </div>
         <div className="speaker-auto">
           <h3>MISS</h3>
           <br />
 
-          {Inputs.SpeakerAutoMiss.instantiate()}
+          {Inputs.SpeakerAutoMiss.create()}
         </div>
       </div>
       <br />

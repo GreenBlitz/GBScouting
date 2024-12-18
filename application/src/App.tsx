@@ -35,10 +35,10 @@ export function renderScouterNavBar() {
           <Link to="/">Match List</Link>
         </li>
         <li>
-          <Link to="/ScouterTab/PreMatch">Scout Game</Link>
+          <Link to="/scouting/prematch">Scout Game</Link>
         </li>
         <li>
-          <Link to="/ScannerTab">Scan Match</Link>
+          <Link to="/scanner">Scan Match</Link>
         </li>
       </ul>
     </nav>
@@ -50,10 +50,10 @@ export function renderStrategyNavBar() {
     <nav className="nav-bar">
       <ul>
         <li>
-          <Link to="/TeamTab">Team Data</Link>
+          <Link to="/team">Team Data</Link>
         </li>
         <li>
-          <Link to="/GeneralTab">General</Link>
+          <Link to="/general">General</Link>
         </li>
       </ul>
     </nav>
@@ -64,16 +64,16 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/ScannerTab" Component={ScanningTab} />
+        <Route path="/scanner" Component={ScanningTab} />
         <Route path="/" Component={MatchList} />
-        <Route path="/ScouterTab" Component={ScouterTab}>
-          <Route path="PreMatch" Component={PreMatch} />
-          <Route path="Teleoperated" Component={Teleoperated} />
-          <Route path="Autonomous" Component={Autonomous} />
-          <Route path="PostMatch" Component={PostMatch} />
+        <Route path="/scouting" Component={ScouterTab}>
+          <Route path="prematch" Component={PreMatch} />
+          <Route path="teleoperated" Component={Teleoperated} />
+          <Route path="autonomous" Component={Autonomous} />
+          <Route path="postmatch" Component={PostMatch} />
         </Route>
-        <Route path="/TeamTab" Component={TeamTab} />
-        <Route path="/GeneralTab" Component={GeneralTab} />
+        <Route path="/team" Component={TeamTab} />
+        <Route path="/general" Component={GeneralTab} />
       </Routes>
     </BrowserRouter>
   );

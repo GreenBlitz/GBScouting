@@ -1,4 +1,4 @@
-import { Match } from "../Utils";
+import { Match } from "../utils/Utils";
 import { Storable } from "../utils/FolderStorage";
 
 export default class Matches {

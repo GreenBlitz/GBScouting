@@ -6,10 +6,8 @@ import TextInput from "./inputtypes/TextInput";
 import ScouterInput from "./ScouterInput";
 
 export default class Inputs {
-  static instantiate(
-    inputs: ScouterInput<any, any, any>[]
-  ): React.JSX.Element[] {
-    return inputs.map((input) => input.instantiate());
+  static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
+    return inputs.map((input) => input.create());
   }
 
   static readonly ScouterName = new TextInput({

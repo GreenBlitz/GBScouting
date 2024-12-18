@@ -8,16 +8,11 @@ import {
 } from "chart.js";
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { Color } from "../../utils/Color";
+import { DataSet } from "../../utils/Utils";
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Legend);
 
 const DefaultSize = { width: 400, height: 300 };
-
-interface DataSet {
-  color: Color;
-  data: Record<string, number>;
-}
 
 interface LineChartProps {
   dataSets: Record<string, DataSet>;

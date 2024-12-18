@@ -12,10 +12,10 @@ class CounterInput extends ScouterInput<
   ): { count: number } | undefined {
     return { count: this.storage.get() || 0 };
   }
-  instantiate(): React.JSX.Element {
+  create(): React.JSX.Element {
     return <CounterInput {...this.props} />;
   }
-  getInitialValue(): number {
+  initialValue(): number {
     return 0;
   }
 
@@ -30,7 +30,7 @@ class CounterInput extends ScouterInput<
         <button
           type="button"
           onClick={() => setCount(Math.max(this.state.count - 1, 0))}
-          style={{ backgroundColor: this.props.color }}
+          style={{ backgroundColor: this.props.color?.toString() }}
         >
           -
         </button>
@@ -44,7 +44,7 @@ class CounterInput extends ScouterInput<
         <button
           type="button"
           onClick={() => setCount(this.state.count + 1)}
-          style={{ backgroundColor: this.props.color }}
+          style={{ backgroundColor: this.props.color?.toString() }}
         >
           +
         </button>

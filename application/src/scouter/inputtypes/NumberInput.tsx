@@ -2,10 +2,10 @@ import React from "react";
 import ScouterInput from "../ScouterInput";
 
 class NumberInput extends ScouterInput<number> {
-  instantiate(): React.JSX.Element {
+  create(): React.JSX.Element {
     return <NumberInput {...this.props} />;
   }
-  getInitialValue(): number {
+  initialValue(): number {
     return 0;
   }
 

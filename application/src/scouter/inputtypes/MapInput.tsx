@@ -10,7 +10,7 @@ interface MapInputProps {
 }
 
 const pointRadius: number = 5;
-const succesfulnessOffset = [80, -60];
+const succesfulnessOffset = [20, -60];
 
 interface FieldData {
   pressedButton: MapButton;
@@ -28,7 +28,7 @@ export type FieldObject = FieldLine | FieldPoint;
 export interface MapButton {
   name: string;
   successColor: Color;
-  unsuccessColor: Color;
+  failColor: Color;
   isLine: boolean;
 }
 
@@ -36,13 +36,13 @@ export const mapButtons: MapButton[] = [
   {
     name: "Speaker",
     successColor: "green",
-    unsuccessColor: "red",
+    failColor: "red",
     isLine: false,
   },
   {
     name: "Pass",
     successColor: "purple",
-    unsuccessColor: "purple",
+    failColor: "purple",
     isLine: true,
   },
 ];
@@ -63,7 +63,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
     this.canvasRef = React.createRef<HTMLCanvasElement>();
   }
 
-  instantiate(): React.JSX.Element {
+  create(): React.JSX.Element {
     return <MapInput {...this.props} />;
   }
   getStartingState(
@@ -73,7 +73,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
   }
 
   renderInput(): React.ReactNode {
-    const side = Inputs.GameSide.storage.get() || "Blue";
+    const side = Inputs.GameSide.storage.get() || Inputs.GameSide.props.list[0];
 
     const context = this.canvasRef.current
       ? this.canvasRef.current.getContext("2d")
@@ -97,9 +97,9 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       this.setState({ lastClickedPoint: undefined });
       if (this.state.pressedButton.isLine && successfulness) {
         this.setState({ passingPoint: clickedPoint });
-        return;
+      } else {
+        addObject(clickedPoint);
       }
-      addObject(clickedPoint);
     };
 
     const removeLastObject = () => {
@@ -120,7 +120,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
         const isLine = (point as FieldPoint).x === undefined;
         const color = point.successfulness
           ? point.pressedButton.successColor
-          : point.pressedButton.unsuccessColor;
+          : point.pressedButton.failColor;
         if (isLine) {
           const { startPoint, endPoint } = point as FieldLine;
           context.strokeStyle = color.toString();
@@ -159,9 +159,9 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
           passingPoint: undefined,
           pressedButton: defaultButton,
         });
-        return;
+      } else {
+        this.setState({ lastClickedPoint: clickedPoint });
       }
-      this.setState({ lastClickedPoint: clickedPoint });
     };
 
     const dataOptions = (
@@ -181,10 +181,10 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
           </div>
         ) : (
           <div className="cool-radio">
-            {mapButtons.map((button, index) => {
+            {mapButtons.map((button, buttonIndex) => {
               if (button === this.state.pressedButton) {
                 return (
-                  <React.Fragment key={index}>
+                  <React.Fragment key={buttonIndex}>
                     <input
                       type="radio"
                       name={name + "-buttons"}
@@ -197,20 +197,21 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
                     <label htmlFor={button.name}>{button.name}</label>
                   </React.Fragment>
                 );
+              } else {
+                return (
+                  <React.Fragment key={buttonIndex}>
+                    <input
+                      type="radio"
+                      name={name + "-buttons"}
+                      id={button.name}
+                      value={button.name}
+                      onChange={() => this.setState({ pressedButton: button })}
+                      className="cool-radio-input"
+                    />
+                    <label htmlFor={button.name}>{button.name}</label>
+                  </React.Fragment>
+                );
               }
-              return (
-                <React.Fragment key={index}>
-                  <input
-                    type="radio"
-                    name={name + "-buttons"}
-                    id={button.name}
-                    value={button.name}
-                    onChange={() => this.setState({ pressedButton: button })}
-                    className="cool-radio-input"
-                  />
-                  <label htmlFor={button.name}>{button.name}</label>
-                </React.Fragment>
-              );
             })}
             <br />
             <br />
@@ -226,9 +227,9 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       <div className={"map-amp"}>
         <h2>AMP</h2>
         <br />
-        {Inputs.AmpScore.instantiate()}
+        {Inputs.AmpScore.create()}
         <br />
-        {Inputs.AmpMiss.instantiate()}
+        {Inputs.AmpMiss.create()}
       </div>
     );
 
@@ -245,8 +246,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
             left: this.canvasRef.current
               ? this.canvasRef.current.offsetLeft +
                 lastClickedPoint.x +
-                offsetLeft -
-                60
+                offsetLeft
               : 0,
             top: this.canvasRef.current
               ? this.canvasRef.current.offsetTop +
@@ -280,7 +280,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
     return (
       <>
         <div className="map-buttons">
-          {side === "Blue" ? (
+          {side === Inputs.GameSide.props.list[0] ? (
             <>
               {ampOptions}
               {dataOptions}
@@ -318,9 +318,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       </>
     );
   }
-  getInitialValue(
-    props: InputProps<FieldObject[]> & MapInputProps
-  ): FieldObject[] {
+  initialValue(): FieldObject[] {
     return [];
   }
 }

@@ -1,4 +1,4 @@
-import { rangeArr } from "../Utils";
+import { rangeArr } from "./Utils";
 import { BitArray } from "./BitArray";
 
 // TODO add signed support!

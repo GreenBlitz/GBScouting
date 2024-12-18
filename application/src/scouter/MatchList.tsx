@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Collapsible from "react-collapsible";
 import React from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
-import { Match } from "../Utils";
+import { Match } from "../utils/Utils";
 import { renderScouterNavBar } from "../App";
 import Matches from "./Matches";
 import { postMatch } from "../utils/Fetches";

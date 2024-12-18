@@ -1,4 +1,4 @@
-import { Match } from "../Utils";
+import { Match } from "./Utils";
 
 export const getServerHostname = () => {
   return location.host;

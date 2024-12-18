@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TableChart from "./charts/TableChart";
-import { FRCTeamList } from "../Utils";
+import { FRCTeamList } from "../utils/Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";

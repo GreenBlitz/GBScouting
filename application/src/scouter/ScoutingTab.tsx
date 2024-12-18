@@ -9,7 +9,7 @@ import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
 import Inputs from "./Inputs.ts";
 import ScouterInput from "./ScouterInput.tsx";
-import { Match } from "../Utils";
+import { Match } from "../utils/Utils.ts";
 import Matches from "./Matches";
 
 const sectionNames: string[] = [

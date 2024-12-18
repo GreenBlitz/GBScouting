@@ -2,7 +2,7 @@ import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 
 class ListInput extends ScouterInput<string, { list: string[] }> {
-  instantiate(): React.JSX.Element {
+  create(): React.JSX.Element {
     return <ListInput {...this.props} />;
   }
   renderInput(): React.ReactNode {
@@ -22,7 +22,7 @@ class ListInput extends ScouterInput<string, { list: string[] }> {
       </select>
     );
   }
-  getInitialValue(props: InputProps<string> & { list: string[] }): string {
+  initialValue(props: InputProps<string> & { list: string[] }): string {
     return props.list[0];
   }
 }
