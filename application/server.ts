@@ -89,7 +89,7 @@ app.get("/Matches/:type/:value", async (req, res) => {
   const matchCollection = db.collection("matches");
   try {
     const items = (await matchCollection.find().toArray()).filter((item) => {
-      return item[req.params.type] + "" === req.params.value;
+      return item[req.params.type].toString() === req.params.value;
     });
     res.status(200).json(items);
   } catch (error) {

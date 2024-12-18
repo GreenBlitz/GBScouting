@@ -2,7 +2,7 @@ import { Match } from "../utils/Utils";
 import { Storable } from "../utils/FolderStorage";
 
 export default class Matches {
-  static storage: Storable<Match[]> = new Storable("Matches", localStorage);
+  static storage: Storable<Match[]> = new Storable("matches", localStorage);
 
   static add(match: Match): void {
     const matches = this.storage.get() || [];

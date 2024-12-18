@@ -57,7 +57,7 @@ export default class FolderStorage {
 export const localFolder = new FolderStorage(localStorage);
 export const sessionFolder = new FolderStorage(sessionStorage);
 
-export const inputFolder = localFolder.with("Inputs/");
+export const inputFolder = localFolder.with("inputs/");
 
 export class Storable<T> {
   public readonly name: string;
