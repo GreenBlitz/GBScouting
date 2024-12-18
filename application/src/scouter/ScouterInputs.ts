@@ -11,33 +11,38 @@ export default class ScouterInputs {
   }
 
   static readonly scouterName = new TextInput({
+    route: "scouterName",
     name: "Scouter Name",
     doesReset: false,
   });
   static readonly qual = new NumberInput({
+    route: "qual",
     name: "Qual",
   });
   static readonly teamNumber = new NumberInput({
+    route: "teamNumber",
     name: "Team Number",
   });
   static readonly gameSide = new DropdownInput({
+    route: "gameSide",
     name: "Game Side",
     options: ["Blue", "Red"],
     doesReset: false,
   });
   static readonly startingPosition = new DropdownInput({
+    route: "startingPosition",
     name: "Starting Position",
     options: ["Amp Side", "Middle", "Source Side", "No Show"],
   });
   static readonly speakerAutoScore = new CounterInput({
-    name: "Speaker/Auto/Score",
+    route: "speakerAutoScore",
+    name: "Score",
     color: "#12a119",
-    isNameHidden: true,
   });
   static readonly speakerAutoMiss = new CounterInput({
-    name: "Speaker/Auto/Miss",
+    route: "speakerAutoMiss",
+    name: "Miss",
     color: "#8f0a0e",
-    isNameHidden: true,
   });
 
   static readonly mapPoints = new MapInput({
@@ -49,14 +54,17 @@ export default class ScouterInputs {
   });
 
   static readonly ampScore = new CounterInput({
-    name: "Amp Score",
+    route:"ampScore",
+    name: "Score",
     color: "#12a119",
   });
   static readonly ampMiss = new CounterInput({
-    name: "Amp Miss",
+    route:"ampMiss",
+    name: "Miss",
     color: "#8f0a0e",
   });
   static readonly climb = new DropdownInput({
+    route:"climb",
     name: "Climb",
     options: [
       "Off Stage",
@@ -67,10 +75,12 @@ export default class ScouterInputs {
     ],
   });
   static readonly trap = new DropdownInput({
+    route: "trap",
     name: "Trap",
     options: ["Didn't Score", "Scored", "Miss"],
   });
   static readonly comment = new TextInput({
+    route: "comment",
     name: "Comment",
   });
 }

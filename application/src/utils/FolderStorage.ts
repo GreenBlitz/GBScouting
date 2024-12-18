@@ -59,7 +59,7 @@ export const sessionFolder = new FolderStorage(sessionStorage);
 
 export const inputFolder = localFolder.with("inputs/");
 
-export class Storable<T> {
+export class Persistent<T> {
   public readonly name: string;
   private readonly storage: FolderStorage | Storage;
   constructor(name: string, storage: FolderStorage | Storage) {
@@ -102,7 +102,7 @@ export class Storable<T> {
   }
 }
 
-export class InputStorable<T> extends Storable<T> {
+export class InputPersistant<T> extends Persistent<T> {
   constructor(name: string) {
     super(name, inputFolder);
   }

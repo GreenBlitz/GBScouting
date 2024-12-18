@@ -1,9 +1,9 @@
 import React from "react";
-import { InputStorable } from "../utils/FolderStorage";
+import { InputPersistant } from "../utils/FolderStorage";
 
 export interface InputProps<T> {
-  name: string;
-  isNameHidden?: boolean;
+  route: string;
+  name?: string;
   required?: boolean;
   defaultValue?: T;
   doesReset?: boolean;
@@ -13,10 +13,10 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   InputProps<T> & Props,
   State
 > {
-  public readonly storage: InputStorable<T>;
+  public readonly storage: InputPersistant<T>;
   constructor(props: InputProps<T> & Props) {
     super(props);
-    this.storage = new InputStorable<T>(this.props.name);
+    this.storage = new InputPersistant<T>(this.props.route);
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
@@ -25,13 +25,11 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
 
   render(): React.ReactNode {
     if (!this.storage.exists()) {
-      this.storage.set(
-        this.defaultValue()
-      );
+      this.storage.set(this.defaultValue());
     }
     return (
       <div className="scouter-input">
-        {!this.props.isNameHidden && <h2>{this.props.name}</h2>}
+        {this.props.name && <h2>{this.props.name}</h2>}
         {this.renderInput()}
       </div>
     );
