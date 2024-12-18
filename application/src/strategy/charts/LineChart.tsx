@@ -31,7 +31,7 @@ const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
     datasets: Object.entries(dataSets).map(([dataSetName, dataSetValue]) => {
       return {
         label: dataSetName,
-        borderColor: dataSetValue.color,
+        borderColor: dataSetValue.color.toString(),
         tension: 0.2,
         data: Object.values(dataSetValue.data),
       };

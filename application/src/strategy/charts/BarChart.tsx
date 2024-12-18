@@ -20,7 +20,7 @@ const BarChart: React.FC<BarChartProps> = ({ dataSets }) => {
       return {
         label: dataSetName,
         backgroundColor: [...Array(Object.values(dataSetValue.data).length)].map(
-          () => dataSetValue.color
+          () => dataSetValue.color.toString()
         ),
         data: Object.values(dataSetValue.data),
       };

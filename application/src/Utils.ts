@@ -11,15 +11,13 @@ export function sortMatches(matches: Match[]) {
   return matches.sort((match1, match2) => match1.Qual - match2.Qual);
 }
 
-export type Match = Omit<
-  {
-    [K in keyof typeof Inputs]: 
-    (typeof Inputs)[K] extends ScouterInput<infer U,any,any> ? U : never;
-  },
-  "prototype" | "instantiate"
->;
 
-
+type InputName = Exclude<keyof typeof Inputs, "prototype" | "instantiate">;
+export type Match = {// ScouterName: string, Qual: number ...
+  [K in InputName]: (typeof Inputs)[K] extends ScouterInput<infer U, any, any>
+    ? U
+    : never;
+};
 
 export const FRCTeamList = [
   "1574\tMisCar",

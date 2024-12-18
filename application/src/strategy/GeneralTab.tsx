@@ -52,7 +52,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
       <div className="section">
         <h2>Table</h2>
         <TableChart
-          matches={teamTable}
+          tableData={teamTable}
           idName={"Team Number"}
           height={540}
           widthOfItem={130}

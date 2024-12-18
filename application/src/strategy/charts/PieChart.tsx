@@ -19,7 +19,7 @@ const PieChart: React.FC<PieChartProps> = ({ pieData }) => {
     return section.percentage;
   });
   const backgroundColor = Object.values(pieData).map((section) => {
-    return section.color;
+    return section.color.toString();
   });
 
   const chartData = {
