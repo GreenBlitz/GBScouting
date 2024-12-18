@@ -1,8 +1,11 @@
-import { Persistent } from "../utils/FolderStorage";
+import { StorageBacked } from "../utils/FolderStorage";
 import { Match } from "../utils/Match";
 
 export default class Matches {
-  static storage: Persistent<Match[]> = new Persistent("matches", localStorage);
+  static storage: StorageBacked<Match[]> = new StorageBacked(
+    "matches",
+    localStorage
+  );
 
   static add(match: Match): void {
     const matches = this.getAll();

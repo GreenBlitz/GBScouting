@@ -1,5 +1,5 @@
 import React from "react";
-import { InputPersistant } from "../utils/FolderStorage";
+import { StorageBackedInput } from "../utils/FolderStorage";
 
 export interface InputProps<T> {
   route: string;
@@ -13,10 +13,10 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   InputProps<T> & Props,
   State
 > {
-  public readonly storage: InputPersistant<T>;
+  public readonly storage: StorageBackedInput<T>;
   constructor(props: InputProps<T> & Props) {
     super(props);
-    this.storage = new InputPersistant<T>(this.props.route);
+    this.storage = new StorageBackedInput<T>(this.props.route);
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
