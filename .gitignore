@@ -25,6 +25,6 @@ application/package-lock.json
 *.sw?
 
 # Secret keys
-ssl-key.pem
-ssl.pem
-TBAkey.txt
+application/ssl-key.pem
+application/ssl.pem
+application/TBAkey.txt

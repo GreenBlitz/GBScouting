@@ -5,12 +5,13 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 import cors from "cors";
+import axios from 'axios';
 
 const app = express();
 const hostname = "0.0.0.0";
 const port = 4590;
 
-const dirName = "/app";
+const dirName = "";
 // SSL options for HTTPS
 export let sslOptions;
 try {
@@ -100,14 +101,28 @@ app.get("/Matches/:type/:value", async (req, res) => {
 });
 
 
-app.get("/TheBlueAlliance/:subject/:", async(req, res) =>{
-  const options = {
-    headers: {
-      "X-TBA-Auth-Key": fs.readFileSync(path.resolve(dirName, "TBAkey.txt")), 
+app.get("/TheBlueAlliance-event-leaderboard/:event", async(req, res) =>{
+  try {
+    const headers = {
+      "X-TBA-Auth-Key": String(fs.readFileSync(path.resolve(dirName, "TBAkey.txt"))), 
       "Content-Type": "application/json", 
-     
-    },
+  
   };
+  const params = {
+    param1: req.params.event
+  };
+
+  const response = await axios.get(`https://www.thebluealliance.com/api/v3/event/${req.params.event}/rankings`, {
+    headers, 
+    params,
+  });
+
+  res.json(response.data)
+  }catch (error) {
+    console.error(error);
+    res.status(500).send('Error calling external API');
+  }
+
   
 });
 

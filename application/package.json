@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-
     "dev": "vite --host",
     "full": "npx tsc -b tsconfig.json&& node compiled/server.js",
     "docker-up": "cd .. && docker-compose up ",
@@ -19,9 +18,8 @@
     "@mui/material": "^6.1.1",
     "@mui/styled-engine-sc": "^6.1.1",
     "@mui/x-data-grid": "^7.18.0",
+    "axios": "^1.7.9",
     "chart.js": "^4.4.4",
-    "react-chartjs-2": "^5.2.0",
-    "styled-components": "^6.1.13",
     "cors": "^2.8.5",
     "express": "^4.21.0",
     "mongodb": "^6.9.0",
@@ -29,10 +27,12 @@
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.0.1",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-collapsible": "^2.10.0",
     "react-dom": "^18.3.1",
     "react-qr-code": "^2.0.15",
     "react-router-dom": "^6.26.2",
+    "styled-components": "^6.1.13",
     "vite-express": "^0.19.0"
   },
   "devDependencies": {
@@ -46,7 +46,6 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
-
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
