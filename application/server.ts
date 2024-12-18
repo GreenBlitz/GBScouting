@@ -48,18 +48,8 @@ app.post("/Match", async (req: Request, res: Response) => {
   const matchData = req.body;
 
   try {
-    const items = (await matchCollection.find().toArray()).filter((item) => {
-      return (
-        matchData["Team Number"] === item["Team Number"] &&
-        matchData["Qual"] === item["Qual"]
-      );
-    });
-    if (items.length > 0) {
-      res.status(400).send("Match Already In Database");
-    } else {
-      const result = await matchCollection.insertOne(matchData);
-      res.status(201).json(result);
-    }
+    const result = await matchCollection.insertOne(matchData);
+    res.status(201).json(result);
   } catch (error) {
     res.status(500).json({ error: "Failed to insert data" });
   }
