@@ -7,7 +7,7 @@ import PostMatch from "./tabs/PostMatch";
 import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
-import ScouterInputs from "./Inputs.ts";
+import ScouterInputs from "./ScouterInputs.ts";
 import ScouterInput from "./ScouterInput.tsx";
 import { Match } from "../utils/Utils.ts";
 import Matches from "./Matches";

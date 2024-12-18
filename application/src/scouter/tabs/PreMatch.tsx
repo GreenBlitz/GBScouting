@@ -1,5 +1,5 @@
 import React from "react";
-import ScouterInputs from "../Inputs";
+import ScouterInputs from "../ScouterInputs";
 
 interface PreGameProps {}
 

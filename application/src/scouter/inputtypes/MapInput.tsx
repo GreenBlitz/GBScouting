@@ -1,6 +1,6 @@
 import { Point } from "chart.js";
 import React from "react";
-import ScouterInputs from "../Inputs.ts";
+import ScouterInputs from "../ScouterInputs.ts";
 import ScouterInput, { InputProps } from "../ScouterInput.tsx";
 import { Color } from "../../utils/Color.ts";
 interface MapInputProps {

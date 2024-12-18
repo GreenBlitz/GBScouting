@@ -1,4 +1,4 @@
-import ScouterInputs from "../scouter/Inputs";
+import ScouterInputs from "../scouter/ScouterInputs";
 import ScouterInput from "../scouter/ScouterInput";
 import { Color } from "./Color";
 
@@ -16,7 +16,7 @@ type InputType = typeof ScouterInputs;
 
 type InputsMapped = {
   // ScouterName: string, Qual: number ...
-  [K in keyof InputType]: InputType[K] extends ScouterInput<infer U,any,any>
+  [K in keyof InputType]: InputType[K] extends ScouterInput<infer U, any, any>
     ? U
     : never;
 };
