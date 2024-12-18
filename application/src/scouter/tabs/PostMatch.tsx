@@ -1,10 +1,18 @@
 import React from "react";
-import Inputs from "../Inputs";
+import ScouterInputs from "../Inputs";
 
 interface PostMatchProps {}
 
 const PostMatch: React.FC<PostMatchProps> = () => {
-  return <>{Inputs.create([Inputs.Climb, Inputs.Trap, Inputs.Comment])}</>;
+  return (
+    <>
+      {ScouterInputs.create([
+        ScouterInputs.Climb,
+        ScouterInputs.Trap,
+        ScouterInputs.Comment,
+      ])}
+    </>
+  );
 };
 
 export default PostMatch;

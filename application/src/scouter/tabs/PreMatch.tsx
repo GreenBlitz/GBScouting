@@ -1,17 +1,17 @@
 import React from "react";
-import Inputs from "../Inputs";
+import ScouterInputs from "../Inputs";
 
 interface PreGameProps {}
 
 const PreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
-      {Inputs.create([
-        Inputs.ScouterName,
-        Inputs.Qual,
-        Inputs.TeamNumber,
-        Inputs.GameSide,
-        Inputs.StartingPosition,
+      {ScouterInputs.create([
+        ScouterInputs.ScouterName,
+        ScouterInputs.Qual,
+        ScouterInputs.TeamNumber,
+        ScouterInputs.GameSide,
+        ScouterInputs.StartingPosition,
       ])}
     </>
   );

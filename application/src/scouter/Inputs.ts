@@ -1,11 +1,11 @@
 import CounterInput from "./inputtypes/CounterInput";
-import ListInput from "./inputtypes/ListInput";
+import DropdownInput from "./inputtypes/ListInput";
 import MapInput from "./inputtypes/MapInput";
 import NumberInput from "./inputtypes/NumberInput";
 import TextInput from "./inputtypes/TextInput";
 import ScouterInput from "./ScouterInput";
 
-export default class Inputs {
+export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
     return inputs.map((input) => input.create());
   }
@@ -20,14 +20,14 @@ export default class Inputs {
   static readonly TeamNumber = new NumberInput({
     name: "Team Number",
   });
-  static readonly GameSide = new ListInput({
+  static readonly GameSide = new DropdownInput({
     name: "Game Side",
-    list: ["Blue", "Red"],
+    options: ["Blue", "Red"],
     doesReset: false,
   });
-  static readonly StartingPosition = new ListInput({
+  static readonly StartingPosition = new DropdownInput({
     name: "Starting Position",
-    list: ["Amp Side", "Middle", "Source Side", "No Show"],
+    options: ["Amp Side", "Middle", "Source Side", "No Show"],
   });
   static readonly SpeakerAutoScore = new CounterInput({
     name: "Speaker/Auto/Score",
@@ -56,9 +56,9 @@ export default class Inputs {
     name: "Amp Miss",
     color: "#8f0a0e",
   });
-  static readonly Climb = new ListInput({
+  static readonly Climb = new DropdownInput({
     name: "Climb",
-    list: [
+    options: [
       "Off Stage",
       "Park",
       "Climbed Alone",
@@ -66,9 +66,9 @@ export default class Inputs {
       "Harmony Three Robots",
     ],
   });
-  static readonly Trap = new ListInput({
+  static readonly Trap = new DropdownInput({
     name: "Trap",
-    list: ["Didn't Score", "Scored", "Miss"],
+    options: ["Didn't Score", "Scored", "Miss"],
   });
   static readonly Comment = new TextInput({
     name: "Comment",

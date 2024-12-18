@@ -1,5 +1,5 @@
 import React from "react";
-import Inputs from "../Inputs";
+import ScouterInputs from "../Inputs";
 interface AutonomousProps {}
 
 const Autonomous: React.FC<AutonomousProps> = () => {
@@ -10,13 +10,13 @@ const Autonomous: React.FC<AutonomousProps> = () => {
           <h3>SCORE </h3>
           <br />
 
-          {Inputs.SpeakerAutoScore.create()}
+          {ScouterInputs.SpeakerAutoScore.create()}
         </div>
         <div className="speaker-auto">
           <h3>MISS</h3>
           <br />
 
-          {Inputs.SpeakerAutoMiss.create()}
+          {ScouterInputs.SpeakerAutoMiss.create()}
         </div>
       </div>
       <br />

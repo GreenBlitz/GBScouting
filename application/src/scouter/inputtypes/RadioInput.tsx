@@ -1,13 +1,13 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 
-class RadioInput extends ScouterInput<string, { list: string[] }> {
-  instantiate(): React.JSX.Element {
-    return <RadioInput {...this.props} />;
+class RadioInput extends ScouterInput<string, { options: string[] }> {
+  create(): React.JSX.Element {
+    throw <RadioInput {...this.props}/>;
   }
 
   renderInput(): React.ReactNode {
-    return this.props.list.map((item, index) => (
+    return this.props.options.map((item, index) => (
       <React.Fragment key={index}>
         <input
           type="radio"
@@ -16,14 +16,14 @@ class RadioInput extends ScouterInput<string, { list: string[] }> {
           value={item}
           required={this.props.required}
           onChange={() => this.storage.set(item)}
-          defaultChecked={item === this.storage.get()}
+          defaultChecked={item === this.getValue()}
         />
         <label htmlFor={item}>{item}</label>
       </React.Fragment>
     ));
   }
-  getInitialValue(props: InputProps<string> & { list: string[] }): string {
-    return props.list[0];
+  initialValue(props: InputProps<string> & { options: string[] }): string {
+    return props.options[0];
   }
 }
 

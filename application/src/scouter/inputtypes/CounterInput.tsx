@@ -10,7 +10,7 @@ class CounterInput extends ScouterInput<
   getStartingState(
     props: InputProps<number> & { color?: Color }
   ): { count: number } | undefined {
-    return { count: this.storage.get() || 0 };
+    return { count: this.getValue() };
   }
   create(): React.JSX.Element {
     return <CounterInput {...this.props} />;

@@ -16,7 +16,7 @@ class NumberInput extends ScouterInput<number> {
         id={this.storage.name}
         name={this.storage.name}
         required={this.props.required}
-        defaultValue={this.storage.get() || 0}
+        defaultValue={this.getValue()}
         onChange={(event) => this.storage.set(parseInt(event.target.value))}
       />
     );

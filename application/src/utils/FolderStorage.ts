@@ -70,7 +70,7 @@ export class Storable<T> {
   get(): T | null {
     const unparsedItem = this.storage.getItem(this.name);
 
-    if (unparsedItem === null || undefined) {
+    if (unparsedItem === null || unparsedItem === undefined) {
       return null;
     }
 

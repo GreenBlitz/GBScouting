@@ -5,16 +5,13 @@ export default class Matches {
   static storage: Storable<Match[]> = new Storable("matches", localStorage);
 
   static add(match: Match): void {
-    const matches = this.storage.get() || [];
+    const matches = this.getAll();
     this.storage.set(matches.concat(match));
   }
 
   static remove(removedMatch: Match): void {
-    const matches = this.storage.get();
-    if (matches === null) {
-      return;
-    }
-
+    const matches = this.getAll();
+    
     function isMatchEqual(match1: Match, match2: Match) {
       Object.values(match1).every(
         (value, index) => Object.values(match2)[index] === value

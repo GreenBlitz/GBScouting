@@ -16,7 +16,7 @@ class TextInput extends ScouterInput<string> {
         id={this.storage.name}
         name={this.storage.name}
         required={this.props.required}
-        defaultValue={this.storage.get()?.toString()}
+        defaultValue={this.getValue().toString()}
         onChange={(event) => this.storage.set(event.target.value)}
       />
     );

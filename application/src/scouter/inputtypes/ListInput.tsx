@@ -1,7 +1,7 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 
-class ListInput extends ScouterInput<string, { list: string[] }> {
+class ListInput extends ScouterInput<string, { options: string[] }> {
   create(): React.JSX.Element {
     return <ListInput {...this.props} />;
   }
@@ -11,10 +11,10 @@ class ListInput extends ScouterInput<string, { list: string[] }> {
         name={this.storage.name}
         id={this.storage.name}
         required={this.props.required}
-        defaultValue={this.storage.get() || this.props.list[0]}
+        defaultValue={this.getValue()}
         onChange={(event) => this.storage.set(event.target.value)}
       >
-        {this.props.list.map((item, index) => (
+        {this.props.options.map((item, index) => (
           <option value={item} key={index}>
             {item}
           </option>
@@ -22,8 +22,8 @@ class ListInput extends ScouterInput<string, { list: string[] }> {
       </select>
     );
   }
-  initialValue(props: InputProps<string> & { list: string[] }): string {
-    return props.list[0];
+  initialValue(props: InputProps<string> & { options: string[] }): string {
+    return props.options[0];
   }
 }
 

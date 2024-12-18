@@ -1,6 +1,6 @@
 import { Point } from "chart.js";
 import React from "react";
-import Inputs from "../Inputs.ts";
+import ScouterInputs from "../Inputs.ts";
 import ScouterInput, { InputProps } from "../ScouterInput.tsx";
 import { Color } from "../../utils/Color.ts";
 interface MapInputProps {
@@ -73,14 +73,14 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
   }
 
   renderInput(): React.ReactNode {
-    const side = Inputs.GameSide.storage.get() || Inputs.GameSide.props.list[0];
+    const side = ScouterInputs.GameSide.getValue();
 
     const context = this.canvasRef.current
       ? this.canvasRef.current.getContext("2d")
       : null;
 
     const addObject = (object: FieldObject) => {
-      const previousPoints = this.storage.get() || [];
+      const previousPoints = this.getValue();
       previousPoints.push(object);
       this.storage.set(previousPoints);
 
@@ -103,7 +103,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
     };
 
     const removeLastObject = () => {
-      const previousObjects = this.storage.get() || [];
+      const previousObjects = this.getValue();
       previousObjects.pop();
       this.storage.set(previousObjects);
 
@@ -116,7 +116,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       }
       context.clearRect(0, 0, this.props.width, this.props.height);
 
-      for (let point of this.storage.get() || []) {
+      for (let point of this.getValue()) {
         const isLine = (point as FieldPoint).x === undefined;
         const color = point.successfulness
           ? point.pressedButton.successColor
@@ -227,9 +227,9 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       <div className={"map-amp"}>
         <h2>AMP</h2>
         <br />
-        {Inputs.AmpScore.create()}
+        {ScouterInputs.AmpScore.create()}
         <br />
-        {Inputs.AmpMiss.create()}
+        {ScouterInputs.AmpMiss.create()}
       </div>
     );
 
@@ -280,7 +280,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
     return (
       <>
         <div className="map-buttons">
-          {side === Inputs.GameSide.props.list[0] ? (
+          {side === ScouterInputs.GameSide.defaultValue() ? (
             <>
               {ampOptions}
               {dataOptions}

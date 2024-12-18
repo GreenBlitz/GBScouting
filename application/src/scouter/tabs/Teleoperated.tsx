@@ -1,10 +1,10 @@
 import React from "react";
-import Inputs from "../Inputs";
+import ScouterInputs from "../Inputs";
 
 interface TeleoperatedProps {}
 
 const Teleoperated: React.FC<TeleoperatedProps> = () => {
-  return <>{Inputs.MapPoints.create()}</>;
+  return <>{ScouterInputs.MapPoints.create()}</>;
 };
 
 export default Teleoperated;

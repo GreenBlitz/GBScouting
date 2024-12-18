@@ -7,7 +7,7 @@ import PostMatch from "./tabs/PostMatch";
 import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
-import Inputs from "./Inputs.ts";
+import ScouterInputs from "./Inputs.ts";
 import ScouterInput from "./ScouterInput.tsx";
 import { Match } from "../utils/Utils.ts";
 import Matches from "./Matches";
@@ -31,11 +31,11 @@ function ScouterTab() {
   function handleSubmit() {
     const matchValues: Record<string, any> = {};
 
-    Object.entries(Inputs)
+    Object.entries(ScouterInputs)
       .filter(([_, value]) => value instanceof ScouterInput)
       .forEach(([inputName, value]) => {
         const input = value as ScouterInput<any, any, any>;
-        matchValues[inputName] = input.storage.get();
+        matchValues[inputName] = input.getValue();
         if (!input.shouldReset()) {
           input.storage.remove();
         }

@@ -1,8 +1,8 @@
 import React from "react";
-import ScouterInput from "../ScouterInput";
+import ScouterInput, { InputProps } from "../ScouterInput";
 
 class CheckboxInput extends ScouterInput<boolean> {
-  instantiate(): React.JSX.Element {
+  create(): React.JSX.Element {
     return <CheckboxInput {...this.props} />;
   }
   renderInput(): React.ReactNode {
@@ -12,14 +12,14 @@ class CheckboxInput extends ScouterInput<boolean> {
         id={this.storage.name}
         name={this.storage.name}
         required={this.props.required}
-        onChange={() => this.storage.set(!this.storage.get())}
-        defaultChecked={this.storage.get() || false}
+        onChange={() => this.storage.set(!this.getValue())}
+        defaultChecked={this.getValue()}
       />
     );
   }
 
-  getInitialValue(): boolean {
-    return this.props.defaultValue || false;
+  initialValue(): boolean {
+    return false;
   }
 }
 

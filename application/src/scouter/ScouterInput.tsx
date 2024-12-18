@@ -26,7 +26,7 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   render(): React.ReactNode {
     if (!this.storage.exists()) {
       this.storage.set(
-        this.props.defaultValue || this.initialValue(this.props)
+        this.defaultValue()
       );
     }
     return (
@@ -45,9 +45,17 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
     return !!this.props.doesReset;
   }
 
+  defaultValue(): T {
+    return this.props.defaultValue || this.initialValue(this.props);
+  }
+
+  getValue(): T {
+    return this.storage.get() || this.defaultValue();
+  }
+
   abstract renderInput(): React.ReactNode;
-  abstract initialValue(props: InputProps<T> & Props): T;
   abstract create(): React.JSX.Element;
+  protected abstract initialValue(props: InputProps<T> & Props): T;
 }
 
 export default ScouterInput;

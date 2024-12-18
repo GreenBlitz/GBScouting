@@ -1,4 +1,4 @@
-import Inputs from "../scouter/Inputs";
+import ScouterInputs from "../scouter/Inputs";
 import ScouterInput from "../scouter/ScouterInput";
 import { Color } from "./Color";
 
@@ -12,21 +12,24 @@ export function sortMatches(matches: Match[]) {
   return matches.sort((match1, match2) => match1.Qual - match2.Qual);
 }
 
-type InputName = keyof typeof Inputs;
-type ExcludeByType<T, U> = {
-  [K in keyof T as T[K] extends U ? never : K]: T[K];
-};
+type InputType = typeof ScouterInputs;
+
 type InputsMapped = {
   // ScouterName: string, Qual: number ...
-  [K in InputName]: (typeof Inputs)[K] extends ScouterInput<infer U, any, any>
+  [K in keyof InputType]: InputType[K] extends ScouterInput<infer U,any,any>
     ? U
     : never;
 };
+
+type ExcludeByType<T, U> = {
+  [K in keyof T as T[K] extends U ? never : K]: T[K];
+};
+
 export type Match = ExcludeByType<InputsMapped, never>;
 
 export interface DataSet {
   color: Color;
-  data: Record<string,number>;
+  data: Record<string, number>;
 }
 
 export const FRCTeamList = [
