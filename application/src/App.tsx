@@ -11,6 +11,7 @@ import PreMatch from "./scouter/tabs/PreMatch";
 import Teleoperated from "./scouter/tabs/Teleoperated";
 import Autonomous from "./scouter/tabs/Autonomous";
 import PostMatch from "./scouter/tabs/PostMatch";
+import Note from "./scouter/Note";
 
 function getHiddenImage(path: string) {
   return (
@@ -39,6 +40,9 @@ export function renderScouterNavBar() {
         </li>
         <li>
           <Link to="/scanner">Scan Match</Link>
+        </li>
+        <li>
+          <Link to="/note">Take note</Link>
         </li>
       </ul>
     </nav>
@@ -74,6 +78,7 @@ const App: React.FC = () => {
         </Route>
         <Route path="/team" Component={TeamTab} />
         <Route path="/general" Component={GeneralTab} />
+        <Route path="/note" Component={Note} />
       </Routes>
     </BrowserRouter>
   );

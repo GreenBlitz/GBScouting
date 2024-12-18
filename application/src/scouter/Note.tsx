@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { renderScouterNavBar } from "../App";
 
 const Note: React.FC = () => {
   const allTeams: Record<number, string[]> = {
@@ -43,10 +44,11 @@ const Note: React.FC = () => {
 
   return (
     <div>
+        {renderScouterNavBar()}
       <h1>Teams Note</h1>
       <div>
         <label>
-          Number of quals (1-12):
+          Number of quals (1-9):
           <input
             type="number"
             value={teamsCount}
