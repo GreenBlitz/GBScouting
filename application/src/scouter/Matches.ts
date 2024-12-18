@@ -18,13 +18,11 @@ export default class Matches {
     function isMatchEqual(match1: Match, match2: Match) {
       Object.values(match1).every(
         (value, index) => Object.values(match2)[index] === value
-      )
+      );
     }
 
     this.storage.set(
-      matches.filter((match) =>
-        isMatchEqual(match, removedMatch)
-      )
+      matches.filter((match) => isMatchEqual(match, removedMatch))
     );
   }
 
