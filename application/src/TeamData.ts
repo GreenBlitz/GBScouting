@@ -1,23 +1,13 @@
 import { Color } from "./utils/Color";
-import { Match } from "./utils/Utils";
+import { FullMatch, Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { FieldObject } from "./scouter/inputtypes/MapInput";
+import { FieldObject } from "./scouter/input-types/MapInput";
 
 interface Comment {
   body: string;
   qual: number;
 }
-
-interface MapFields {
-  speakerScore: number;
-  speakerMiss: number;
-
-  successfulPass: number;
-  failPass: number;
-}
-
-type FullMatch = Match & MapFields;
 
 export class TeamData {
   private matches: FullMatch[];

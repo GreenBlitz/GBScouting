@@ -1,8 +1,8 @@
-import CounterInput from "./inputtypes/CounterInput";
-import DropdownInput from "./inputtypes/DropdownInput";
-import MapInput from "./inputtypes/MapInput";
-import NumberInput from "./inputtypes/NumberInput";
-import TextInput from "./inputtypes/TextInput";
+import CounterInput from "./input-types/CounterInput";
+import DropdownInput from "./input-types/DropdownInput";
+import MapInput from "./input-types/MapInput";
+import NumberInput from "./input-types/NumberInput";
+import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 
 export default class ScouterInputs {
@@ -49,22 +49,22 @@ export default class ScouterInputs {
     name: "MapPoints",
     width: 540 * 0.8,
     height: 240 * 0.8,
-    imagePath: "../src/assets/Crescendo Map.png",
+    imagePath: "../src/assets/crescendo-map.png",
     isNameHidden: true,
   });
 
   static readonly ampScore = new CounterInput({
-    route:"ampScore",
+    route: "ampScore",
     name: "Score",
     color: "#12a119",
   });
   static readonly ampMiss = new CounterInput({
-    route:"ampMiss",
+    route: "ampMiss",
     name: "Miss",
     color: "#8f0a0e",
   });
   static readonly climb = new DropdownInput({
-    route:"climb",
+    route: "climb",
     name: "Climb",
     options: [
       "Off Stage",

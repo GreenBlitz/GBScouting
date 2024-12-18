@@ -1,5 +1,3 @@
-import { Match } from "./Utils";
-
 export default class FolderStorage {
   private prefix: string;
   public readonly parent: Storage | FolderStorage;

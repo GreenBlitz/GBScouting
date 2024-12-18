@@ -1,5 +1,5 @@
-import { Match } from "../utils/Utils";
 import { Persistent } from "../utils/FolderStorage";
+import { Match } from "../utils/Match";
 
 export default class Matches {
   static storage: Persistent<Match[]> = new Persistent("matches", localStorage);

@@ -27,9 +27,9 @@ function getHiddenImage(path: string) {
 export function renderScouterNavBar() {
   return (
     <nav className="nav-bar">
-      {getHiddenImage("./src/assets/Crescendo Map.png")}
-      {getHiddenImage("./src/assets/Blue Auto Map.png")}
-      {getHiddenImage("./src/assets/Red Auto Map.png")}
+      {getHiddenImage("./src/assets/crescendo-map.png")}
+      {getHiddenImage("./src/assets/blue-auto-map.png")}
+      {getHiddenImage("./src/assets/red-auto-map.png")}
       <ul>
         <li>
           <Link to="/">Match List</Link>

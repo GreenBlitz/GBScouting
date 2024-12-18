@@ -2,7 +2,8 @@ import { useState } from "react";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
 import MapChart from "./charts/MapChart";
-import { FRCTeamList, Match, sortMatches } from "../utils/Utils";
+import { Match, matchFieldNames as matchFields } from "../utils/Match";
+import { FRCTeamList, sortMatches } from "../utils/Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
@@ -19,9 +20,9 @@ const TeamTab: React.FC = () => {
 
   const teamData = new TeamData(recentMatches);
 
-  const ampAccuracy = teamData.getAccuracy("ampScore", "ampMiss");
-  const speakerAccuracy = teamData.getAccuracy("speakerScore", "speakerMiss");
-  const passAccuracy = teamData.getAccuracy("successfulPass", "failPass");
+  const ampAccuracy = teamData.getAccuracy(matchFields.ampScore, matchFields.ampMiss);
+  const speakerAccuracy = teamData.getAccuracy(matchFields.speakerScore, matchFields.speakerMiss);
+  const passAccuracy = teamData.getAccuracy(matchFields.successfulPass, matchFields.failPass);
 
   return (
     <div className="strategy-app">
@@ -37,7 +38,7 @@ const TeamTab: React.FC = () => {
           onChange={async (event) =>
             setMatches(
               await fetchMatchesByCriteria(
-                "TeamNumber",
+                matchFields.teamNumber,
                 event.target.value.slice(0, 4) || "0"
               )
             )
@@ -64,7 +65,7 @@ const TeamTab: React.FC = () => {
       <div className="section">
         <h2>Map</h2>
         <MapChart
-          imagePath={"./src/assets/Crescendo Map.png"}
+          imagePath={"./src/assets/crescendo-map.png"}
           fieldObjects={teamData.getAllFieldObjects()}
         />
       </div>
@@ -76,12 +77,12 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Speaker: {
               color: "pink",
-              data: teamData.getAsLine("speakerScore"),
+              data: teamData.getAsLine(matchFields.speakerScore),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine("ampScore") },
+            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampScore) },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("successfulPass"),
+              data: teamData.getAsLine(matchFields.successfulPass),
             },
           }}
         />
@@ -93,12 +94,12 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Speaker: {
               color: "pink",
-              data: teamData.getAsLine("speakerMiss"),
+              data: teamData.getAsLine(matchFields.speakerMiss),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine("ampMiss") },
+            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampMiss) },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("failPass"),
+              data: teamData.getAsLine(matchFields.failPass),
             },
           }}
         />
@@ -110,11 +111,11 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Score: {
               color: "green",
-              data: teamData.getAsLine("speakerAutoScore"),
+              data: teamData.getAsLine(matchFields.speakerAutoScore),
             },
             Miss: {
               color: "red",
-              data: teamData.getAsLine("speakerAutoMiss"),
+              data: teamData.getAsLine(matchFields.speakerAutoMiss),
             },
           }}
         />
@@ -123,7 +124,7 @@ const TeamTab: React.FC = () => {
       <div className="section">
         <h2>Trap</h2>
         <PieChart
-          pieData={teamData.getAsPie("trap", {
+          pieData={teamData.getAsPie(matchFields.trap, {
             Scored: "purple",
             Miss: "cyan",
             "Didn't Score": "yellow",
@@ -134,7 +135,7 @@ const TeamTab: React.FC = () => {
       <div className="section">
         <h2>Climb</h2>
         <PieChart
-          pieData={teamData.getAsPie("climb", {
+          pieData={teamData.getAsPie(matchFields.climb, {
             "Climbed Alone": "purple",
             Harmony: "cyan",
             Team: "yellow",

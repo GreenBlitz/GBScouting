@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import PreMatch from "./tabs/PreMatch";
 import Autonomous from "./tabs/Autonomous";
@@ -9,7 +9,7 @@ import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
 import ScouterInputs from "./ScouterInputs.ts";
 import ScouterInput from "./ScouterInput.tsx";
-import { Match } from "../utils/Utils.ts";
+import { Match } from "../utils/Match";
 import Matches from "./Matches";
 
 const sectionNames: string[] = [

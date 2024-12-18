@@ -6,7 +6,7 @@ import {
   FieldObject,
   FieldPoint,
   MapButton,
-} from "../../scouter/inputtypes/MapInput";
+} from "../../scouter/input-types/MapInput";
 import { Color } from "../../utils/Color";
 
 const DefaultSize = { width: 432, height: 192 };

@@ -1,6 +1,5 @@
-import ScouterInputs from "../scouter/ScouterInputs";
-import ScouterInput from "../scouter/ScouterInput";
 import { Color } from "./Color";
+import { Match } from "./Match";
 
 export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
   return Array.from({ length: rangeEnd - rangeStart }).map(
@@ -11,21 +10,6 @@ export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
 export function sortMatches(matches: Match[]) {
   return matches.sort((match1, match2) => match1.qual - match2.qual);
 }
-
-type InputType = typeof ScouterInputs;
-
-type InputsMapped = {
-  // ScouterName: string, Qual: number ...
-  [K in keyof InputType]: InputType[K] extends ScouterInput<infer U, any, any>
-    ? U
-    : never;
-};
-
-type ExcludeByType<T, U> = {
-  [K in keyof T as T[K] extends U ? never : K]: T[K];
-};
-
-export type Match = ExcludeByType<InputsMapped, never>;
 
 export interface DataSet {
   color: Color;
