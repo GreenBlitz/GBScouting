@@ -21,7 +21,7 @@ const TeamTab: React.FC = () => {
 
   const ampAccuracy = teamData.getAccuracy("ampScore", "ampMiss");
   const speakerAccuracy = teamData.getAccuracy("speakerScore", "speakerMiss");
-  const passAccuracy = teamData.getAccuracy("passSuccessful", "passFail");
+  const passAccuracy = teamData.getAccuracy("successfulPass", "failPass");
 
   return (
     <div className="strategy-app">
@@ -81,7 +81,7 @@ const TeamTab: React.FC = () => {
             Amp: { color: "yellow", data: teamData.getAsLine("ampScore") },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("passSuccessful"),
+              data: teamData.getAsLine("successfulPass"),
             },
           }}
         />
@@ -98,7 +98,7 @@ const TeamTab: React.FC = () => {
             Amp: { color: "yellow", data: teamData.getAsLine("ampMiss") },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("passFail"),
+              data: teamData.getAsLine("failPass"),
             },
           }}
         />

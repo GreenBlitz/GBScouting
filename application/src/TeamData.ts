@@ -13,8 +13,8 @@ interface MapFields {
   speakerScore: number;
   speakerMiss: number;
 
-  passSuccessful: number;
-  passFail: number;
+  successfulPass: number;
+  failPass: number;
 }
 
 type FullMatch = Match & MapFields;
@@ -35,8 +35,8 @@ export class TeamData {
         ...match,
         speakerScore: getFromMap(match, "Speaker", true),
         speakerMiss: getFromMap(match, "Speaker", false),
-        passSuccessful: getFromMap(match, "Pass", true),
-        passFail: getFromMap(match, "Pass", false),
+        successfulPass: getFromMap(match, "Pass", true),
+        failPass: getFromMap(match, "Pass", false),
       };
     });
   }
