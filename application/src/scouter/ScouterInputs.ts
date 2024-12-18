@@ -1,5 +1,5 @@
 import CounterInput from "./inputtypes/CounterInput";
-import DropdownInput from "./inputtypes/ListInput";
+import DropdownInput from "./inputtypes/DropdownInput";
 import MapInput from "./inputtypes/MapInput";
 import NumberInput from "./inputtypes/NumberInput";
 import TextInput from "./inputtypes/TextInput";
