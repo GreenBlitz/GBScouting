@@ -3,14 +3,15 @@ import React from "react";
 import ScouterInputs from "../ScouterInputs.ts";
 import ScouterInput, { InputProps } from "../ScouterInput.tsx";
 import { Color } from "../../utils/Color.ts";
+
+const pointRadius: number = 5;
+const succesfulnessOffset = [20, -60];
+
 interface MapInputProps {
   width: number;
   height: number;
   imagePath: string;
 }
-
-const pointRadius: number = 5;
-const succesfulnessOffset = [20, -60];
 
 interface FieldData {
   pressedButton: MapButton;
