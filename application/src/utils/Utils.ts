@@ -9,7 +9,7 @@ export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
 }
 
 export function sortMatches(matches: Match[]) {
-  return matches.sort((match1, match2) => match1.Qual - match2.Qual);
+  return matches.sort((match1, match2) => match1.qual - match2.qual);
 }
 
 type InputType = typeof ScouterInputs;

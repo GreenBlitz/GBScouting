@@ -7,11 +7,11 @@ const PreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
       {ScouterInputs.create([
-        ScouterInputs.ScouterName,
-        ScouterInputs.Qual,
-        ScouterInputs.TeamNumber,
-        ScouterInputs.GameSide,
-        ScouterInputs.StartingPosition,
+        ScouterInputs.scouterName,
+        ScouterInputs.qual,
+        ScouterInputs.teamNumber,
+        ScouterInputs.gameSide,
+        ScouterInputs.startingPosition,
       ])}
     </>
   );

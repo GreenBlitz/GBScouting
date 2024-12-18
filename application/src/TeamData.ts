@@ -2,7 +2,7 @@ import { Color } from "./utils/Color";
 import { Match } from "./utils/Utils";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { FieldObject, mapButtons } from "./scouter/inputtypes/MapInput";
+import { FieldObject } from "./scouter/inputtypes/MapInput";
 
 interface Comment {
   body: string;
@@ -10,11 +10,11 @@ interface Comment {
 }
 
 interface MapFields {
-  SpeakerScore: number;
-  SpeakerMiss: number;
+  speakerScore: number;
+  speakerMiss: number;
 
-  PassSuccessful: number;
-  PassFail: number;
+  passSuccessful: number;
+  passFail: number;
 }
 
 type FullMatch = Match & MapFields;
@@ -22,29 +22,9 @@ type FullMatch = Match & MapFields;
 export class TeamData {
   private matches: FullMatch[];
 
-  static exampleData: TeamData = new TeamData([
-    {
-      ScouterName: "Yoni",
-      Qual: 1,
-      TeamNumber: 4590,
-      GameSide: "Blue",
-      StartingPosition: "Amp Side",
-      SpeakerAutoScore: 3,
-      SpeakerAutoMiss: 4,
-      MapPoints: [
-        { x: 100, y: 300, successfulness: true, pressedButton: mapButtons[0] },
-      ],
-      AmpScore: 2,
-      AmpMiss: 1,
-      Climb: "Park",
-      Trap: "Scored",
-      Comment: "lol",
-    },
-  ]);
-
   constructor(matches: Match[]) {
     function getFromMap(match: Match, name: string, successfulness: boolean) {
-      return match.MapPoints.filter(
+      return match.mapPoints.filter(
         (object) =>
           object.pressedButton.name === name &&
           object.successfulness === successfulness
@@ -53,10 +33,10 @@ export class TeamData {
     this.matches = matches.map((match) => {
       return {
         ...match,
-        SpeakerScore: getFromMap(match, "Speaker", true),
-        SpeakerMiss: getFromMap(match, "Speaker", false),
-        PassSuccessful: getFromMap(match, "Pass", true),
-        PassFail: getFromMap(match, "Pass", false),
+        speakerScore: getFromMap(match, "Speaker", true),
+        speakerMiss: getFromMap(match, "Speaker", false),
+        passSuccessful: getFromMap(match, "Pass", true),
+        passFail: getFromMap(match, "Pass", false),
       };
     });
   }
@@ -68,18 +48,18 @@ export class TeamData {
         if (typeof match[field] !== "number") {
           throw new Error("Invalid field: " + field);
         }
-        return { [match.Qual.toString()]: match[field] };
+        return { [match.qual.toString()]: match[field] };
       })
     );
   }
 
   getAllFieldObjects(): FieldObject[] {
-    return this.matches.map((match) => match.MapPoints).flat();
+    return this.matches.map((match) => match.mapPoints).flat();
   }
 
   getComments(): Comment[] {
     return this.matches.map((match) => {
-      return { body: match.Comment, qual: match.Qual };
+      return { body: match.comment, qual: match.qual };
     });
   }
 

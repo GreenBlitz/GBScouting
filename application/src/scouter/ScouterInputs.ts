@@ -10,37 +10,37 @@ export default class ScouterInputs {
     return inputs.map((input) => input.create());
   }
 
-  static readonly ScouterName = new TextInput({
+  static readonly scouterName = new TextInput({
     name: "Scouter Name",
     doesReset: false,
   });
-  static readonly Qual = new NumberInput({
+  static readonly qual = new NumberInput({
     name: "Qual",
   });
-  static readonly TeamNumber = new NumberInput({
+  static readonly teamNumber = new NumberInput({
     name: "Team Number",
   });
-  static readonly GameSide = new DropdownInput({
+  static readonly gameSide = new DropdownInput({
     name: "Game Side",
     options: ["Blue", "Red"],
     doesReset: false,
   });
-  static readonly StartingPosition = new DropdownInput({
+  static readonly startingPosition = new DropdownInput({
     name: "Starting Position",
     options: ["Amp Side", "Middle", "Source Side", "No Show"],
   });
-  static readonly SpeakerAutoScore = new CounterInput({
+  static readonly speakerAutoScore = new CounterInput({
     name: "Speaker/Auto/Score",
     color: "#12a119",
     isNameHidden: true,
   });
-  static readonly SpeakerAutoMiss = new CounterInput({
+  static readonly speakerAutoMiss = new CounterInput({
     name: "Speaker/Auto/Miss",
     color: "#8f0a0e",
     isNameHidden: true,
   });
 
-  static readonly MapPoints = new MapInput({
+  static readonly mapPoints = new MapInput({
     name: "MapPoints",
     width: 540 * 0.8,
     height: 240 * 0.8,
@@ -48,15 +48,15 @@ export default class ScouterInputs {
     isNameHidden: true,
   });
 
-  static readonly AmpScore = new CounterInput({
+  static readonly ampScore = new CounterInput({
     name: "Amp Score",
     color: "#12a119",
   });
-  static readonly AmpMiss = new CounterInput({
+  static readonly ampMiss = new CounterInput({
     name: "Amp Miss",
     color: "#8f0a0e",
   });
-  static readonly Climb = new DropdownInput({
+  static readonly climb = new DropdownInput({
     name: "Climb",
     options: [
       "Off Stage",
@@ -66,11 +66,11 @@ export default class ScouterInputs {
       "Harmony Three Robots",
     ],
   });
-  static readonly Trap = new DropdownInput({
+  static readonly trap = new DropdownInput({
     name: "Trap",
     options: ["Didn't Score", "Scored", "Miss"],
   });
-  static readonly Comment = new TextInput({
+  static readonly comment = new TextInput({
     name: "Comment",
   });
 }

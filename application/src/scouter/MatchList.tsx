@@ -35,7 +35,7 @@ const MatchList: React.FC = () => {
       {matches.length === 0 && <h1>No Matches Saved</h1>}
       {matches.map((match, index) => (
         <Collapsible
-          trigger={`Match Number ${match.Qual}`}
+          trigger={`Match Number ${match.qual}`}
           triggerClassName="collapsible-trigger"
           openedClassName="collapsible-trigger"
           key={index}

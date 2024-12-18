@@ -73,7 +73,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
   }
 
   renderInput(): React.ReactNode {
-    const side = ScouterInputs.GameSide.getValue();
+    const side = ScouterInputs.gameSide.getValue();
 
     const context = this.canvasRef.current
       ? this.canvasRef.current.getContext("2d")
@@ -227,9 +227,9 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       <div className={"map-amp"}>
         <h2>AMP</h2>
         <br />
-        {ScouterInputs.AmpScore.create()}
+        {ScouterInputs.ampScore.create()}
         <br />
-        {ScouterInputs.AmpMiss.create()}
+        {ScouterInputs.ampMiss.create()}
       </div>
     );
 
@@ -280,7 +280,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
     return (
       <>
         <div className="map-buttons">
-          {side === ScouterInputs.GameSide.defaultValue() ? (
+          {side === ScouterInputs.gameSide.defaultValue() ? (
             <>
               {ampOptions}
               {dataOptions}

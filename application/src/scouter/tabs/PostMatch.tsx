@@ -7,9 +7,9 @@ const PostMatch: React.FC<PostMatchProps> = () => {
   return (
     <>
       {ScouterInputs.create([
-        ScouterInputs.Climb,
-        ScouterInputs.Trap,
-        ScouterInputs.Comment,
+        ScouterInputs.climb,
+        ScouterInputs.trap,
+        ScouterInputs.comment,
       ])}
     </>
   );

@@ -14,12 +14,12 @@ function processTeamData(
 ): Record<string, string> {
   const table: Record<string, string> = {
     "Team Number": teamNumber,
-    Amp: data.getAverage("AmpScore").toString(),
-    "Amp Miss": data.getAverage("AmpMiss").toString(),
-    Speaker: data.getAverage("SpeakerScore").toString(),
-    "Speaker Miss": data.getAverage("SpeakerMiss").toString(),
-    "Auto Speaker": data.getAverage("SpeakerAutoScore").toString(),
-    "Auto Speaker Miss": data.getAverage("SpeakerAutoMiss").toString(),
+    Amp: data.getAverage("ampScore").toString(),
+    "Amp Miss": data.getAverage("ampMiss").toString(),
+    Speaker: data.getAverage("speakerScore").toString(),
+    "Speaker Miss": data.getAverage("speakerMiss").toString(),
+    "Auto Speaker": data.getAverage("speakerAutoScore").toString(),
+    "Auto Speaker Miss": data.getAverage("speakerAutoMiss").toString(),
   };
   return table;
 }

@@ -19,9 +19,9 @@ const TeamTab: React.FC = () => {
 
   const teamData = new TeamData(recentMatches);
 
-  const ampAccuracy = teamData.getAccuracy("AmpScore", "AmpMiss");
-  const speakerAccuracy = teamData.getAccuracy("SpeakerScore", "SpeakerMiss");
-  const passAccuracy = teamData.getAccuracy("PassSuccessful", "PassFail");
+  const ampAccuracy = teamData.getAccuracy("ampScore", "ampMiss");
+  const speakerAccuracy = teamData.getAccuracy("speakerScore", "speakerMiss");
+  const passAccuracy = teamData.getAccuracy("passSuccessful", "passFail");
 
   return (
     <div className="strategy-app">
@@ -76,12 +76,12 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Speaker: {
               color: "pink",
-              data: teamData.getAsLine("SpeakerScore"),
+              data: teamData.getAsLine("speakerScore"),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine("AmpScore") },
+            Amp: { color: "yellow", data: teamData.getAsLine("ampScore") },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("PassSuccessful"),
+              data: teamData.getAsLine("passSuccessful"),
             },
           }}
         />
@@ -93,12 +93,12 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Speaker: {
               color: "pink",
-              data: teamData.getAsLine("SpeakerMiss"),
+              data: teamData.getAsLine("speakerMiss"),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine("AmpMiss") },
+            Amp: { color: "yellow", data: teamData.getAsLine("ampMiss") },
             Pass: {
               color: "purple",
-              data: teamData.getAsLine("PassFail"),
+              data: teamData.getAsLine("passFail"),
             },
           }}
         />
@@ -110,11 +110,11 @@ const TeamTab: React.FC = () => {
           dataSets={{
             Score: {
               color: "green",
-              data: teamData.getAsLine("SpeakerAutoScore"),
+              data: teamData.getAsLine("speakerAutoScore"),
             },
             Miss: {
               color: "red",
-              data: teamData.getAsLine("SpeakerAutoMiss"),
+              data: teamData.getAsLine("speakerAutoMiss"),
             },
           }}
         />
@@ -123,7 +123,7 @@ const TeamTab: React.FC = () => {
       <div className="section">
         <h2>Trap</h2>
         <PieChart
-          pieData={teamData.getAsPie("Trap", {
+          pieData={teamData.getAsPie("trap", {
             Scored: "purple",
             Miss: "cyan",
             "Didn't Score": "yellow",
@@ -134,7 +134,7 @@ const TeamTab: React.FC = () => {
       <div className="section">
         <h2>Climb</h2>
         <PieChart
-          pieData={teamData.getAsPie("Climb", {
+          pieData={teamData.getAsPie("climb", {
             "Climbed Alone": "purple",
             Harmony: "cyan",
             Team: "yellow",
