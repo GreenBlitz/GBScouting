@@ -1,71 +1,20 @@
-import { Point } from "chart.js";
-
-export const getServerHostname = () => {
-  return location.host;
-};
-
+import { Color } from "./Color";
+import { Match } from "./Match";
 
 export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
-  return Array.from({length:rangeEnd - rangeStart})
-    .map((_, i) => i + rangeStart);
-}
-
-export function matchToSheet(match: Record<string, string>) {
-  let keys = "";
-  let values = "";
-  for (const [key, value] of Object.entries(match)) {
-    keys += key + "	";
-    values += value + "	";
-  }
-  return `${keys}\n${values}`;
-}
-
-export async function getMatchesByCriteria(field?: string, value?: string) {
-  const searchedField = field && value ? `/${field}/${value}` : ``;
-  const data: Record<string, string>[] = await fetch(
-    `https://${getServerHostname()}/Matches${searchedField}`,
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(error);
-      return [];
-    });
-  return data;
-}
-
-export function sortMatches(matches: Match[]) {
-  return matches.sort(
-    (match1, match2) => {
-      return parseInt(match1["Qual"]) - parseInt(match2["Qual"]);
-        }
+  return Array.from({ length: rangeEnd - rangeStart }).map(
+    (_, i) => i + rangeStart
   );
 }
 
-export type Match = Record<string, string>;
-export interface Note extends Point {
-  color: "green" | "red" | "orange";
+export function sortMatches(matches: Match[]) {
+  return matches.sort((match1, match2) => match1.qual - match2.qual);
 }
 
-export const autoNotePositions: Point[] = [250, 200, 150, 100, 50].map(
-  (height) => {
-    return { x: 280, y: height };
-  }
-);
-export const autoBlueNotePositions: Point[] = [150, 100, 50].map((height) => {
-  return { x: 90, y: height };
-});
+export interface DataSet {
+  color: Color;
+  data: Record<string, number>;
+}
 
 export const FRCTeamList = [
   "1574\tMisCar",

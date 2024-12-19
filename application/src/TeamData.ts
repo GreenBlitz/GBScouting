@@ -1,103 +1,100 @@
+import { Color } from "./utils/Color";
+import { FullMatch, Match } from "./utils/Match";
+import { SectionData } from "./strategy/charts/PieChart";
+import Percent from "./utils/Percent";
+import { FieldObject } from "./scouter/input-types/MapInput";
+
+interface Comment {
+  body: string;
+  qual: number;
+}
+
 export class TeamData {
-  public readonly matches: Record<string, Record<string, string>>;
-  [key: string]: any;
+  private matches: FullMatch[];
 
-  public static readonly matchName = "Qual";
-  public static readonly mapName = "CRESCENDO";
-
-  constructor(teamMatches: Record<string, string>[]) {
-    this.matches = {};
-    teamMatches.forEach((match) => {
-      const points: any[] = JSON.parse(match[TeamData.mapName + "/Points"]);
-      const matchNumber = match[TeamData.matchName];
-      function countDataFromMap(data: string, succesfulness: boolean) {
-        return (
-          points.filter((point) => {
-            if (data === "Pass" && point[0]) {
-              return  point[0]["data"] === "Pass" && point[0]["successfulness"] === succesfulness;
-            }
-            return (
-              point["data"] === data &&
-              point["successfulness"] === succesfulness
-            );
-          }).length + ""
-        );
-      }
-      this.matches[matchNumber] = {
-        "Speaker Score": countDataFromMap("Speaker", true),
-        "Speaker Miss": countDataFromMap("Speaker", false),
-        "Pass Successful": countDataFromMap("Pass", true),
-        "Pass Unsuccessful": countDataFromMap("Pass", false),
-        "Amp Score": match[`${TeamData.mapName}/Amp/Score`],
-        "Amp Miss": match[`${TeamData.mapName}/Amp/Miss`],
-        "Trap Score": match["Trap"] === "Scored" ? "1" : "0",
-        "Trap Miss": match["Trap"] === "Miss" ? "1" : "0",
+  constructor(matches: Match[]) {
+    function getFromMap(match: Match, name: string, successfulness: boolean) {
+      return match.mapPoints.filter(
+        (object) =>
+          object.pressedButton.name === name &&
+          object.successfulness === successfulness
+      ).length;
+    }
+    this.matches = matches.map((match) => {
+      return {
+        ...match,
+        speakerScore: getFromMap(match, "Speaker", true),
+        speakerMiss: getFromMap(match, "Speaker", false),
+        successfulPass: getFromMap(match, "Pass", true),
+        failPass: getFromMap(match, "Pass", false),
       };
-
-      Object.entries(match)
-        .filter(
-          ([key, _]) => key !== TeamData.matchName && key !== TeamData.mapName
-        )
-        .forEach(([key, value]) => (this.matches[matchNumber][key] = value));
     });
-    return new Proxy(this, {
-      get: (target, prop) => {
-        if (typeof prop === "string" && prop in target.matches) {
-          return target.matches[prop];
+  }
+
+  getAsLine(field: keyof FullMatch): Record<string, number> {
+    return Object.assign(
+      {},
+      ...Object.values(this.matches).map((match) => {
+        if (typeof match[field] !== "number") {
+          throw new Error("Invalid field: " + field);
         }
-        return Reflect.get(target, prop);
-      },
-      set: (target, prop, value) => {
-        if (
-          typeof prop === "string" &&
-          typeof value === "object" &&
-          value !== null
-        ) {
-          target.matches[prop] = value;
-          return true;
+        return { [match.qual.toString()]: match[field] };
+      })
+    );
+  }
+
+  getAllFieldObjects(): FieldObject[] {
+    return this.matches.map((match) => match.mapPoints).flat();
+  }
+
+  getComments(): Comment[] {
+    return this.matches.map((match) => {
+      return { body: match.comment, qual: match.qual };
+    });
+  }
+
+  getAccuracy(
+    percentField: keyof FullMatch,
+    compareField: keyof FullMatch
+  ): Percent {
+    const averages = [
+      this.getAverage(percentField),
+      this.getAverage(compareField),
+    ];
+    return Percent.fromList(averages)[0];
+  }
+
+  getAverage(field: keyof FullMatch): number {
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return this.matches
+      .map((match) => {
+        if (typeof match[field] !== "number") {
+          throw new Error("Invalid field: " + field);
         }
-        return Reflect.set(target, prop, value);
-      },
-    });
+        return match[field];
+      })
+      .reduce((accumulator, value) => {
+        return accumulator + value;
+      });
   }
 
-  getAverage(data: string): number {
-    let sum = 0;
-    const matchesData = Object.values(this.matches);
-    matchesData.forEach((match) => {
-      sum += parseInt(match[data]);
-    });
-    return sum > 0 ? sum / matchesData.length : 0;
-  }
-
-  getAsLine(data: string): Record<string, number> {
-    const dataSet: Record<string, number> = {};
-    Object.entries(this.matches).forEach(([qual, match]) => {
-      dataSet[qual] = parseInt(match[data]);
-    });
-    return dataSet;
-  }
-
-  getAsPie(data: string, colorMap: Record<string, string>) {
-    const dataSet: Record<string, [number, string]> = {};
+  getAsPie(
+    field: keyof FullMatch,
+    colorMap: Record<string, Color>
+  ): Record<string, SectionData> {
+    const dataSet: Record<string, SectionData> = {};
     Object.entries(this.matches).forEach(([_, match]) => {
-      const dataValue = match[data];
-      if (!dataSet[dataValue]) {
-        dataSet[dataValue] = [0, colorMap[dataValue]];
+      if (typeof match[field] !== "string") {
+        throw new Error("Invalid field: " + field);
       }
-      dataSet[dataValue][0]++;
+      const dataValue = match[field];
+      if (!dataSet[dataValue]) {
+        dataSet[dataValue] = { percentage: 0, color: colorMap[dataValue] };
+      }
+      dataSet[dataValue].percentage++;
     });
     return dataSet;
-  }
-
-  getAccuracy(data1: string, data2: string) {
-    let sum1 = 0;
-    let sum2 = 0;
-    const matches = Object.values(this.matches);
-    matches.forEach((match) => {
-      sum1 += parseInt(match[data1]);
-      sum2 += parseInt(match[data2]);
-    });
-    return (sum1 / (sum1 + sum2)) * 100;
   }
 }
