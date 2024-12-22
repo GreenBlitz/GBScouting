@@ -1,55 +1,30 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Collapsible from "react-collapsible";
-import React, { useState } from "react";
+import React from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
-import { getServerHostname } from "../Utils";
 import { renderScouterNavBar } from "../App";
-
-export const matchName = "Qual";
-const matchesTab = "Matches/";
-
-const collapsibleSize = 10;
+import Matches from "./Matches";
+import { postMatch } from "../utils/Fetches";
+import { Match } from "../utils/Match";
 
 const MatchList: React.FC = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
-  const [matches, setMatches] = useState<Record<string, string>[]>(
-    Object.keys(localStorage)
-      .filter((match) => match.startsWith(matchesTab))
-      .map((matchName) => JSON.parse(localStorage.getItem(matchName) || "{}"))
-  );
+  const matches: Match[] = Matches.getAll();
 
-  const latestMatch = location.state;
-  location.state = {};
-
-  if (latestMatch?.[matchName]) {
-    matches.push(latestMatch);
-    localStorage.setItem(
-      matchesTab + latestMatch[matchName],
-      JSON.stringify(latestMatch)
-    );
-  }
-
-  function removeMatch(qualNumber: string, index: number) {
-    localStorage.removeItem(matchesTab + qualNumber);
-    const filtered = [...matches];
-    filtered.splice(index, 1);
-    setMatches(filtered);
+  function removeMatch(match: Match) {
+    Matches.remove(match);
     navigate("/");
   }
 
-  function sendMatch(match: Record<string, string>, index: number) {
-    fetch(`https://${getServerHostname()}/Match`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(match),
-    })
+  function sendMatch(match: Match) {
+    postMatch(match)
       .then(() => {
         alert("Succesfully Sent Match✅");
-        removeMatch(match?.[matchName], index);
+        removeMatch(match);
       })
       .catch(() => {
+        console.log(match);
         alert("Unable To Send Match.");
       });
   }
@@ -60,24 +35,17 @@ const MatchList: React.FC = () => {
       {matches.length === 0 && <h1>No Matches Saved</h1>}
       {matches.map((match, index) => (
         <Collapsible
-          trigger={`${"ㅤ".repeat(
-            collapsibleSize - match[matchName].length
-          )}${match["Team Number"]} ${matchName} ${match[matchName]} ${"ㅤ".repeat(
-            collapsibleSize - match[matchName].length
-          )}`}
-          triggerClassName={"collapsible-trigger"}
+          trigger={`Match Number ${match.qual}`}
+          triggerClassName="collapsible-trigger"
           openedClassName="collapsible-trigger"
           key={index}
         >
           <QRCodeGenerator text={JSON.stringify(match)} />
           <br />
-          <button
-            type="button"
-            onClick={() => removeMatch(match?.[matchName], index)}
-          >
+          <button type="button" onClick={() => removeMatch(match)}>
             Delete
           </button>
-          <button type="button" onClick={() => sendMatch(match, index)}>
+          <button type="button" onClick={() => sendMatch(match)}>
             Send
           </button>
         </Collapsible>

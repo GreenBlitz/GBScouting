@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import TableChart from "./charts/TableChart";
-import { getMatchesByCriteria, FRCTeamList } from "../Utils";
+import { FRCTeamList } from "../utils/Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
+import { fetchMatchesByCriteria } from "../utils/Fetches";
 
 interface GeneralTabProps {}
 
@@ -13,12 +14,12 @@ function processTeamData(
 ): Record<string, string> {
   const table: Record<string, string> = {
     "Team Number": teamNumber,
-    Amp: data.getAverage("Amp Score") + "",
-    "Amp Miss": data.getAverage("Amp Miss") + "",
-    Speaker: data.getAverage("Speaker Score") + "",
-    "Speaker Miss": data.getAverage("Speaker Miss") + "",
-    "Auto Speaker": data.getAverage("Speaker/Auto/Score") + "",
-    "Auto Speaker Miss": data.getAverage("Speaker/Auto/Miss") + "",
+    Amp: data.getAverage("ampScore").toString(),
+    "Amp Miss": data.getAverage("ampMiss").toString(),
+    Speaker: data.getAverage("speakerScore").toString(),
+    "Speaker Miss": data.getAverage("speakerMiss").toString(),
+    "Auto Speaker": data.getAverage("speakerAutoScore").toString(),
+    "Auto Speaker Miss": data.getAverage("speakerAutoMiss").toString(),
   };
   return table;
 }
@@ -34,7 +35,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
             const teamNumber = team.slice(0, team.indexOf(`\t`));
             return processTeamData(
               new TeamData(
-                await getMatchesByCriteria("Team Number", teamNumber)
+                await fetchMatchesByCriteria("TeamNumber", teamNumber)
               ),
               teamNumber
             );
@@ -44,13 +45,14 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
     }
     updateTeamTable();
   }, []);
+
   return (
     <>
       {renderStrategyNavBar()}
       <div className="section">
         <h2>Table</h2>
         <TableChart
-          matches={teamTable}
+          tableData={teamTable}
           idName={"Team Number"}
           height={540}
           widthOfItem={130}

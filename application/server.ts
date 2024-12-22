@@ -48,18 +48,8 @@ app.post("/Match", async (req: Request, res: Response) => {
   const matchData = req.body;
 
   try {
-    const items = (await matchCollection.find().toArray()).filter((item) => {
-      return (
-        matchData["Team Number"] === item["Team Number"] &&
-        matchData["Qual"] === item["Qual"]
-      );
-    });
-    if (items.length > 0) {
-      res.status(400).send("Match Already In Database");
-    } else {
-      const result = await matchCollection.insertOne(matchData);
-      res.status(201).json(result);
-    }
+    const result = await matchCollection.insertOne(matchData);
+    res.status(201).json(result);
   } catch (error) {
     res.status(500).json({ error: "Failed to insert data" });
   }
@@ -99,10 +89,7 @@ app.get("/Matches/:type/:value", async (req, res) => {
   const matchCollection = db.collection("matches");
   try {
     const items = (await matchCollection.find().toArray()).filter((item) => {
-      if (req.params.type) {
-        return item[req.params.type] === req.params.value;
-      }
-      return true;
+      return item[req.params.type].toString() === req.params.value;
     });
     res.status(200).json(items);
   } catch (error) {

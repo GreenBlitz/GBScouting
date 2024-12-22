@@ -1,38 +1,15 @@
 import { useState } from "react";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
-import MapChart, { DataPoint, PassingPoint } from "./charts/MapChart";
-import {
-  getMatchesByCriteria,
-  FRCTeamList,
-  Match,
-  sortMatches,
-} from "../Utils";
+import MapChart from "./charts/MapChart";
+import { Match, matchFieldNames as matchFields } from "../utils/Match";
+import { FRCTeamList, sortMatches } from "../utils/Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
-import AutoTab from "./AutoSection";
+import { fetchMatchesByCriteria } from "../utils/Fetches";
 
-interface TeamTabProps {}
-
-function getAllPoints(matches: Match[]) {
-  let points: (DataPoint | PassingPoint)[] = [];
-  matches.forEach((match) => {
-    const mapPoints: (DataPoint | PassingPoint)[] = JSON.parse(
-      match[TeamData.mapName + "/Points"]
-    );
-    points = [...points, ...mapPoints];
-  });
-  return points;
-}
-
-function getComments(matches: Match[]): [string, string][] {
-  return matches
-    .map((match) => [match["Comment"], match["Qual"]])
-    .filter(([comment, qual]) => comment !== "") as [string, string][];
-}
-
-const TeamTab: React.FC<TeamTabProps> = () => {
+const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
 
@@ -41,15 +18,11 @@ const TeamTab: React.FC<TeamTabProps> = () => {
     recentMatches.splice(0, recentMatches.length - recency);
   }
 
-  console.log(recentMatches);
   const teamData = new TeamData(recentMatches);
 
-  const ampAccuracy = teamData.getAccuracy("Amp Score", "Amp Miss");
-  const speakerAccuracy = teamData.getAccuracy("Speaker Score", "Speaker Miss");
-  const passAccuracy = teamData.getAccuracy(
-    "Pass Successful",
-    "Pass Unsuccessful"
-  );
+  const ampAccuracy = teamData.getAccuracy(matchFields.ampScore, matchFields.ampMiss);
+  const speakerAccuracy = teamData.getAccuracy(matchFields.speakerScore, matchFields.speakerMiss);
+  const passAccuracy = teamData.getAccuracy(matchFields.successfulPass, matchFields.failPass);
 
   return (
     <div className="strategy-app">
@@ -64,8 +37,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
           name="team number"
           onChange={async (event) =>
             setMatches(
-              await getMatchesByCriteria(
-                "Team Number",
+              await fetchMatchesByCriteria(
+                matchFields.teamNumber,
                 event.target.value.slice(0, 4) || "0"
               )
             )
@@ -92,10 +65,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Map</h2>
         <MapChart
-          width={540 * 0.8}
-          height={240 * 0.8}
-          imagePath={"./src/assets/Crescendo Map.png"}
-          dataPoints={getAllPoints(recentMatches)}
+          imagePath={"./src/assets/crescendo-map.png"}
+          fieldObjects={teamData.getAllFieldObjects()}
         />
       </div>
       <br />
@@ -103,12 +74,16 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Scoring</h2>
         <LineChart
-          height={300}
-          width={400}
           dataSets={{
-            Speaker: ["pink", teamData.getAsLine("Speaker Score")],
-            Amp: ["yellow", teamData.getAsLine("Amp Score")],
-            Pass: ["purple", teamData.getAsLine("Pass Successful")],
+            Speaker: {
+              color: "pink",
+              data: teamData.getAsLine(matchFields.speakerScore),
+            },
+            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampScore) },
+            Pass: {
+              color: "purple",
+              data: teamData.getAsLine(matchFields.successfulPass),
+            },
           }}
         />
       </div>
@@ -116,12 +91,16 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Miss</h2>
         <LineChart
-          height={300}
-          width={400}
           dataSets={{
-            Speaker: ["pink", teamData.getAsLine("Speaker Miss")],
-            Amp: ["yellow", teamData.getAsLine("Amp Miss")],
-            Pass: ["purple", teamData.getAsLine("Pass Unsuccessful")],
+            Speaker: {
+              color: "pink",
+              data: teamData.getAsLine(matchFields.speakerMiss),
+            },
+            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampMiss) },
+            Pass: {
+              color: "purple",
+              data: teamData.getAsLine(matchFields.failPass),
+            },
           }}
         />
       </div>
@@ -129,11 +108,15 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Auto</h2>
         <LineChart
-          height={300}
-          width={400}
           dataSets={{
-            Score: ["green", teamData.getAsLine("Speaker/Auto/Score")],
-            Miss: ["red", teamData.getAsLine("Speaker/Auto/Miss")]
+            Score: {
+              color: "green",
+              data: teamData.getAsLine(matchFields.speakerAutoScore),
+            },
+            Miss: {
+              color: "red",
+              data: teamData.getAsLine(matchFields.speakerAutoMiss),
+            },
           }}
         />
       </div>
@@ -141,7 +124,7 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Trap</h2>
         <PieChart
-          pieData={teamData.getAsPie("Trap", {
+          pieData={teamData.getAsPie(matchFields.trap, {
             Scored: "purple",
             Miss: "cyan",
             "Didn't Score": "yellow",
@@ -152,7 +135,7 @@ const TeamTab: React.FC<TeamTabProps> = () => {
       <div className="section">
         <h2>Climb</h2>
         <PieChart
-          pieData={teamData.getAsPie("Climb", {
+          pieData={teamData.getAsPie(matchFields.climb, {
             "Climbed Alone": "purple",
             Harmony: "cyan",
             Team: "yellow",
@@ -167,8 +150,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Amp Accuracy</h2>
         <PieChart
           pieData={{
-            Score: [ampAccuracy, "green"],
-            Miss: [100 - ampAccuracy, "crimson"],
+            Score: { percentage: ampAccuracy.value, color: "green" },
+            Miss: { percentage: ampAccuracy.complement, color: "crimson" },
           }}
         />
       </div>
@@ -177,8 +160,8 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Speaker Accuracy</h2>
         <PieChart
           pieData={{
-            Score: [speakerAccuracy, "green"],
-            Miss: [100 - speakerAccuracy, "crimson"],
+            Score: { percentage: speakerAccuracy.value, color: "green" },
+            Miss: { percentage: speakerAccuracy.complement, color: "crimson" },
           }}
         />
       </div>
@@ -186,22 +169,19 @@ const TeamTab: React.FC<TeamTabProps> = () => {
         <h2>Pass Accuracy</h2>
         <PieChart
           pieData={{
-            Score: [passAccuracy, "green"],
-            Miss: [100 - passAccuracy, "crimson"],
+            Score: { percentage: passAccuracy.value, color: "green" },
+            Miss: { percentage: passAccuracy.complement, color: "crimson" },
           }}
         />
       </div>
 
       <br />
-      <div className="section">
-        <h1>Autonomus</h1>
-        <AutoTab matches={recentMatches} />
-      </div>
+
       <br />
       <div>
         <h1>Comments</h1>
-        {getComments(recentMatches).map((comment) => (
-          <h3>{comment[0] + "...Qual number" + comment[1]}</h3>
+        {teamData.getComments().map((comment) => (
+          <h3>{"Qual #" + comment.qual + ": " + comment.body}</h3>
         ))}
       </div>
     </div>
