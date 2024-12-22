@@ -23,13 +23,16 @@ interface MapFields {
   successfulPass: number;
   failPass: number;
 }
+//set to never each one and assign
 
 export type FullMatch = Match & MapFields;
 
-export const matchFieldNames = Object.keys({} as FullMatch).reduce(
+export const matchFieldNames = Object.keys(ScouterInputs).reduce(
   (acccumulator, key) => {
     acccumulator[key] = key;
     return acccumulator;
   },
   {} as Record<keyof FullMatch, keyof FullMatch>
 );
+
+console.log(matchFieldNames)
