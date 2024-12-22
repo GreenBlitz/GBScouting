@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
@@ -61,6 +67,23 @@ export function renderStrategyNavBar() {
 }
 
 const App: React.FC = () => {
+  
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      // Prevent default behavior and show a warning dialog
+      event.preventDefault();
+      event.returnValue = ""; // This triggers the browser's warning dialog.
+    };
+
+    // Attach the event listener for refresh and tab close
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      // Clean up the event listener
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
