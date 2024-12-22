@@ -26,10 +26,16 @@ interface MapFields {
 
 export type FullMatch = Match & MapFields;
 
-export const matchFieldNames = Object.keys({} as FullMatch).reduce(
-  (acccumulator, key) => {
+const mapFields: MapFields = {
+  speakerScore: 0,
+  speakerMiss: 0,
+  successfulPass: 0,
+  failPass: 0,
+};
+
+export const matchFieldNames = Object.keys(ScouterInputs)
+  .concat(Object.keys(mapFields))
+  .reduce((acccumulator, key) => {
     acccumulator[key] = key;
     return acccumulator;
-  },
-  {} as Record<keyof FullMatch, keyof FullMatch>
-);
+  }, {} as Record<keyof FullMatch, keyof FullMatch>);
