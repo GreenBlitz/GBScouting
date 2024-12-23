@@ -46,7 +46,9 @@ export class TeamData {
   getAllFieldObjects(): FieldObject[] {
     return this.matches.map((match) => match.mapPoints).flat();
   }
-
+  getPassFiedldObjects(): FieldObject[]{
+    return this.matches.map((match) => match.passPoints).flat();
+  }
   getComments(): Comment[] {
     return this.matches.map((match) => {
       return { body: match.comment, qual: match.qual };

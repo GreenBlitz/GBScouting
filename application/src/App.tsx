@@ -6,8 +6,9 @@ import {
   Link,
   Route,
   Routes,
-  useNavigate,
-} from "react-router-dom";
+  useNavigate
+} from "react-router-dom"
+import ReactDOM from 'react-dom';
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
