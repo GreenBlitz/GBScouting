@@ -3,9 +3,11 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import React from 'react'
+import TeamStats from './strategy/comparison/TeamStats.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
+    <TeamStats></TeamStats>
+    <TeamStats></TeamStats>
+  </StrictMode>
 )
