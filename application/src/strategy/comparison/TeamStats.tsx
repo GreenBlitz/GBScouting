@@ -35,7 +35,7 @@ const TeamStats: React.FC = ()=>{
             <select id="teams" onChange={handleSelect}>{FRCTeamList.map(teamName => (
                 <option value={teamName}>{teamName}</option>
             ))}</select>
-            <Checkbox value="SpekerMiss" checked={isChecked} onChange={handleChange}> </Checkbox>
+            <Checkbox value="SpekerMiss" checked={isChecked} onChange={handleChange} />
             {graphes}
         </>
     )
