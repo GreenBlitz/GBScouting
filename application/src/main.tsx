@@ -7,7 +7,6 @@ import TeamStats from './strategy/comparison/TeamStats.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <TeamStats></TeamStats>
-    <TeamStats></TeamStats>
+    <App />
   </StrictMode>
 )
