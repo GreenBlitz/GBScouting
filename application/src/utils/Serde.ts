@@ -362,6 +362,26 @@ function serdeBool(): Serde<boolean> {
   };
 }
 
+function serdeMixedFalseT<T>(tSerde: Serde<T>): Serde<false | T> {
+  function serializer(serializedData: BitArray, value: T | false) {
+    serdeBool().serializer(serializedData, value !== false);
+    if (value !== false) {
+      tSerde.serializer(serializedData, value);
+    }
+  }
+  function deserializer(serializedData: BitArray): T | false {
+    if (serdeBool().deserializer(serializedData)) {
+      return tSerde.deserializer(serializedData);
+    } else {
+      return false;
+    }
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
 function serdeRecordFieldsBuilder(
   fieldNamesSerdes: [string, Serde<any>][]
 ): FieldsRecordSerde<any> {
@@ -389,8 +409,6 @@ export function deserialize<T>(
 
 const TEAM_NUMBER_BIT_COUNT = 2 * 8;
 
-const TRAP_POSSIBLE_VALUES = ["Didn't Score", "Scored", "Miss"];
-
 const CLIMB_POSSIBLE_VALUES = [
   "Off Barge",
   "Park",
@@ -401,6 +419,7 @@ const CLIMB_POSSIBLE_VALUES = [
 const GAME_SIDE_POSSIBLE_VALUES = ["Blue", "Red"];
 
 const QUAL_BIT_COUNT = 9;
+const DEFENSE_RATING_BIT_COUNT = 3;
 
 const STARTING_POSITION_POSSIBLE_VALUES = ["Far Side", "Middle", "Close Side"];
 
@@ -409,6 +428,7 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["gameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
+  ["defense", serdeMixedFalseT(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT))],
   ["scouterName", serdeString()],
   ["noShow", serdeBool()],
   ["comment", serdeString()],
