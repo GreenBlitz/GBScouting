@@ -1,7 +1,12 @@
 import React from "react";
-import ScouterInput from "../ScouterInput";
+import ScouterInput, { InputProps } from "../ScouterInput";
+import { serdeUnsignedInt } from "../../utils/Serde";
 
 class NumberInput extends ScouterInput<number> {
+  constructor(props: InputProps<number>, bitCount: number) {
+    super(props, serdeUnsignedInt(bitCount))
+  }
+
   create(): React.JSX.Element {
     return <NumberInput {...this.props} />;
   }

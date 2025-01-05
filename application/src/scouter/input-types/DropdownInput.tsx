@@ -1,7 +1,12 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
+import { serdeEnumedString } from "../../utils/Serde";
 
 class DropdownInput extends ScouterInput<string, { options: string[] }> {
+  constructor(props: InputProps<string> & { options: string[]; }) {
+    super(props, serdeEnumedString(props.options))
+  }
+
   create(): React.JSX.Element {
     return <DropdownInput {...this.props} />;
   }

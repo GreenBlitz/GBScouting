@@ -3,6 +3,7 @@ import React from "react";
 import ScouterInputs from "../ScouterInputs.ts";
 import ScouterInput, { InputProps } from "../ScouterInput.tsx";
 import { Color } from "../../utils/Color.ts";
+import { Serde, serdeOptionalFieldsRecord, serdeString } from "../../utils/Serde.ts";
 
 const pointRadius: number = 5;
 const succesfulnessOffset = [20, -60];
@@ -54,13 +55,15 @@ interface MapStates {
   passingPoint?: FieldPoint;
 }
 
+const serdeFieldObjects: Serde<FieldObject[]> = {} as Serde<FieldObject[]>//this class needs to be deleted in another CR
+
 const defaultButton = mapButtons[0];
 
 class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
 
-  constructor(props) {
-    super(props);
+  constructor(props: InputProps<FieldObject[]> & MapInputProps) {
+    super(props, serdeFieldObjects);
     this.canvasRef = React.createRef<HTMLCanvasElement>();
   }
 

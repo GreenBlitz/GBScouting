@@ -1,5 +1,6 @@
 import React from "react";
 import { StorageBackedInput } from "../utils/FolderStorage";
+import { Serde } from "../utils/Serde";
 
 export interface InputProps<T> {
   route: string;
@@ -14,13 +15,17 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   State
 > {
   public readonly storage: StorageBackedInput<T>;
-  constructor(props: InputProps<T> & Props) {
+  public readonly serde: Serde<T>;
+
+  constructor(props: InputProps<T> & Props, serde: Serde<T>) {
     super(props);
     this.storage = new StorageBackedInput<T>(this.props.route);
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
     }
+
+    this.serde = serde;
   }
 
   render(): React.ReactNode {

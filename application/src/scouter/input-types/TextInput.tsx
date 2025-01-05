@@ -1,7 +1,12 @@
 import React from "react";
-import ScouterInput from "../ScouterInput";
+import ScouterInput, { InputProps } from "../ScouterInput";
+import { serdeString } from "../../utils/Serde";
 
 class TextInput extends ScouterInput<string> {
+  constructor(props: InputProps<string>,bits: number) {
+    super(props, serdeString(bits));
+  }
+
   create(): React.JSX.Element {
     return <TextInput {...this.props} />;
   }

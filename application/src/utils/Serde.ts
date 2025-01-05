@@ -2,7 +2,7 @@ import { rangeArr } from "./Utils";
 import { BitArray } from "./BitArray";
 
 // TODO add signed support!
-function serdeUnsignedInt(bitCount: number): Serde<number> {
+export function serdeUnsignedInt(bitCount: number): Serde<number> {
   function serializer(serialiedData: BitArray, num: number) {
     let arr = new BitArray();
 
@@ -26,7 +26,7 @@ function serdeUnsignedInt(bitCount: number): Serde<number> {
   };
 }
 
-function serdeStringifiedNum(bitCount: number): Serde<string> {
+export function serdeStringifiedNum(bitCount: number): Serde<string> {
   function serializer(seriailzedData: BitArray, num: string) {
     return serdeUnsignedInt(bitCount).serializer(seriailzedData, Number(num));
   }
@@ -39,12 +39,11 @@ function serdeStringifiedNum(bitCount: number): Serde<string> {
   };
 }
 
-function serdeString(): Serde<string> {
-  const STRING_LENGTH_BIT_COUNT: number = 12;
+export function serdeString(bitCount: number): Serde<string> {
   function serializer(serializedData: BitArray, string: string) {
     const encodedString: Uint8Array = new TextEncoder().encode(string);
 
-    serdeUnsignedInt(STRING_LENGTH_BIT_COUNT).serializer(
+    serdeUnsignedInt(bitCount).serializer(
       serializedData,
       encodedString.length
     );
@@ -52,7 +51,7 @@ function serdeString(): Serde<string> {
   }
   function deserializer(serializedData: BitArray): string {
     let encodedStringLength = serdeUnsignedInt(
-      STRING_LENGTH_BIT_COUNT
+      bitCount
     ).deserializer(serializedData);
     let encodedString = serializedData.consumeBits(encodedStringLength * 8);
     return new TextDecoder().decode(encodedString);
@@ -76,12 +75,12 @@ interface FieldsRecordSerde<T> {
   serializer: RecordSerializer<T>;
   deserializer: RecordDeserializer<T>;
 }
-interface Serde<T> {
+export interface Serde<T> {
   serializer: Serializer<T>;
   deserializer: Deserializer<T>;
 }
 
-function serdeOptionalFieldsRecord<T>(
+export function serdeOptionalFieldsRecord<T>(
   fieldsSerde: FieldsRecordSerde<T>
 ): Serde<Record<string, T>> {
   function fieldsExistenceBitCount(
@@ -179,7 +178,7 @@ export function serdeRecord<T>(
 }
 
 const ARRAY_LENGTH_DEFAULT_BIT_COUNT: number = 12;
-function serdeArray<T>(
+export function serdeArray<T>(
   itemSerde: Serde<T>,
   bitCount = ARRAY_LENGTH_DEFAULT_BIT_COUNT
 ): Serde<T[]> {
@@ -216,7 +215,7 @@ function serdeArray<T>(
   };
 }
 
-function serdeMixedArrayRecord<T, U>(
+export function serdeMixedArrayRecord<T, U>(
   arrayItemSerde: Serde<T>,
   recordFieldSerde: FieldsRecordSerde<U>,
   areRecordFieldsOptional = false
@@ -276,7 +275,7 @@ function serdeMixedArrayRecord<T, U>(
   };
 }
 
-function serdeEnumedString(possibleValues: string[]): Serde<string> {
+export function serdeEnumedString(possibleValues: string[]): Serde<string> {
   function bitsNeeded(possibleValuesCount: number): number {
     return Math.ceil(Math.log2(possibleValuesCount));
   }
@@ -323,7 +322,7 @@ function serdeEnumedString(possibleValues: string[]): Serde<string> {
   };
 }
 
-function serdeStringifiedArray<T>(itemSerde: Serde<T>): Serde<string> {
+export function serdeStringifiedArray<T>(itemSerde: Serde<T>): Serde<string> {
   function serializer(
     itemSerde: Serde<T>,
     serializedData: BitArray,
@@ -349,7 +348,7 @@ function serdeStringifiedArray<T>(itemSerde: Serde<T>): Serde<string> {
   };
 }
 
-function serdeBool(): Serde<boolean> {
+export function serdeBool(): Serde<boolean> {
   function serializer(serializedData: BitArray, bool: boolean) {
     serializedData.insertBool(bool);
   }
@@ -441,9 +440,8 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["gameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
   ["speakerAutoScore", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
-  ["scouterName", serdeString()],
-  ["comment", serdeString()],
-  ["mapPoints", CRESCENDO_POINTS_ARRAY_SERDE],
+  ["scouterName", serdeString(7)],
+  ["comment", serdeString(12)],
   ["ampScore", serdeStringifiedNum(CRESCENDO_AMP_SCORE_BIT_COUNT)],
   ["ampMiss", serdeStringifiedNum(CRESCENDO_AMP_MISS_BIT_COUNT)],
   ["startingPosition", serdeEnumedString(STARTING_POSITION_POSSIBLE_VALUES)],

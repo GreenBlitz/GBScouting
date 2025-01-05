@@ -1,12 +1,18 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { Color } from "../../utils/Color";
+import { serdeUnsignedInt } from "../../utils/Serde";
 
 class CounterInput extends ScouterInput<
   number,
   { color?: Color },
   { count: number }
 > {
+  constructor(props: InputProps<number> & {color?: Color},bits: number) {
+    super(props,serdeUnsignedInt(bits))
+  }
+
+
   getStartingState(
     props: InputProps<number> & { color?: Color }
   ): { count: number } | undefined {
