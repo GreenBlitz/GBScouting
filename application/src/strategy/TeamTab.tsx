@@ -1,7 +1,6 @@
 import { useState } from "react";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
-import MapChart from "./charts/MapChart";
 import { Match, matchFieldNames as matchFields } from "../utils/Match";
 import { FRCTeamList, sortMatches } from "../utils/Utils";
 import { TeamData } from "../TeamData";
@@ -20,7 +19,6 @@ const TeamTab: React.FC = () => {
 
   const teamData = new TeamData(recentMatches);
 
-  const ampAccuracy = teamData.getAccuracy(matchFields.ampScore, matchFields.ampMiss);
   const speakerAccuracy = teamData.getAccuracy(matchFields.speakerScore, matchFields.speakerMiss);
   const passAccuracy = teamData.getAccuracy(matchFields.successfulPass, matchFields.failPass);
 
@@ -61,49 +59,11 @@ const TeamTab: React.FC = () => {
           defaultValue={matches.length}
         />
       </div>
-
-      <div className="section">
-        <h2>Map</h2>
-        <MapChart
-          imagePath={"./src/assets/crescendo-map.png"}
-          fieldObjects={teamData.getAllFieldObjects()}
-        />
-      </div>
       <br />
 
-      <div className="section">
-        <h2>Scoring</h2>
-        <LineChart
-          dataSets={{
-            Speaker: {
-              color: "pink",
-              data: teamData.getAsLine(matchFields.speakerScore),
-            },
-            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampScore) },
-            Pass: {
-              color: "purple",
-              data: teamData.getAsLine(matchFields.successfulPass),
-            },
-          }}
-        />
-      </div>
 
-      <div className="section">
-        <h2>Miss</h2>
-        <LineChart
-          dataSets={{
-            Speaker: {
-              color: "pink",
-              data: teamData.getAsLine(matchFields.speakerMiss),
-            },
-            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampMiss) },
-            Pass: {
-              color: "purple",
-              data: teamData.getAsLine(matchFields.failPass),
-            },
-          }}
-        />
-      </div>
+
+      
 
       <div className="section">
         <h2>Auto</h2>
@@ -143,16 +103,6 @@ const TeamTab: React.FC = () => {
             "Not On Stage": "red",
             "Harmony Three Robots": "blue",
           })}
-        />
-      </div>
-
-      <div className="section">
-        <h2>Amp Accuracy</h2>
-        <PieChart
-          pieData={{
-            Score: { percentage: ampAccuracy.value, color: "green" },
-            Miss: { percentage: ampAccuracy.complement, color: "crimson" },
-          }}
         />
       </div>
 

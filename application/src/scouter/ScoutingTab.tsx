@@ -40,7 +40,7 @@ function ScouterTab() {
           input.storage.remove();
         }
       });
-
+    ScouterInputs.assureStoredInputs(ScouterInputs.allInputs());
     Matches.add(matchValues as Match);
     navigate("/");
   }
@@ -52,6 +52,15 @@ function ScouterTab() {
   function handleReset() {
     clearInputStorage();
     navigate("/");
+  }
+
+  const navigateToNext = () => {
+    if (ScouterInputs.noShow.storage.get()) {
+      handleSubmit()
+    }
+    else {
+      navigateToSection(currentSectionNumber + 1)
+    }
   }
 
   return (
@@ -74,7 +83,7 @@ function ScouterTab() {
       ) : (
         <button
           type="button"
-          onClick={() => navigateToSection(currentSectionNumber + 1)}
+          onClick={navigateToNext}
         >
           Next
         </button>

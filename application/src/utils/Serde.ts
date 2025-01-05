@@ -442,10 +442,8 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
   ["speakerAutoScore", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
   ["scouterName", serdeString()],
+  ["noShow", serdeBool()],
   ["comment", serdeString()],
-  ["mapPoints", CRESCENDO_POINTS_ARRAY_SERDE],
-  ["ampScore", serdeStringifiedNum(CRESCENDO_AMP_SCORE_BIT_COUNT)],
-  ["ampMiss", serdeStringifiedNum(CRESCENDO_AMP_MISS_BIT_COUNT)],
   ["startingPosition", serdeEnumedString(STARTING_POSITION_POSSIBLE_VALUES)],
   ["speakerAutoMiss", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
 ]);

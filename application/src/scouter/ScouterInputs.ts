@@ -1,13 +1,22 @@
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
-import MapInput from "./input-types/MapInput";
 import NumberInput from "./input-types/NumberInput";
 import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
+import CheckboxInput from "./input-types/CheckboxInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
     return inputs.map((input) => input.create());
+  }
+  static assureStoredInputs(inputs: ScouterInput<any, any, any>[]): void {
+    inputs.forEach((input) => input.storage.set(input.getValue()));
+  }
+
+  static allInputs() {
+    return Object.values(ScouterInputs).filter(
+      (input) => input instanceof ScouterInput
+    );
   }
 
   static readonly scouterName = new TextInput({
@@ -32,7 +41,11 @@ export default class ScouterInputs {
   static readonly startingPosition = new DropdownInput({
     route: "startingPosition",
     name: "Starting Position",
-    options: ["Amp Side", "Middle", "Source Side", "No Show"],
+    options: ["Amp Side", "Middle", "Source Side"],
+  });
+  static readonly noShow = new CheckboxInput({
+    route: "noShow",
+    name: "No Show?",
   });
   static readonly speakerAutoScore = new CounterInput({
     route: "speakerAutoScore",
@@ -41,25 +54,6 @@ export default class ScouterInputs {
   });
   static readonly speakerAutoMiss = new CounterInput({
     route: "speakerAutoMiss",
-    name: "Miss",
-    color: "#8f0a0e",
-  });
-
-  static readonly mapPoints = new MapInput({
-    name: "MapPoints",
-    width: 540 * 0.8,
-    height: 240 * 0.8,
-    imagePath: "../src/assets/crescendo-map.png",
-    isNameHidden: true,
-  });
-
-  static readonly ampScore = new CounterInput({
-    route: "ampScore",
-    name: "Score",
-    color: "#12a119",
-  });
-  static readonly ampMiss = new CounterInput({
-    route: "ampMiss",
     name: "Miss",
     color: "#8f0a0e",
   });
