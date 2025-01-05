@@ -16,26 +16,9 @@ type ExcludeByType<T, U> = {
 
 export type Match = ExcludeByType<InputsMapped, never>;
 
-interface MapFields {
-  speakerScore: number;
-  speakerMiss: number;
-
-  successfulPass: number;
-  failPass: number;
-}
-
-export type FullMatch = Match & MapFields;
-
-const mapFields: MapFields = {
-  speakerScore: 0,
-  speakerMiss: 0,
-  successfulPass: 0,
-  failPass: 0,
-};
 
 export const matchFieldNames = Object.keys(ScouterInputs)
-  .concat(Object.keys(mapFields))
   .reduce((acccumulator, key) => {
     acccumulator[key] = key;
     return acccumulator;
-  }, {} as Record<keyof FullMatch, keyof FullMatch>);
+  }, {} as Record<keyof Match, keyof Match>);

@@ -19,9 +19,6 @@ const TeamTab: React.FC = () => {
 
   const teamData = new TeamData(recentMatches);
 
-  const speakerAccuracy = teamData.getAccuracy(matchFields.speakerScore, matchFields.speakerMiss);
-  const passAccuracy = teamData.getAccuracy(matchFields.successfulPass, matchFields.failPass);
-
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
@@ -61,37 +58,7 @@ const TeamTab: React.FC = () => {
       </div>
       <br />
 
-
-
-      
-
-      <div className="section">
-        <h2>Auto</h2>
-        <LineChart
-          dataSets={{
-            Score: {
-              color: "green",
-              data: teamData.getAsLine(matchFields.speakerAutoScore),
-            },
-            Miss: {
-              color: "red",
-              data: teamData.getAsLine(matchFields.speakerAutoMiss),
-            },
-          }}
-        />
-      </div>
-
-      <div className="section">
-        <h2>Trap</h2>
-        <PieChart
-          pieData={teamData.getAsPie(matchFields.trap, {
-            Scored: "purple",
-            Miss: "cyan",
-            "Didn't Score": "yellow",
-          })}
-        />
-      </div>
-
+  
       <div className="section">
         <h2>Climb</h2>
         <PieChart
@@ -103,25 +70,6 @@ const TeamTab: React.FC = () => {
             "Not On Stage": "red",
             "Harmony Three Robots": "blue",
           })}
-        />
-      </div>
-
-      <div className="section">
-        <h2>Speaker Accuracy</h2>
-        <PieChart
-          pieData={{
-            Score: { percentage: speakerAccuracy.value, color: "green" },
-            Miss: { percentage: speakerAccuracy.complement, color: "crimson" },
-          }}
-        />
-      </div>
-      <div className="section">
-        <h2>Pass Accuracy</h2>
-        <PieChart
-          pieData={{
-            Score: { percentage: passAccuracy.value, color: "green" },
-            Miss: { percentage: passAccuracy.complement, color: "crimson" },
-          }}
         />
       </div>
 

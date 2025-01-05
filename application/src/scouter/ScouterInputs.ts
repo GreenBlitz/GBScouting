@@ -4,6 +4,7 @@ import NumberInput from "./input-types/NumberInput";
 import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
+import OptionalSliderInput from "./input-types/OptionalSliderInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -41,37 +42,22 @@ export default class ScouterInputs {
   static readonly startingPosition = new DropdownInput({
     route: "startingPosition",
     name: "Starting Position",
-    options: ["Amp Side", "Middle", "Source Side"],
+    options: ["Far Side", "Middle", "Close Side"],
   });
   static readonly noShow = new CheckboxInput({
     route: "noShow",
     name: "No Show?",
   });
-  static readonly speakerAutoScore = new CounterInput({
-    route: "speakerAutoScore",
-    name: "Score",
-    color: "#12a119",
-  });
-  static readonly speakerAutoMiss = new CounterInput({
-    route: "speakerAutoMiss",
-    name: "Miss",
-    color: "#8f0a0e",
+  static readonly defense = new OptionalSliderInput({
+    route: "defense",
+    name: "Defense",
+    min: 1,
+    max: 5,
   });
   static readonly climb = new DropdownInput({
     route: "climb",
     name: "Climb",
-    options: [
-      "Off Stage",
-      "Park",
-      "Climbed Alone",
-      "Harmony",
-      "Harmony Three Robots",
-    ],
-  });
-  static readonly trap = new DropdownInput({
-    route: "trap",
-    name: "Trap",
-    options: ["Didn't Score", "Scored", "Miss"],
+    options: ["Off Barge", "Park", "Shallow Cage", "Deep Cage"],
   });
   static readonly comment = new TextInput({
     route: "comment",

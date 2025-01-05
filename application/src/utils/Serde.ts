@@ -392,58 +392,25 @@ const TEAM_NUMBER_BIT_COUNT = 2 * 8;
 const TRAP_POSSIBLE_VALUES = ["Didn't Score", "Scored", "Miss"];
 
 const CLIMB_POSSIBLE_VALUES = [
-  "Off Stage",
+  "Off Barge",
   "Park",
-  "Climbed Alone",
-  "Harmony",
-  "Harmony Three Robots",
+  "Shallow Cage",
+  "Deep Cage",
 ];
 
 const GAME_SIDE_POSSIBLE_VALUES = ["Blue", "Red"];
 
 const QUAL_BIT_COUNT = 9;
 
-const SPEAKER_SCORE_MISS_BIT_COUNT = 5;
-
-const CRESCENDO_POINTS_CORDS_BIT_COUNT = 8;
-const CRESCENDO_POINTS_DATA_POSSIBLE_VALUES = ["Speaker", "Pass"];
-const CRESSENDO_POINTS_INNER_SERDE_RECORD_FIELDS = serdeRecordFieldsBuilder([
-  ["x", serdeUnsignedInt(CRESCENDO_POINTS_CORDS_BIT_COUNT)],
-  ["y", serdeUnsignedInt(CRESCENDO_POINTS_CORDS_BIT_COUNT)],
-  ["data", serdeEnumedString(CRESCENDO_POINTS_DATA_POSSIBLE_VALUES)],
-  ["successfulness", serdeBool()],
-]);
-const CRESCENDO_POINTS_ARRAY_SERDE: Serde<
-  (Record<string, any> | Record<string, any>[])[] // lol
-> = serdeArray(
-  serdeMixedArrayRecord(
-    serdeOptionalFieldsRecord(CRESSENDO_POINTS_INNER_SERDE_RECORD_FIELDS),
-    CRESSENDO_POINTS_INNER_SERDE_RECORD_FIELDS,
-    true
-  )
-);
-
-const CRESCENDO_AMP_MISS_BIT_COUNT = 8;
-
-const CRESCENDO_AMP_SCORE_BIT_COUNT = 8;
-
-const STARTING_POSITION_POSSIBLE_VALUES = [
-  "Amp Side",
-  "Middle",
-  "Source Side",
-  "No Show",
-];
+const STARTING_POSITION_POSSIBLE_VALUES = ["Far Side", "Middle", "Close Side"];
 
 export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["teamNumber", serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT)],
-  ["trap", serdeEnumedString(TRAP_POSSIBLE_VALUES)],
   ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["gameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
-  ["speakerAutoScore", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
   ["scouterName", serdeString()],
   ["noShow", serdeBool()],
   ["comment", serdeString()],
   ["startingPosition", serdeEnumedString(STARTING_POSITION_POSSIBLE_VALUES)],
-  ["speakerAutoMiss", serdeStringifiedNum(SPEAKER_SCORE_MISS_BIT_COUNT)],
 ]);
