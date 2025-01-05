@@ -31,27 +31,33 @@ class OptionalSliderInput extends ScouterInput<
       this.setState({ isEnabled: !this.state.isEnabled });
     };
 
+    const checkbox = (
+      <input
+        type="checkbox"
+        id={this.storage.name}
+        name={this.storage.name}
+        required={this.props.required}
+        onClick={updateCheckbox}
+        defaultChecked={this.props.defaultChecked}
+      />
+    );
+
+    const slider = (
+      <Slider
+        step={1}
+        defaultValue={this.props.min}
+        marks
+        valueLabelDisplay="auto"
+        min={this.props.min}
+        max={this.props.max}
+        onChange={(event) => updateSliderStorage(event.target)}
+      />
+    );
+
     return (
       <>
-        <input
-          type="checkbox"
-          id={this.storage.name}
-          name={this.storage.name}
-          required={this.props.required}
-          onClick={updateCheckbox}
-          defaultChecked={this.props.defaultChecked}
-        />
-        {this.state.isEnabled && (
-          <Slider
-            step={1}
-            defaultValue={this.props.min}
-            marks
-            valueLabelDisplay="auto"
-            min={this.props.min}
-            max={this.props.max}
-            onChange={(event) => updateSliderStorage(event.target)}
-          />
-        )}
+        {checkbox}
+        {this.state.isEnabled && slider }
       </>
     );
   }
