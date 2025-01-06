@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StorageBackedInput } from "../utils/FolderStorage";
 
 interface ReefFormProps {
@@ -26,6 +26,7 @@ const ReefScoring: React.FC<ReefFormProps> = ({storageName}) => {
   });
 
   const storage = new StorageBackedInput<Levels>(storageName);
+  useEffect(() => {storage.set(levels)}, [levels]);
  
 
   const handleClick = (e: React.FormEvent, level: number, point: string) => {
@@ -38,6 +39,7 @@ const ReefScoring: React.FC<ReefFormProps> = ({storageName}) => {
       };
     });
     setUndoStack((prevStack) => [...prevStack, `lvl${level}-${point}`]);
+    storage.set();
     
   };
 
