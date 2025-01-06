@@ -366,7 +366,12 @@ function serdeBool(): Serde<boolean> {
 function serdeOptional<T>(tSerde: Serde<T>): Serde<Optional<T>> {
   function serializer(serializedData: BitArray, value: Optional<T>) {
     if (!value.isPresent) {
-      value = Optional.of((value as unknown as {_value: T})._value)
+      const data = (value as unknown as { _value: T });
+      try{
+        value = Optional.of(data._value);
+      } catch {
+        value = Optional.empty();
+      }
     }
     serdeBool().serializer(serializedData, value.isPresent());
     value.ifPresent(() => tSerde.serializer(serializedData, value.get()));
