@@ -10,9 +10,6 @@ export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
     return inputs.map((input) => input.create());
   }
-  static assureStoredInputs(inputs: ScouterInput<any, any, any>[]): void {
-    inputs.forEach((input) => input.storage.set(input.getValue()));
-  }
 
   static allInputs() {
     return Object.values(ScouterInputs).filter(

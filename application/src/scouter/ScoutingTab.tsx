@@ -40,7 +40,6 @@ function ScouterTab() {
           input.storage.remove();
         }
       });
-    ScouterInputs.assureStoredInputs(ScouterInputs.allInputs());
     Matches.add(matchValues as Match);
     navigate("/");
   }
@@ -56,12 +55,11 @@ function ScouterTab() {
 
   const navigateToNext = () => {
     if (ScouterInputs.noShow.storage.get()) {
-      handleSubmit()
+      handleSubmit();
+    } else {
+      navigateToSection(currentSectionNumber + 1);
     }
-    else {
-      navigateToSection(currentSectionNumber + 1)
-    }
-  }
+  };
 
   return (
     <div className="scouting-tab">
@@ -81,10 +79,7 @@ function ScouterTab() {
           Submit
         </button>
       ) : (
-        <button
-          type="button"
-          onClick={navigateToNext}
-        >
+        <button type="button" onClick={navigateToNext}>
           Next
         </button>
       )}
