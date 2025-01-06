@@ -9,8 +9,8 @@ import AutonomousForm from './scouter/AutonomousForm.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AutonomousForm></AutonomousForm>
-    <AlgaeButton></AlgaeButton>
-    <CoralButton></CoralButton>
+    <AlgaeButton />
+    <AutonomousForm />
+    <CoralButton />
   </StrictMode>,
 )
