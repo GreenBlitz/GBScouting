@@ -8,6 +8,7 @@ import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
 import { fetchMatchesByCriteria } from "../utils/Fetches";
+import PercentageBarChart from "./charts/PercentageBarChart";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -20,9 +21,18 @@ const TeamTab: React.FC = () => {
 
   const teamData = new TeamData(recentMatches);
 
-  const ampAccuracy = teamData.getAccuracy(matchFields.ampScore, matchFields.ampMiss);
-  const speakerAccuracy = teamData.getAccuracy(matchFields.speakerScore, matchFields.speakerMiss);
-  const passAccuracy = teamData.getAccuracy(matchFields.successfulPass, matchFields.failPass);
+  const ampAccuracy = teamData.getAccuracy(
+    matchFields.ampScore,
+    matchFields.ampMiss
+  );
+  const speakerAccuracy = teamData.getAccuracy(
+    matchFields.speakerScore,
+    matchFields.speakerMiss
+  );
+  const passAccuracy = teamData.getAccuracy(
+    matchFields.successfulPass,
+    matchFields.failPass
+  );
 
   return (
     <div className="strategy-app">
@@ -71,6 +81,7 @@ const TeamTab: React.FC = () => {
       </div>
       <br />
 
+      <PercentageBarChart width={200} height={40} sections={[]} />
       <div className="section">
         <h2>Scoring</h2>
         <LineChart
@@ -79,7 +90,10 @@ const TeamTab: React.FC = () => {
               color: "pink",
               data: teamData.getAsLine(matchFields.speakerScore),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampScore) },
+            Amp: {
+              color: "yellow",
+              data: teamData.getAsLine(matchFields.ampScore),
+            },
             Pass: {
               color: "purple",
               data: teamData.getAsLine(matchFields.successfulPass),
@@ -96,7 +110,10 @@ const TeamTab: React.FC = () => {
               color: "pink",
               data: teamData.getAsLine(matchFields.speakerMiss),
             },
-            Amp: { color: "yellow", data: teamData.getAsLine(matchFields.ampMiss) },
+            Amp: {
+              color: "yellow",
+              data: teamData.getAsLine(matchFields.ampMiss),
+            },
             Pass: {
               color: "purple",
               data: teamData.getAsLine(matchFields.failPass),
