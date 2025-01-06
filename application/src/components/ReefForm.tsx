@@ -1,13 +1,32 @@
 import React, { useState } from "react";
+import { StorageBackedInput } from "../utils/FolderStorage";
 
-const ReefScoring: React.FC = () => {
+interface ReefFormProps {
+  storageName: string
+}
+
+interface Level {
+  S: number;
+  F: number;
+}
+interface Levels{
+  level1: Level;
+  level2: Level;
+  level3: Level;
+  level4: Level;
+}
+
+const ReefScoring: React.FC<ReefFormProps> = ({storageName}) => {
   const [undoStack, setUndoStack] = useState<string[]>([]);
-  const [levels, setLevels] = useState({
-    lvl1: { S: 0, F: 0 },
-    lvl2: { S: 0, F: 0 },
-    lvl3: { S: 0, F: 0 },
-    lvl4: { S: 0, F: 0 },
+  const [levels, setLevels] = useState<Levels>({
+    level1: { S: 0, F: 0 },
+    level2: { S: 0, F: 0 },
+    level3: { S: 0, F: 0 },
+    level4: { S: 0, F: 0 },
   });
+
+  const storage = new StorageBackedInput<Levels>(storageName);
+ 
 
   const handleClick = (e: React.FormEvent, level: number, point: string) => {
     e.preventDefault();
@@ -19,6 +38,7 @@ const ReefScoring: React.FC = () => {
       };
     });
     setUndoStack((prevStack) => [...prevStack, `lvl${level}-${point}`]);
+    
   };
 
   const handleUndo = () => {
@@ -37,50 +57,95 @@ const ReefScoring: React.FC = () => {
     });
     setUndoStack((prevStack) => prevStack.slice(0, -1));
   };
+  
+
+  const styles = {
+    buttonS: {
+      backgroundColor: "lightgreen",
+      color: "black",
+      border: "1px solid green",
+      padding: "10px 15px", // Standard padding
+      margin: "5px",
+      cursor: "pointer",
+      minWidth: "70px", // Ensures the button can fit a double-digit number
+      height: "50px", // Ensures consistent button height
+      fontSize: "18px", // Adjust text size to ensure readability
+     
+    },
+    buttonF: {
+      backgroundColor: "lightcoral",
+      color: "black",
+      border: "1px solid red",
+      padding: "10px 15px", // Standard padding
+      margin: "5px",
+      cursor: "pointer",
+      minWidth: "70px", // Ensures the button can fit a double-digit number
+      height: "50px", // Ensures consistent button height
+      fontSize: "18px", // Adjust text size to ensure readability
+     
+    },
+    buttonDisabled: {
+      opacity: 0.5,
+      cursor: "not-allowed",
+    },
+    container: {
+      
+      justifyContent: "center", // Centers horizontally
+      alignItems: "center", // Centers vertically
+      height: "100vh", // Makes the container take the full viewport height
+      margin: 0, // Removes any default margins
+      marginTop: "20px", // Adds a bit of space at the top
+      
+     
+    }
+  };
 
   return (
-    <div>
-      <h1>Reef Scoring</h1>
+    <div style={styles.container}> 
+     
       
       <button onClick={handleUndo} disabled={undoStack.length === 0}>
         Undo
       </button>
-      <table>
+      <br/>
+      <br/>
+      <br/>
+      <table  style={{ alignContent: "center" }}>
         <tbody>
           <tr>
             <td>Level 4</td>
             <td>
-              <button onClick={(e) => handleClick(e, 4, "S")}>S ({levels.lvl4.S})</button>
+              <button style={styles.buttonS} onClick={(e) => handleClick(e, 4, "S")}>{levels.level4.S}</button>
             </td>
             <td>
-              <button onClick={(e) => handleClick(e, 4, "F")}>F ({levels.lvl4.F})</button>
+              <button style={styles.buttonF} onClick={(e) => handleClick(e, 4, "F")}>{levels.level4.F}</button>
             </td>
           </tr>
           <tr>
             <td>Level 3</td>
             <td>
-              <button onClick={(e) => handleClick(e, 3, "S")}>S ({levels.lvl3.S})</button>
+              <button style={styles.buttonS} onClick={(e) => handleClick(e, 3, "S")}>{levels.level3.S}</button>
             </td>
             <td>
-              <button onClick={(e) => handleClick(e, 3, "F")}>F ({levels.lvl3.F})</button>
+              <button style={styles.buttonF} onClick={(e) => handleClick(e, 3, "F")}>{levels.level3.F}</button>
             </td>
           </tr>
           <tr>
             <td>Level 2</td>
             <td>
-              <button onClick={(e) => handleClick(e, 2, "S")}>S ({levels.lvl2.S})</button>
+              <button style={styles.buttonS} onClick={(e) => handleClick(e, 2, "S")}>{levels.level2.S}</button>
             </td>
             <td>
-              <button onClick={(e) => handleClick(e, 2, "F")}>F ({levels.lvl2.F})</button>
+              <button style={styles.buttonF}onClick={(e) => handleClick(e, 2, "F")}>{levels.level2.F}</button>
             </td>
-          </tr>
+          </tr> 
           <tr>
             <td>Level 1</td>
             <td>
-              <button onClick={(e) => handleClick(e, 1, "S")}>S ({levels.lvl1.S})</button>
+              <button style={styles.buttonS} onClick={(e) => handleClick(e, 1, "S")}>{levels.level1.S}</button>
             </td>
             <td>
-              <button onClick={(e) => handleClick(e, 1, "F")}>F ({levels.lvl1.F})</button>
+              <button style={styles.buttonF} onClick={(e) => handleClick(e, 1, "F")}>{levels.level1.F}</button>
             </td>
           </tr>
         </tbody>
