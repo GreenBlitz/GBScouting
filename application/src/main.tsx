@@ -5,9 +5,11 @@ import './index.css'
 import React from 'react'
 import AlgaeButton from './scouter/AlgaeButton.tsx'
 import CoralButton from './scouter/CoralButton.tsx'
+import AutonomousForm from './scouter/AutonomousForm.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <AutonomousForm></AutonomousForm>
     <AlgaeButton></AlgaeButton>
     <CoralButton></CoralButton>
   </StrictMode>,
