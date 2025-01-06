@@ -39,8 +39,6 @@ const ReefScoring: React.FC<ReefFormProps> = ({storageName}) => {
       };
     });
     setUndoStack((prevStack) => [...prevStack, `lvl${level}-${point}`]);
-    storage.set();
-    
   };
 
   const handleUndo = () => {
