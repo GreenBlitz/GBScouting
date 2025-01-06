@@ -1,5 +1,6 @@
 import { rangeArr } from "./Utils";
 import { BitArray } from "./BitArray";
+import Optional from "optional-js";
 
 // TODO add signed support!
 function serdeUnsignedInt(bitCount: number): Serde<number> {
@@ -362,18 +363,19 @@ function serdeBool(): Serde<boolean> {
   };
 }
 
-function serdeMixedFalseT<T>(tSerde: Serde<T>): Serde<false | T> {
-  function serializer(serializedData: BitArray, value: T | false) {
-    serdeBool().serializer(serializedData, value !== false);
-    if (value !== false) {
-      tSerde.serializer(serializedData, value);
+function serdeOptional<T>(tSerde: Serde<T>): Serde<Optional<T>> {
+  function serializer(serializedData: BitArray, value: Optional<T>) {
+    if (!value.isPresent) {
+      value = Optional.of((value as unknown as {_value: T})._value)
     }
+    serdeBool().serializer(serializedData, value.isPresent());
+    value.ifPresent(() => tSerde.serializer(serializedData, value.get()));
   }
-  function deserializer(serializedData: BitArray): T | false {
+  function deserializer(serializedData: BitArray): Optional<T> {
     if (serdeBool().deserializer(serializedData)) {
-      return tSerde.deserializer(serializedData);
+      return Optional.of(tSerde.deserializer(serializedData));
     } else {
-      return false;
+      return Optional.empty();
     }
   }
   return {
@@ -428,7 +430,7 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["gameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
-  ["defense", serdeMixedFalseT(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT))],
+  ["defense", serdeOptional(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT))],
   ["scouterName", serdeString()],
   ["noShow", serdeBool()],
   ["comment", serdeString()],

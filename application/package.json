@@ -23,6 +23,7 @@
     "express": "^4.21.0",
     "html-colors": "^0.0.6",
     "mongodb": "^6.9.0",
+    "optional-js": "^2.3.0",
     "qr-scanner": "^1.4.2",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.0.1",
