@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-import CoralButton from "./CoralButton";
-import AlgaeButton from "./AlgaeButton";
+import SushiButton from "./SushiButton";
+
 
 const AutonomousForm: React.FC = () => {
-  const coralButtons = [<CoralButton />, <CoralButton />, <CoralButton />];
-  const AlgaeButtons = [<AlgaeButton />, <AlgaeButton />, <AlgaeButton />];
+  const sushiButtons = [<SushiButton />, <SushiButton/>, <SushiButton/>];
   const buttons = (
-    <div
-      className="buttons"
-      style={{ display: "grid", gridTemplateColumns: "auto auto" }}
-    >
-      {coralButtons.map((CoralButton) => CoralButton)}
-      {AlgaeButtons.map((AlgaeButton) => AlgaeButton)}
+    <div className="sushi-buttons">
+      {sushiButtons}
     </div>
   );
 
   const blueAllienceAutonomousMap = (
-    <div className="container">
+    <div className="field-container">
       <img
-        src="\src\assets\blue-auto-map.png"
-        alt=""
-        style={{ width: "40%", height: "40%" }}
+        src="/src/assets/blue-auto-map.png"
+        alt="Field"
+        style={{ width: "70%" }}
       ></img>
       {buttons}
     </div>

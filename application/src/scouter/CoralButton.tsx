@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 const CoralButton:React.FC = ()=>{
     const [hasPiled, updateHAasPiled] = useState(false)
-    const[text, updateText] = useState("Not Piled")
+    const[text, updateText] = useState("Not Sedded")
     const [color, changeColor] = useState("#db1616")
     const handleChange = (event)=>{
         updateHAasPiled(!hasPiled)
         if(hasPiled){
-            updateText("Piled")
+            updateText("Seeded")
             changeColor("#22e025")
         }
         else{
-            updateText("Not Piled")
+            updateText("Not Seeded")
             changeColor("#db1616")
         }
     }
