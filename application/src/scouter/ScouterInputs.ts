@@ -4,7 +4,7 @@ import NumberInput from "./input-types/NumberInput";
 import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
-import OptionalSliderInput from "./input-types/OptionalSliderInput";
+import CheckBoxedSliderInput from "./input-types/OptionalSliderInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -45,7 +45,7 @@ export default class ScouterInputs {
     route: "noShow",
     name: "No Show?",
   });
-  static readonly defense = new OptionalSliderInput({
+  static readonly defense = new CheckBoxedSliderInput({
     route: "defense",
     name: "Defense",
     min: 1,

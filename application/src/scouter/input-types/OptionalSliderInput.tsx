@@ -1,33 +1,32 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { Slider } from "@mui/material";
-import Optional from "optional-js";
 
-class OptionalSliderInput extends ScouterInput<
-  Optional<number>,
+class CheckBoxedSliderInput extends ScouterInput<
+  number | undefined,
   { defaultChecked?: boolean; min: number; max: number },
   { isEnabled: boolean }
 > {
   getStartingState(
-    props: InputProps<Optional<number>> & { defaultChecked?: boolean }
+    props: InputProps<number | undefined> & { defaultChecked?: boolean }
   ): { isEnabled: boolean } | undefined {
     return { isEnabled: props.defaultChecked || false };
   }
 
   create(): React.JSX.Element {
-    return <OptionalSliderInput {...this.props} />;
+    return <CheckBoxedSliderInput {...this.props} />;
   }
   renderInput(): React.ReactNode {
     const updateSliderStorage = (target: EventTarget | null) => {
       const actualEvent = target as EventTarget & { value: number };
-      this.storage.set(Optional.of(actualEvent.value));
+      this.storage.set(actualEvent.value);
     };
 
     const updateCheckbox = () => {
       if (this.state.isEnabled) {
-        this.storage.set(Optional.empty());
+        this.storage.set(undefined);
       } else {
-        this.storage.set(Optional.of(this.props.min));
+        this.storage.set(this.props.min);
       }
       this.setState({ isEnabled: !this.state.isEnabled });
     };
@@ -63,9 +62,9 @@ class OptionalSliderInput extends ScouterInput<
     );
   }
 
-  initialValue(): Optional<number> {
-    return Optional.empty();
+  initialValue(): number | undefined {
+    return undefined;
   }
 }
 
-export default OptionalSliderInput;
+export default CheckBoxedSliderInput;

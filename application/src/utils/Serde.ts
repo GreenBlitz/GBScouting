@@ -1,6 +1,5 @@
 import { rangeArr } from "./Utils";
 import { BitArray } from "./BitArray";
-import Optional from "optional-js";
 
 // TODO add signed support!
 function serdeUnsignedInt(bitCount: number): Serde<number> {
@@ -363,24 +362,18 @@ function serdeBool(): Serde<boolean> {
   };
 }
 
-function serdeOptional<T>(tSerde: Serde<T>): Serde<Optional<T>> {
-  function serializer(serializedData: BitArray, value: Optional<T>) {
-    if (!value.isPresent) {
-      const data = (value as unknown as { _value: T });
-      try{
-        value = Optional.of(data._value);
-      } catch {
-        value = Optional.empty();
-      }
-    }
-    serdeBool().serializer(serializedData, value.isPresent());
-    value.ifPresent(() => tSerde.serializer(serializedData, value.get()));
+function serdeOptional<T>(tSerde: Serde<T>): Serde<T | undefined> {
+  function serializer(serializedData: BitArray, value: T | undefined) {
+    serdeBool().serializer(serializedData, value != undefined);
+    if (value) {
+      tSerde.serializer(serializedData, value)
+    };
   }
-  function deserializer(serializedData: BitArray): Optional<T> {
+  function deserializer(serializedData: BitArray): T | undefined {
     if (serdeBool().deserializer(serializedData)) {
-      return Optional.of(tSerde.deserializer(serializedData));
+      return tSerde.deserializer(serializedData);
     } else {
-      return Optional.empty();
+      return undefined;
     }
   }
   return {
