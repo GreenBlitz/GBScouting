@@ -59,9 +59,6 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
     fillMode: "discrete",
   };
 
-  const gaugeOffset = width / 10;
-  const gaugeWidth = width - 2 * gaugeOffset;
-
   const getSection = (xValue: number, startingIndex: number) => {
     if (startingIndex >= accumulatedSections.length) {
       return undefined;
@@ -71,6 +68,11 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
     }
     return getSection(xValue - accumulatedSections[0].value, startingIndex + 1);
   };
+
+  const gaugeOffset = width / 10;
+  const gaugeWidth = width - 2 * gaugeOffset;
+
+  
   const onMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const hoveredX: number =
       event.pageX - event.currentTarget.offsetLeft - gaugeOffset;
