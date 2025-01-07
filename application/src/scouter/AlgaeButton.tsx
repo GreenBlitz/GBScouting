@@ -3,7 +3,7 @@ const AutonomousButton:React.FC = ()=>{
     const [hasHarvested, updateHasHarvested] = useState(false)
     const[text, updateText] = useState("Not Harvested")
     const [color, changeColor] = useState("#db1616")
-    const handleChange = (event)=>{
+    const handleChange = ()=>{
         updateHasHarvested(!hasHarvested)
         if(hasHarvested){
             updateText("Harvested")

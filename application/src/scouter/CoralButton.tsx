@@ -3,7 +3,7 @@ const CoralButton:React.FC = ()=>{
     const [hasPiled, updateHAasPiled] = useState(false)
     const[text, updateText] = useState("Not Sedded")
     const [color, changeColor] = useState("#db1616")
-    const handleChange = (event)=>{
+    const handleChange = ()=>{
         updateHAasPiled(!hasPiled)
         if(hasPiled){
             updateText("Seeded")
