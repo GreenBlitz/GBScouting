@@ -81,6 +81,15 @@ const TeamTab: React.FC = () => {
       </div>
       <br />
 
+      <PercentageBarChart
+        width={200}
+        height={40}
+        sections={[
+          { value: 80, name: "Score", color: "green" },
+          { value: 20, name: "sigma", color: "red" },
+        ]}
+      />
+
       <div className="section">
         <h2>Scoring</h2>
         <LineChart

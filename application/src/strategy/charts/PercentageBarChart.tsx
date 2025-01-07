@@ -44,16 +44,6 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
   gaugeProps.options.height = height;
   gaugeProps.options.width = width;
 
-  gaugeProps.options.bar = {
-    fills: sections.map((section) => {
-      return { color: section.color, stop: section.value } as AgGaugeColorStop;
-    }),
-    fillMode: "discrete",
-  };
-
-  const gaugeOffset = width / 10;
-  const gaugeWidth = width - 2 * gaugeOffset;
-
   let sectionValueSum = 0;
   const accumulatedSections = sections.map((section) => {
     const duplicatedSection = { ...section };
@@ -61,6 +51,16 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
     duplicatedSection.value = sectionValueSum;
     return duplicatedSection;
   });
+
+  gaugeProps.options.bar = {
+    fills: accumulatedSections.map((section) => {
+      return { color: section.color, stop: section.value } as AgGaugeColorStop;
+    }),
+    fillMode: "discrete",
+  };
+
+  const gaugeOffset = width / 10;
+  const gaugeWidth = width - 2 * gaugeOffset;
 
   const getSection = (xValue: number, startingIndex: number) => {
     if (startingIndex >= accumulatedSections.length) {
