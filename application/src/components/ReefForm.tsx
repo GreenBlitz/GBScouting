@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StorageBackedInput } from "../utils/FolderStorage";
 import ScouterInput from "../scouter/ScouterInput";
-
-interface ReefFormProps {
-  storageName: string
-}
+import { InputProps } from "../scouter/ScouterInput";
 
 interface Level {
   S: number;
@@ -18,9 +15,10 @@ interface Levels{
 }
 
 
-class ReefScoring extends ScouterInput<Levels, ReefFormProps> {
+class ReefScoring extends ScouterInput <Levels, {}, {levels: Levels, undoStack: string[]}> {
   create(): React.JSX.Element {
     return <ReefScoring {...this.props} />;
+
   }
 
   initialValue(): Levels {
@@ -31,48 +29,46 @@ class ReefScoring extends ScouterInput<Levels, ReefFormProps> {
       level4: { S: 0, F: 0 },
     };
   }
+  getStartingState(props: InputProps<Levels>): { levels: Levels; undoStack: string[]; } | undefined {
+    return { levels:  {level1: { S: 0, F: 0 },
+    level2: { S: 0, F: 0 },
+    level3: { S: 0, F: 0 },
+    level4: { S: 0, F: 0 },}, undoStack: []}
+    
+  }
 
   renderInput(): React.ReactNode {
-    const [undoStack, setUndoStack] = useState<string[]>([]);
-    const [levels, setLevels] = useState<Levels>({
-      level1: { S: 0, F: 0 },
-      level2: { S: 0, F: 0 },
-      level3: { S: 0, F: 0 },
-      level4: { S: 0, F: 0 },
-    });
+    
   
-
-    useEffect(() => {this.storage.set(levels)}, [levels]);
+    //useEffect(() => {this.storage.set(this.state.levels)}, [this.state.levels]);
    
   
     const handleClick = (e: React.FormEvent, level: number, point: string) => {
       e.preventDefault();
-      setLevels((prevLevels) => {
-        const updatedLevel = { ...prevLevels[`level${level}`], [point]: prevLevels[`level${level}`][point] + 1 };
-        return {
-          ...prevLevels,
-          [`level${level}`]: updatedLevel,
-        };
-      });
-      setUndoStack((prevStack) => [...prevStack, `level${level}-${point}`]);
+
+      const updated = {...this.state.levels}
+      updated[`level${level}`][point]+= 1
+    
+      this.setState({levels: updated})
+
+      this.setState({undoStack: [...this.state.undoStack, `level${level}-${point}`]})
+      this.storage.set(this.state.levels)
   
     };
   
     const handleUndo = () => {
-      if (undoStack.length === 0) return;
-      const lastAction = undoStack[undoStack.length - 1];
+
+      if (this.state.undoStack.length === 0) return;
+      const lastAction = this.state.undoStack[this.state.undoStack.length - 1];
+      
       const [levelKey, point] = lastAction.split("-");
-      setLevels((prevLevels) => {
-        const updatedLevel = { ...prevLevels[levelKey] };
-        if (updatedLevel[point] > 0) {
-          updatedLevel[point] -= 1;
-        }
-        return {
-          ...prevLevels,
-          [levelKey]: updatedLevel,
-        };
-      });
-      setUndoStack((prevStack) => prevStack.slice(0, -1));
+
+      const updated = {...this.state.levels}
+      updated[levelKey][point]-= 1
+
+      this.setState({levels: updated})
+      this.setState({undoStack: this.state.undoStack.slice(0, -1)})
+      this.storage.set(this.state.levels)
     };
     
   
@@ -121,7 +117,7 @@ class ReefScoring extends ScouterInput<Levels, ReefFormProps> {
       <div style={styles.container}> 
        
         
-        <button onClick={handleUndo} disabled={undoStack.length === 0}>
+        <button onClick={handleUndo} disabled={this.state.undoStack.length === 0}>
           Undo
         </button>
         <br/>
@@ -132,37 +128,37 @@ class ReefScoring extends ScouterInput<Levels, ReefFormProps> {
             <tr>
               <td>Level 4</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 4, "S")}>{levels.level4.S}</button>
+                <button style={styles.buttonS} onClick={(e) => handleClick(e, 4, "S")}>{this.state.levels.level4.S}</button>
               </td>
               <td>
-                <button style={styles.buttonF} onClick={(e) => handleClick(e, 4, "F")}>{levels.level4.F}</button>
+                <button style={styles.buttonF} onClick={(e) => handleClick(e, 4, "F")}>{this.state.levels.level4.F}</button>
               </td>
             </tr>
             <tr>
               <td>Level 3</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 3, "S")}>{levels.level3.S}</button>
+                <button style={styles.buttonS} onClick={(e) => handleClick(e, 3, "S")}>{this.state.levels.level3.S}</button>
               </td>
               <td>
-                <button style={styles.buttonF} onClick={(e) => handleClick(e, 3, "F")}>{levels.level3.F}</button>
+                <button style={styles.buttonF} onClick={(e) => handleClick(e, 3, "F")}>{this.state.levels.level3.F}</button>
               </td>
             </tr>
             <tr>
               <td>Level 2</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 2, "S")}>{levels.level2.S}</button>
+                <button style={styles.buttonS} onClick={(e) => handleClick(e, 2, "S")}>{this.state.levels.level2.S}</button>
               </td>
               <td>
-                <button style={styles.buttonF}onClick={(e) => handleClick(e, 2, "F")}>{levels.level2.F}</button>
+                <button style={styles.buttonF}onClick={(e) => handleClick(e, 2, "F")}>{this.state.levels.level2.F}</button>
               </td>
             </tr> 
             <tr>
               <td>Level 1</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 1, "S")}>{levels.level1.S}</button>
+                <button style={styles.buttonS} onClick={(e) => handleClick(e, 1, "S")}>{this.state.levels.level1.S}</button>
               </td>
               <td>
-                <button style={styles.buttonF} onClick={(e) => handleClick(e, 1, "F")}>{levels.level1.F}</button>
+                <button style={styles.buttonF} onClick={(e) => handleClick(e, 1, "F")}>{this.state.levels.level1.F}</button>
               </td>
             </tr>
           </tbody>

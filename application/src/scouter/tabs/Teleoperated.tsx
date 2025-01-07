@@ -5,7 +5,7 @@ import ReefForm from "../../components/ReefForm";
 interface TeleoperatedProps {}
 
 const Teleoperated: React.FC<TeleoperatedProps> = () => {
-  return <ReefForm />;
+  return ScouterInputs.reefForm.create();
 };
 
 export default Teleoperated;

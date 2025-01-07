@@ -27,3 +27,4 @@ application/package-lock.json
 # Secret keys
 ssl-key.pem
 ssl.pem
+TBAkey.txt
