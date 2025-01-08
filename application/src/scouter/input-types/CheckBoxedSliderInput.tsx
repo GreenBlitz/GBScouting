@@ -25,8 +25,8 @@ class CheckBoxedSliderInput extends ScouterInput<
   }
   renderInput(): React.ReactNode {
     const updateSliderStorage = (target: EventTarget | null) => {
-      const actualEvent = target as EventTarget & { value: number };
-      this.storage.set(actualEvent.value);
+      const actualTarget = target as EventTarget & { value: number };
+      this.storage.set(actualTarget.value);
     };
 
     const updateCheckbox = () => {
