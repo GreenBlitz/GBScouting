@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { StorageBackedInput } from "../utils/FolderStorage";
 import ScouterInput from "../scouter/ScouterInput";
 import { InputProps } from "../scouter/ScouterInput";
-
+import "./ReefScore.css";
 interface Level {
-  S: number;
-  F: number;
+  score: number;
+  miss: number;
 }
 interface Levels{
-  level1: Level;
-  level2: Level;
-  level3: Level;
-  level4: Level;
+  L1: Level;
+  L2: Level;
+  L3: Level;
+  L4: Level;
 }
 
 
@@ -23,35 +23,35 @@ class ReefScoring extends ScouterInput <Levels, {}, {levels: Levels, undoStack: 
 
   initialValue(): Levels {
     return {
-      level1: { S: 0, F: 0 },
-      level2: { S: 0, F: 0 },
-      level3: { S: 0, F: 0 },
-      level4: { S: 0, F: 0 },
+      L1: { score: 0, miss: 0 },
+      L2: { score: 0, miss: 0 },
+      L3: { score: 0, miss: 0 },
+      L4: { score: 0, miss: 0 },
     };
   }
   getStartingState(props: InputProps<Levels>): { levels: Levels; undoStack: string[]; } | undefined {
-    return { levels:  {level1: { S: 0, F: 0 },
-    level2: { S: 0, F: 0 },
-    level3: { S: 0, F: 0 },
-    level4: { S: 0, F: 0 },}, undoStack: []}
+    return { levels:  {L1: { score: 0, miss: 0 },
+    L2: { score: 0, miss: 0 },
+    L3: { score: 0, miss: 0 },
+    L4: { score: 0, miss: 0 },}, undoStack: []}
     
   }
 
   renderInput(): React.ReactNode {
     
   
-    //useEffect(() => {this.storage.set(this.state.levels)}, [this.state.levels]);
+ 
    
   
-    const handleClick = (e: React.FormEvent, level: number, point: string) => {
-      e.preventDefault();
+    const handleClick = (level: number, point: string) => {
+    
 
       const updated = {...this.state.levels}
-      updated[`level${level}`][point]+= 1
+      updated[`L${level}`][point]+= 1
     
       this.setState({levels: updated})
 
-      this.setState({undoStack: [...this.state.undoStack, `level${level}-${point}`]})
+      this.setState({undoStack: [...this.state.undoStack, `L${level}-${point}`]})
       this.storage.set(this.state.levels)
   
     };
@@ -72,99 +72,74 @@ class ReefScoring extends ScouterInput <Levels, {}, {levels: Levels, undoStack: 
     };
     
   
-    const styles = {
-      buttonS: {
-        backgroundColor: "lightgreen",
-        color: "black",
-        border: "1px solid green",
-        padding: "10px 15px", // Standard padding
-        margin: "5px",
-        cursor: "pointer",
-        minWidth: "70px", // Ensures the button can fit a double-digit number
-        height: "50px", // Ensures consistent button height
-        fontSize: "18px", // Adjust text size to ensure readability
-       
-      },
-      buttonF: {
-        backgroundColor: "lightcoral",
-        color: "black",
-        border: "1px solid red",
-        padding: "10px 15px", // Standard padding
-        margin: "5px",
-        cursor: "pointer",
-        minWidth: "70px", // Ensures the button can fit a double-digit number
-        height: "50px", // Ensures consistent button height
-        fontSize: "18px", // Adjust text size to ensure readability
-       
-      },
-      buttonDisabled: {
-        opacity: 0.5,
-        cursor: "not-allowed",
-      },
-      container: {
-        
-        justifyContent: "center", // Centers horizontally
-        alignItems: "center", // Centers vertically
-        height: "100vh", // Makes the container take the full viewport height
-        margin: 0, // Removes any default margins
-        marginTop: "20px", // Adds a bit of space at the top
-        
-       
-      }
-    };
+    
   
     return (
-      <div style={styles.container}> 
-       
-        
+      <div>
         <button onClick={handleUndo} disabled={this.state.undoStack.length === 0}>
           Undo
         </button>
-        <br/>
-        <br/>
-        <br/>
-        <table  style={{ alignContent: "center" }}>
+        <br />
+        <br />
+        <br />
+        <table>
           <tbody>
             <tr>
               <td>Level 4</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 4, "S")}>{this.state.levels.level4.S}</button>
+                <button className="buttonS" onClick={(e) => handleClick(4, "score")}>
+                  {this.state.levels.L4.score}
+                </button>
               </td>
               <td>
-                <button style={styles.buttonF} onClick={(e) => handleClick(e, 4, "F")}>{this.state.levels.level4.F}</button>
+                <button className="buttonF" onClick={(e) => handleClick(4, "miss")}>
+                  {this.state.levels.L4.miss}
+                </button>
               </td>
             </tr>
             <tr>
               <td>Level 3</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 3, "S")}>{this.state.levels.level3.S}</button>
+                <button className="buttonS" onClick={(e) => handleClick(3, "score")}>
+                  {this.state.levels.L3.score}
+                </button>
               </td>
               <td>
-                <button style={styles.buttonF} onClick={(e) => handleClick(e, 3, "F")}>{this.state.levels.level3.F}</button>
+                <button className="buttonF" onClick={(e) => handleClick(3, "miss")}>
+                  {this.state.levels.L3.miss}
+                </button>
               </td>
             </tr>
             <tr>
               <td>Level 2</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 2, "S")}>{this.state.levels.level2.S}</button>
+                <button className="buttonS" onClick={(e) => handleClick(2, "score")}>
+                  {this.state.levels.L2.score}
+                </button>
               </td>
               <td>
-                <button style={styles.buttonF}onClick={(e) => handleClick(e, 2, "F")}>{this.state.levels.level2.F}</button>
+                <button className="buttonF" onClick={(e) => handleClick(2, "miss")}>
+                  {this.state.levels.L2.miss}
+                </button>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td>Level 1</td>
               <td>
-                <button style={styles.buttonS} onClick={(e) => handleClick(e, 1, "S")}>{this.state.levels.level1.S}</button>
+                <button className="buttonS" onClick={(e) => handleClick(1, "score")}>
+                  {this.state.levels.L1.score}
+                </button>
               </td>
               <td>
-                <button style={styles.buttonF} onClick={(e) => handleClick(e, 1, "F")}>{this.state.levels.level1.F}</button>
+                <button className="buttonF" onClick={(e) => handleClick(1, "miss")}>
+                  {this.state.levels.L1.miss}
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     );
-  };
+  }
 }
 export default ReefScoring;
