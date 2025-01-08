@@ -4,7 +4,7 @@ import NumberInput from "./input-types/NumberInput";
 import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
-import CheckBoxedSliderInput from "./input-types/OptionalSliderInput";
+import CheckBoxedSliderInput from "./input-types/CheckBoxedSliderInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {

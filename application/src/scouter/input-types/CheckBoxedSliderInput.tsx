@@ -2,13 +2,20 @@ import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { Slider } from "@mui/material";
 
+interface CheckBoxedSliderProps {
+  min: number; 
+  max: number;
+  step?: number;
+  defaultChecked?: boolean; 
+}
+
 class CheckBoxedSliderInput extends ScouterInput<
   number | undefined,
-  { defaultChecked?: boolean; min: number; max: number },
+  CheckBoxedSliderProps,
   { isEnabled: boolean }
 > {
   getStartingState(
-    props: InputProps<number | undefined> & { defaultChecked?: boolean }
+    props: InputProps<number | undefined> &  CheckBoxedSliderProps
   ): { isEnabled: boolean } | undefined {
     return { isEnabled: props.defaultChecked || false };
   }
@@ -44,7 +51,7 @@ class CheckBoxedSliderInput extends ScouterInput<
 
     const slider = (
       <Slider
-        step={1}
+        step={this.props.step}
         defaultValue={this.props.min}
         marks
         valueLabelDisplay="auto"
