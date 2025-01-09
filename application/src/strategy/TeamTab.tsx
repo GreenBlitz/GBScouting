@@ -97,6 +97,7 @@ const TeamTab: React.FC = () => {
           { value: 1, sectionName: "Deep Cage" },
           { value: 2, sectionName: "Shallow Cage" },
           { value: 1, sectionName: "Park" },
+          { value: 1, sectionName: "Off Barge" },
         ]}
       />
 
