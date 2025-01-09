@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 
 import {
@@ -17,6 +17,7 @@ import PreMatch from "./scouter/tabs/PreMatch";
 import Teleoperated from "./scouter/tabs/Teleoperated";
 import Autonomous from "./scouter/tabs/Autonomous";
 import PostMatch from "./scouter/tabs/PostMatch";
+import PageTransition from "./components/PageTransition";
 
 function getHiddenImage(path: string) {
   return (
@@ -32,19 +33,19 @@ function getHiddenImage(path: string) {
 
 export function renderScouterNavBar() {
   return (
-    <nav className="nav-bar">
+    <nav className="bg-dark-card shadow-lg">
       {getHiddenImage("./src/assets/crescendo-map.png")}
       {getHiddenImage("./src/assets/blue-auto-map.png")}
       {getHiddenImage("./src/assets/red-auto-map.png")}
-      <ul>
+      <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          <Link to="/">Match List</Link>
+          <Link to="/" className="text-dark-text hover:text-primary-400 transition-colors">Match List</Link>
         </li>
         <li>
-          <Link to="/scouting/prematch">Scout Game</Link>
+          <Link to="/scouting/prematch" className="text-dark-text hover:text-primary-400 transition-colors">Scout Game</Link>
         </li>
         <li>
-          <Link to="/scanner">Scan Match</Link>
+          <Link to="/scanner" className="text-dark-text hover:text-primary-400 transition-colors">Scan Match</Link>
         </li>
       </ul>
     </nav>
@@ -66,40 +67,27 @@ export function renderStrategyNavBar() {
   );
 }
 
-const App: React.FC = () => {
-  
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      // Prevent default behavior and show a warning dialog
-      event.preventDefault();
-      event.returnValue = ""; // This triggers the browser's warning dialog.
-    };
-
-    // Attach the event listener for refresh and tab close
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      // Clean up the event listener
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-
+function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/scanner" Component={ScanningTab} />
-        <Route path="/" Component={MatchList} />
-        <Route path="/scouting" Component={ScouterTab}>
-          <Route path="prematch" Component={PreMatch} />
-          <Route path="teleoperated" Component={Teleoperated} />
-          <Route path="autonomous" Component={Autonomous} />
-          <Route path="postmatch" Component={PostMatch} />
-        </Route>
-        <Route path="/team" Component={TeamTab} />
-        <Route path="/general" Component={GeneralTab} />
-      </Routes>
+      <div className="min-h-screen bg-dark-bg">
+        <PageTransition>
+          <Routes>
+            <Route path="/scanner" element={<ScanningTab />} />
+            <Route path="/" element={<MatchList />} />
+            <Route path="/scouting" element={<ScouterTab />}>
+              <Route path="prematch" element={<PreMatch />} />
+              <Route path="teleoperated" element={<Teleoperated />} />
+              <Route path="autonomous" element={<Autonomous />} />
+              <Route path="postmatch" element={<PostMatch />} />
+            </Route>
+            <Route path="/team" element={<TeamTab />} />
+            <Route path="/general" element={<GeneralTab />} />
+          </Routes>
+        </PageTransition>
+      </div>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

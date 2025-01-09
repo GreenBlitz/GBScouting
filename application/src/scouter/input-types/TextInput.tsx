@@ -5,6 +5,7 @@ class TextInput extends ScouterInput<string> {
   create(): React.JSX.Element {
     return <TextInput {...this.props} />;
   }
+
   initialValue(): string {
     return "";
   }
@@ -18,6 +19,7 @@ class TextInput extends ScouterInput<string> {
         required={this.props.required}
         defaultValue={this.getValue().toString()}
         onChange={(event) => this.storage.set(event.target.value)}
+        className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
       />
     );
   }
