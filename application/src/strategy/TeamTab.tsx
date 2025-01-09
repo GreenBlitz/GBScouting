@@ -100,7 +100,7 @@ const TeamTab: React.FC = () => {
           { value: 1, sectionName: "Off Barge" },
         ]}
       />
-
+  
       <div className="section">
         <h2>Scoring</h2>
         <LineChart
