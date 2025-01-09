@@ -84,11 +84,19 @@ const TeamTab: React.FC = () => {
       <LinearHistogramChart
         height={40}
         width={400}
-        sectionColors={{ Park: "blue", "Off Barge": "red" }}
+        sectionColors={{
+          Park: "blue",
+          "Off Barge": "red",
+          "Shallow Cage": "yellow",
+          "Deep Cage": "green",
+        }}
         sections={[
           { value: 1, sectionName: "Park" },
-          { value: 3, sectionName: "Off Barge" },
+          { value: 3, sectionName: "Shallow Cage" },
           { value: 2, sectionName: "Park" },
+          { value: 1, sectionName: "Deep Cage" },
+          { value: 2, sectionName: "Shallow Cage" },
+          { value: 1, sectionName: "Park" },
         ]}
       />
 

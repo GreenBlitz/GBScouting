@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Color } from "../../utils/Color";
+import { Point } from "chart.js";
 
 type SectionColors<T extends keyof any> = Record<T, Color>;
 interface Section<PartialNames> {
@@ -27,41 +28,67 @@ class LinearHistogramChart<
   LinearHistogramProps<SectionNames, PartialSectionNames>
 > {
   private readonly canvasRef;
+  private readonly sectionWidths: Section<PartialSectionNames>[];
 
   constructor(props: LinearHistogramProps<SectionNames, PartialSectionNames>) {
     super(props);
     this.canvasRef = React.createRef<HTMLCanvasElement>();
+
+    const canvasWidth = this.props.width - 2 * boxThickness;
+    const sumOfSectionValues = this.props.sections.reduce<number>(
+      (accumulator, section) => accumulator + section.value,
+      0
+    );
+    this.sectionWidths = props.sections.map(({value, sectionName}) => {
+        return {value: (value * canvasWidth) / sumOfSectionValues, sectionName: sectionName}
+    })
   }
-  render() {
-    const initializeBox = (context: CanvasRenderingContext2D) => {
-      context.fillRect(0, 0, this.props.width, this.props.height);
-      context.clearRect(
+
+  initializeBox(context: CanvasRenderingContext2D) {
+    context.fillStyle = "black";
+    context.fillRect(0, 0, this.props.width, this.props.height);
+    context.clearRect(
+      boxThickness,
+      boxThickness,
+      this.props.width - 2 * boxThickness,
+      this.props.height - 2 * boxThickness
+    );
+  }
+
+  fillSections(context: CanvasRenderingContext2D) {
+    let currentXPosition = boxThickness;
+    this.sectionWidths.forEach(({ value, sectionName }) => {
+      const color: Color = this.props.sectionColors[sectionName];
+      context.fillStyle = color.toString();
+      context.fillRect(
+        currentXPosition,
         boxThickness,
-        boxThickness,
-        this.props.width - 2 * boxThickness,
+        value,
         this.props.height - 2 * boxThickness
       );
-    };
+      currentXPosition += value;
+    });
+  }
 
-    let sectionValueSum = 0;
-    const sectionsAccumulated: Section<PartialSectionNames>[] =
-      this.props.sections.map(({ value, sectionName }) => {
-        sectionValueSum += value;
-        return {
-          value: sectionValueSum,
-          sectionName: sectionName,
-        };
-      });
-    console.log(sectionsAccumulated);
+  getSection(xValue: number, index: number) {
+    let currentXPosition = boxThickness;
+    this.sectionWidths.find(({value, sectionName}) => {
+        currentXPosition += value;
+    })
+  }
 
-    // useEffect(() => {
-    //   const context = canvasRef.current
-    //     ? canvasRef.current.getContext("2d")
-    //     : null;
-    //   if (context) {
-    //     initializeBox(context);
-    //   }
-    // }, [canvasRef]);
+  componentDidMount(): void {
+    if (this.canvasRef) {
+      const context = this.canvasRef.current
+        ? this.canvasRef.current.getContext("2d")
+        : null;
+      if (context) {
+        this.initializeBox(context);
+        this.fillSections(context);
+      }
+    }
+  }
+  render() {
     return (
       <div>
         <canvas
