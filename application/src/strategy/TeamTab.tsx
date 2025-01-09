@@ -85,10 +85,10 @@ const TeamTab: React.FC = () => {
         height={40}
         width={400}
         sectionColors={{
-          Park: "blue",
-          "Off Barge": "red",
-          "Shallow Cage": "yellow",
-          "Deep Cage": "green",
+          Park: "#006989",
+          "Off Barge": "#E94F37",
+          "Shallow Cage": "#F9DC5C",
+          "Deep Cage": "#44BBA4",
         }}
         sections={[
           { value: 1, sectionName: "Park" },
@@ -100,7 +100,7 @@ const TeamTab: React.FC = () => {
           { value: 1, sectionName: "Off Barge" },
         ]}
       />
-  
+
       <div className="section">
         <h2>Scoring</h2>
         <LineChart
