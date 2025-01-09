@@ -1,7 +1,7 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 
-class DropdownInput extends ScouterInput<string, { options: string[] }> {
+class DropdownInput<Option extends string, Options extends Option[]> extends ScouterInput<Options[number], { options: Options }> {
   create(): React.JSX.Element {
     return <DropdownInput {...this.props} />;
   }
@@ -12,7 +12,7 @@ class DropdownInput extends ScouterInput<string, { options: string[] }> {
         id={this.storage.name}
         required={this.props.required}
         defaultValue={this.getValue()}
-        onChange={(event) => this.storage.set(event.target.value)}
+        onChange={(event) => this.storage.set(event.target.value as Option)}
       >
         {this.props.options.map((item, index) => (
           <option value={item} key={index}>
@@ -22,7 +22,7 @@ class DropdownInput extends ScouterInput<string, { options: string[] }> {
       </select>
     );
   }
-  initialValue(props: InputProps<string> & { options: string[] }): string {
+  initialValue(props: InputProps<Option> & { options: Options }): Option {
     return props.options[0];
   }
 }
