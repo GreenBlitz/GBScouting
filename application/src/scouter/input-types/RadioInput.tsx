@@ -1,7 +1,7 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 
-class RadioInput<Option extends string, Options extends Option[]> extends ScouterInput<Option, { options: Options }> {
+class RadioInput<Option extends string, Options extends Option[]> extends ScouterInput<Options[number], { options: Options }> {
   create(): React.JSX.Element {
     throw <RadioInput {...this.props}/>;
   }
