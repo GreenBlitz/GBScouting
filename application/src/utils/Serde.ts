@@ -363,7 +363,7 @@ function serdeBool(): Serde<boolean> {
 }
 
 function serdeOptional<T>(tSerde: Serde<T>): Serde<T | undefined> {
-  function serializer(serializedData: BitArray, value: T | undefined) {
+  function serializer(serializedData: BitArray, value?: T) {
     serdeBool().serializer(serializedData, value != undefined);
     if (value) {
       tSerde.serializer(serializedData, value)
