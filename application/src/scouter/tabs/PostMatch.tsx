@@ -8,8 +8,8 @@ const PostMatch: React.FC<PostMatchProps> = () => {
     <>
       {ScouterInputs.create([
         ScouterInputs.climb,
-        ScouterInputs.trap,
         ScouterInputs.comment,
+        ScouterInputs.defense,
       ])}
     </>
   );

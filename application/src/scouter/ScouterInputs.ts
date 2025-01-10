@@ -1,13 +1,20 @@
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
-import MapInput from "./input-types/MapInput";
 import NumberInput from "./input-types/NumberInput";
 import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
+import CheckboxInput from "./input-types/CheckboxInput";
+import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
     return inputs.map((input) => input.create());
+  }
+
+  static allInputs() {
+    return Object.values(ScouterInputs).filter(
+      (input) => input instanceof ScouterInput
+    );
   }
 
   static readonly scouterName = new TextInput({
@@ -32,52 +39,22 @@ export default class ScouterInputs {
   static readonly startingPosition = new DropdownInput({
     route: "startingPosition",
     name: "Starting Position",
-    options: ["Amp Side", "Middle", "Source Side", "No Show"],
+    options: ["Far Side", "Middle", "Close Side"],
   });
-  static readonly speakerAutoScore = new CounterInput({
-    route: "speakerAutoScore",
-    name: "Score",
-    color: "#12a119",
+  static readonly noShow = new CheckboxInput({
+    route: "noShow",
+    name: "No Show?",
   });
-  static readonly speakerAutoMiss = new CounterInput({
-    route: "speakerAutoMiss",
-    name: "Miss",
-    color: "#8f0a0e",
-  });
-
-  static readonly mapPoints = new MapInput({
-    name: "MapPoints",
-    width: 540 * 0.8,
-    height: 240 * 0.8,
-    imagePath: "../src/assets/crescendo-map.png",
-    isNameHidden: true,
-  });
-
-  static readonly ampScore = new CounterInput({
-    route: "ampScore",
-    name: "Score",
-    color: "#12a119",
-  });
-  static readonly ampMiss = new CounterInput({
-    route: "ampMiss",
-    name: "Miss",
-    color: "#8f0a0e",
+  static readonly defense = new CheckboxedSliderInput({
+    route: "defense",
+    name: "Defense",
+    min: 1,
+    max: 5,
   });
   static readonly climb = new DropdownInput({
     route: "climb",
     name: "Climb",
-    options: [
-      "Off Stage",
-      "Park",
-      "Climbed Alone",
-      "Harmony",
-      "Harmony Three Robots",
-    ],
-  });
-  static readonly trap = new DropdownInput({
-    route: "trap",
-    name: "Trap",
-    options: ["Didn't Score", "Scored", "Miss"],
+    options: ["Off Barge", "Park", "Shallow Cage", "Deep Cage"],
   });
   static readonly comment = new TextInput({
     route: "comment",
