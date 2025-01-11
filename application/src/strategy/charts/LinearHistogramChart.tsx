@@ -21,6 +21,7 @@ interface LinearHistogramProps<
 }
 
 const boxThickness = 5;
+const totalBoxWidth = 2 * boxThickness;
 
 class LinearHistogramChart<
   SectionNames extends string | number,
@@ -29,13 +30,17 @@ class LinearHistogramChart<
   LinearHistogramProps<SectionNames, PartialSectionNames>,
   { hoveredSection?: Section<PartialSectionNames>; anchor?: HTMLElement }
 > {
-  private readonly canvasRef;
+  private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
+  private readonly chartWidth: number;
+
   private readonly sectionWidths: Section<PartialSectionNames>[];
   private readonly sumOfSectionValues: number;
 
   constructor(props: LinearHistogramProps<SectionNames, PartialSectionNames>) {
     super(props);
     this.canvasRef = React.createRef<HTMLCanvasElement>();
+    this.chartWidth = props.width - totalBoxWidth;
+
     this.state = { hoveredSection: undefined, anchor: undefined };
 
     this.sumOfSectionValues = this.props.sections.reduce<number>(
@@ -51,12 +56,10 @@ class LinearHistogramChart<
   }
 
   amountToCanvasWidth(value: number) {
-    const canvasWidth = this.props.width - 2 * boxThickness;
-    return (value * canvasWidth) / this.sumOfSectionValues;
+    return (value * this.chartWidth) / this.sumOfSectionValues;
   }
   amountFromCanvasWidth(value: number) {
-    const canvasWidth = this.props.width - 2 * boxThickness;
-    return (value * this.sumOfSectionValues) / canvasWidth;
+    return (value * this.sumOfSectionValues) / this.chartWidth;
   }
 
   initializeBox(context: CanvasRenderingContext2D) {
@@ -65,8 +68,8 @@ class LinearHistogramChart<
     context.clearRect(
       boxThickness,
       boxThickness,
-      this.props.width - 2 * boxThickness,
-      this.props.height - 2 * boxThickness
+      this.chartWidth,
+      this.props.height - totalBoxWidth
     );
   }
 
@@ -79,7 +82,7 @@ class LinearHistogramChart<
         currentXPosition,
         boxThickness,
         value,
-        this.props.height - 2 * boxThickness
+        this.props.height - totalBoxWidth
       );
       currentXPosition += value;
     });
