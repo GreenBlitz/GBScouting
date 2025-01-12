@@ -1,3 +1,4 @@
+import ReefForm from "../components/ReefForm";
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
 import NumberInput from "./input-types/NumberInput";
@@ -60,4 +61,8 @@ export default class ScouterInputs {
     route: "comment",
     name: "Comment",
   });
+  static readonly reefForm = new ReefForm({
+    route: "reefForm",
+    name: "reefForm",
+  })
 }
