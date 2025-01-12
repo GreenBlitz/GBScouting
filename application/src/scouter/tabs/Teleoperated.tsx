@@ -6,6 +6,7 @@ interface TeleoperatedProps {}
 
 const Teleoperated: React.FC<TeleoperatedProps> = () => {
   return ScouterInputs.reefForm.create();
+
 };
 
 export default Teleoperated;
