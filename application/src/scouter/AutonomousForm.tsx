@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import SushiButton from "./SushiButton";
+import { AllSushis, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
+import {ShusiToBeChanged} from "./input-types/AutonomousMapInput"
 
 
-const AutonomousForm: React.FC = () => {
+const AutonomousForm: React.FC<AllSushis> = (props) => {
   const sushiButtons = [<SushiButton />, <SushiButton/>, <SushiButton/>];
   const buttons = (
     <div className="sushi-buttons">

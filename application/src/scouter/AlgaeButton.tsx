@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-const AutonomousButton:React.FC = ()=>{
+import { ValuesToBePassed } from "./input-types/AutonomousMapInput";
+const AutonomousButton:React.FC<ValuesToBePassed> = ()=>{
     const [hasHarvested, updateHasHarvested] = useState(false)
     const[text, updateText] = useState("Not Harvested")
     const [color, changeColor] = useState("#db1616")

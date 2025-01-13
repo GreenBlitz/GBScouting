@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-const CoralButton:React.FC = ()=>{
+import { ValuesToBePassed } from "./input-types/AutonomousMapInput";
+const CoralButton:React.FC<ValuesToBePassed> = ()=>{
     const [hasPiled, updateHAasPiled] = useState(false)
     const[text, updateText] = useState("Not Sedded")
     const [color, changeColor] = useState("#db1616")
@@ -8,6 +9,7 @@ const CoralButton:React.FC = ()=>{
         if(hasPiled){
             updateText("Seeded")
             changeColor("#22e025")
+            
         }
         else{
             updateText("Not Seeded")
