@@ -11,6 +11,7 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
             changeColor("#22e025")
             switch(props.sushiToBeChanged){
                 case ShusiToBeChanged.SUSHI1:{
+                    
                     break;
                 }
                 case ShusiToBeChanged.SUSHI2:{
