@@ -5,6 +5,7 @@ import {
   BrowserRouter,
   Link,
   Route,
+  RouteObject,
   Routes,
   useNavigate,
 } from "react-router-dom";
@@ -65,9 +66,7 @@ export function renderStrategyNavBar() {
     </nav>
   );
 }
-
 const App: React.FC = () => {
-  
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       // Prevent default behavior and show a warning dialog
@@ -95,7 +94,11 @@ const App: React.FC = () => {
           <Route path="autonomous" Component={Autonomous} />
           <Route path="postmatch" Component={PostMatch} />
         </Route>
-        <Route path="/team" Component={TeamTab} />
+        <Route path="/team" Component={TeamTab}>
+          <Route path="teleoperated" Component={Teleoperated} />
+          <Route path="autonomous" Component={Autonomous} />
+          <Route path="endgame" Component={PostMatch} />
+        </Route>
         <Route path="/general" Component={GeneralTab} />
       </Routes>
     </BrowserRouter>
