@@ -1,9 +1,8 @@
 import React from "react";
 import ScouterInputs from "../ScouterInputs";
 
-interface PreGameProps {}
 
-const ScouterPreMatch: React.FC<PreGameProps> = () => {
+const ScouterPreMatch: React.FC = () => {
   return (
     <>
       {ScouterInputs.create([

@@ -1,9 +1,8 @@
 import React from "react";
 import ScouterInputs from "../ScouterInputs";
 
-interface PostMatchProps {}
 
-const ScouterPostMatch: React.FC<PostMatchProps> = () => {
+const ScouterPostMatch: React.FC = () => {
   return (
     <>
       {ScouterInputs.create([

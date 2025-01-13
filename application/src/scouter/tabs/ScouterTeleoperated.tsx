@@ -1,10 +1,8 @@
 import React from "react";
 import ScouterInputs from "../ScouterInputs";
-import ReefForm from "../../components/ReefForm";
 
-interface TeleoperatedProps {}
 
-const ScouterTeleoperated: React.FC<TeleoperatedProps> = () => {
+const ScouterTeleoperated: React.FC = () => {
   return ScouterInputs.reefForm.create();
 };
 

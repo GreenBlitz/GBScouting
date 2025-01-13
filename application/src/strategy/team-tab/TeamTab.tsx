@@ -1,20 +1,15 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Match, matchFieldNames as matchFields } from "../../utils/Match";
 import { FRCTeamList, sortMatches } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../../App";
 import { fetchMatchesByCriteria } from "../../utils/Fetches";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import SectionHandler from "../../utils/SectionHandler";
-
-const routes: string[] = ["teleoperated", "autonomous", "endgame"];
+import { Link, Outlet } from "react-router-dom";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
-
-  const navigate = useNavigate();
 
   const recentMatches = sortMatches([...matches]);
   if (recency > 0 && recency < recentMatches.length) {
