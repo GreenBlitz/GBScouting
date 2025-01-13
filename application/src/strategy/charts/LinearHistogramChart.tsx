@@ -77,7 +77,7 @@ class LinearHistogramChart<
     let currentXPosition = boxThickness;
     this.sectionWidths.forEach(({ value, sectionName }) => {
       const color: Color = this.props.sectionColors[sectionName];
-      context.fillStyle = color.toString();
+      context.fillStyle = color as string;
       context.fillRect(
         currentXPosition,
         boxThickness,
