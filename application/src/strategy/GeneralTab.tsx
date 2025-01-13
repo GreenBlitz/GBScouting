@@ -3,8 +3,8 @@ import TableChart from "./charts/TableChart";
 import { FRCTeamList } from "../utils/Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
-import { renderStrategyNavBar } from "../App";
 import { fetchMatchesByCriteria } from "../utils/Fetches";
+import { stratgyTabs } from "../utils/Tabs";
 
 interface GeneralTabProps {}
 
@@ -48,7 +48,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
 
   return (
     <>
-      {renderStrategyNavBar()}
+      {stratgyTabs.renderNavBar()}
       <div className="section">
         <h2>Table</h2>
         <TableChart

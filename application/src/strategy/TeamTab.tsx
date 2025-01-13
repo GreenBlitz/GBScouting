@@ -5,8 +5,8 @@ import { Match, matchFieldNames as matchFields } from "../utils/Match";
 import { FRCTeamList, sortMatches } from "../utils/Utils";
 import { TeamData } from "../TeamData";
 import React from "react";
-import { renderStrategyNavBar } from "../App";
 import { fetchMatchesByCriteria } from "../utils/Fetches";
+import { stratgyTabs } from "../utils/Tabs";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -21,7 +21,7 @@ const TeamTab: React.FC = () => {
 
   return (
     <div className="strategy-app">
-      {renderStrategyNavBar()}
+      {stratgyTabs.renderNavBar()}
       <br />
       <br />
       <div className="team-picker">

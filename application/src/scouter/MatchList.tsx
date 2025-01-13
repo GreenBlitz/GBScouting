@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import Collapsible from "react-collapsible";
 import React from "react";
 import QRCodeGenerator from "../components/QRCode-Generator";
-import { renderScouterNavBar } from "../App";
 import Matches from "./Matches";
 import { postMatch } from "../utils/Fetches";
 import { Match } from "../utils/Match";
+import { scouterTabs } from "../utils/Tabs";
 
 const MatchList: React.FC = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const MatchList: React.FC = () => {
 
   return (
     <div className="match-list">
-      {renderScouterNavBar()}
+      {scouterTabs.renderNavBar()}
       {matches.length === 0 && <h1>No Matches Saved</h1>}
       {matches.map((match, index) => (
         <Collapsible

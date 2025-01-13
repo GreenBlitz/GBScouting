@@ -39,7 +39,7 @@ class Tabs<TabRecord extends Record<string, RouteObject>> {
   }
 }
 
-const scouterTabs = new Tabs({
+export const scouterTabs = new Tabs({
   "Match List": { path: "/", element: <MatchList /> },
   "Scout Game": {
     path: "/scouting",
@@ -54,7 +54,7 @@ const scouterTabs = new Tabs({
   "Scan Match": { path: "/scanner", element: <ScanningTab /> },
 });
 
-export const stratgyTabs = {
+export const stratgyTabs = new Tabs({
   "Team Data": {
     path: "/team",
     element: <TeamTab />,
@@ -65,5 +65,5 @@ export const stratgyTabs = {
     ],
   },
   "General Data": { path: "/general", element: <GeneralTab /> },
-};
+});
 const keys = scouterTabs.tabs;

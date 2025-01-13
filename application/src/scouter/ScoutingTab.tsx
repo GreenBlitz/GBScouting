@@ -4,13 +4,13 @@ import PreMatch from "./tabs/PreMatch";
 import Autonomous from "./tabs/Autonomous";
 import Teleoperated from "./tabs/Teleoperated";
 import PostMatch from "./tabs/PostMatch";
-import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
 import ScouterInputs from "./ScouterInputs.ts";
 import ScouterInput from "./ScouterInput.tsx";
 import { Match } from "../utils/Match";
 import Matches from "./Matches";
+import { scouterTabs } from "../utils/Tabs.tsx";
 
 const sectionNames: string[] = [
   PreMatch,
@@ -63,7 +63,7 @@ function ScouterTab() {
 
   return (
     <div className="scouting-tab">
-      {renderScouterNavBar()}
+      {scouterTabs.renderNavBar()}
       <h1>{sectionNames[currentSectionNumber]}</h1>
       <Outlet />
       {currentSectionNumber !== 0 && (
