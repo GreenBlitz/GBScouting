@@ -40,7 +40,7 @@ const MatchList: React.FC = () => {
           openedClassName="collapsible-trigger"
           key={index}
         >
-          <QRCodeGenerator text={JSON.stringify(match)} />
+          <QRCodeGenerator data={match} />
           <br />
           <button type="button" onClick={() => removeMatch(match)}>
             Delete

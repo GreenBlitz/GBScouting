@@ -5,14 +5,14 @@ import * as serde from "../utils/Serde";
 import { encode } from "uint8-to-base64";
 
 interface QRCodeGeneratorProps {
-  text: string;
+  data: Record<string, any>;
 }
 
-const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ text }) => {
+const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ data }) => {
   const [qrCodeData, setQrCodeData] = useState<string | null>(null);
   let serialized = serde.serialize(
     serde.serdeRecord(serde.qrSerde).serializer,
-    JSON.parse(text)
+    data
   );
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ text }) => {
         console.error("Error generating QR code:", err);
         setQrCodeData(null);
       });
-  }, [text]);
+  }, [data]);
 
   return <img src={qrCodeData || ""} alt="QR code" />;
 };
