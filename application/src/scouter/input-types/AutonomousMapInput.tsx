@@ -22,7 +22,6 @@ export enum ShusiToBeChanged{
 export interface ValuesToBePassed{
     sushies: AllSushis, 
     sushiToBeChanged: ShusiToBeChanged,
-    valueToBeChanged: Sushi
   }
 
 class AutonomousMapInput extends ScouterInput<AllSushis>{
