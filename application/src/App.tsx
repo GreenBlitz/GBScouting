@@ -29,7 +29,7 @@ function getHiddenImage(path: string) {
 
 export function renderScouterNavBar() {
   return (
-    <nav className="nav-bar">
+    <nav className="nav-bar nav-bar-top">
       {getHiddenImage("./src/assets/crescendo-map.png")}
       {getHiddenImage("./src/assets/blue-auto-map.png")}
       {getHiddenImage("./src/assets/red-auto-map.png")}
@@ -50,7 +50,7 @@ export function renderScouterNavBar() {
 
 export function renderStrategyNavBar() {
   return (
-    <nav className="nav-bar">
+    <nav className="nav-bar nav-bar-top">
       <ul>
         <li>
           <Link to="/team/autonomous">Team Data</Link>

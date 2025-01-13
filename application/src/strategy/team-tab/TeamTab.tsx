@@ -61,7 +61,7 @@ const TeamTab: React.FC = () => {
         />
       </div>
       <br />
-      <nav className="">
+      <nav className="nav-bar">
         <ul>
           <li>
             <Link to="/team/autonomous" state={teamData}>
