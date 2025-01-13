@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import PreMatch from "./tabs/PreMatch";
 import Autonomous from "./tabs/Autonomous";
 import Teleoperated from "./tabs/Teleoperated";
@@ -11,6 +11,7 @@ import ScouterInputs from "./ScouterInputs.ts";
 import ScouterInput from "./ScouterInput.tsx";
 import { Match } from "../utils/Match";
 import Matches from "./Matches";
+import SectionHandler from "../utils/SectionHandler.ts";
 
 const sectionNames: string[] = [
   PreMatch,
@@ -21,12 +22,9 @@ const sectionNames: string[] = [
 
 function ScouterTab() {
   const navigate = useNavigate();
-  const [currentSectionNumber, setSectionNumber] = useState<number>(0);
-
-  const navigateToSection = (section: number) => {
-    setSectionNumber(section);
-    navigate(sectionNames[section]);
-  };
+  const sectionHandler = useMemo(() => {
+    return new SectionHandler(navigate, sectionNames);
+  }, []);
 
   function handleSubmit() {
     const matchValues: Record<string, any> = {};
@@ -57,24 +55,21 @@ function ScouterTab() {
     if (ScouterInputs.noShow.storage.get()) {
       handleSubmit();
     } else {
-      navigateToSection(currentSectionNumber + 1);
+      sectionHandler.navigateNext();
     }
   };
 
   return (
     <div className="scouting-tab">
       {renderScouterNavBar()}
-      <h1>{sectionNames[currentSectionNumber]}</h1>
+      <h1>{sectionHandler.currentRoute()}</h1>
       <Outlet />
-      {currentSectionNumber !== 0 && (
-        <button
-          type="button"
-          onClick={() => navigateToSection(currentSectionNumber - 1)}
-        >
+      {!sectionHandler.isFirst() && (
+        <button type="button" onClick={() => sectionHandler.navigatePrevious()}>
           Back
         </button>
       )}
-      {currentSectionNumber === sectionNames.length - 1 ? (
+      {sectionHandler.isLast() ? (
         <button type="button" onClick={handleSubmit}>
           Submit
         </button>

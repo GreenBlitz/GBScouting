@@ -12,7 +12,7 @@ import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
 import GeneralTab from "./strategy/GeneralTab";
-import TeamTab from "./strategy/TeamTab";
+import TeamTab from "./strategy/team-tab/TeamTab";
 import PreMatch from "./scouter/tabs/PreMatch";
 import Teleoperated from "./scouter/tabs/Teleoperated";
 import Autonomous from "./scouter/tabs/Autonomous";
@@ -67,7 +67,6 @@ export function renderStrategyNavBar() {
 }
 
 const App: React.FC = () => {
-  
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       // Prevent default behavior and show a warning dialog

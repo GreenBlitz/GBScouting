@@ -1,12 +1,12 @@
 import { useState } from "react";
-import LineChart from "./charts/LineChart";
-import PieChart from "./charts/PieChart";
-import { Match, matchFieldNames as matchFields } from "../utils/Match";
-import { FRCTeamList, sortMatches } from "../utils/Utils";
-import { TeamData } from "../TeamData";
+import LineChart from "../charts/LineChart";
+import PieChart from "../charts/PieChart";
+import { Match, matchFieldNames as matchFields } from "../../utils/Match";
+import { FRCTeamList, sortMatches } from "../../utils/Utils";
+import { TeamData } from "../../TeamData";
 import React from "react";
-import { renderStrategyNavBar } from "../App";
-import { fetchMatchesByCriteria } from "../utils/Fetches";
+import { renderStrategyNavBar } from "../../App";
+import { fetchMatchesByCriteria } from "../../utils/Fetches";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -58,7 +58,6 @@ const TeamTab: React.FC = () => {
       </div>
       <br />
 
-  
       <div className="section">
         <h2>Climb</h2>
         <PieChart
