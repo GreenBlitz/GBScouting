@@ -1,9 +1,9 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import React, { useMemo, useState } from "react";
-import PreMatch from "./tabs/PreMatch";
-import Autonomous from "./tabs/Autonomous";
-import Teleoperated from "./tabs/Teleoperated";
-import PostMatch from "./tabs/PostMatch";
+import ScouterPreMatch from "./tabs/ScouterPreMatch.tsx";
+import ScouterAutonomous from "./tabs/ScouterAutonomous.tsx";
+import ScouterTeleoperated from "./tabs/ScouterTeleoperated.tsx";
+import ScouterPostMatch from "./tabs/ScouterPostMatch.tsx";
 import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
@@ -14,11 +14,11 @@ import Matches from "./Matches";
 import SectionHandler from "../utils/SectionHandler.ts";
 
 const sectionNames: string[] = [
-  PreMatch,
-  Autonomous,
-  Teleoperated,
-  PostMatch,
-].map((section) => section.name);
+  "prematch",
+  "autonomous",
+  "teleoperated",
+  "postmatch",
+];
 
 function ScouterTab() {
   const navigate = useNavigate();

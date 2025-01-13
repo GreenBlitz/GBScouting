@@ -2,11 +2,11 @@ import { NavigateFunction } from "react-router-dom";
 
 export default class SectionHandler {
   private readonly routes: string[];
-  private readonly navigate: NavigateFunction;
+  private readonly navigate: (route: string) => void;
 
   private currentIndex: number;
 
-  constructor(navigate: NavigateFunction, routes: string[]) {
+  constructor(navigate: (route: string) => void, routes: string[]) {
     this.navigate = navigate;
     this.routes = routes;
     this.currentIndex = 0;

@@ -1,22 +1,19 @@
 import React, { useEffect } from "react";
 import "./App.css";
 
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
 import GeneralTab from "./strategy/GeneralTab";
 import TeamTab from "./strategy/team-tab/TeamTab";
-import PreMatch from "./scouter/tabs/PreMatch";
-import Teleoperated from "./scouter/tabs/Teleoperated";
-import Autonomous from "./scouter/tabs/Autonomous";
-import PostMatch from "./scouter/tabs/PostMatch";
+import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
+import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
+import ScouterAutonomous from "./scouter/tabs/ScouterAutonomous";
+import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
+import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
+import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
+import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 
 function getHiddenImage(path: string) {
   return (
@@ -56,7 +53,7 @@ export function renderStrategyNavBar() {
     <nav className="nav-bar">
       <ul>
         <li>
-          <Link to="/team">Team Data</Link>
+          <Link to="/team/autonomous">Team Data</Link>
         </li>
         <li>
           <Link to="/general">General</Link>
@@ -89,12 +86,16 @@ const App: React.FC = () => {
         <Route path="/scanner" Component={ScanningTab} />
         <Route path="/" Component={MatchList} />
         <Route path="/scouting" Component={ScouterTab}>
-          <Route path="prematch" Component={PreMatch} />
-          <Route path="teleoperated" Component={Teleoperated} />
-          <Route path="autonomous" Component={Autonomous} />
-          <Route path="postmatch" Component={PostMatch} />
+          <Route path="prematch" Component={ScouterPreMatch} />
+          <Route path="teleoperated" Component={ScouterTeleoperated} />
+          <Route path="autonomous" Component={ScouterAutonomous} />
+          <Route path="postmatch" Component={ScouterPostMatch} />
         </Route>
-        <Route path="/team" Component={TeamTab} />
+        <Route path="/team" Component={TeamTab}>
+          <Route path="teleoperated" Component={StrategyTeleoperated} />
+          <Route path="autonomous" Component={StrategyAutonomous} />
+          <Route path="endgame" Component={StrategyEndgame} />
+        </Route>
         <Route path="/general" Component={GeneralTab} />
       </Routes>
     </BrowserRouter>

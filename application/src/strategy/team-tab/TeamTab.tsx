@@ -1,16 +1,20 @@
-import { useState } from "react";
-import LineChart from "../charts/LineChart";
-import PieChart from "../charts/PieChart";
+import { useMemo, useState } from "react";
 import { Match, matchFieldNames as matchFields } from "../../utils/Match";
 import { FRCTeamList, sortMatches } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../../App";
 import { fetchMatchesByCriteria } from "../../utils/Fetches";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import SectionHandler from "../../utils/SectionHandler";
+
+const routes: string[] = ["teleoperated", "autonomous", "endgame"];
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
+
+  const navigate = useNavigate();
 
   const recentMatches = sortMatches([...matches]);
   if (recency > 0 && recency < recentMatches.length) {
@@ -57,30 +61,26 @@ const TeamTab: React.FC = () => {
         />
       </div>
       <br />
-
-      <div className="section">
-        <h2>Climb</h2>
-        <PieChart
-          pieData={teamData.getAsPie(matchFields.climb, {
-            "Climbed Alone": "purple",
-            Harmony: "cyan",
-            Team: "yellow",
-            Park: "orange",
-            "Not On Stage": "red",
-            "Harmony Three Robots": "blue",
-          })}
-        />
-      </div>
-
-      <br />
-
-      <br />
-      <div>
-        <h1>Comments</h1>
-        {teamData.getComments().map((comment) => (
-          <h3>{"Qual #" + comment.qual + ": " + comment.body}</h3>
-        ))}
-      </div>
+      <nav className="">
+        <ul>
+          <li>
+            <Link to="/team/autonomous" state={teamData}>
+              Autonomous
+            </Link>
+          </li>
+          <li>
+            <Link to="/team/teleoperated" state={teamData}>
+              Teleoperated
+            </Link>
+          </li>
+          <li>
+            <Link to="/team/endgame" state={teamData}>
+              Endgame
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <Outlet />
     </div>
   );
 };

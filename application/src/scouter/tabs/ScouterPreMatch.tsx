@@ -3,7 +3,7 @@ import ScouterInputs from "../ScouterInputs";
 
 interface PreGameProps {}
 
-const PreMatch: React.FC<PreGameProps> = () => {
+const ScouterPreMatch: React.FC<PreGameProps> = () => {
   return (
     <>
       {ScouterInputs.create([
@@ -18,4 +18,4 @@ const PreMatch: React.FC<PreGameProps> = () => {
   );
 };
 
-export default PreMatch;
+export default ScouterPreMatch;
