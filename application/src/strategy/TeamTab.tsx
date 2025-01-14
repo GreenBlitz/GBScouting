@@ -58,7 +58,6 @@ const TeamTab: React.FC = () => {
       </div>
       <br />
 
-  
       <div className="section">
         <h2>Climb</h2>
         <PieChart
@@ -76,12 +75,6 @@ const TeamTab: React.FC = () => {
       <br />
 
       <br />
-      <div>
-        <h1>Comments</h1>
-        {teamData.getComments().map((comment) => (
-          <h3>{"Qual #" + comment.qual + ": " + comment.body}</h3>
-        ))}
-      </div>
     </div>
   );
 };

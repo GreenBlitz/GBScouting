@@ -5,26 +5,20 @@ import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
 import { fetchMatchesByCriteria } from "../utils/Fetches";
+import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 
 interface GeneralTabProps {}
 
-function processTeamData(
-  data: TeamData,
-  teamNumber: string
-): Record<string, string> {
-  const table: Record<string, string> = {
-    "Team Number": teamNumber,
-    Amp: data.getAverage("ampScore").toString(),
-    "Amp Miss": data.getAverage("ampMiss").toString(),
-    Speaker: data.getAverage("speakerScore").toString(),
-    "Speaker Miss": data.getAverage("speakerMiss").toString(),
-    "Auto Speaker": data.getAverage("speakerAutoScore").toString(),
-    "Auto Speaker Miss": data.getAverage("speakerAutoMiss").toString(),
+function processTeamData(data: TeamData): Record<string, number> {
+  const table: Record<string, number> = {
+    "Team Number": data.matches[0].teamNumber,
   };
   return table;
 }
 const GeneralTab: React.FC<GeneralTabProps> = () => {
-  const [teamTable, setTeamTable] = useState<Record<string, string>[]>([]);
+  const [teamTable, setTeamTable] = useState<Record<string, number>[]>([
+    { TeamNumber: 1, Sigma: 2 },
+  ]);
 
   //bruh this is kinda deep
   useEffect(() => {
@@ -36,8 +30,7 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
             return processTeamData(
               new TeamData(
                 await fetchMatchesByCriteria("TeamNumber", teamNumber)
-              ),
-              teamNumber
+              )
             );
           })
         )
@@ -46,6 +39,12 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
     updateTeamTable();
   }, []);
 
+  const getCellClassName = (
+    params: GridCellParams<any, any, number, GridTreeNode>
+  ) => {
+    return "";
+  };
+
   return (
     <>
       {renderStrategyNavBar()}
@@ -53,9 +52,10 @@ const GeneralTab: React.FC<GeneralTabProps> = () => {
         <h2>Table</h2>
         <TableChart
           tableData={teamTable}
-          idName={"Team Number"}
+          idName={"TeamNumber"}
           height={540}
           widthOfItem={130}
+          getCellClassName={getCellClassName}
         />
       </div>
     </>

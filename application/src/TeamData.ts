@@ -1,5 +1,5 @@
 import { Color } from "./utils/Color";
-import { FullMatch, Match } from "./utils/Match";
+import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { FieldObject } from "./scouter/input-types/MapInput";
@@ -10,28 +10,13 @@ interface Comment {
 }
 
 export class TeamData {
-  private matches: FullMatch[];
+  public readonly matches: Match[];
 
   constructor(matches: Match[]) {
-    function getFromMap(match: Match, name: string, successfulness: boolean) {
-      return match.mapPoints.filter(
-        (object) =>
-          object.pressedButton.name === name &&
-          object.successfulness === successfulness
-      ).length;
-    }
-    this.matches = matches.map((match) => {
-      return {
-        ...match,
-        speakerScore: getFromMap(match, "Speaker", true),
-        speakerMiss: getFromMap(match, "Speaker", false),
-        successfulPass: getFromMap(match, "Pass", true),
-        failPass: getFromMap(match, "Pass", false),
-      };
-    });
+    this.matches = { ...matches };
   }
 
-  getAsLine(field: keyof FullMatch): Record<string, number> {
+  getAsLine(field: keyof Match): Record<string, number> {
     return Object.assign(
       {},
       ...Object.values(this.matches).map((match) => {
@@ -43,20 +28,13 @@ export class TeamData {
     );
   }
 
-  getAllFieldObjects(): FieldObject[] {
-    return this.matches.map((match) => match.mapPoints).flat();
-  }
-
   getComments(): Comment[] {
     return this.matches.map((match) => {
       return { body: match.comment, qual: match.qual };
     });
   }
 
-  getAccuracy(
-    percentField: keyof FullMatch,
-    compareField: keyof FullMatch
-  ): Percent {
+  getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
     const averages = [
       this.getAverage(percentField),
       this.getAverage(compareField),
@@ -64,7 +42,7 @@ export class TeamData {
     return Percent.fromList(averages)[0];
   }
 
-  getAverage(field: keyof FullMatch): number {
+  getAverage(field: keyof Match): number {
     if (this.matches.length === 0) {
       return 0;
     }
@@ -81,7 +59,7 @@ export class TeamData {
   }
 
   getAsPie(
-    field: keyof FullMatch,
+    field: keyof Match,
     colorMap: Record<string, Color>
   ): Record<string, SectionData> {
     const dataSet: Record<string, SectionData> = {};
