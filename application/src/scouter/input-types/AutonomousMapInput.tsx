@@ -31,7 +31,7 @@ export interface ValuesToBePassed{
     sushiToBeChanged: ShusiToBeChanged
   }
 
-class AutonomousMapInput extends ScouterInput<AllSushis>{
+export class AutonomousMapInput extends ScouterInput<AllSushis>{
     renderInput(): React.ReactNode {
         const allSushis: AllSushis = {Sushi1:{HasSeeded: false, HasHarvested: false},
         Sushi2:{HasSeeded:false, HasHarvested: false}, Sushi3:{HasSeeded:false, HasHarvested:false}}
