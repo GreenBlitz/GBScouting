@@ -28,9 +28,11 @@ export class TeamData {
   }
 
   getComments(): Comment[] {
-    return this.matches.map((match) => {
-      return { body: match.comment, qual: match.qual };
-    });
+    return this.matches
+      .map((match) => {
+        return { body: match.comment, qual: match.qual };
+      })
+      .filter((comment) => comment.body !== "");
   }
 
   getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
