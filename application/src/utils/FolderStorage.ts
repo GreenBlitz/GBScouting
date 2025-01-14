@@ -81,7 +81,7 @@ export class StorageBacked<T> {
     }
   }
 
-  set(p0: { Sushi1: Sushi; }, p1: { Sushi2: Sushi; }, value: T, p2: Sushi): void {
+  set(value: T): void {
     if (typeof value === "string") {
       this.storage.setItem(this.name, value);
       return;

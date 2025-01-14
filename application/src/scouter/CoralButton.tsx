@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
+import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
 const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
     const [hasPiled, updateHAasPiled] = useState(false)
     const[text, updateText] = useState("Not Sedded")
@@ -54,7 +54,7 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
             changeColor("#db1616")
             changeSushiValueWhenUnseeded()
         }
-        props.storage.set({Sushi1:storageSushis[0]||basicSushi}, {Sushi2:storageSushis[1]||basicSushi}, {Sushi3:storageSushis[2]||basicSushi})
+        props.storage.set({Sushi1:storageSushis[0]||basicSushi, Sushi2:storageSushis[1]||basicSushi, Sushi3:storageSushis[2]||basicSushi})
     }
         const coralButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
         return<>  

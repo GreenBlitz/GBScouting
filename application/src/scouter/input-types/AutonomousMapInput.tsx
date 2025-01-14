@@ -16,7 +16,7 @@ export interface AllSushis{
 
 export interface AllSushisAndStorage{
     allSushis: AllSushis
-    storage: typeof this.storage
+    storage: StorageBackedInput<AllSushis>
 }
 
 export enum ShusiToBeChanged{
@@ -33,9 +33,10 @@ export interface ValuesToBePassed{
 
 class AutonomousMapInput extends ScouterInput<AllSushis>{
     renderInput(): React.ReactNode {
-        const allSushisAndStorage = {Sushi1:{HasSeeded: false, HasHarvested: false},
-        Sushi2:{HasSeeded:false, HasHarvested: false}, Sushi3:{HasSeeded:false, HasHarvested:false}, 
-        storage:this.storage}
+        const allSushis: AllSushis = {Sushi1:{HasSeeded: false, HasHarvested: false},
+        Sushi2:{HasSeeded:false, HasHarvested: false}, Sushi3:{HasSeeded:false, HasHarvested:false}}
+        const storage: StorageBackedInput<AllSushis> = this.storage
+        const allSushisAndStorage = {allSushis, storage}
         return <AutonomousForm {...allSushisAndStorage} />
     }
     create(): React.JSX.Element {
