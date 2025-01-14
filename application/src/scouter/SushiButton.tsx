@@ -5,8 +5,8 @@ import { ValuesToBePassed } from "./input-types/AutonomousMapInput";
 const SushiButton: React.FC<ValuesToBePassed> = (props)=>{
     return<>
     <div className="shushiButton" style={{display:"flex", flexDirection:"row", gap:"10%", }}>
-        <CoralButton sushies={props.sushies} sushiToBeChanged={props.sushiToBeChanged}  />
-        <AlgaeButton sushies={props.sushies} sushiToBeChanged={props.sushiToBeChanged} />
+        <CoralButton sushies={props.sushies} sushiToBeChanged={props.sushiToBeChanged} storage={props.storage}  />
+        <AlgaeButton sushies={props.sushies} sushiToBeChanged={props.sushiToBeChanged} storage={props.storage} />
     </div>
     </>
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import AutonomousForm from "../AutonomousForm";
+import { StorageBackedInput } from "../../utils/FolderStorage";
 
 export interface Sushi{
     HasSeeded: boolean
@@ -13,6 +14,11 @@ export interface AllSushis{
     Sushi3: Sushi
 }
 
+export interface AllSushisAndStorage{
+    allSushis: AllSushis
+    storage: typeof this.storage
+}
+
 export enum ShusiToBeChanged{
     SUSHI1,
     SUSHI2,
@@ -20,14 +26,17 @@ export enum ShusiToBeChanged{
 }
 
 export interface ValuesToBePassed{
+    storage: StorageBackedInput<AllSushis>
     sushies: AllSushis, 
-    sushiToBeChanged: ShusiToBeChanged,
+    sushiToBeChanged: ShusiToBeChanged
   }
 
 class AutonomousMapInput extends ScouterInput<AllSushis>{
     renderInput(): React.ReactNode {
-        return <AutonomousForm Sushi1={{HasSeeded: false, HasHarvested: false}} 
-        Sushi2={{HasSeeded:false, HasHarvested: false}} Sushi3={{HasSeeded:false, HasHarvested:false}} />
+        const allSushisAndStorage = {Sushi1:{HasSeeded: false, HasHarvested: false},
+        Sushi2:{HasSeeded:false, HasHarvested: false}, Sushi3:{HasSeeded:false, HasHarvested:false}, 
+        storage:this.storage}
+        return <AutonomousForm {...allSushisAndStorage} />
     }
     create(): React.JSX.Element {
         return <AutonomousMapInput {...this.props} />

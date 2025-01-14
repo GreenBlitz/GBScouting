@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import SushiButton from "./SushiButton";
-import { AllSushis, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
+import { AllSushis, AllSushisAndStorage, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
 import {ShusiToBeChanged} from "./input-types/AutonomousMapInput"
 
 
-const AutonomousForm: React.FC<AllSushis> = (props) => {
-  const sushiButtons = [<SushiButton sushies={props} sushiToBeChanged={ShusiToBeChanged.SUSHI1} />,
-     <SushiButton sushies={props} sushiToBeChanged={ShusiToBeChanged.SUSHI2} />,
-     <SushiButton sushies={props} sushiToBeChanged={ShusiToBeChanged.SUSHI3}/>];
+const AutonomousForm: React.FC<AllSushisAndStorage> = (props) => {
+  const sushiButtons = [<SushiButton sushies={props.allSushis} sushiToBeChanged={ShusiToBeChanged.SUSHI1} storage={props.storage} />,
+     <SushiButton sushies={props.allSushis} sushiToBeChanged={ShusiToBeChanged.SUSHI2} storage={props.storage} />,
+     <SushiButton sushies={props.allSushis} sushiToBeChanged={ShusiToBeChanged.SUSHI3} storage={props.storage}/>];
   const buttons = (
     <div className="sushi-buttons">
       {sushiButtons}
