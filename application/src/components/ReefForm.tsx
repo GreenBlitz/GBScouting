@@ -16,9 +16,6 @@ interface Levels {
 }
 
 class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: { level: keyof Levels; point: keyof Level }[] }> {
-  static handleUndo(): (value: string) => void {
-    throw new Error("Method not implemented.");
-  }
   create(): React.JSX.Element {
     return <ReefScoring {...this.props} />;
   }
@@ -37,19 +34,7 @@ class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: 
       levels: this.initialValue(),
       undoStack: [],
     };
-  
   }
-  
-  public handleUndo(level: keyof Levels, point: keyof Level): void {
-    const updatedLevels = { ...this.state.levels };
-    updatedLevels[level][point] += 1;
-    this.setState({undoStack: [...this.state.undoStack, { level, point }]});
-    this.storage.set(this.state.levels);
-
-  }
-
-
-
 
   renderInput(): React.ReactNode {
     const handleClick = (level: keyof Levels, point: keyof Level) => {
@@ -59,10 +44,19 @@ class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: 
       this.storage.set(this.state.levels);
     };
     
-  
 
-   
-   
+    const handleUndo = () => {
+      if (this.state.undoStack.length === 0) return;
+
+      const lastAction = this.state.undoStack[this.state.undoStack.length - 1];
+      const updatedLevels = { ...this.state.levels };
+      updatedLevels[lastAction.level][lastAction.point] -= 1;
+
+      this.setState({ levels: updatedLevels, undoStack: this.state.undoStack.slice(0, -1) });
+
+      this.storage.set(this.state.levels);
+    };
+
     return (
       <div>
         <h1>Reef Scoring</h1>
@@ -86,7 +80,9 @@ class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: 
             </div>
           );
         })}
-     
+        <button className="buttonU" onClick={handleUndo}>
+          Undo
+        </button>
       </div>
     );
   }
