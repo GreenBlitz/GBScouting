@@ -4,11 +4,13 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
     const [hasPiled, updateHAasPiled] = useState(false)
     const[text, updateText] = useState("Not Sedded")
     const [color, changeColor] = useState("#db1616")
-    const storage = props.storage.get()
-    const storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
+    let storage = props.storage.get()
+    let storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
     const basicSushi: Sushi = {HasHarvested:false, HasSeeded:false}
 
     const changeSushiValueWhenSeeded = ()=>{
+        storage = props.storage.get()
+        storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
         switch(props.sushiToBeChanged){
             case ShusiToBeChanged.SUSHI1:{
                 storageSushis[0] = {HasHarvested: !!storageSushis[0]?.HasHarvested, HasSeeded: true}
@@ -25,6 +27,8 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
         }
     }
     const changeSushiValueWhenUnseeded = ()=>{
+        storage = props.storage.get()
+        storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
         switch(props.sushiToBeChanged){
             case ShusiToBeChanged.SUSHI1:{
                 storageSushis[0] = {HasHarvested: !!storageSushis[0]?.HasHarvested, HasSeeded: false}

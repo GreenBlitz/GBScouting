@@ -44,7 +44,7 @@ export class AutonomousMapInput extends ScouterInput<AllSushis>{
     }
     protected initialValue(props: InputProps<AllSushis>): AllSushis {
         return {
-            Sushi1: {HasSeeded: false, HasHarvested: false}, 
+                Sushi1: {HasSeeded: false, HasHarvested: false}, 
                 Sushi2: {HasSeeded: false, HasHarvested: false},
                 Sushi3: {HasSeeded: false, HasHarvested: false}
             }
