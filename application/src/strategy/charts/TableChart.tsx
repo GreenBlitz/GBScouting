@@ -5,9 +5,18 @@ import {
   GridTreeNode,
 } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
 import React from "react";
 
 const paginationModel = { page: 0, pageSize: 5 };
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 interface TableChartProps {
   tableData: Record<string, any>[];
@@ -57,25 +66,20 @@ const TableChart: React.FC<TableChartProps> = ({
   });
 
   return (
-    <Paper
-      sx={{
-        height: height,
-        boxShadow: 2,
-        border: 2,
-      }}
-    >
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <DataGrid
         rows={rows}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10, 67]}
         sx={{
-          border: 0,
+          border: 2,
         }}
         getRowId={(row) => row[idName]}
         getCellClassName={getCellClassName}
       />
-    </Paper>
+    </ThemeProvider>
   );
 };
 
