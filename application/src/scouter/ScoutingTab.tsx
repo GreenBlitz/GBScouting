@@ -40,7 +40,6 @@ export default function ScoutingTab() {
           input.storage.remove();
         }
       });
-
     Matches.add(matchValues as Match);
     navigate("/");
   }
@@ -70,12 +69,7 @@ export default function ScoutingTab() {
           )}
         </div>
         <div className="flex gap-4">
-          <button
-            onClick={handleReset}
-            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
-          >
-            Reset
-          </button>
+          <CancelConfirmation name="Reset" onClick={handleReset} />
           {currentSectionNumber === sectionNames.length - 1 ? (
             <button
               onClick={handleSubmit}
@@ -95,6 +89,14 @@ export default function ScoutingTab() {
       </div>
     </div>
   );
+
+  const navigateToNext = () => {
+    if (ScouterInputs.noShow.storage.get()) {
+      handleSubmit();
+    } else {
+      navigateToSection(currentSectionNumber + 1);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-dark-bg">

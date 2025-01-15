@@ -12,6 +12,7 @@ const PreMatch: React.FC<PreGameProps> = () => {
         ScouterInputs.teamNumber,
         ScouterInputs.gameSide,
         ScouterInputs.startingPosition,
+        ScouterInputs.noShow,
       ])}
     </div>
   );
