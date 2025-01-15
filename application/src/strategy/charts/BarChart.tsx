@@ -6,18 +6,22 @@ import { DataSet } from "../../utils/Utils";
 Chart.register(CategoryScale, LinearScale, BarElement);
 
 interface BarChartProps {
-  dataSets: Record<string, DataSet>;
+  dataSets: Record<string | number, DataSet>;
 }
 const BarChart: React.FC<BarChartProps> = ({ dataSets }) => {
+  const labels = new Set<string>();
+  Object.values(dataSets).forEach((dataSet) =>
+    Object.keys(dataSet.data).forEach((label) => labels.add(label))
+  );
   const data = {
-    labels: Object.keys(Object.values(dataSets)[0].data),
+    labels: [...labels],
 
     datasets: Object.entries(dataSets).map(([dataSetName, dataSetValue]) => {
       return {
         label: dataSetName,
-        backgroundColor: [...Array(Object.values(dataSetValue.data).length)].map(
-          () => dataSetValue.color.toString()
-        ),
+        backgroundColor: [
+          ...Array(Object.values(dataSetValue.data).length),
+        ].map(() => dataSetValue.color.toString()),
         data: Object.values(dataSetValue.data),
       };
     }),
