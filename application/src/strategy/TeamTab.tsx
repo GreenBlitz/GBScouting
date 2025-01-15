@@ -8,6 +8,7 @@ import React from "react";
 import { renderStrategyNavBar } from "../App";
 import { fetchMatchesByCriteria } from "../utils/Fetches";
 import PercentageBarChart from "./charts/PercentageBarChart";
+import CoralChart from "./charts/CoralChart";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -57,6 +58,15 @@ const TeamTab: React.FC = () => {
         />
       </div>
       <br />
+
+      <CoralChart
+        corals={{
+          L1: { score: 1, miss: 1 },
+          L2: { score: 3, miss: 2 },
+          L3: { score: 8, miss: 3 },
+          L4: { score: 6, miss: 6 },
+        }}
+      />
 
       <div className="section">
         <h2>Climb</h2>
