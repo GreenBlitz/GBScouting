@@ -40,6 +40,7 @@ class CheckboxedSliderInput extends ScouterInput<
 
     const checkbox = (
       <input
+        className="w-5 h-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-offset-2 dark:border-dark-border dark:bg-dark-card dark:checked:bg-primary-500 dark:focus:ring-offset-dark-bg transition-colors duration-200"
         type="checkbox"
         id={this.storage.name}
         name={this.storage.name}
@@ -62,10 +63,10 @@ class CheckboxedSliderInput extends ScouterInput<
     );
 
     return (
-      <>
+      <div>
         {checkbox}
         {this.state.isEnabled && slider}
-      </>
+      </div>
     );
   }
 
