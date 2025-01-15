@@ -7,7 +7,7 @@ class CheckboxInput extends ScouterInput<boolean> {
   }
   renderInput(): React.ReactNode {
     return (
-      <div className="flex items-center">
+      <div className="">
         <input
           type="checkbox"
           id={this.storage.name}

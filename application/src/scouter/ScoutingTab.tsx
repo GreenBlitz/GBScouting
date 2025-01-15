@@ -49,6 +49,14 @@ export default function ScoutingTab() {
     navigate("/");
   };
 
+  const navigateToNext = () => {
+    if (ScouterInputs.noShow.storage.get()) {
+      handleSubmit();
+    } else {
+      navigateToSection(currentSectionNumber + 1);
+    }
+  };
+
   const sectionElement = (
     <div className="space-y-6">
       <PageTransition>
@@ -79,7 +87,7 @@ export default function ScoutingTab() {
             </button>
           ) : (
             <button
-              onClick={() => navigateToSection(currentSectionNumber + 1)}
+              onClick={navigateToNext}
               className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
             >
               Next
@@ -90,13 +98,7 @@ export default function ScoutingTab() {
     </div>
   );
 
-  const navigateToNext = () => {
-    if (ScouterInputs.noShow.storage.get()) {
-      handleSubmit();
-    } else {
-      navigateToSection(currentSectionNumber + 1);
-    }
-  };
+  
 
   return (
     <div className="min-h-screen bg-dark-bg">
