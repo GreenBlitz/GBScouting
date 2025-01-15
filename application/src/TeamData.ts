@@ -2,7 +2,6 @@ import { Color } from "./utils/Color";
 import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { FieldObject } from "./scouter/input-types/MapInput";
 
 interface Comment {
   body: string;
@@ -48,6 +47,9 @@ export class TeamData {
     }
     return this.matches
       .map((match) => {
+        if (match[field] === undefined) {
+          return 0;
+        }
         if (typeof match[field] !== "number") {
           throw new Error("Invalid field: " + field);
         }
@@ -74,5 +76,10 @@ export class TeamData {
       dataSet[dataValue].percentage++;
     });
     return dataSet;
+  }
+
+  getAverageScore(): number {
+    //TODO: Implement
+    return 0;
   }
 }
