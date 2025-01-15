@@ -31,32 +31,44 @@ const ScouterStats: React.FC = () => {
   const barData = useMemo(() => {
     const data: Record<number, number> = {};
     stats.forEach((match) => {
-      if (!data[match.scouterName]) {
+      if (!data[match.qual]) {
         data[match.qual] = 0;
       }
-      data[match.scouterName]++;
+      data[match.qual]++;
     });
+    function getDataSetByPredicate(
+      predicate: (value: number) => boolean
+    ): Record<string, number> {
+      return Object.entries(data)
+        .filter(([key, value]) => predicate(value))
+        .map(([key, value]) => {
+          return { [key + ""]: value };
+        })
+        .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    }
+
     const goodDataset: DataSet = {
-      data: Object.assign(
-        {},
-        Object.entries(data)
-          .filter(([key, value]) => {
-            return value >= 6;
-          })
-          .map(([key, value]) => {
-            return { [key]: value } as Record<string, number>;
-          })
-      ),
+      data: getDataSetByPredicate((value) => value >= 6),
       color: "green",
     };
-    return data;
+    const okDataset: DataSet = {
+      data: getDataSetByPredicate((value) => value >= 3 && value < 6),
+      color: "yellow",
+    };
+    const badDataset: DataSet = {
+      data: getDataSetByPredicate((value) => value < 3),
+      color: "red",
+    };
+    return { Good: goodDataset, Ok: okDataset, Bad: badDataset };
   }, [stats]);
 
   return (
     <>
       {renderStrategyNavBar()}
+      <h2>Scouter Scouting</h2>
       <PieChart pieData={pieData} />
-      <BarChart barData={barData} />
+      <h2>Quals Followed</h2>
+      <BarChart dataSets={barData} />
     </>
   );
 };
