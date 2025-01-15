@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";const AlgaeButton:React.FC<ValuesToBePassed> = (props)=>{
     const [hasHarvested, updateHasHarvested] = useState(false)
     const[text, updateText] = useState("Not Harvested")
@@ -6,7 +6,45 @@ import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
     let storage = props.storage.get()
     let storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
     const basicSushi: Sushi = {HasHarvested:false, HasSeeded:false}
-
+    useEffect(() => {switch(props.sushiToBeChanged){
+            case ShusiToBeChanged.SUSHI1:{
+                if(storageSushis[0]?.HasSeeded){
+                    updateHasHarvested(true)
+                    updateText("Harvested")
+                    changeColor("#22e025")
+                }
+                else{
+                    updateHasHarvested(false)
+                    updateText("Not Harvested")
+                    changeColor("#db1616")
+                }
+            }
+            case ShusiToBeChanged.SUSHI2:{
+                if(storageSushis[1]?.HasSeeded){
+                    updateHasHarvested(true)
+                    updateText("Harvested")
+                    changeColor("#22e025")
+                }
+                else{
+                    updateHasHarvested(false)
+                    updateText("Not Harvested")
+                    changeColor("#db1616")
+                }
+            }
+            case ShusiToBeChanged.SUSHI3:{
+                if(storageSushis[2]?.HasSeeded){
+                    updateHasHarvested(true)
+                    updateText("Harvested")
+                    changeColor("#22e025")
+                }
+                else{
+                    updateHasHarvested(false)
+                    updateText("Not Harvested")
+                    changeColor("#db1616")
+                }
+            }
+        
+        }},[])
 
     const changeSushiValueWhenHarvested = ()=>{
         storage = props.storage.get()
