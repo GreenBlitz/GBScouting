@@ -1,51 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";const AlgaeButton:React.FC<ValuesToBePassed> = (props)=>{
-    const [hasHarvested, updateHasHarvested] = useState(false)
     const[text, updateText] = useState("Not Harvested")
     const [color, changeColor] = useState("#db1616")
     let storage = props.storage.get()
     let storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
     const basicSushi: Sushi = {HasHarvested:false, HasSeeded:false}
-    useEffect(() => {switch(props.sushiToBeChanged){
+    let initialState: boolean = true;
+    const defineAlgae = ()=>{
+        switch(props.sushiToBeChanged){
             case ShusiToBeChanged.SUSHI1:{
-                if(storageSushis[0]?.HasSeeded){
-                    updateHasHarvested(true)
-                    updateText("Harvested")
-                    changeColor("#22e025")
-                }
-                else{
-                    updateHasHarvested(false)
-                    updateText("Not Harvested")
-                    changeColor("#db1616")
-                }
+                initialState = storageSushis[0]?.HasHarvested ? true : false
             }
             case ShusiToBeChanged.SUSHI2:{
-                if(storageSushis[1]?.HasSeeded){
-                    updateHasHarvested(true)
-                    updateText("Harvested")
-                    changeColor("#22e025")
-                }
-                else{
-                    updateHasHarvested(false)
-                    updateText("Not Harvested")
-                    changeColor("#db1616")
-                }
+                initialState = storageSushis[1]?.HasHarvested ? true: false
             }
             case ShusiToBeChanged.SUSHI3:{
-                if(storageSushis[2]?.HasSeeded){
-                    updateHasHarvested(true)
-                    updateText("Harvested")
-                    changeColor("#22e025")
-                }
-                else{
-                    updateHasHarvested(false)
-                    updateText("Not Harvested")
-                    changeColor("#db1616")
-                }
+                initialState = storageSushis[2]?.HasHarvested ? true: false
             }
-        
-        }},[])
-
+        }
+    }
+    const setStorage = ()=>{
+        props.storage.set({Sushi1:storageSushis[0]||basicSushi, Sushi2:storageSushis[1]||basicSushi, Sushi3:storageSushis[2]||basicSushi})
+    }
     const changeSushiValueWhenHarvested = ()=>{
         storage = props.storage.get()
         storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
@@ -84,6 +60,7 @@ import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
         }
 
 
+    const [hasHarvested, updateHasHarvested] = useState(initialState)
     const handleChange = ()=>{
         updateHasHarvested(!hasHarvested)
         if(hasHarvested){
@@ -96,10 +73,8 @@ import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
             changeColor("#db1616")
             changeSushiValueWhenUnHarvested()
         }
-        props.storage.set({Sushi1:storageSushis[0]||basicSushi, Sushi2:storageSushis[1]||basicSushi, Sushi3:storageSushis[2]||basicSushi})
+        setStorage()
     }
-
-
     const algaeButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
     return<>  
     {algaeButton}
