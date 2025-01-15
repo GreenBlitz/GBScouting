@@ -7,18 +7,14 @@ import { TeamData } from "../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../App";
 import { fetchMatchesByCriteria } from "../utils/Fetches";
-
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
-
   const recentMatches = sortMatches([...matches]);
   if (recency > 0 && recency < recentMatches.length) {
     recentMatches.splice(0, recentMatches.length - recency);
   }
-
   const teamData = new TeamData(recentMatches);
-
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
@@ -26,7 +22,6 @@ const TeamTab: React.FC = () => {
       <br />
       <div className="team-picker">
         <label htmlFor="team number">Team Number</label>
-
         <select
           id="team number"
           name="team number"
@@ -58,6 +53,7 @@ const TeamTab: React.FC = () => {
       </div>
       <br />
 
+
       <div className="section">
         <h2>Climb</h2>
         <PieChart
@@ -71,12 +67,16 @@ const TeamTab: React.FC = () => {
           })}
         />
       </div>
-
       <br />
 
       <br />
+      <div>
+        <h1>Comments</h1>
+        {teamData.getComments().map((comment) => (
+          <h3>{"Qual #" + comment.qual + ": " + comment.body}</h3>
+        ))}
+      </div>
     </div>
   );
 };
-
 export default TeamTab;
