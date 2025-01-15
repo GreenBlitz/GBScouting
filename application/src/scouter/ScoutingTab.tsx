@@ -98,7 +98,6 @@ export default function ScoutingTab() {
     </div>
   );
 
-  
 
   return (
     <div className="min-h-screen bg-dark-bg">
