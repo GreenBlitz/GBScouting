@@ -36,7 +36,7 @@ const basicGaugeProps: AgGaugeProps = {
     value: 100,
 
     theme: "ag-default-dark",
-    cornerRadius: 99,
+    cornerRadius: 5,
     cornerMode: "container",
   },
 };
