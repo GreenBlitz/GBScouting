@@ -1,13 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
@@ -39,13 +33,28 @@ export function renderScouterNavBar() {
       {getHiddenImage("./src/assets/red-auto-map.png")}
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          <Link to="/" className="text-dark-text hover:text-primary-400 transition-colors">Match List</Link>
+          <Link
+            to="/"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Match List
+          </Link>
         </li>
         <li>
-          <Link to="/scouting/prematch" className="text-dark-text hover:text-primary-400 transition-colors">Scout Game</Link>
+          <Link
+            to="/scouting/prematch"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Scout Game
+          </Link>
         </li>
         <li>
-          <Link to="/scanner" className="text-dark-text hover:text-primary-400 transition-colors">Scan Match</Link>
+          <Link
+            to="/scanner"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Scan Match
+          </Link>
         </li>
       </ul>
     </nav>
@@ -67,7 +76,22 @@ export function renderStrategyNavBar() {
   );
 }
 
-function App() {
+const App: React.FC = () => {
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      // Prevent default behavior and show a warning dialog
+      event.preventDefault();
+      event.returnValue = ""; // This triggers the browser's warning dialog.
+    };
+
+    // Attach the event listener for refresh and tab close
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      // Clean up the event listener
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-dark-bg">
@@ -88,6 +112,6 @@ function App() {
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
