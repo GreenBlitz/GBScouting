@@ -17,6 +17,7 @@ import PreMatch from "./scouter/tabs/PreMatch";
 import Teleoperated from "./scouter/tabs/Teleoperated";
 import Autonomous from "./scouter/tabs/Autonomous";
 import PostMatch from "./scouter/tabs/PostMatch";
+import ScouterStats from "./strategy/ScouterStats";
 
 function getHiddenImage(path: string) {
   return (
@@ -61,13 +62,15 @@ export function renderStrategyNavBar() {
         <li>
           <Link to="/general">General</Link>
         </li>
+        <li>
+          <Link to="/scouter-stats">Scouter Stats</Link>
+        </li>
       </ul>
     </nav>
   );
 }
 
 const App: React.FC = () => {
-  
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       // Prevent default behavior and show a warning dialog
@@ -97,6 +100,7 @@ const App: React.FC = () => {
         </Route>
         <Route path="/team" Component={TeamTab} />
         <Route path="/general" Component={GeneralTab} />
+        <Route path="/scouter-stats" Component={ScouterStats} />
       </Routes>
     </BrowserRouter>
   );
