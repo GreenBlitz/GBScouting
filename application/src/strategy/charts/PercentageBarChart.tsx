@@ -81,6 +81,7 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
     setPopUpAnchor(event.currentTarget);
     setHoveredSection(getSection((hoveredX * 100) / gaugeWidth, 0));
   };
+
   return (
     <div
       style={{ width, height }}
