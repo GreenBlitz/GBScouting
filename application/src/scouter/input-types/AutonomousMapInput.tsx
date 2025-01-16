@@ -19,16 +19,12 @@ export interface AllSushisAndStorage{
     storage: StorageBackedInput<AllSushis>
 }
 
-export enum ShusiToBeChanged{
-    SUSHI1,
-    SUSHI2,
-    SUSHI3
-}
+export type SushiToBeChanged = keyof AllSushis
 
 export interface ValuesToBePassed{
     storage: StorageBackedInput<AllSushis>
     sushies: AllSushis, 
-    sushiToBeChanged: ShusiToBeChanged
+    sushiToBeChanged: SushiToBeChanged
   }
 
 export class AutonomousMapInput extends ScouterInput<AllSushis>{

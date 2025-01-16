@@ -1,31 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
-const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
-    let storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
-    const basicSushi: Sushi = {HasHarvested:false, HasSeeded:false}
-    let initialState: boolean = true
-    const allSushis = props.sushies
-    allSushis.Sushi1.HasHarvested = true
+import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";const AlgaeButton:React.FC<ValuesToBePassed> = (props)=>{
+    const allSushis = props.sushies 
     const defineCoral = ()=>{
-        switch(props.sushiToBeChanged){
-            case ShusiToBeChanged.SUSHI1:{
-                return storageSushis[0]?.HasSeeded ? true: false
-            }
-            case ShusiToBeChanged.SUSHI2:{
-                return storageSushis[1]?.HasSeeded ? true: false
-            }
-            case ShusiToBeChanged.SUSHI3:{
-                return storageSushis[2]?.HasSeeded ? true: false
-            }
-        }
+        return allSushis[props.sushiToBeChanged].HasHarvested
     }
 
     const defineCoralText = ()=>{
         if(defineCoral() == true){
-            return "Seeded"
+            return "Harvested"
         }
         else{
-            return "Not Seeded"
+            return "Not Harvested"
         }
     }
 
@@ -38,68 +23,33 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
         }
     }
 
-    const [hasPiled, updateHasPiled] = useState(defineCoral())
-    const[text, updateText] = useState(defineCoralText())
-    const [color, changeColor] = useState(defineCoralColor())
-
-    console.log(hasPiled)
-
     const setStorage = ()=>{
-        props.storage.set({Sushi1:storageSushis[0]||basicSushi, Sushi2:storageSushis[1]||basicSushi, Sushi3:storageSushis[2]||basicSushi})
+        props.storage.set(allSushis)
+    }
+    const changeSushiValue = (valueToChange: boolean)=>{
+        allSushis[props.sushiToBeChanged].HasSeeded = valueToChange
     }
 
-    const changeSushiValueWhenUnseeded = ()=>{
-        storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
-        switch(props.sushiToBeChanged){
-            case ShusiToBeChanged.SUSHI1:{
-                storageSushis[0] = {HasHarvested: !!storageSushis[0]?.HasHarvested, HasSeeded: false}
-            break;
-            }
-            case ShusiToBeChanged.SUSHI2:{
-                storageSushis[1] = {HasHarvested: !!storageSushis[1]?.HasHarvested, HasSeeded: false}
-                break;
-            }
-            case ShusiToBeChanged.SUSHI3:{
-                storageSushis[2] = {HasHarvested: !!storageSushis[2]?.HasHarvested, HasSeeded: false}
-                break;
-            }
-        }
-    }
-    const changeSushiValueWhenSeeded = ()=>{
-        storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
-        switch(props.sushiToBeChanged){
-            case ShusiToBeChanged.SUSHI1:{
-                storageSushis[0] = {HasHarvested: !!storageSushis[0]?.HasHarvested, HasSeeded: true}
-            break;
-            }
-            case ShusiToBeChanged.SUSHI2:{
-                storageSushis[1] = {HasHarvested: !!storageSushis[1]?.HasHarvested, HasSeeded: true}
-                break;
-            }
-            case ShusiToBeChanged.SUSHI3:{
-                storageSushis[2] = {HasHarvested: !!storageSushis[2]?.HasHarvested, HasSeeded: true}
-                break;
-            }
-        }
-    }
-
+    const [hasHarvested, updateHasHarvested] = useState(defineCoral)
+    const[text, updateText] = useState(defineCoralText)
+    const [color, changeColor] = useState(defineCoralColor)
     const handleChange = ()=>{
-        updateHasPiled(!hasPiled)
-        if(!hasPiled){
-            updateText("Seeded")
+        updateHasHarvested(!hasHarvested)
+        if(!hasHarvested){
+            updateText("Harvested")
             changeColor("#22e025")
-            changeSushiValueWhenSeeded()
+            changeSushiValue(true)
         }
         else{
-            updateText("Not Seeded")
+            updateText("Not Harvested")
             changeColor("#db1616")
-            changeSushiValueWhenUnseeded()
+            changeSushiValue(false)
         }
         setStorage()
     }
-    const coralButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
+    const algaeButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
     return<>  
-    {coralButton}
+    {algaeButton}
     </>
 }
-export default CoralButton
+export default AlgaeButton;
