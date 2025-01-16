@@ -63,6 +63,5 @@ export default class ScouterInputs {
   });
   static readonly reefForm = new ReefForm({
     route: "reefForm",
-    name: "reefForm",
-  })
+  });
 }
