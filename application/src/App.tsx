@@ -14,6 +14,7 @@ import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
 import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
 import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
+import PageTransition from "./components/PageTransition";
 
 function getHiddenImage(path: string) {
   return (
@@ -29,19 +30,34 @@ function getHiddenImage(path: string) {
 
 export function renderScouterNavBar() {
   return (
-    <nav className="nav-bar nav-bar-top">
+    <nav className="bg-dark-card shadow-lg">
       {getHiddenImage("./src/assets/crescendo-map.png")}
       {getHiddenImage("./src/assets/blue-auto-map.png")}
       {getHiddenImage("./src/assets/red-auto-map.png")}
-      <ul>
+      <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          <Link to="/">Match List</Link>
+          <Link
+            to="/"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Match List
+          </Link>
         </li>
         <li>
-          <Link to="/scouting/prematch">Scout Game</Link>
+          <Link
+            to="/scouting/prematch"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Scout Game
+          </Link>
         </li>
         <li>
-          <Link to="/scanner">Scan Match</Link>
+          <Link
+            to="/scanner"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Scan Match
+          </Link>
         </li>
       </ul>
     </nav>
@@ -50,13 +66,23 @@ export function renderScouterNavBar() {
 
 export function renderStrategyNavBar() {
   return (
-    <nav className="nav-bar nav-bar-top">
-      <ul>
+    <nav className="bg-dark-card shadow-lg">
+      <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          <Link to="/team/autonomous">Team Data</Link>
+          <Link
+            to="/team/autonomous"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Team Data
+          </Link>
         </li>
         <li>
-          <Link to="/general">General</Link>
+          <Link
+            to="/general"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            General
+          </Link>
         </li>
       </ul>
     </nav>
@@ -79,25 +105,28 @@ const App: React.FC = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
-
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/scanner" Component={ScanningTab} />
-        <Route path="/" Component={MatchList} />
-        <Route path="/scouting" Component={ScouterTab}>
-          <Route path="prematch" Component={ScouterPreMatch} />
-          <Route path="teleoperated" Component={ScouterTeleoperated} />
-          <Route path="autonomous" Component={ScouterAutonomous} />
-          <Route path="postmatch" Component={ScouterPostMatch} />
-        </Route>
-        <Route path="/team" Component={TeamTab}>
-          <Route path="teleoperated" Component={StrategyTeleoperated} />
-          <Route path="autonomous" Component={StrategyAutonomous} />
-          <Route path="endgame" Component={StrategyEndgame} />
-        </Route>
-        <Route path="/general" Component={GeneralTab} />
-      </Routes>
+      <div className="min-h-screen bg-dark-bg">
+        <PageTransition>
+          <Routes>
+            <Route path="/scanner" element={<ScanningTab />} />
+            <Route path="/" element={<MatchList />} />
+            <Route path="/scouting" element={<ScouterTab />}>
+              <Route path="prematch" element={<ScouterPreMatch />} />
+              <Route path="teleoperated" element={<ScouterTeleoperated />} />
+              <Route path="autonomous" element={<ScouterAutonomous />} />
+              <Route path="postmatch" element={<ScouterPostMatch />} />
+            </Route>
+            <Route path="/team" element={<TeamTab />}>
+              <Route path="teleoperated" element={<StrategyTeleoperated />} />
+              <Route path="autonomous" element={<StrategyAutonomous />} />
+              <Route path="endgame" element={<StrategyEndgame />} />
+            </Route>
+            <Route path="/general" element={<GeneralTab />} />
+          </Routes>
+        </PageTransition>
+      </div>
     </BrowserRouter>
   );
 };
