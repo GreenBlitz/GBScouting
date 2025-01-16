@@ -5,9 +5,9 @@ import {SushiToBeChanged} from "./input-types/AutonomousMapInput"
 
 
 const AutonomousForm: React.FC<AllSushisAndStorage> = (props) => {
-  const sushiButtons = [<SushiButton sushies={props.allSushis} sushiToBeChanged={SushiToBeChanged.Sushi1} storage={props.storage} />,
-     <SushiButton sushies={props.allSushis} sushiToBeChanged={SushiToBeChanged.Sushi2} storage={props.storage} />,
-     <SushiButton sushies={props.allSushis} sushiToBeChanged={SushiToBeChanged.Sushi3} storage={props.storage}/>];
+  const sushiButtons = [<SushiButton sushies={props.allSushis} sushiToBeChanged={"Sushi1"} storage={props.storage} />,
+     <SushiButton sushies={props.allSushis} sushiToBeChanged={"Sushi2"} storage={props.storage} />,
+     <SushiButton sushies={props.allSushis} sushiToBeChanged={"Sushi3"} storage={props.storage}/>];
   const buttons = (
     <div className="sushi-buttons">
       {sushiButtons}

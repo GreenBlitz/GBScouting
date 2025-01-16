@@ -6,7 +6,7 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
     }
 
     const defineAlgaeText = ()=>{
-        if(defineAlgae() == true){
+        if(defineAlgae()){
             return "Harvested"
         }
         else{
@@ -15,7 +15,7 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
     }
 
     const defineAlgaeColor = ()=>{
-        if(defineAlgae() == true){
+        if(defineAlgae()){
             return "#22e025"
         }
         else{
@@ -28,6 +28,7 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
     }
     const changeSushiValue = (valueToChange: boolean)=>{
         allSushis[props.sushiToBeChanged].HasHarvested = valueToChange
+        setStorage()
     }
 
     const [hasHarvested, updateHasHarvested] = useState(defineAlgae)
@@ -45,7 +46,6 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
             changeColor("#db1616")
             changeSushiValue(false)
         }
-        setStorage()
     }
     const algaeButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
     return<>  

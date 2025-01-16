@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";const AlgaeButton:React.FC<ValuesToBePassed> = (props)=>{
     const allSushis = props.sushies 
     const defineCoral = ()=>{
-        return allSushis[props.sushiToBeChanged].HasHarvested
+        return allSushis[props.sushiToBeChanged].HasSeeded
     }
 
     const defineCoralText = ()=>{
         if(defineCoral() == true){
-            return "Harvested"
+            return "Seeded"
         }
         else{
-            return "Not Harvested"
+            return "Not Seeded"
         }
     }
 
@@ -28,6 +28,7 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
     }
     const changeSushiValue = (valueToChange: boolean)=>{
         allSushis[props.sushiToBeChanged].HasSeeded = valueToChange
+        setStorage()
     }
 
     const [hasHarvested, updateHasHarvested] = useState(defineCoral)
@@ -45,7 +46,6 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
             changeColor("#db1616")
             changeSushiValue(false)
         }
-        setStorage()
     }
     const algaeButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
     return<>  
