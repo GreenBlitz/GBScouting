@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";const AlgaeButton:React.FC<ValuesToBePassed> = (props)=>{
-    const[text, updateText] = useState("Not Harvested")
-    const [color, changeColor] = useState("#db1616")
     let storage = props.storage.get()
     let storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
     const basicSushi: Sushi = {HasHarvested:false, HasSeeded:false}
@@ -61,6 +59,8 @@ import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
 
 
     const [hasHarvested, updateHasHarvested] = useState(initialState)
+    const[text, updateText] = useState("Not Harvested")
+    const [color, changeColor] = useState("#db1616")
     const handleChange = ()=>{
         updateHasHarvested(!hasHarvested)
         if(hasHarvested){

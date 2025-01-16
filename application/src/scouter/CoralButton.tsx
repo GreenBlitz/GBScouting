@@ -1,27 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
 const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
-    const[text, updateText] = useState("Not Sedded")
-    const [color, changeColor] = useState("#db1616")
     let storage = props.storage.get()
     let storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
     const basicSushi: Sushi = {HasHarvested:false, HasSeeded:false}
     let initialState: boolean = true
     const defineCoral = ()=>{
-            switch(props.sushiToBeChanged){
-                case ShusiToBeChanged.SUSHI1:{
-                    initialState = storageSushis[0]?.HasSeeded ? true: false
-                }
-                case ShusiToBeChanged.SUSHI2:{
-                    initialState = storageSushis[1]?.HasSeeded ? true: false
-                }
-                case ShusiToBeChanged.SUSHI3:{
-                    initialState = storageSushis[2]?.HasSeeded ? true: false
-                }
+        switch(props.sushiToBeChanged){
+            case ShusiToBeChanged.SUSHI1:{
+                return storageSushis[0]?.HasSeeded ? true: false
             }
-            return initialState
+            case ShusiToBeChanged.SUSHI2:{
+                return storageSushis[1]?.HasSeeded ? true: false
+            }
+            case ShusiToBeChanged.SUSHI3:{
+                return storageSushis[2]?.HasSeeded ? true: false
+            }
+        }
     }
+
+    const defineCoralText = ()=>{
+        if(defineCoral() == true){
+            return "Seeded"
+        }
+        else{
+            return "Not Seeded"
+        }
+    }
+
+    const defineCoralColor = ()=>{
+        if(defineCoral() == true){
+            return "#22e025"
+        }
+        else{
+            return "#db1616"
+        }
+    }
+
     const [hasPiled, updateHasPiled] = useState(defineCoral())
+    const[text, updateText] = useState(defineCoralText())
+    const [color, changeColor] = useState(defineCoralColor())
+
     console.log(hasPiled)
     const changeSushiValueWhenUnseeded = ()=>{
         storage = props.storage.get()
@@ -62,7 +81,7 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
 
     const handleChange = ()=>{
         updateHasPiled(!hasPiled)
-        if(hasPiled){
+        if(!hasPiled){
             updateText("Seeded")
             changeColor("#22e025")
             changeSushiValueWhenSeeded()
