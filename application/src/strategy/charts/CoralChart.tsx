@@ -11,7 +11,7 @@ interface CoralChartProps {
 const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
   const [coralElements, setCorals] = useState<React.JSX.Element[]>([]);
 
-  function createCoralElemnt(coralLevel: Level, levelName: string) {
+  function createCoralElement(coralLevel: Level, levelName: string) {
     const scorePercentage: Percent = Percent.fromRatio(
       coralLevel.score,
       coralLevel.miss + coralLevel.score
@@ -35,11 +35,12 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
   }
 
   useEffect(() => {
-    if (coralElements.length < Object.keys(corals).length) {
-      const coralLevel = corals[Object.keys(corals)[coralElements.length]];
+    const coralLevels = Object.values(corals);
+    if (coralElements.length < coralLevels.length) {
+      const coralLevel = coralLevels[coralElements.length];
       setCorals([
         ...coralElements,
-        createCoralElemnt(
+        createCoralElement(
           coralLevel,
           Object.keys(corals)[coralElements.length]
         ),
