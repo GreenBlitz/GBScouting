@@ -50,10 +50,10 @@ const TeamStatsOnASingleGraph: React.FC = () => {
   ];
   const handleChange = () => {
     setChecked(!isChecked);
-    if (isChecked) {
+    if (!isChecked) {
       updateGraphes(spreadGraphes(graphes));
     }
-    if (!isChecked) {
+    if (isChecked) {
       updateGraphes([]);
     }
   };
