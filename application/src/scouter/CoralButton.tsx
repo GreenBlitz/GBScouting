@@ -42,6 +42,11 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
     const [color, changeColor] = useState(defineCoralColor())
 
     console.log(hasPiled)
+
+    const setStorage = ()=>{
+        props.storage.set({Sushi1:storageSushis[0]||basicSushi, Sushi2:storageSushis[1]||basicSushi, Sushi3:storageSushis[2]||basicSushi})
+    }
+
     const changeSushiValueWhenUnseeded = ()=>{
         storage = props.storage.get()
         storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
@@ -91,7 +96,7 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
             changeColor("#db1616")
             changeSushiValueWhenUnseeded()
         }
-        props.storage.set({Sushi1:storageSushis[0]||basicSushi, Sushi2:storageSushis[1]||basicSushi, Sushi3:storageSushis[2]||basicSushi})
+        setStorage()
     }
     const coralButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
     return<>  

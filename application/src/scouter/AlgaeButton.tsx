@@ -7,16 +7,35 @@ import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
     const defineAlgae = ()=>{
         switch(props.sushiToBeChanged){
             case ShusiToBeChanged.SUSHI1:{
-                initialState = storageSushis[0]?.HasHarvested ? true : false
+                return storageSushis[0]?.HasHarvested ? true : false
             }
             case ShusiToBeChanged.SUSHI2:{
-                initialState = storageSushis[1]?.HasHarvested ? true: false
+                return storageSushis[1]?.HasHarvested ? true: false
             }
             case ShusiToBeChanged.SUSHI3:{
-                initialState = storageSushis[2]?.HasHarvested ? true: false
+                return storageSushis[2]?.HasHarvested ? true: false
             }
         }
     }
+
+    const defineAlgaeText = ()=>{
+        if(defineAlgae() == true){
+            return "Harvested"
+        }
+        else{
+            return "Not Harvested"
+        }
+    }
+
+    const defineCoralColor = ()=>{
+        if(defineAlgae() == true){
+            return "#22e025"
+        }
+        else{
+            return "#db1616"
+        }
+    }
+
     const setStorage = ()=>{
         props.storage.set({Sushi1:storageSushis[0]||basicSushi, Sushi2:storageSushis[1]||basicSushi, Sushi3:storageSushis[2]||basicSushi})
     }
@@ -58,12 +77,12 @@ import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
         }
 
 
-    const [hasHarvested, updateHasHarvested] = useState(initialState)
-    const[text, updateText] = useState("Not Harvested")
-    const [color, changeColor] = useState("#db1616")
+    const [hasHarvested, updateHasHarvested] = useState(defineAlgae)
+    const[text, updateText] = useState(defineAlgaeText)
+    const [color, changeColor] = useState(defineCoralColor)
     const handleChange = ()=>{
         updateHasHarvested(!hasHarvested)
-        if(hasHarvested){
+        if(!hasHarvested){
             updateText("Harvested")
             changeColor("#22e025")
             changeSushiValueWhenHarvested()
