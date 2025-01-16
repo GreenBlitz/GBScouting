@@ -1,7 +1,10 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 
-class RadioInput extends ScouterInput<string, { options: string[] }> {
+class RadioInput<
+  Option extends string,
+  Options extends Option[]
+> extends ScouterInput<Options[number], { options: Options }> {
   create(): React.JSX.Element {
     throw <RadioInput {...this.props} />;
   }
@@ -32,8 +35,7 @@ class RadioInput extends ScouterInput<string, { options: string[] }> {
       </div>
     );
   }
-
-  initialValue(props: InputProps<string> & { options: string[] }): string {
+  initialValue(props: InputProps<string> & { options: Options }): Option {
     return props.options[0];
   }
 }
