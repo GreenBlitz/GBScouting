@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AllSushis, ShusiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";
 const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
-    let storage = props.storage.get()
     let storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
     const basicSushi: Sushi = {HasHarvested:false, HasSeeded:false}
     let initialState: boolean = true
+    const allSushis = props.sushies
+    allSushis.Sushi1.HasHarvested = true
     const defineCoral = ()=>{
         switch(props.sushiToBeChanged){
             case ShusiToBeChanged.SUSHI1:{
@@ -48,7 +49,6 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
     }
 
     const changeSushiValueWhenUnseeded = ()=>{
-        storage = props.storage.get()
         storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
         switch(props.sushiToBeChanged){
             case ShusiToBeChanged.SUSHI1:{
@@ -66,7 +66,6 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
         }
     }
     const changeSushiValueWhenSeeded = ()=>{
-        storage = props.storage.get()
         storageSushis = [props.storage.get()?.Sushi1, props.storage.get()?.Sushi2,props.storage.get()?.Sushi3]
         switch(props.sushiToBeChanged){
             case ShusiToBeChanged.SUSHI1:{
