@@ -5,11 +5,7 @@ import { AutonomousMapInput } from "../input-types/AutonomousMapInput";
 interface AutonomousProps {}
 
 const Autonomous: React.FC<AutonomousProps> = () => {
-  return (
-    <>
-      <AutonomousMapInput route={"autonomous"} />
-    </>
-  );
+  return ScouterInputs.autoMap.create();
 };
 
 export default Autonomous;
