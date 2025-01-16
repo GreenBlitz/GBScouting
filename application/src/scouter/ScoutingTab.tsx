@@ -98,11 +98,10 @@ export default function ScoutingTab() {
     </div>
   );
 
-
   return (
     <div className="min-h-screen bg-dark-bg">
       {renderScouterNavBar()}
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="max-w-4xl mx-auto py-6">
         <div className="bg-dark-card rounded-lg shadow-lg p-6">
           <h1 className="text-2xl font-bold mb-6 text-dark-text">
             {sectionNames[currentSectionNumber]}
