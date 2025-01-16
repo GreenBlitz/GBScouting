@@ -1,6 +1,9 @@
 import React, { CSSProperties } from "react";
 import { Color } from "../../utils/Color";
 import { Unstable_Popup as Popup } from "@mui/base/Unstable_Popup";
+import { AgGauge, AgGaugeProps } from "ag-charts-react";
+import "ag-charts-enterprise";
+import { AgGaugeColorStop } from "ag-charts-enterprise";
 
 type SectionColors<T extends string | number> = Record<T, Color>;
 interface Section<PartialNames> {
@@ -20,8 +23,23 @@ interface LinearHistogramProps<
   sections: Section<PartialNames>[];
 }
 
-const boxThickness = 5;
+const boxThickness = 20;
 const totalBoxWidth = 2 * boxThickness;
+
+const basicGaugeProps: AgGaugeProps = {
+  options: {
+    background: {
+      fill: "#242424",
+    },
+    type: "linear-gauge",
+    direction: "horizontal",
+    value: 100,
+
+    theme: "ag-default-dark",
+    cornerRadius: 5,
+    cornerMode: "container",
+  },
+};
 
 class LinearHistogramChart<
   SectionNames extends string | number,
@@ -30,16 +48,18 @@ class LinearHistogramChart<
   LinearHistogramProps<SectionNames, PartialSectionNames>,
   { hoveredSection?: Section<PartialSectionNames>; anchor?: HTMLElement }
 > {
-  private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
   private readonly chartWidth: number;
+  private readonly gaugeProps: AgGaugeProps;
 
   private readonly sectionWidths: Section<PartialSectionNames>[];
   private readonly sumOfSectionValues: number;
 
   constructor(props: LinearHistogramProps<SectionNames, PartialSectionNames>) {
     super(props);
-    this.canvasRef = React.createRef<HTMLCanvasElement>();
     this.chartWidth = props.width - totalBoxWidth;
+
+    this.gaugeProps = { ...basicGaugeProps };
+    this.gaugeProps.options.width = props.width;
 
     this.state = { hoveredSection: undefined, anchor: undefined };
 
@@ -49,48 +69,38 @@ class LinearHistogramChart<
     );
     this.sectionWidths = props.sections.map(({ value, sectionName }) => {
       return {
-        value: this.amountToCanvasWidth(value),
+        value: this.amountToChartWidth(value),
         sectionName: sectionName,
       };
     });
+
+    this.gaugeProps.options.value = this.sumOfSectionValues;
+    this.gaugeProps.options.scale = { min: 0, max: this.sumOfSectionValues };
+
+    let currentStop = 0;
+    this.gaugeProps.options.bar = {
+      fills: props.sections.map((section) => {
+        currentStop += section.value;
+        currentStop = Math.min(currentStop, this.sumOfSectionValues);
+
+        return {
+          color: this.props.sectionColors[section.sectionName],
+          stop: currentStop,
+        } as AgGaugeColorStop;
+      }),
+      fillMode: "discrete",
+    };
   }
 
-  amountToCanvasWidth(value: number) {
+  amountToChartWidth(value: number) {
     return (value * this.chartWidth) / this.sumOfSectionValues;
   }
-  amountFromCanvasWidth(value: number) {
+  amountFromChartWidth(value: number) {
     return (value * this.sumOfSectionValues) / this.chartWidth;
-  }
-
-  initializeBox(context: CanvasRenderingContext2D) {
-    context.fillStyle = "black";
-    context.fillRect(0, 0, this.props.width, this.props.height);
-    context.clearRect(
-      boxThickness,
-      boxThickness,
-      this.chartWidth,
-      this.props.height - totalBoxWidth
-    );
-  }
-
-  fillSections(context: CanvasRenderingContext2D) {
-    let currentXPosition = boxThickness;
-    this.sectionWidths.forEach(({ value, sectionName }) => {
-      const color: Color = this.props.sectionColors[sectionName];
-      context.fillStyle = color as string;
-      context.fillRect(
-        currentXPosition,
-        boxThickness,
-        value,
-        this.props.height - totalBoxWidth
-      );
-      currentXPosition += value;
-    });
   }
 
   getSection(xValue: number): Section<PartialSectionNames> | undefined {
     let currentXPosition = 0;
-    console.log(this.sectionWidths);
     const section = this.sectionWidths.find(({ value, sectionName }) => {
       currentXPosition += value;
 
@@ -102,26 +112,18 @@ class LinearHistogramChart<
   onMove(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const hoveredX: number =
       event.pageX - event.currentTarget.offsetLeft - boxThickness;
+
+    console.log(hoveredX);
     const hoveredSection = this.getSection(hoveredX);
     if (hoveredSection) {
-      hoveredSection.value = this.amountFromCanvasWidth(hoveredSection.value);
+      hoveredSection.value = this.amountFromChartWidth(hoveredSection.value);
     }
     this.setState({
       anchor: event.currentTarget,
       hoveredSection: hoveredSection,
     });
   }
-  componentDidMount(): void {
-    if (this.canvasRef) {
-      const context = this.canvasRef.current
-        ? this.canvasRef.current.getContext("2d")
-        : null;
-      if (context) {
-        this.initializeBox(context);
-        this.fillSections(context);
-      }
-    }
-  }
+
   render() {
     return (
       <div
@@ -133,11 +135,7 @@ class LinearHistogramChart<
         onMouseMove={(event) => this.onMove(event)}
         onMouseLeave={() => this.setState({ hoveredSection: undefined })}
       >
-        <canvas
-          width={this.props.width}
-          height={this.props.height}
-          ref={this.canvasRef}
-        />
+        <AgGauge {...this.gaugeProps} />
         {this.state.hoveredSection && this.state.anchor && (
           <Popup open={true} anchor={this.state.anchor}>
             {this.state.hoveredSection.sectionName +
