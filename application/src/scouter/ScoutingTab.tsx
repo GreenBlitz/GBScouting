@@ -1,9 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import React, { useMemo, useState } from "react";
-import ScouterPreMatch from "./tabs/ScouterPreMatch.tsx";
-import ScouterAutonomous from "./tabs/ScouterAutonomous.tsx";
-import ScouterTeleoperated from "./tabs/ScouterTeleoperated.tsx";
-import ScouterPostMatch from "./tabs/ScouterPostMatch.tsx";
+import React, { useMemo } from "react";
 import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
@@ -12,6 +8,7 @@ import ScouterInput from "./ScouterInput.tsx";
 import { Match } from "../utils/Match";
 import Matches from "./Matches";
 import SectionHandler from "../utils/SectionHandler.ts";
+import PageTransition from "../components/PageTransition";
 
 const sectionNames: string[] = [
   "prematch",
@@ -20,7 +17,7 @@ const sectionNames: string[] = [
   "postmatch",
 ];
 
-function ScouterTab() {
+export default function ScoutingTab() {
   const navigate = useNavigate();
   const sectionHandler = useMemo(() => {
     return new SectionHandler(navigate, sectionNames);
@@ -42,14 +39,10 @@ function ScouterTab() {
     navigate("/");
   }
 
-  function clearInputStorage() {
+  const handleReset = () => {
     inputFolder.keys().forEach((item) => inputFolder.removeItem(item));
-  }
-
-  function handleReset() {
-    clearInputStorage();
     navigate("/");
-  }
+  };
 
   const navigateToNext = () => {
     if (ScouterInputs.noShow.storage.get()) {
@@ -59,28 +52,58 @@ function ScouterTab() {
     }
   };
 
+  const sectionElement = (
+    <div className="space-y-6">
+      <PageTransition>
+        <div className="min-h-[400px]">
+          <Outlet />
+        </div>
+      </PageTransition>
+      <div className="flex justify-between items-center mt-8">
+        <div>
+          {!sectionHandler.isFirst() && (
+            <button
+              type="button"
+              onClick={() => sectionHandler.navigatePrevious()}
+              className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+            >
+              Previous
+            </button>
+          )}
+        </div>
+        <div className="flex gap-4">
+          <CancelConfirmation name="Reset" onClick={handleReset} />
+          {!sectionHandler.isLast() ? (
+            <button
+              onClick={handleSubmit}
+              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+            >
+              Submit
+            </button>
+          ) : (
+            <button
+              onClick={navigateToNext}
+              className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+            >
+              Next
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="scouting-tab">
+    <div className="min-h-screen bg-dark-bg">
       {renderScouterNavBar()}
-      <h1>{sectionHandler.currentRoute()}</h1>
-      <Outlet />
-      {!sectionHandler.isFirst() && (
-        <button type="button" onClick={() => sectionHandler.navigatePrevious()}>
-          Back
-        </button>
-      )}
-      {sectionHandler.isLast() ? (
-        <button type="button" onClick={handleSubmit}>
-          Submit
-        </button>
-      ) : (
-        <button type="button" onClick={navigateToNext}>
-          Next
-        </button>
-      )}
-      <br /> <CancelConfirmation name="Reset" onClick={handleReset} />
+      <div className="max-w-4xl mx-auto p-6">
+        <div className="bg-dark-card rounded-lg shadow-lg p-6">
+          <h1 className="text-2xl font-bold mb-6 text-dark-text">
+            {sectionHandler.currentRoute()}
+          </h1>
+          {sectionElement}
+        </div>
+      </div>
     </div>
   );
 }
-
-export default ScouterTab;
