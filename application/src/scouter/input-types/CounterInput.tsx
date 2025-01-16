@@ -20,35 +20,39 @@ class CounterInput extends ScouterInput<
   }
 
   renderInput(): React.ReactNode {
-    const setCount = (newCount: number) => {
-      this.storage.set(newCount);
-      this.setState({ count: newCount });
+    const setCount = (value: number) => {
+      this.setState({ count: value });
+      this.storage.set(value);
     };
 
     return (
-      <>
-        <button
-          type="button"
-          onClick={() => setCount(Math.max(this.state.count - 1, 0))}
-          style={{ backgroundColor: this.props.color?.toString() }}
-        >
-          -
-        </button>
-        <h3>{this.state.count}</h3>
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between gap-4 p-2 bg-gray-100 dark:bg-dark-card rounded-lg">
+          <button
+            type="button"
+            onClick={() => setCount(Math.max(this.state.count - 1, 0))}
+            className="w-10 h-10 flex items-center justify-center text-xl font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-200"
+          >
+            -
+          </button>
+          <span className="text-2xl font-bold text-gray-900 dark:text-white">
+            {this.state.count}
+          </span>
+          <button
+            type="button"
+            onClick={() => setCount(this.state.count + 1)}
+            className="w-10 h-10 flex items-center justify-center text-xl font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-200"
+          >
+            +
+          </button>
+        </div>
         <input
           type="hidden"
           id={this.storage.name}
           name={this.storage.name}
           value={this.state.count}
         />
-        <button
-          type="button"
-          onClick={() => setCount(this.state.count + 1)}
-          style={{ backgroundColor: this.props.color?.toString() }}
-        >
-          +
-        </button>
-      </>
+      </div>
     );
   }
 }

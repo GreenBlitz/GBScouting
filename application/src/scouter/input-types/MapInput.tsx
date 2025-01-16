@@ -228,9 +228,7 @@ class MapInput extends ScouterInput<FieldObject[], MapInputProps, MapStates> {
       <div className={"map-amp"}>
         <h2>AMP</h2>
         <br />
-        {ScouterInputs.ampScore.create()}
         <br />
-        {ScouterInputs.ampMiss.create()}
       </div>
     );
 

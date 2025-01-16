@@ -5,15 +5,16 @@ interface PreGameProps {}
 
 const PreMatch: React.FC<PreGameProps> = () => {
   return (
-    <>
+    <div className="max-w-2xl mx-auto p-6">
       {ScouterInputs.create([
         ScouterInputs.scouterName,
         ScouterInputs.qual,
         ScouterInputs.teamNumber,
         ScouterInputs.gameSide,
         ScouterInputs.startingPosition,
+        ScouterInputs.noShow,
       ])}
-    </>
+    </div>
   );
 };
 

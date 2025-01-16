@@ -66,3 +66,43 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-dark-bg dark:text-dark-text;
+  }
+  input, select {
+    @apply rounded-lg bg-dark-card border border-dark-border px-4 py-2;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-dark-card dark:text-dark-text dark:hover:bg-gray-700;
+  }
+  
+  .nav-link {
+    @apply text-gray-700 hover:text-primary-600 transition-colors duration-200 dark:text-dark-text dark:hover:text-primary-400;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 dark:bg-dark-card dark:border dark:border-dark-border;
+  }
+  
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 
+    dark:bg-dark-card dark:border-dark-border dark:text-dark-text dark:focus:ring-primary-400;
+  }
+}
