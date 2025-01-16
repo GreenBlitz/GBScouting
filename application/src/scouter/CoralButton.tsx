@@ -62,7 +62,7 @@ const CoralButton:React.FC<ValuesToBePassed> = (props)=>{
 
     const handleChange = ()=>{
         updateHasPiled(!hasPiled)
-        if(hasPiled){
+        if(!hasPiled){
             updateText("Seeded")
             changeColor("#22e025")
             changeSushiValueWhenSeeded()
