@@ -29,11 +29,7 @@ export interface ValuesToBePassed{
 
 export class AutonomousMapInput extends ScouterInput<AllSushis>{
     renderInput(): React.ReactNode {
-        const allSushis: AllSushis = {Sushi1:{HasSeeded: false, HasHarvested: false},
-        Sushi2:{HasSeeded:false, HasHarvested: false}, Sushi3:{HasSeeded:false, HasHarvested:false}}
-        const storage: StorageBackedInput<AllSushis> = this.storage
-        const allSushisAndStorage = {allSushis, storage}
-        return <AutonomousForm {...allSushisAndStorage} />
+        return <AutonomousForm allSushis={this.getValue()} storage={this.storage}  />
     }
     create(): React.JSX.Element {
         return <AutonomousMapInput {...this.props} />

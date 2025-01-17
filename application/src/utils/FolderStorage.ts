@@ -1,4 +1,3 @@
-import { Sushi } from "../scouter/input-types/AutonomousMapInput";
 
 export default class FolderStorage {
   private prefix: string;
