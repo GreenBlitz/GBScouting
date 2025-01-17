@@ -53,11 +53,6 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
             changeSushiValue(false)
         }
     }
-    console.log(props.sushiToBeChanged)
-    console.log(allSushis)
-    if(allSushis){
-        console.log(allSushis[props.sushiToBeChanged])
-    }
     const algaeButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
     return<>  
     {algaeButton}
