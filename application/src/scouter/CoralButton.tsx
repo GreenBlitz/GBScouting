@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-types/AutonomousMapInput";const AlgaeButton:React.FC<ValuesToBePassed> = (props)=>{
-    const allSushis = props.sushies 
+    let allSushis = props.storage.get()
     const defineCoral = ()=>{
-        return allSushis[props.sushiToBeChanged].HasSeeded
+        return allSushis?.[props.sushiToBeChanged].HasSeeded;
     }
 
     const defineCoralText = ()=>{
@@ -24,28 +24,39 @@ import { AllSushis, SushiToBeChanged, Sushi, ValuesToBePassed } from "./input-ty
     }
 
     const setStorage = ()=>{
-        props.storage.set(allSushis)
+        if(allSushis){
+            props.storage.set(allSushis)
+        }
     }
     const changeSushiValue = (valueToChange: boolean)=>{
-        allSushis[props.sushiToBeChanged].HasSeeded = valueToChange
-        setStorage()
+        if(allSushis){
+            allSushis[props.sushiToBeChanged].HasSeeded = valueToChange
+            setStorage()
+        }
+
     }
 
-    const [hasHarvested, updateHasHarvested] = useState(defineCoral)
+    const [hasSeeded, updateHasSeeded] = useState(defineCoral)
     const[text, updateText] = useState(defineCoralText)
     const [color, changeColor] = useState(defineCoralColor)
     const handleChange = ()=>{
-        updateHasHarvested(!hasHarvested)
-        if(!hasHarvested){
-            updateText("Harvested")
+        allSushis = props.storage.get()
+        updateHasSeeded(!hasSeeded)
+        if(!hasSeeded){
+            updateText("Seeded")
             changeColor("#22e025")
             changeSushiValue(true)
         }
         else{
-            updateText("Not Harvested")
+            updateText("Not Seeded")
             changeColor("#db1616")
             changeSushiValue(false)
         }
+    }
+    console.log(props.sushiToBeChanged)
+    console.log(allSushis)
+    if(allSushis){
+        console.log(allSushis[props.sushiToBeChanged])
     }
     const algaeButton = <button style={{backgroundColor: color}} onClick={handleChange}>{text}</button>
     return<>  
