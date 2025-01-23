@@ -20,10 +20,12 @@ const TeamStatsOnASingleGraphAmp: React.FC = () => {
   const handleSelect1 = async (event) => {
     updateTeamName1(event.target.value);
     updateMatches1(await getMatchesByCriteria("Team Number", teamName1));
+    console.log(teamName1)
   };
   const handleSelect2 = async (event) => {
     updateTeamName2(event.target.value);
     updateMatches2(await getMatchesByCriteria("Team Number", teamName2));
+    console.log(teamName2)
   };
   const graph = (independentVariable: independentVariable) => (
     <LineChart
@@ -36,27 +38,24 @@ const TeamStatsOnASingleGraphAmp: React.FC = () => {
         ],
         Amp2: [
           "red",
-          new TeamData(matches1).getAsLine(independentVariable),
+          new TeamData(matches2).getAsLine(independentVariable),
         ],
       }}
     ></LineChart>
   );
+
+  // const [presentedGraph, updatePresentedGraphe] = useState(independentVariable.ampMissed)
   
-  const [graphes, updateGraphes] = useState<React.ReactNode[]>([]);
-  const [isChecked, setChecked] = useState(false);
-  const spreadGraphes = (graphArray) => [
-    ...graphArray,
-    graph(independentVariable.ampMissed),
-  ];
-  const handleChange = () => {
-    setChecked(!isChecked);
-    if (!isChecked) {
-      updateGraphes(spreadGraphes(graphes));
-    }
-    if (isChecked) {
-      updateGraphes([]);
-    }
-  };
+  // const [isChecked, setChecked] = useState(false);
+  // const handleChange = () => {
+  //   setChecked(!isChecked);
+  //   if (!isChecked) {
+  //     updatePresentedGraphe()
+  //   }
+  //   if (isChecked) {
+
+  //   }
+  // };
   
   return (
     <>
@@ -70,12 +69,12 @@ const TeamStatsOnASingleGraphAmp: React.FC = () => {
           <option value={teamName}>{teamName}</option>
         ))}
       </select>
-      <Checkbox
+      {/* <Checkbox
         value="AmpMiss"
         checked={isChecked}
         onChange={handleChange}
-      />
-      {graphes}
+      /> */}
+      {graph(independentVariable.ampMissed)}
     </>
   );
 };
