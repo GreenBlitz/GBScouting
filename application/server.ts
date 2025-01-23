@@ -10,7 +10,7 @@ const app = express();
 const hostname = "0.0.0.0";
 const port = 4590;
 
-const dirName = "/app";
+const dirName = "\\Users\\User\\Documents\\Robotica\\Full Stack\\Training\\GBScouting";
 
 // SSL options for HTTPS
 let sslOptions;
@@ -27,7 +27,7 @@ try {
 app.use(express.json());
 app.use(cors());
 
-const mongoURI = "mongodb://mongo:27017";
+const mongoURI = "mongodb://0.0.0.0:27017/";
 
 let db: Db;
 
