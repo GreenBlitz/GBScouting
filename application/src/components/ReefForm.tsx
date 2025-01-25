@@ -3,12 +3,12 @@ import ScouterInput from "../scouter/ScouterInput";
 import { InputProps } from "../scouter/ScouterInput";
 import "./reefScore.css";
 
-interface Level {
+export interface Level {
   score: number;
   miss: number;
 }
 
-interface Levels {
+export interface Levels {
   L1: Level;
   L2: Level;
   L3: Level;

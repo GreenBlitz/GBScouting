@@ -6,7 +6,6 @@ import React from "react";
 import { renderStrategyNavBar } from "../../App";
 import { fetchMatchesByCriteria } from "../../utils/Fetches";
 import { Link, Outlet } from "react-router-dom";
-import LinearHistogramChart from "../charts/LinearHistogramChart";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -18,7 +17,6 @@ const TeamTab: React.FC = () => {
   }
 
   const teamData = new TeamData(recentMatches);
-
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
