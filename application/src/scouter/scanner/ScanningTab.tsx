@@ -104,16 +104,7 @@ const ScanningTab = () => {
       {!qrOn && (
         <button
           onClick={requestCameraAccess}
-          style={{
-            backgroundColor: "blue",
-            color: "white",
-            padding: "10px 20px",
-            borderRadius: "5px",
-            fontSize: "16px",
-            border: "none",
-            cursor: "pointer",
-            marginTop: "30px", // This moves the button 30px down
-          }}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md text-lg mt-8 cursor-pointer"
         >
           Start Camera
         </button>

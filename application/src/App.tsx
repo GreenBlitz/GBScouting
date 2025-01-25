@@ -30,7 +30,7 @@ function getHiddenImage(path: string) {
 
 export function renderScouterNavBar() {
   return (
-    <nav className="bg-dark-card shadow-lg">
+    <nav className="bg-dark-card shadow-lg w-96">
       {getHiddenImage("./src/assets/crescendo-map.png")}
       {getHiddenImage("./src/assets/blue-auto-map.png")}
       {getHiddenImage("./src/assets/red-auto-map.png")}
@@ -107,7 +107,7 @@ const App: React.FC = () => {
   }, []);
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-dark-bg">
+      <div className="min-h-screen min-w-screen bg-dark-bg ">
         <PageTransition>
           <Routes>
             <Route path="/scanner" element={<ScanningTab />} />
