@@ -1,3 +1,4 @@
+import { AutonomousMapInput } from "./input-types/auto-map/AutonomousMapInput";
 import ReefForm from "../components/ReefForm";
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
@@ -61,6 +62,8 @@ export default class ScouterInputs {
     route: "comment",
     name: "Comment",
   });
+
+  static readonly autoMap = new AutonomousMapInput({ route: "autonomous" });
   static readonly reefForm = new ReefForm({
     route: "reefForm",
   });
