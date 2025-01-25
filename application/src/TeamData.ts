@@ -28,15 +28,14 @@ export class TeamData {
   }
 
   getComments(): Comment[] {
-    return this.matches.map((match) => {
-      return { body: match.comment, qual: match.qual };
-    });
+    return this.matches
+      .map((match) => {
+        return { body: match.comment, qual: match.qual };
+      })
+      .filter((comment) => comment.body !== "");
   }
 
-  getAccuracy(
-    percentField: keyof Match,
-    compareField: keyof Match
-  ): Percent {
+  getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
     const averages = [
       this.getAverage(percentField),
       this.getAverage(compareField),
@@ -65,7 +64,7 @@ export class TeamData {
     colorMap: Record<string, Color>
   ): Record<string, SectionData> {
     const dataSet: Record<string, SectionData> = {};
-    Object.entries(this.matches).forEach(([_, match]) => {
+    Object.values(this.matches).forEach((match) => {
       if (typeof match[field] !== "string") {
         throw new Error("Invalid field: " + field);
       }
@@ -76,5 +75,29 @@ export class TeamData {
       dataSet[dataValue].percentage++;
     });
     return dataSet;
+  }
+
+  getAsLinearHistogram<Options extends string>(field: keyof Match) {
+    const values: { value: number; sectionName: Options }[] = [];
+    let valuesIndex = 0;
+
+    Object.values(this.matches).forEach((match) => {
+      if (typeof match[field] !== "string") {
+        throw new Error("Invalid field: " + field);
+      }
+
+      const section = match[field] as Options;
+      if (values.length === 0) {
+        values[0] = { value: 1, sectionName: section };
+        return;
+      } else if (values[valuesIndex].sectionName === section) {
+        values[valuesIndex].value++;
+      } else {
+        valuesIndex++;
+        values[valuesIndex] = { value: 1, sectionName: section };
+      }
+    });
+
+    return values;
   }
 }
