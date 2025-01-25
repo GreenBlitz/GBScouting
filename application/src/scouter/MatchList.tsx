@@ -32,23 +32,36 @@ const MatchList: React.FC = () => {
   return (
     <div className="match-list">
       {renderScouterNavBar()}
-      {matches.length === 0 && <h1>No Matches Saved</h1>}
+      {matches.length === 0 && (
+        <h1 className="no-matches-saved text-center text-2xl">
+          No Matches Saved
+        </h1>
+      )}
       {matches.map((match, index) => (
-        <Collapsible
-          trigger={`Match Number ${match.qual}`}
-          triggerClassName="collapsible-trigger"
-          openedClassName="collapsible-trigger"
-          key={index}
-        >
-          <QRCodeGenerator text={JSON.stringify(match)} />
-          <br />
-          <button type="button" onClick={() => removeMatch(match)}>
-            Delete
-          </button>
-          <button type="button" onClick={() => sendMatch(match)}>
-            Send
-          </button>
-        </Collapsible>
+        <div className="border border-gray-300 rounded p-4 mb-4">
+          <Collapsible
+            trigger={`Match Number ${match.qual}`}
+            triggerClassName=""
+            key={index}
+          >
+            <QRCodeGenerator data={match} />
+            <br />
+            <button
+              className="border border-gray-500 rounded px-2 py-1 mr-2"
+              type="button"
+              onClick={() => removeMatch(match)}
+            >
+              Delete
+            </button>
+            <button
+              className="border border-gray-500 rounded px-2 py-1"
+              type="button"
+              onClick={() => sendMatch(match)}
+            >
+              Send
+            </button>
+          </Collapsible>
+        </div>
       ))}
     </div>
   );

@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface CancelConfirmationProps {
   name: string;
@@ -7,34 +6,59 @@ interface CancelConfirmationProps {
 }
 
 const CancelConfirmation: React.FC<CancelConfirmationProps> = ({
-  onClick,
   name,
+  onClick,
 }) => {
-  const [showCheck, setShowCheck] = useState<boolean>(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const handleConfirm = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    onClick(event);
+    setShowConfirmation(false);
+  };
+
+  const confirmation = (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="card animate-fade-in">
+        <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-dark-text">
+          Are you sure?
+        </h2>
+        <p className="mb-6 text-gray-700 dark:text-dark-text-secondary">
+          This action cannot be undone.
+        </p>
+        <div className="flex justify-end gap-4">
+          <button
+            type="button"
+            onClick={() => setShowConfirmation(false)}
+            className="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={handleConfirm}
+            className="btn btn-primary"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <>
-      {showCheck ? (
-        <>
-          <h2>Are You Sure?</h2>
-          <button type="button" onClick={onClick}>
-            Yes
-          </button>
-          <button type="button" onClick={() => setShowCheck(false)}>
-            No
-          </button>
-        </>
-      ) : (
-        <>
-          <br />
-          <br />
-          <br />
-          <button type="button" onClick={() => setShowCheck(true)}>
-            {name}
-          </button>
-        </>
-      )}
-    </>
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setShowConfirmation(true)}
+        className="btn btn-secondary"
+      >
+        {name}
+      </button>
+
+      {showConfirmation && confirmation}
+    </div>
   );
 };
 
