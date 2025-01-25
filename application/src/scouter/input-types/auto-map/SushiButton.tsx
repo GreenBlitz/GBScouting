@@ -10,12 +10,10 @@ const SushiButton: React.FC<ValuesToBePassed> = (props) => {
         style={{ display: "flex", flexDirection: "row", gap: "10%" }}
       >
         <CoralButton
-          sushies={props.sushies}
           sushiToBeChanged={props.sushiToBeChanged}
           storage={props.storage}
         />
         <AlgaeButton
-          sushies={props.sushies}
           sushiToBeChanged={props.sushiToBeChanged}
           storage={props.storage}
         />

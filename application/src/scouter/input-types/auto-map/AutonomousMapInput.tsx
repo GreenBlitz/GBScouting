@@ -2,6 +2,7 @@ import React from "react";
 import ScouterInput, { InputProps } from "../../ScouterInput";
 import AutonomousForm from "./AutonomousForm";
 import { StorageBackedInput } from "../../../utils/FolderStorage";
+import SushiButton from "./SushiButton";
 
 export interface Sushi {
   HasSeeded: boolean;
@@ -23,20 +24,41 @@ export type SushiToBeChanged = keyof AllSushis;
 
 export interface ValuesToBePassed {
   storage: StorageBackedInput<AllSushis>;
-  sushies: AllSushis;
   sushiToBeChanged: SushiToBeChanged;
 }
 
 export class AutonomousMapInput extends ScouterInput<AllSushis> {
-  renderInput(): React.ReactNode {
-    return (
-      <AutonomousForm allSushis={this.getValue()} storage={this.storage} />
-    );
-  }
+
   create(): React.JSX.Element {
     return <AutonomousMapInput {...this.props} />;
   }
-    initialValue(props: InputProps<AllSushis>): AllSushis {
+
+  renderInput(): React.ReactNode {
+    const sushiButtons = Object.keys(this.getValue()).map((sushi) => {
+      return (
+        <SushiButton
+          sushiToBeChanged={sushi as SushiToBeChanged}
+          storage={this.storage}
+        />
+      );
+    });
+    const buttons = <div className="sushi-buttons">{sushiButtons}</div>;
+
+    const blueAllienceAutonomousMap = (
+      <div className="field-container">
+        <img
+          src="/src/assets/blue-auto-map.png"
+          alt="Field"
+          style={{ width: "70%" }}
+        ></img>
+        {buttons}
+      </div>
+    );
+
+    return <>{blueAllienceAutonomousMap}</>;
+  }
+  
+  initialValue(props: InputProps<AllSushis>): AllSushis {
     return {
       Sushi1: { HasSeeded: false, HasHarvested: false },
       Sushi2: { HasSeeded: false, HasHarvested: false },

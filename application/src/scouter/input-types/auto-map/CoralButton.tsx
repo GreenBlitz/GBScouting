@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  AllSushis,
-  SushiToBeChanged,
-  Sushi,
   ValuesToBePassed,
 } from "./AutonomousMapInput";
 const AlgaeButton: React.FC<ValuesToBePassed> = (props) => {
