@@ -1,4 +1,4 @@
-import { AutonomousMapInput } from "./input-types/AutonomousMapInput";
+import { AutonomousMapInput } from "./input-types/auto-map/AutonomousMapInput";
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
 import MapInput from "./input-types/MapInput";
@@ -85,5 +85,5 @@ export default class ScouterInputs {
     name: "Comment",
   });
 
-  static readonly autoMap = new AutonomousMapInput({route:"autonomous"})
+  static readonly autoMap = new AutonomousMapInput({ route: "autonomous" });
 }
