@@ -19,12 +19,12 @@ const TeamStatsOnASingleGraphAmp: React.FC = () => {
   const teamNames = FRCTeamList
   const handleSelect1 = async (event) => {
     updateTeamName1(event.target.value);
-    updateMatches1(await getMatchesByCriteria("Team Number", teamName1));
+    updateMatches1(await getMatchesByCriteria("Team Number", String(teamName1)));
     console.log(teamName1)
   };
   const handleSelect2 = async (event) => {
     updateTeamName2(event.target.value);
-    updateMatches2(await getMatchesByCriteria("Team Number", teamName2));
+    updateMatches2(await getMatchesByCriteria("Team Number", String(teamName2)));
     console.log(teamName2)
   };
   const graph = (independentVariable: independentVariable) => (
@@ -39,7 +39,7 @@ const TeamStatsOnASingleGraphAmp: React.FC = () => {
         Amp2: [
           "red",
           new TeamData(matches2).getAsLine(independentVariable),
-        ],
+        ]
       }}
     ></LineChart>
   );
