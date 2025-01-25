@@ -2,6 +2,7 @@ import { Color } from "./utils/Color";
 import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
+import { Levels } from "./components/ReefForm";
 
 interface Comment {
   body: string;
@@ -75,6 +76,38 @@ export class TeamData {
       dataSet[dataValue].percentage++;
     });
     return dataSet;
+  }
+
+  getAverageCorals(): Levels {
+    return this.matches.reduce(
+      (accumulator, match) => {
+        const matchLevel = match.reefForm;
+        return {
+          L1: {
+            score: accumulator.L1.score + matchLevel.L1.score,
+            miss: accumulator.L1.miss + matchLevel.L1.miss,
+          },
+          L2: {
+            score: accumulator.L2.score + matchLevel.L2.score,
+            miss: accumulator.L2.miss + matchLevel.L2.miss,
+          },
+          L3: {
+            score: accumulator.L3.score + matchLevel.L3.score,
+            miss: accumulator.L3.miss + matchLevel.L3.miss,
+          },
+          L4: {
+            score: accumulator.L4.score + matchLevel.L4.score,
+            miss: accumulator.L4.miss + matchLevel.L4.miss,
+          },
+        };
+      },
+      {
+        L1: { score: 0, miss: 0 },
+        L2: { score: 0, miss: 0 },
+        L3: { score: 0, miss: 0 },
+        L4: { score: 0, miss: 0 },
+      } as Levels
+    );
   }
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {
