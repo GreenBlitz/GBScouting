@@ -36,7 +36,7 @@ export class AutonomousMapInput extends ScouterInput<AllSushis> {
   create(): React.JSX.Element {
     return <AutonomousMapInput {...this.props} />;
   }
-  protected initialValue(props: InputProps<AllSushis>): AllSushis {
+    initialValue(props: InputProps<AllSushis>): AllSushis {
     return {
       Sushi1: { HasSeeded: false, HasHarvested: false },
       Sushi2: { HasSeeded: false, HasHarvested: false },
