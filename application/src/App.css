@@ -140,3 +140,12 @@
   display: flex;
   flex-direction: column;
 }
+
+.comparing-select{
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  font-family: 'Open Sans', 'Helvetica Neue', 'Segoe UI', 'Calibri', 'Arial', sans-serif;
+  font-size: 18px;
+  color: #60666d;
+}

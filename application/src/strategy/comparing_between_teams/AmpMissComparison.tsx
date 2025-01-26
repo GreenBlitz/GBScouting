@@ -59,12 +59,12 @@ const AmpMissComparison: React.FC = () => {
 
     return (
         <>
-        <select id="teams1" onChange={handleSelect1}>
+        <select className="comparing-select" id="teams1" onChange={handleSelect1}>
                 {FRCTeamList.map((teamName) => (
                   <option value={teamName}>{teamName}</option>
                 ))}
               </select>
-              <select id="teams2" onChange={handleSelect2}>
+              <select className="comparing-select" id="teams2" onChange={handleSelect2}>
                 {FRCTeamList.map((teamName) => (
                   <option value={teamName}>{teamName}</option>
                 ))}
