@@ -13,8 +13,8 @@ const AmpMissComparison: React.FC = () => {
     const [graphElement, setGraphElement] = useState<React.ReactNode>(null);
 
 
-    const [teamName1, updateTeamName1] = useState("1577");    
-    const [teamName2, updateTeamName2] = useState("1577");
+    const [teamName1, updateTeamName1] = useState("1574");    
+    const [teamName2, updateTeamName2] = useState("1574");
 
     const teamNames = FRCTeamList
     const handleSelect1 = async (event) => {
@@ -42,12 +42,12 @@ const AmpMissComparison: React.FC = () => {
                     height={150}
                     width={400}
                     dataSets={{
-                        Speaker1: ["blue", chartData1],
+                        AmpMissed1: ["blue", chartData1],
                     }} /><LineChart
                         height={150}
                         width={400}
                         dataSets={{
-                            Speaker2: ["red", chartData2],
+                            AmpMissed2: ["red", chartData2],
                         }} />
                 </div>
             </>
