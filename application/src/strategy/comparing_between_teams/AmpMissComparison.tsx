@@ -15,12 +15,13 @@ const AmpMissComparison: React.FC = () => {
 
     const [teamName1, updateTeamName1] = useState("1577");    
     const [teamName2, updateTeamName2] = useState("1577");
+
     const teamNames = FRCTeamList
     const handleSelect1 = async (event) => {
-    updateTeamName1(event.target.value.slice(0, event.target.value.indexOf(`\t`)));
+        updateTeamName1(event.target.value.slice(0, event.target.value.indexOf(`\t`)));
     };
     const handleSelect2 = async (event) => {
-    updateTeamName2(event.target.value.slice(0, event.target.value.indexOf(`\t`)));
+        updateTeamName2(event.target.value.slice(0, event.target.value.indexOf(`\t`)));
     };
 
     useEffect(() => {
@@ -36,7 +37,7 @@ const AmpMissComparison: React.FC = () => {
 
         setGraphElement(
             <>
-            <div className="teamComparison">
+                <div className="teamComparison">
                 <LineChart
                     height={150}
                     width={400}
