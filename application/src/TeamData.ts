@@ -3,6 +3,9 @@ import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/ReefForm";
+import { AllSushis } from "./scouter/input-types/auto-map/AutonomousMapInput";
+import { isDeepEqual } from "@mui/x-data-grid/internals";
+import { Auto } from "./utils/SeasonUI";
 
 interface Comment {
   body: string;
@@ -132,5 +135,29 @@ export class TeamData {
     });
 
     return values;
+  }
+
+  getAutos(): Auto[] {
+    const autos: Auto[] = this.matches.map((match) => {
+      return {
+        occurances: 1,
+        collected: match.autoMap,
+        feeded: match.autoCollect,
+        scored: match.autoReef,
+      };
+    });
+
+
+    autos.forEach((auto, index) => {
+      const similarAuto = autos.find((other, otherIndex) => {
+        return otherIndex !== index && isDeepEqual(auto, other);
+      });
+      if (similarAuto) {
+        autos.splice(index, 1);
+        similarAuto.occurances++;
+      }
+    });
+
+    return autos;
   }
 }
