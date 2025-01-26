@@ -12,3 +12,5 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
     </div>
   );
 };
+
+export default AutoChart

@@ -1,11 +1,10 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { TeamData } from "../../../TeamData";
 import CoralChart from "../../charts/CoralChart";
 
 const StrategyTeleoperated: React.FC = () => {
-  const location = useLocation();
-  const teamData: TeamData | undefined = location.state;
+  const { teamData } = useOutletContext<{ teamData: TeamData }>();
   return (
     <CoralChart
       corals={{

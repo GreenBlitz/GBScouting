@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { TeamData } from "../../../TeamData";
 import LinearHistogramChart from "../../charts/LinearHistogramChart";
 import PieChart from "../../charts/PieChart";
@@ -13,13 +13,8 @@ const climbColorMap = {
 type ClimbKeys = keyof typeof climbColorMap;
 
 const StrategyEndgame: React.FC = () => {
-  const location = useLocation();
-  const teamData: TeamData | undefined = location.state.getAsLinearHistogram
-    ? location.state
-    : undefined;
-  if (!teamData) {
-    return <></>;
-  }
+  const { teamData } = useOutletContext<{ teamData: TeamData }>();
+
   return (
     <>
       <div className="section">

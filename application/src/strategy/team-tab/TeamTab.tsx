@@ -7,6 +7,73 @@ import { renderStrategyNavBar } from "../../App";
 import { fetchMatchesByCriteria } from "../../utils/Fetches";
 import { Link, Outlet } from "react-router-dom";
 
+const exampleData: TeamData = new TeamData([
+  {
+    scouterName: "",
+    qual: 0,
+    teamNumber: 0,
+    gameSide: "",
+    startingPosition: "",
+    noShow: false,
+    defense: undefined,
+    climb: "",
+    comment: "",
+    autoMap: {
+      Sushi1: {
+        HasSeeded: false,
+        HasHarvested: false,
+      },
+      Sushi2: {
+        HasSeeded: false,
+        HasHarvested: false,
+      },
+      Sushi3: {
+        HasSeeded: false,
+        HasHarvested: false,
+      },
+    },
+    autoCollect: 0,
+    autoReef: {
+      L1: { score: 0, miss: 0 },
+      L2: { score: 0, miss: 0 },
+      L3: { score: 0, miss: 0 },
+      L4: { score: 0, miss: 1 },
+    },
+  },
+  {
+    scouterName: "",
+    qual: 1,
+    teamNumber: 0,
+    gameSide: "",
+    startingPosition: "",
+    noShow: false,
+    defense: undefined,
+    climb: "",
+    comment: "",
+    autoMap: {
+      Sushi1: {
+        HasSeeded: false,
+        HasHarvested: false,
+      },
+      Sushi2: {
+        HasSeeded: false,
+        HasHarvested: false,
+      },
+      Sushi3: {
+        HasSeeded: false,
+        HasHarvested: false,
+      },
+    },
+    autoCollect: 0,
+    autoReef: {
+      L1: { score: 0, miss: 0 },
+      L2: { score: 0, miss: 0 },
+      L3: { score: 0, miss: 0 },
+      L4: { score: 0, miss: 1 },
+    },
+  },
+]);
+
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(0);
@@ -16,7 +83,8 @@ const TeamTab: React.FC = () => {
     recentMatches.splice(0, recentMatches.length - recency);
   }
 
-  const teamData = new TeamData(recentMatches);
+  // const teamData = new TeamData(recentMatches);
+  const teamData = exampleData;
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
@@ -74,7 +142,7 @@ const TeamTab: React.FC = () => {
           </li>
         </ul>
       </nav>
-      <Outlet />
+      <Outlet context={{ teamData }} />
     </div>
   );
 };
