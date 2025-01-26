@@ -27,7 +27,7 @@ const Teleoperated: React.FC<TeleoperatedProps> = () => {
   return(
   <>
   {ScouterInputs.teleopForm.create()}
-
+  <br />
   </> 
   );
 };
