@@ -7,8 +7,7 @@ import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
 import GeneralTab from "./strategy/GeneralTab";
 import TeamTab from "./strategy/TeamTab";
-import TeamComparissionOnASingleGraphGeneral from "./strategy/comparission_final/TeamComparissionOnASingleGraphGeneral";
-
+import ComparisonPage from "./strategy/comparing_between_teams/ComparisonPage";
 function getHiddenImage(path: string) {
   return (
     <div
@@ -68,7 +67,7 @@ const App: React.FC = () => {
         <Route path="/ScouterTab" Component={ScouterTab} />
         <Route path="/TeamTab" Component={TeamTab} />
         <Route path="/GeneralTab" Component={GeneralTab} />
-        <Route path="/TeamStats" Component={TeamComparissionOnASingleGraphGeneral} />
+        <Route path="/TeamStats" Component={ComparisonPage} />
 
 
       </Routes>
