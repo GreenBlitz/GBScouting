@@ -1,6 +1,5 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../../ScouterInput";
-import AutonomousForm from "./AutonomousForm";
 import { StorageBackedInput } from "../../../utils/FolderStorage";
 import SushiButton from "./SushiButton";
 
@@ -28,7 +27,6 @@ export interface ValuesToBePassed {
 }
 
 export class AutonomousMapInput extends ScouterInput<AllSushis> {
-
   create(): React.JSX.Element {
     return <AutonomousMapInput {...this.props} />;
   }
@@ -45,11 +43,11 @@ export class AutonomousMapInput extends ScouterInput<AllSushis> {
     const buttons = <div className="sushi-buttons">{sushiButtons}</div>;
 
     const blueAllienceAutonomousMap = (
-      <div className="field-container">
+      <div className="relative">
         <img
+          className="relative w-96"
           src="/src/assets/blue-auto-map.png"
           alt="Field"
-          style={{ width: "70%" }}
         ></img>
         {buttons}
       </div>
@@ -57,7 +55,7 @@ export class AutonomousMapInput extends ScouterInput<AllSushis> {
 
     return <>{blueAllienceAutonomousMap}</>;
   }
-  
+
   initialValue(props: InputProps<AllSushis>): AllSushis {
     return {
       Sushi1: { HasSeeded: false, HasHarvested: false },

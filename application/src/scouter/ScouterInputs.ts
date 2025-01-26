@@ -63,8 +63,12 @@ export default class ScouterInputs {
     name: "Comment",
   });
 
-  static readonly autoMap = new AutonomousMapInput({ route: "autonomous" });
-  static readonly reefForm = new ReefForm({
-    route: "reefForm",
+  static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
+  static readonly autoCollect = new CounterInput({
+    route: "autoScore",
+    name: "Coral Feeder",
+  });
+  static readonly autoReef = new ReefForm({
+    route: "autoReef",
   });
 }

@@ -81,7 +81,7 @@ export class TeamData {
   getAverageCorals(): Levels {
     return this.matches.reduce(
       (accumulator, match) => {
-        const matchLevel = match.reefForm;
+        const matchLevel = match.autoReef;
         return {
           L1: {
             score: accumulator.L1.score + matchLevel.L1.score,
