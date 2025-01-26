@@ -2,12 +2,11 @@ import React from "react"
 import TeamStatsOnASingleGraphSpeaker from "./TeamStatsOnASingleGraphSpeaker"
 import TeamStatsOnASingleGraphAmp from "./TeamStatsOnASingleGraphAmp"
 import TestComparison from "./testComparison"
+import AmpMissComparison from "../comparing_between_teams/AmpMissComparison"
 
 const TeamComparissionOnASingleGraphGeneral : React.FC = ()=>{
    return<>
-   {/* <TeamStatsOnASingleGraphSpeaker />
-   <TeamStatsOnASingleGraphAmp /> */
-   <TestComparison></TestComparison>}
+   <AmpMissComparison />
    </> 
 }
 export default TeamComparissionOnASingleGraphGeneral;

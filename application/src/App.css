@@ -135,3 +135,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.teamComparison{
+  display: flex;
+  flex-direction: column;
+}

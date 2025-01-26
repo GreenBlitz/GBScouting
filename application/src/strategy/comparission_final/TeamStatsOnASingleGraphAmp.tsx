@@ -44,18 +44,18 @@ const TeamStatsOnASingleGraphAmp: React.FC = () => {
     ></LineChart>
   );
 
-  // const [presentedGraph, updatePresentedGraphe] = useState(independentVariable.ampMissed)
+  const [presentedGraph, updatePresentedGraphe] = useState(independentVariable.ampMissed)
   
-  // const [isChecked, setChecked] = useState(false);
-  // const handleChange = () => {
-  //   setChecked(!isChecked);
-  //   if (!isChecked) {
-  //     updatePresentedGraphe()
-  //   }
-  //   if (isChecked) {
+  const [isChecked, setChecked] = useState(false);
+  const handleChange = () => {
+    setChecked(!isChecked);
+    if (!isChecked) {
+      updatePresentedGraphe()
+    }
+    if (isChecked) {
 
-  //   }
-  // };
+    }
+  };
   
   return (
     <>
@@ -69,11 +69,11 @@ const TeamStatsOnASingleGraphAmp: React.FC = () => {
           <option value={teamName}>{teamName}</option>
         ))}
       </select>
-      {/* <Checkbox
+      <Checkbox
         value="AmpMiss"
         checked={isChecked}
         onChange={handleChange}
-      /> */}
+      />
       {graph(independentVariable.ampMissed)}
     </>
   );
