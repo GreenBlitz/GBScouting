@@ -147,10 +147,11 @@ export class TeamData {
       };
     });
 
-
     autos.forEach((auto, index) => {
       const similarAuto = autos.find((other, otherIndex) => {
-        return otherIndex !== index && isDeepEqual(auto, other);
+        return (
+          otherIndex !== index && isDeepEqual(auto.collected, other.collected)
+        );
       });
       if (similarAuto) {
         autos.splice(index, 1);

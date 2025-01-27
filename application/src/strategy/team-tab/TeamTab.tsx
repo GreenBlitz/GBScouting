@@ -24,7 +24,7 @@ const exampleData: TeamData = new TeamData([
         HasHarvested: false,
       },
       Sushi2: {
-        HasSeeded: false,
+        HasSeeded: true,
         HasHarvested: false,
       },
       Sushi3: {

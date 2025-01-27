@@ -11,11 +11,8 @@ const StrategyAutonomous: React.FC = () => {
   return (
     <>
       {autos?.map((auto, index) => (
-        <div className="auto-chart" key={index}>
+        <div key={index}>
           <AutoChart auto={auto} />
-          <div>
-            <h2>Times Done: {auto.occurances}</h2>
-          </div>
         </div>
       ))}
     </>

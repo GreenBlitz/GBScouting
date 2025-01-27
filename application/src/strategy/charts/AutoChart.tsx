@@ -79,7 +79,9 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
       >
         <canvas ref={canvasRef} width={width} height={height} />
       </div>
-      
+      <div className="flex flex-col items-center">
+        <h2>Times Done: {auto.occurances}</h2>
+      </div>
     </>
   );
 };
