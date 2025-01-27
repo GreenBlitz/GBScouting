@@ -57,10 +57,10 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
     context.clearRect(0, 0, width, height);
     Object.values(auto.collected).forEach((sushi, index) => {
       const actualSushi: Sushi = sushi as Sushi;
-      if (actualSushi.HasHarvested) {
+      if (actualSushi.algea) {
         drawCoral(coralPositions[index], context);
       }
-      if (actualSushi.HasSeeded) {
+      if (actualSushi.coral) {
         drawAlgea(algeaPositions[index], context);
       }
     });
