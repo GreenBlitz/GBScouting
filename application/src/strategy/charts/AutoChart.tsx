@@ -1,22 +1,32 @@
 import React, { useEffect, useRef } from "react";
 import { Auto } from "../../utils/SeasonUI";
 import { Point } from "chart.js";
+import { Sushi } from "../../scouter/input-types/auto-map/AutonomousMapInput";
 
 interface AutoProps {
   auto: Auto;
 }
 
-const coralPositions = [{ x: 200, y: 300 }];
-const algeaPositions = [];
+const coralPositions = [
+  { x: 200, y: 100 },
+  { x: 200, y: 150 },
+  { x: 200, y: 200 },
+];
+const algeaPositions = [
+  { x: 150, y: 100 },
+  { x: 150, y: 150 },
+  { x: 150, y: 200 },
+];
 
 const coralRadius = 10;
+const algeaRadius = 13;
 const textSize = 1;
 
-const width = 400;
-const height = 200;
+const width = 500;
+const height = 300;
 
 const AutoChart: React.FC<AutoProps> = ({ auto }) => {
-  const imagePath = "./src/assets/blue-auto-map.png";
+  const imagePath = "/src/assets/blue-auto-map.png";
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -24,16 +34,16 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
     context.strokeStyle = "white";
     context.lineWidth = 4;
     context.beginPath();
-    context.arc(position.x, position.y, coralRadius, 0, 2 * Math.PI);
+    context.arc(position.x, position.y, coralRadius, 0, Math.PI * 2);
     context.stroke();
   }
 
   function drawAlgea(position: Point, context: CanvasRenderingContext2D) {
-    context.strokeStyle = "green";
+    context.fillStyle = "green";
     context.lineWidth = 4;
     context.beginPath();
-    context.arc(position.x, position.y, coralRadius, 0, 2 * Math.PI);
-    context.stroke();
+    context.arc(position.x, position.y, algeaRadius, 0, 2 * Math.PI);
+    context.fill();
   }
 
   function drawAll() {
@@ -45,21 +55,32 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
       return;
     }
     context.clearRect(0, 0, width, height);
-    coralPositions.forEach((position) => drawCoral(position, context));
-    algeaPositions.forEach((position) => drawAlgea(position, context));
+    Object.values(auto.collected).forEach((sushi, index) => {
+      const actualSushi: Sushi = sushi as Sushi;
+      if (actualSushi.HasHarvested) {
+        drawCoral(coralPositions[index], context);
+      }
+      if (actualSushi.HasSeeded) {
+        drawAlgea(algeaPositions[index], context);
+      }
+    });
   }
 
   useEffect(() => drawAll(), [drawAll, auto]);
   return (
-    <div
-      style={{
-        backgroundImage: 'url("' + imagePath + '")',
-        width: 300,
-        height: 400,
-      }}
-    >
-      <canvas ref={canvasRef} width={width} height={height} />
-    </div>
+    <>
+      <div
+        style={{
+          backgroundImage: 'url("' + imagePath + '")',
+          backgroundSize: "100% 100%",
+          width: width,
+          height: height,
+        }}
+      >
+        <canvas ref={canvasRef} width={width} height={height} />
+      </div>
+      
+    </>
   );
 };
 
