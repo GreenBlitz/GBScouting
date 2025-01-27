@@ -42,7 +42,6 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
   style,
 }) => {
   const [hoveredSection, setHoveredSection] = useState<Section>();
-  const [popUpAnchor, setPopUpAnchor] = useState<HTMLElement>();
   const gaugeProps = { ...basicGaugeProps };
   gaugeProps.options.width = width;
 
@@ -77,7 +76,6 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
   const onMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const hoveredX: number =
       event.pageX - event.currentTarget.offsetLeft - gaugeOffset;
-    setPopUpAnchor(event.currentTarget);
     setHoveredSection(getSection((hoveredX * 100) / gaugeWidth, 0));
   };
 
@@ -87,12 +85,12 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
       onMouseMove={onMove}
       onMouseLeave={() => setHoveredSection(undefined)}
     >
-      {hoveredSection && popUpAnchor && (
-        <Popup open={true} anchor={popUpAnchor}>
-          {hoveredSection.name + " : " + hoveredSection.value + "%"}
-        </Popup>
-      )}
       <AgGauge {...gaugeProps} />
+      {hoveredSection && (
+        <h1 className="">
+          {hoveredSection.name + " : " + hoveredSection.value + "%"}
+        </h1>
+      )}
     </div>
   );
 };

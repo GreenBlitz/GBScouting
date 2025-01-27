@@ -8,14 +8,16 @@ const StrategyTeleoperated: React.FC = () => {
   const { teamData } = useOutletContext<{ teamData: TeamData }>();
   return (
     <>
-      <LineChart
-        dataSets={{
-          Defense: {
-            color: "blue",
-            data: teamData.getAsLine("defense"),
-          },
-        }}
-      />
+      <div className="section">
+        <LineChart
+          dataSets={{
+            Defense: {
+              color: "blue",
+              data: teamData.getAsLine("defense"),
+            },
+          }}
+        />
+      </div>
       <CoralChart
         corals={{
           L1: { score: 1, miss: 1 },
