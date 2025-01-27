@@ -10,6 +10,7 @@ const StrategyAutonomous: React.FC = () => {
   }, [teamData]);
   return (
     <>
+      <h1 className="text-4xl underline">All Autos</h1>
       {autos?.map((auto, index) => (
         <div key={index}>
           <AutoChart auto={auto} />

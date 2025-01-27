@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Auto } from "../../utils/SeasonUI";
 import { Point } from "chart.js";
 import { Sushi } from "../../scouter/input-types/auto-map/AutonomousMapInput";
+import CoralChart from "./CoralChart";
 
 interface AutoProps {
   auto: Auto;
@@ -20,7 +21,6 @@ const algeaPositions = [
 
 const coralRadius = 10;
 const algeaRadius = 13;
-const textSize = 1;
 
 const width = 500;
 const height = 300;
@@ -69,10 +69,11 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
     context.font = "30px Arial";
     context.fillText(auto.feeded.toString(), 30, 30);
   }
+  console.log(auto.scored);
 
   useEffect(() => drawAll(), [drawAll, auto]);
   return (
-    <>
+    <div className="flex flex-row w-full">
       <div
         style={{
           backgroundImage: 'url("' + imagePath + '")',
@@ -83,10 +84,16 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
       >
         <canvas ref={canvasRef} width={width} height={height} />
       </div>
-      <div className="flex flex-col items-center">
-        <h2>Times Done: {auto.occurances}</h2>
+      <div className="p-8">
+        {Object.entries(auto.scored).map(([levelName, level]) => (
+          <div key={levelName} className="flex flex-row items-start">
+            <h1 className="p-2 text-2xl">{levelName}</h1>
+            <p className="p-2 text-2xl text-green-600">{level.score}</p>
+            <p className="p-2 text-2xl text-red-600">{level.miss}</p>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

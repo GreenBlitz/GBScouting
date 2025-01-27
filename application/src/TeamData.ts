@@ -138,30 +138,12 @@ export class TeamData {
   }
 
   getAutos(): Auto[] {
-    const autos: Auto[] = this.matches.map((match) => {
+    return this.matches.map((match) => {
       return {
-        occurances: 1,
         collected: match.autoMap,
         feeded: match.autoCollect,
         scored: match.autoReef,
       };
-    });
-
-    autos.forEach((auto, index) => {
-      const similarAuto = autos.find((other, otherIndex) => {
-        return (
-          otherIndex !== index &&
-          isDeepEqual(auto.collected, other.collected) &&
-          isDeepEqual(auto.scored, other.scored) &&
-          auto.feeded === other.feeded
-        );
-      });
-      if (similarAuto) {
-        autos.splice(index, 1);
-        similarAuto.occurances++;
-      }
-    });
-
-    return autos;
+    });;
   }
 }
