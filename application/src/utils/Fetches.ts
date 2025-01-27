@@ -26,7 +26,7 @@ export async function fetchData(
   });
 }
 
-export async function fetchMatchesByCriteria(field?: string, value?: string) {
+export async function fetchMatchesByCriteria(field?: string, value?: string): Promise<Match[]> {
   const searchedField = field && value ? `${field}/${value}` : ``;
   return await fetchData("Matches/" + searchedField);
 }

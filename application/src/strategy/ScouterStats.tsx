@@ -7,58 +7,55 @@ import { Color, randomColor } from "../utils/Color";
 import { renderStrategyNavBar } from "../App";
 import { DataSet } from "../utils/Utils";
 
+function getDataSetByPredicate(
+  predicate: (value: number) => boolean,
+  data: Record<number, number>
+): Record<string, number> {
+  return Object.entries(data)
+    .filter(([key, value]) => predicate(value))
+    .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+}
+
 const ScouterStats: React.FC = () => {
   const [stats, setStats] = useState<Match[]>([]);
 
   useEffect(() => {
     async function updateStats() {
-      setStats((await fetchMatchesByCriteria()) as Match[]);
+      setStats(await fetchMatchesByCriteria());
     }
     updateStats();
   }, []);
 
   const pieData = useMemo(() => {
     const data: Record<string, { color: Color; percentage: number }> = {};
-    stats.forEach((match) => {
-      if (!data[match.scouterName]) {
-        data[match.scouterName] = { color: randomColor(), percentage: 0 };
-      }
-      data[match.scouterName].percentage++;
+    stats.forEach(({ scouterName }) => {
+      data[scouterName] ??= { color: randomColor(), percentage: 0 };
+      data[scouterName].percentage++;
     });
+
     return data;
   }, [stats]);
 
   const barData = useMemo(() => {
     const data: Record<number, number> = {};
-    stats.forEach((match) => {
-      if (!data[match.qual]) {
-        data[match.qual] = 0;
-      }
-      data[match.qual]++;
+    stats.forEach(({ qual }) => {
+      data[qual] ??= 0;
+      data[qual]++;
     });
-    function getDataSetByPredicate(
-      predicate: (value: number) => boolean
-    ): Record<string, number> {
-      return Object.entries(data)
-        .filter(([key, value]) => predicate(value))
-        .map(([key, value]) => {
-          return { [key + ""]: value };
-        })
-        .reduce((acc, curr) => ({ ...acc, ...curr }), {});
-    }
 
     const goodDataset: DataSet = {
-      data: getDataSetByPredicate((value) => value >= 6),
+      data: getDataSetByPredicate((value) => value >= 6, data),
       color: "green",
     };
     const okDataset: DataSet = {
-      data: getDataSetByPredicate((value) => value >= 3 && value < 6),
+      data: getDataSetByPredicate((value) => value >= 3 && value < 6, data),
       color: "yellow",
     };
     const badDataset: DataSet = {
-      data: getDataSetByPredicate((value) => value < 3),
+      data: getDataSetByPredicate((value) => value < 3, data),
       color: "red",
     };
+
     return { Good: goodDataset, Ok: okDataset, Bad: badDataset };
   }, [stats]);
 
