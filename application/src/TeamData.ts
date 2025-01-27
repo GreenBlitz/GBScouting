@@ -81,10 +81,10 @@ export class TeamData {
     return dataSet;
   }
 
-  getAverageCorals(): Levels {
+  getAverageCorals(field: keyof Match): Levels {
     return this.matches.reduce(
       (accumulator, match) => {
-        const matchLevel = match.autoReef;
+        const matchLevel: Levels = match[field] as Levels;
         return {
           L1: {
             score: accumulator.L1.score + matchLevel.L1.score,
@@ -111,6 +111,10 @@ export class TeamData {
         L4: { score: 0, miss: 0 },
       } as Levels
     );
+  }
+
+  getAutoCorals() {
+    return this.getAverageCorals("autoReef");
   }
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {
@@ -144,6 +148,6 @@ export class TeamData {
         feeded: match.autoCollect,
         scored: match.autoReef,
       };
-    });;
+    });
   }
 }
