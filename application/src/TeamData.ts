@@ -150,7 +150,10 @@ export class TeamData {
     autos.forEach((auto, index) => {
       const similarAuto = autos.find((other, otherIndex) => {
         return (
-          otherIndex !== index && isDeepEqual(auto.collected, other.collected)
+          otherIndex !== index &&
+          isDeepEqual(auto.collected, other.collected) &&
+          isDeepEqual(auto.scored, other.scored) &&
+          auto.feeded === other.feeded
         );
       });
       if (similarAuto) {

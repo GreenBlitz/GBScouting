@@ -16,7 +16,7 @@ const exampleData: TeamData = new TeamData([
     startingPosition: "",
     noShow: false,
     defense: undefined,
-    climb: "",
+    climb: "Off Barge",
     comment: "",
     autoMap: {
       Sushi1: {
@@ -48,12 +48,12 @@ const exampleData: TeamData = new TeamData([
     startingPosition: "",
     noShow: false,
     defense: undefined,
-    climb: "",
+    climb: "Park",
     comment: "",
     autoMap: {
       Sushi1: {
         HasSeeded: false,
-        HasHarvested: false,
+        HasHarvested: true,
       },
       Sushi2: {
         HasSeeded: false,
@@ -64,10 +64,10 @@ const exampleData: TeamData = new TeamData([
         HasHarvested: false,
       },
     },
-    autoCollect: 0,
+    autoCollect: 2,
     autoReef: {
       L1: { score: 0, miss: 0 },
-      L2: { score: 0, miss: 0 },
+      L2: { score: 2, miss: 0 },
       L3: { score: 0, miss: 0 },
       L4: { score: 0, miss: 1 },
     },

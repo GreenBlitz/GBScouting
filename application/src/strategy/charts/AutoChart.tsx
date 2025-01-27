@@ -64,6 +64,10 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
         drawAlgea(algeaPositions[index], context);
       }
     });
+
+    context.fillStyle = "yellow";
+    context.font = "30px Arial";
+    context.fillText(auto.feeded.toString(), 30, 30);
   }
 
   useEffect(() => drawAll(), [drawAll, auto]);
