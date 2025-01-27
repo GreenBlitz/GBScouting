@@ -19,7 +19,7 @@ const StrategyEndgame: React.FC = () => {
     <>
       <div className="section">
         <LinearHistogramChart
-          height={40}
+          height={200}
           width={400}
           sectionColors={climbColorMap}
           sections={teamData?.getAsLinearHistogram<ClimbKeys>("climb") || []}
