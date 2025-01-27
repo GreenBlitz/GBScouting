@@ -9,10 +9,10 @@ export interface Level {
 }
 
 export interface Levels {
-  L1: Level;
-  L2: Level;
-  L3: Level;
   L4: Level;
+  L3: Level;
+  L2: Level;
+  L1: Level;
 }
 
 class ReefScoring extends ScouterInput<
@@ -68,26 +68,28 @@ class ReefScoring extends ScouterInput<
 
     return (
       <div>
-        {Object.keys(this.state.levels).map((levelKey) => {
-          const level = levelKey as keyof Levels;
-          return (
-            <div key={level}>
+        {Object.keys(this.state.levels)
+          .reverse()
+          .map((levelKey) => {
+            const level = levelKey as keyof Levels;
+            return (
+              <div key={level}>
                 <h2 className="inline-block">{level}</h2>
-              <button
-                className="buttonS"
-                onClick={() => handleClick(level, "score")}
-              >
-                {this.state.levels[level].score}
-              </button>
-              <button
-                className="buttonF"
-                onClick={() => handleClick(level, "miss")}
-              >
-                {this.state.levels[level].miss}
-              </button>
-            </div>
-          );
-        })}
+                <button
+                  className="buttonS"
+                  onClick={() => handleClick(level, "score")}
+                >
+                  {this.state.levels[level].score}
+                </button>
+                <button
+                  className="buttonF"
+                  onClick={() => handleClick(level, "miss")}
+                >
+                  {this.state.levels[level].miss}
+                </button>
+              </div>
+            );
+          })}
         <button
           className="bg-purple-700 text-white py-2 px-4 rounded"
           onClick={handleUndo}

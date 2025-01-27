@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Level, Levels } from "../../components/ReefForm";
 import PercentageBarChart from "./PercentageBarChart";
 import Percent from "../../utils/Percent";
@@ -16,6 +16,10 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
       coralLevel.score,
       coralLevel.miss + coralLevel.score
     );
+
+    if (isNaN(scorePercentage.value)) {
+      return <></>;
+    }
 
     return (
       <>
@@ -45,14 +49,14 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
   }
 
   useEffect(() => {
-    const coralLevels = Object.values(corals);
+    const coralLevels = Object.values(corals).reverse();
     if (coralElements.length < coralLevels.length) {
       const coralLevel = coralLevels[coralElements.length];
       setCorals([
         ...coralElements,
         createCoralElement(
           coralLevel,
-          Object.keys(corals)[coralElements.length]
+          Object.keys(corals).reverse()[coralElements.length]
         ),
       ]);
     }
