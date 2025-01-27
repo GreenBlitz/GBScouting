@@ -30,7 +30,7 @@ function getHiddenImage(path: string) {
 
 export function renderScouterNavBar() {
   return (
-    <nav className="bg-dark-card shadow-lg w-96">
+    <nav className="bg-dark-card shadow-lg w-86">
       {getHiddenImage("./src/assets/crescendo-map.png")}
       {getHiddenImage("./src/assets/blue-auto-map.png")}
       {getHiddenImage("./src/assets/red-auto-map.png")}

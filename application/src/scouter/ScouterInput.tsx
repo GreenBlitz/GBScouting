@@ -30,7 +30,7 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
     return (
       <div className="p-4 space-y-2">
         {this.props.name && (
-          <h2 className="text-lg font-semibold text-dark-text mb-2">
+          <h2 className="text-lg font-semibold text-dark-text">
             {this.props.name}
           </h2>
         )}
