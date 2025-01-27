@@ -14,7 +14,9 @@ const StrategyAutonomous: React.FC = () => {
   }, [teamData]);
   return (
     <>
-      <CoralChart corals={corals} />
+      <div className="flex flex-col items-center">
+        <CoralChart corals={corals} />
+      </div>
       <br />
       <br />
       <h1 className="text-4xl underline">All Autos</h1>

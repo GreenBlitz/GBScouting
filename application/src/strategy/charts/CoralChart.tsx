@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Level, Levels } from "../../components/ReefForm";
 import PercentageBarChart from "./PercentageBarChart";
 import Percent from "../../utils/Percent";
@@ -17,32 +17,46 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
       coralLevel.miss + coralLevel.score
     );
 
+    if (isNaN(scorePercentage.value)) {
+      return <></>;
+    }
+
     return (
-      <div key={levelName} style={{ display: "flex", alignItems: "center" }}>
-        <h2 style={{ margin: "0 10px 0 0" }}>{levelName}</h2>
-        <h3 style={{ margin: "0 10px 0 0" }}>Score: {coralLevel.score}</h3>
-        <h3 style={{ margin: "0 10px 0 0" }}>Miss: {coralLevel.miss}</h3>
-        <PercentageBarChart
-          width={300}
-          height={150}
-          sections={[
-            { name: "Score", value: scorePercentage.value, color: "green" },
-            { name: "Miss", value: scorePercentage.complement, color: "red" },
-          ]}
-        />
-      </div>
+      <>
+        <div key={levelName} className="flex flex-row items-center">
+          <h2 className="mr-2.5 text-xl mb-0">{levelName}</h2>
+          <div>
+            <div className="flex flex-row justify-center">
+              <h3 className="mr-2.5 mb-0">Score: {coralLevel.score}</h3>
+              <h3 className="mr-2.5 mb-0">Miss: {coralLevel.miss}</h3>
+            </div>
+            <PercentageBarChart
+              width={300}
+              height={250}
+              sections={[
+                { name: "Score", value: scorePercentage.value, color: "green" },
+                {
+                  name: "Miss",
+                  value: scorePercentage.complement,
+                  color: "red",
+                },
+              ]}
+            />
+          </div>
+        </div>
+      </>
     );
   }
 
   useEffect(() => {
-    const coralLevels = Object.values(corals);
+    const coralLevels = Object.values(corals).reverse();
     if (coralElements.length < coralLevels.length) {
       const coralLevel = coralLevels[coralElements.length];
       setCorals([
         ...coralElements,
         createCoralElement(
           coralLevel,
-          Object.keys(corals)[coralElements.length]
+          Object.keys(corals).reverse()[coralElements.length]
         ),
       ]);
     }

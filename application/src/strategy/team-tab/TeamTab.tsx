@@ -126,19 +126,13 @@ const TeamTab: React.FC = () => {
       <nav className="nav-bar">
         <ul>
           <li>
-            <Link to="/team/autonomous" state={teamData}>
-              Autonomous
-            </Link>
+            <Link to="/team/autonomous">Autonomous</Link>
           </li>
           <li>
-            <Link to="/team/teleoperated" state={teamData}>
-              Teleoperated
-            </Link>
+            <Link to="/team/teleoperated">Teleoperated</Link>
           </li>
           <li>
-            <Link to="/team/endgame" state={teamData}>
-              Endgame
-            </Link>
+            <Link to="/team/endgame">Endgame</Link>
           </li>
         </ul>
       </nav>
