@@ -67,6 +67,8 @@ export function renderScouterNavBar() {
 export function renderStrategyNavBar() {
   return (
     <nav className="bg-dark-card shadow-lg">
+      {getHiddenImage("./src/assets/blue-auto-map.png")}
+
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
           <Link
