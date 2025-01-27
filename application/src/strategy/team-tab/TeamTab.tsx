@@ -20,16 +20,16 @@ const exampleData: TeamData = new TeamData([
     comment: "",
     autoMap: {
       Sushi1: {
-        HasSeeded: false,
-        HasHarvested: false,
+        coral: false,
+        algea: false,
       },
       Sushi2: {
-        HasSeeded: true,
-        HasHarvested: false,
+        coral: true,
+        algea: false,
       },
       Sushi3: {
-        HasSeeded: false,
-        HasHarvested: false,
+        coral: false,
+        algea: false,
       },
     },
     autoCollect: 0,
@@ -52,16 +52,16 @@ const exampleData: TeamData = new TeamData([
     comment: "",
     autoMap: {
       Sushi1: {
-        HasSeeded: false,
-        HasHarvested: true,
+        coral: false,
+        algea: true,
       },
       Sushi2: {
-        HasSeeded: false,
-        HasHarvested: false,
+        coral: false,
+        algea: false,
       },
       Sushi3: {
-        HasSeeded: false,
-        HasHarvested: false,
+        coral: false,
+        algea: false,
       },
     },
     autoCollect: 2,

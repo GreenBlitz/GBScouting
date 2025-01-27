@@ -4,8 +4,8 @@ import { StorageBackedInput } from "../../../utils/FolderStorage";
 import SushiButton from "./SushiButton";
 
 export interface Sushi {
-  HasSeeded: boolean;
-  HasHarvested: boolean;
+  coral: boolean;
+  algea: boolean;
 }
 
 export interface AllSushis {
@@ -58,9 +58,9 @@ export class AutonomousMapInput extends ScouterInput<AllSushis> {
 
   initialValue(props: InputProps<AllSushis>): AllSushis {
     return {
-      Sushi1: { HasSeeded: false, HasHarvested: false },
-      Sushi2: { HasSeeded: false, HasHarvested: false },
-      Sushi3: { HasSeeded: false, HasHarvested: false },
+      Sushi1: { coral: false, algea: false },
+      Sushi2: { coral: false, algea: false },
+      Sushi3: { coral: false, algea: false },
     };
   }
 }
