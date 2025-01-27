@@ -44,7 +44,6 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
   const [hoveredSection, setHoveredSection] = useState<Section>();
   const [popUpAnchor, setPopUpAnchor] = useState<HTMLElement>();
   const gaugeProps = { ...basicGaugeProps };
-  // gaugeProps.options.height = height;
   gaugeProps.options.width = width;
 
   let sectionValueSum = 0;

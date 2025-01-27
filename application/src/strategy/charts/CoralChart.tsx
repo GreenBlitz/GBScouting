@@ -26,7 +26,7 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
             <h3 className="mr-2.5 mb-0">Miss: {coralLevel.miss}</h3>
             <PercentageBarChart
               width={300}
-              height={200}
+              height={250}
               sections={[
                 { name: "Score", value: scorePercentage.value, color: "green" },
                 {
