@@ -29,7 +29,7 @@ const totalBoxWidth = 2 * boxThickness;
 const basicGaugeProps: AgGaugeProps = {
   options: {
     background: {
-      fill: "#242424",
+      fill: "#111827",
     },
     type: "linear-gauge",
     direction: "horizontal",

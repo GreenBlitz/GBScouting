@@ -18,19 +18,27 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
     );
 
     return (
-      <div key={levelName} style={{ display: "flex", alignItems: "center" }}>
-        <h2 style={{ margin: "0 10px 0 0" }}>{levelName}</h2>
-        <h3 style={{ margin: "0 10px 0 0" }}>Score: {coralLevel.score}</h3>
-        <h3 style={{ margin: "0 10px 0 0" }}>Miss: {coralLevel.miss}</h3>
-        <PercentageBarChart
-          width={300}
-          height={150}
-          sections={[
-            { name: "Score", value: scorePercentage.value, color: "green" },
-            { name: "Miss", value: scorePercentage.complement, color: "red" },
-          ]}
-        />
-      </div>
+      <>
+        <div key={levelName} className="flex flex-row items-center">
+          <h2 className="mr-2.5 mb-0">{levelName}</h2>
+          <div>
+            <h3 className="mr-2.5 mb-0">Score: {coralLevel.score}</h3>
+            <h3 className="mr-2.5 mb-0">Miss: {coralLevel.miss}</h3>
+            <PercentageBarChart
+              width={300}
+              height={200}
+              sections={[
+                { name: "Score", value: scorePercentage.value, color: "green" },
+                {
+                  name: "Miss",
+                  value: scorePercentage.complement,
+                  color: "red",
+                },
+              ]}
+            />
+          </div>
+        </div>
+      </>
     );
   }
 

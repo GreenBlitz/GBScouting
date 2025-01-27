@@ -20,7 +20,7 @@ interface Section {
 const basicGaugeProps: AgGaugeProps = {
   options: {
     background: {
-      fill: "#242424",
+      fill: "#111827",
     },
     type: "linear-gauge",
     direction: "horizontal",

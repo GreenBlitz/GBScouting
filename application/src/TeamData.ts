@@ -23,6 +23,9 @@ export class TeamData {
     return Object.assign(
       {},
       ...Object.values(this.matches).map((match) => {
+        if (!match[field]) {
+          return;
+        }
         if (typeof match[field] !== "number") {
           throw new Error("Invalid field: " + field);
         }
