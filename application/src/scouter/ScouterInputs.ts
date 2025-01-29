@@ -53,8 +53,8 @@ export default class ScouterInputs {
     min: 1,
     max: 5,
   });
-  static readonly defenseHurt = new CheckboxedSliderInput({
-    route: "defenseHurt",
+  static readonly resistance = new CheckboxedSliderInput({
+    route: "resistance",
     name: "Enemy Defense",
     min: 1,
     max: 5,

@@ -8,7 +8,7 @@ const ScouterPostMatch: React.FC = () => {
         ScouterInputs.climb,
         ScouterInputs.comment,
         ScouterInputs.defense,
-        ScouterInputs.defenseHurt,
+        ScouterInputs.resistance,
       ])}
     </>
   );

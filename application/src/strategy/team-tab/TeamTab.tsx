@@ -16,7 +16,7 @@ const exampleData: TeamData = new TeamData([
     startingPosition: "",
     noShow: false,
     defense: undefined,
-    defenseHurt: undefined,
+    resistance: undefined,
     climb: "",
     comment: "",
     teleopReef: {
@@ -50,7 +50,7 @@ const exampleData: TeamData = new TeamData([
     startingPosition: "",
     noShow: false,
     defense: undefined,
-    defenseHurt: undefined,
+    resistance: 2,
     climb: "",
     comment: "",
     teleopReef: {
@@ -58,7 +58,7 @@ const exampleData: TeamData = new TeamData([
       L2: { score: 0, miss: 0 },
       L3: { score: 0, miss: 0 },
       L4: { score: 0, miss: 0 },
-      net: { score: 0, miss: 0 },
+      net: { score: 2, miss: 0 },
       proccessor: 0,
     },
     autoMap: {
@@ -70,10 +70,10 @@ const exampleData: TeamData = new TeamData([
     autoReef: {
       L1: { score: 0, miss: 0 },
       L2: { score: 0, miss: 0 },
-      L3: { score: 0, miss: 0 },
+      L3: { score: 1, miss: 0 },
       L4: { score: 0, miss: 0 },
       net: { score: 0, miss: 0 },
-      proccessor: 0,
+      proccessor: 2,
     },
   },
 ]);
@@ -87,8 +87,7 @@ const TeamTab: React.FC = () => {
     recentMatches.splice(0, recentMatches.length - recency);
   }
 
-  // const teamData = new TeamData(recentMatches);
-  const teamData = exampleData;
+  const teamData = new TeamData(recentMatches);
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
