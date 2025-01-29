@@ -95,8 +95,17 @@ const StrategyTeleoperated: React.FC = () => {
         />
       </div>
 
+      <br />
+      <div className="section">
+        <LineChart
+          dataSets={{
+            "Total Score": { color: "red", data: teamData.getScores() },
+          }}
+        />
+      </div>
+
       <div className="h-48" />
-      
+
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Corals</h1>
         <CoralChart corals={teamData.getAutoCorals()} />

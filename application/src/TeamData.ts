@@ -4,6 +4,7 @@ import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/ReefForm";
 import { Auto } from "./utils/SeasonUI";
+import { AllScore as AllScoreFromForm } from "./components/TeleopForm";
 
 interface Comment {
   body: string;
@@ -50,10 +51,43 @@ export class TeamData {
       .filter((comment) => comment.body !== "");
   }
 
-  getScores(): number[] {
-    return this.matches.map((match) => {
-      return 0; //TODO: this
-    });
+  getScores(): Record<string, number> {
+    return Object.assign(
+      {},
+      ...this.matches.map((match) => {
+        let sum = 0;
+
+        sum += match.teleopReef.L1.score * 2;
+        sum += match.teleopReef.L2.score * 3;
+        sum += match.teleopReef.L3.score * 4;
+        sum += match.teleopReef.L4.score * 5;
+        sum += match.teleopReef.net.score * 4;
+        sum += match.teleopReef.proccessor * 4;
+
+        sum += match.autoReef.L1.score * 3;
+        sum += match.autoReef.L2.score * 4;
+        sum += match.autoReef.L3.score * 6;
+        sum += match.autoReef.L4.score * 7;
+        sum += match.autoReef.net.score * 4;
+        sum += match.autoReef.proccessor * 4;
+
+        const getClimb = () => {
+          switch (match.climb) {
+            case "Park":
+              return 2;
+            case "Shallow Cage":
+              return 6;
+            case "Deep Cage":
+              return 12;
+          }
+          return 0;
+        };
+
+        sum += getClimb();
+
+        return { [match.qual]: sum };
+      })
+    );
   }
 
   getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
