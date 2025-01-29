@@ -53,7 +53,10 @@ const StrategyTeleoperated: React.FC = () => {
           }}
         />
       </div>
+      <br />
+
       <div className="section">
+        <h1>Score</h1>
         <LineChart
           dataSets={Object.assign(
             {},
@@ -73,6 +76,7 @@ const StrategyTeleoperated: React.FC = () => {
       </div>
 
       <div className="section">
+        <h1>Miss</h1>
         <LineChart
           dataSets={Object.assign(
             {},
