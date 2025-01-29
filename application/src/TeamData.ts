@@ -34,7 +34,6 @@ export class TeamData {
               match[field]
             )
           : match[field];
-        console.log(field + "  " + innerFields + "  " + value);
         if (typeof value !== "number") {
           throw new Error("Invalid field: " + field + " " + innerFields);
         }
