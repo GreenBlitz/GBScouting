@@ -4,7 +4,6 @@ import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/ReefForm";
 import { Auto } from "./utils/SeasonUI";
-import { AllScore as AllScoreFromForm } from "./components/TeleopForm";
 
 interface Comment {
   body: string;
