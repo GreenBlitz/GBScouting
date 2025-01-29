@@ -1,7 +1,6 @@
 .qr-reader {
-  width: 430px;
+  width: 24rem;
   height: 100vh;
-  margin: 0 auto;
   position: relative;
 }
 
@@ -14,14 +13,6 @@
 .qr-reader .qr-box {
   width: 100% !important;
   left: 0 !important;
-}
-
-.qr-reader .qr-frame {
-  position: absolute;
-  fill: none;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
 }
 
 /* Media Inputs for mobile screens */

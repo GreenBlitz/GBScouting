@@ -1,3 +1,4 @@
+import { AutonomousMapInput } from "./input-types/auto-map/AutonomousMapInput";
 import ReefForm from "../components/ReefForm";
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
@@ -19,7 +20,7 @@ interface Levels {
   L3: Level;
   L4: Level;
 }
-interface undoAction{
+interface undoAction {
   level: keyof Levels;
   point: keyof Level;
 }
@@ -77,14 +78,18 @@ export default class ScouterInputs {
     route: "comment",
     name: "Comment",
   });
-  static readonly reefForm = new ReefForm({
-    route: "reefForm",
-    name: "reefForm",
 
-  });
   static readonly teleopForm = new teleopForm({
     route: "teleopForm",
     name: "teleopForm",
+  });
 
-  })
+  static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
+  static readonly autoCollect = new CounterInput({
+    route: "autoScore",
+    name: "Coral Feeder",
+  });
+  static readonly autoReef = new ReefForm({
+    route: "autoReef",
+  });
 }
