@@ -7,9 +7,80 @@ import { renderStrategyNavBar } from "../../App";
 import { fetchMatchesByCriteria } from "../../utils/Fetches";
 import { Link, Outlet } from "react-router-dom";
 
+const exampleData: TeamData = new TeamData([
+  {
+    scouterName: "",
+    qual: 0,
+    teamNumber: 0,
+    gameSide: "",
+    startingPosition: "",
+    noShow: false,
+    defense: undefined,
+    resistance: undefined,
+    climb: "",
+    comment: "",
+    teleopReef: {
+      L1: { score: 1, miss: 1 },
+      L2: { score: 2, miss: 0 },
+      L3: { score: 2, miss: 0 },
+      L4: { score: 3, miss: 0 },
+      net: { score: 0, miss: 0 },
+      proccessor: 0,
+    },
+    autoMap: {
+      Sushi1: { coral: false, algea: false },
+      Sushi2: { coral: false, algea: false },
+      Sushi3: { coral: false, algea: false },
+    },
+    autoCollect: 0,
+    autoReef: {
+      L1: { score: 0, miss: 0 },
+      L2: { score: 0, miss: 0 },
+      L3: { score: 0, miss: 0 },
+      L4: { score: 0, miss: 0 },
+      net: { score: 0, miss: 0 },
+      proccessor: 0,
+    },
+  },
+  {
+    scouterName: "",
+    qual: 2,
+    teamNumber: 0,
+    gameSide: "",
+    startingPosition: "",
+    noShow: false,
+    defense: undefined,
+    resistance: 2,
+    climb: "",
+    comment: "",
+    teleopReef: {
+      L1: { score: 0, miss: 0 },
+      L2: { score: 0, miss: 0 },
+      L3: { score: 0, miss: 0 },
+      L4: { score: 0, miss: 0 },
+      net: { score: 2, miss: 0 },
+      proccessor: 0,
+    },
+    autoMap: {
+      Sushi1: { coral: false, algea: false },
+      Sushi2: { coral: false, algea: false },
+      Sushi3: { coral: false, algea: false },
+    },
+    autoCollect: 0,
+    autoReef: {
+      L1: { score: 0, miss: 0 },
+      L2: { score: 0, miss: 0 },
+      L3: { score: 1, miss: 0 },
+      L4: { score: 0, miss: 0 },
+      net: { score: 0, miss: 0 },
+      proccessor: 2,
+    },
+  },
+]);
+
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
-  const [recency, setRecency] = useState<number>(0);
+  const [recency, setRecency] = useState<number>(5);
 
   const recentMatches = sortMatches([...matches]);
   if (recency > 0 && recency < recentMatches.length) {
@@ -17,7 +88,6 @@ const TeamTab: React.FC = () => {
   }
 
   const teamData = new TeamData(recentMatches);
-  
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
@@ -52,7 +122,7 @@ const TeamTab: React.FC = () => {
           onChange={(event) => setRecency(parseInt(event.target.value))}
           min={1}
           max={matches.length}
-          defaultValue={matches.length}
+          defaultValue={recency}
         />
       </div>
       <br />

@@ -5,11 +5,9 @@ const ScouterAutonomous: React.FC = () => {
   return (
     <>
       <div className="">
-        <div className="space-y-4">
-          {ScouterInputs.autoCollect.create()}
-          {ScouterInputs.autoMap.create()}
-        </div>
         <div className="justify-center">{ScouterInputs.autoReef.create()}</div>
+
+        <div className="space-y-4">{ScouterInputs.autoMap.create()}</div>
       </div>
     </>
   );

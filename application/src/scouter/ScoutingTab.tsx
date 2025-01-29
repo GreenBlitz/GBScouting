@@ -98,9 +98,6 @@ export default function ScoutingTab() {
       {renderScouterNavBar()}
       <div className="max-w-4xl mx-auto py-6">
         <div className="bg-dark-card rounded-lg shadow-lg p-6">
-          <h1 className="text-2xl font-bold mb-6 text-dark-text">
-            {sectionHandler.currentRoute()}
-          </h1>
           {sectionElement}
         </div>
       </div>

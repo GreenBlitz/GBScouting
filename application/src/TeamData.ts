@@ -25,7 +25,7 @@ export class TeamData {
     return Object.assign(
       {},
       ...Object.values(this.matches).map((match) => {
-        if (!match[field]) {
+        if (!match[field] || match[field] === "undefined") {
           return;
         }
         const value = innerFields
@@ -97,6 +97,23 @@ export class TeamData {
     );
   }
 
+  getAverageAutoScore() {
+    return this.matches
+      .map((match) => {
+        let sum = 0;
+
+        sum += match.autoReef.L1.score * 3;
+        sum += match.autoReef.L2.score * 4;
+        sum += match.autoReef.L3.score * 6;
+        sum += match.autoReef.L4.score * 7;
+        sum += match.autoReef.net.score * 4;
+        sum += match.autoReef.proccessor * 4;
+
+        return sum;
+      })
+      .reduce((accumulator, value) => accumulator + value, 0);
+  }
+
   getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
     const averages = [
       this.getAverage(percentField),
@@ -105,19 +122,26 @@ export class TeamData {
     return Percent.fromList(averages)[0];
   }
 
-  getAverage(field: keyof Match): number {
+  getAverage(field: keyof Match, innerFields?: string[]): number {
     if (this.matches.length === 0) {
       return 0;
     }
     return this.matches
       .map((match) => {
-        if (match[field] === undefined) {
+        if (match[field] === undefined || match[field] === "undefined") {
           return 0;
         }
-        if (typeof match[field] !== "number") {
+        const value = innerFields
+          ? innerFields.reduce(
+              (accumulator, innerField) => accumulator[innerField],
+              match[field]
+            )
+          : match[field];
+
+        if (typeof value !== "number") {
           throw new Error("Invalid field: " + field);
         }
-        return match[field];
+        return value;
       })
       .reduce((accumulator, value) => {
         return accumulator + value;
@@ -207,7 +231,6 @@ export class TeamData {
   }
 
   getAutos(): Auto[] {
-    console.log(this.matches);
     return this.matches.map((match) => {
       return {
         collected: match.autoMap,

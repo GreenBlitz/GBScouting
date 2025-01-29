@@ -1,7 +1,6 @@
 import React from "react";
 import ScouterInputs from "../ScouterInputs";
 
-
 const ScouterPostMatch: React.FC = () => {
   return (
     <>
@@ -9,6 +8,7 @@ const ScouterPostMatch: React.FC = () => {
         ScouterInputs.climb,
         ScouterInputs.comment,
         ScouterInputs.defense,
+        ScouterInputs.resistance,
       ])}
     </>
   );
