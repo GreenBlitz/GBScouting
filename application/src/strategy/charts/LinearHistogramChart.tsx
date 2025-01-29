@@ -60,6 +60,11 @@ class LinearHistogramChart<
 
     this.gaugeProps = { ...basicGaugeProps };
     this.gaugeProps.options.width = props.width;
+    this.gaugeProps.options.segmentation = {
+      enabled: true,
+      interval: { values: props.sections.map((section) => section.value) },
+      spacing: 5,
+    };
 
     this.state = { hoveredSection: undefined, anchor: undefined };
 
