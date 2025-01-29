@@ -1,15 +1,33 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridCellParams,
+  GridColDef,
+  GridTreeNode,
+} from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
 import React from "react";
 
 const paginationModel = { page: 0, pageSize: 5 };
 
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
 interface TableChartProps {
   tableData: Record<string, any>[];
   calculations?: Record<string, (row: Record<string, any>) => string>;
+
   idName: string;
   height: number;
   widthOfItem: number;
+  getCellClassName?: (
+    params: GridCellParams<any, any, any, GridTreeNode>
+  ) => string;
 }
 
 const TableChart: React.FC<TableChartProps> = ({
@@ -18,6 +36,7 @@ const TableChart: React.FC<TableChartProps> = ({
   calculations,
   height,
   widthOfItem,
+  getCellClassName,
 }) => {
   const rows: Record<string, any>[] = tableData.map((row) => {
     return { ...row };
@@ -47,18 +66,20 @@ const TableChart: React.FC<TableChartProps> = ({
   });
 
   return (
-    <Paper sx={{ height: height, width: "100%" }}>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <DataGrid
         rows={rows}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10, 67]}
         sx={{
-          border: 0,
+          border: 2,
         }}
         getRowId={(row) => row[idName]}
+        getCellClassName={getCellClassName}
       />
-    </Paper>
+    </ThemeProvider>
   );
 };
 

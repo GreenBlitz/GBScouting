@@ -5,7 +5,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
-import GeneralTab from "./strategy/GeneralTab";
+import GeneralTab from "./strategy/general-tab/GeneralTab";
 import TeamTab from "./strategy/team-tab/TeamTab";
 import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
 import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
