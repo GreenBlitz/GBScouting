@@ -1,4 +1,4 @@
-import ReefForm from "../components/ReefForm";
+import { AutonomousMapInput } from "./input-types/auto-map/AutonomousMapInput";
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
 import NumberInput from "./input-types/NumberInput";
@@ -6,7 +6,23 @@ import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
+import TeleopForm from "../components/TeleopForm";
 
+interface Level {
+  score: number;
+  miss: number;
+}
+
+interface Levels {
+  L1: Level;
+  L2: Level;
+  L3: Level;
+  L4: Level;
+}
+interface undoAction {
+  level: keyof Levels;
+  point: keyof Level;
+}
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
     return inputs.map((input) => input.create());
@@ -61,8 +77,18 @@ export default class ScouterInputs {
     route: "comment",
     name: "Comment",
   });
-  static readonly reefForm = new ReefForm({
-    route: "reefForm",
-    name: "reefForm",
-  })
+
+  static readonly teleopForm = new TeleopForm({
+    route: "teleopForm",
+    name: "teleopForm",
+  });
+
+  static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
+  static readonly autoCollect = new CounterInput({
+    route: "autoScore",
+    name: "Coral Feeder",
+  });
+  static readonly autoReef = new TeleopForm({
+    route: "autoReef",
+  });
 }
