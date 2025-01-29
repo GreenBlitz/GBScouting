@@ -61,7 +61,7 @@ class TeleopForm extends ScouterInput<
     undoStack: FullAction[];
   } {
     return {
-      values: this.initialValue(),
+      values: this.getValue(),
       undoStack: [],
     };
   }
@@ -142,7 +142,7 @@ class TeleopForm extends ScouterInput<
                 className="buttonS mr-2"
                 onClick={() => handleClick({ level: level, point: "score" })}
               >
-                <h2 
+                <h2
                   className={`mr-${
                     level === "L1" ? 8 : 7
                   } text-3xl justify-center font-bold flex items-center`}
