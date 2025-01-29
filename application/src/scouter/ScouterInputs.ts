@@ -49,7 +49,13 @@ export default class ScouterInputs {
   });
   static readonly defense = new CheckboxedSliderInput({
     route: "defense",
-    name: "Defense",
+    name: "Defended",
+    min: 1,
+    max: 5,
+  });
+  static readonly defenseHurt = new CheckboxedSliderInput({
+    route: "defenseHurt",
+    name: "Enemy Defense",
     min: 1,
     max: 5,
   });
@@ -65,7 +71,6 @@ export default class ScouterInputs {
 
   static readonly teleopReef = new TeleopForm({
     route: "teleopForm",
-    name: "teleopForm",
   });
 
   static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });

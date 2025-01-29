@@ -9,7 +9,7 @@ import { Link, Outlet } from "react-router-dom";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
-  const [recency, setRecency] = useState<number>(0);
+  const [recency, setRecency] = useState<number>(5);
 
   const recentMatches = sortMatches([...matches]);
   if (recency > 0 && recency < recentMatches.length) {
@@ -17,7 +17,7 @@ const TeamTab: React.FC = () => {
   }
 
   const teamData = new TeamData(recentMatches);
-  
+
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
@@ -52,7 +52,7 @@ const TeamTab: React.FC = () => {
           onChange={(event) => setRecency(parseInt(event.target.value))}
           min={1}
           max={matches.length}
-          defaultValue={matches.length}
+          defaultValue={recency}
         />
       </div>
       <br />

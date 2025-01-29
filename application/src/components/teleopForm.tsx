@@ -138,17 +138,17 @@ class TeleopForm extends ScouterInput<
           const level = levelKey as keyof Levels;
           return (
             <div className="flex" key={level}>
-              <h2
-                className={`mr-${
-                  level === "L1" ? 8 : 7
-                } text-xl flex items-center`}
-              >
-                {level}
-              </h2>
               <button
                 className="buttonS mr-2"
                 onClick={() => handleClick({ level: level, point: "score" })}
               >
+                <h2 
+                  className={`mr-${
+                    level === "L1" ? 8 : 7
+                  } text-3xl justify-center font-bold flex items-center`}
+                >
+                  {level}
+                </h2>
                 {this.state.values[level].score}
               </button>
               <button
@@ -160,31 +160,32 @@ class TeleopForm extends ScouterInput<
             </div>
           );
         })}
+
+        <div className="h-16" />
         <div className="flex">
-          <h2 className="mr-5 text-xl flex items-center">Net</h2>
           <button
-            className="buttonS"
+            className="buttonS bg-cyan-400"
             onClick={() => handleNet({ type: "score" })}
           >
             {this.state.values.net.score}
           </button>
           <button
-            className="buttonF"
+            className="buttonF bg-orange-700"
             onClick={() => handleNet({ type: "miss" })}
           >
             {this.state.values.net.miss}
           </button>
-        </div>
-
-        <div className="mr-12 flex">
-          <h2 className="text-xl flex items-center">Processor</h2>
-          <button className="buttonS" onClick={() => handleAlgea("proccessor")}>
+          <button
+            className="buttonS ml-5 "
+            onClick={() => handleAlgea("proccessor")}
+          >
             {this.state.values.proccessor}
           </button>
         </div>
+
         <div className="ml-12 flex">
           <button
-            className="bg-purple-700 text-white py-2 px-4 rounded"
+            className="bg-purple-700 w-48 h-20 text-white py-2 px-4 rounded"
             onClick={handleUndo}
           >
             Undo

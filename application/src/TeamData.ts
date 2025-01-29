@@ -111,7 +111,7 @@ export class TeamData {
     }
     return this.matches
       .map((match) => {
-        if (match[field] === undefined) {
+        if (match[field] === undefined || match[field] === "undefined") {
           return 0;
         }
         if (typeof match[field] !== "number") {

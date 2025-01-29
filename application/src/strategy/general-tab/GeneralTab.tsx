@@ -15,10 +15,10 @@ interface GridItems {
   "Defense Score": number;
 }
 
-function processTeamData(data: TeamData): GridItems {
+function processTeamData(teamNumber: string, data: TeamData): GridItems {
   return {
-    "Team Number": data.matches[0].teamNumber,
-    "Average Score": data.getAverageScore(),
+    "Team Number": parseInt(teamNumber),
+    "Average Score": data.getAverageScore() || 0,
     "Defense Score": data.getAverage("defense"),
   };
 }
@@ -58,6 +58,7 @@ const GeneralTab: React.FC = () => {
   useEffect(() => {
     async function getGridItems(teamName: string) {
       return processTeamData(
+        teamName,
         new TeamData(
           await fetchMatchesByCriteria(
             matchFieldNames.teamNumber,
@@ -67,7 +68,9 @@ const GeneralTab: React.FC = () => {
       );
     }
     async function updateTeamTable() {
+      console.log("lol");
       setTeamTable(await Promise.all(FRCTeamList.map(getGridItems)));
+      console.log("bob");
     }
     updateTeamTable();
   }, []);
