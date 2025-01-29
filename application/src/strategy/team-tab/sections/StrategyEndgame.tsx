@@ -3,6 +3,7 @@ import { useLocation, useOutletContext } from "react-router-dom";
 import { TeamData } from "../../../TeamData";
 import LinearHistogramChart from "../../charts/LinearHistogramChart";
 import PieChart from "../../charts/PieChart";
+import { matchFieldNames } from "../../../utils/Match";
 
 const climbColorMap = {
   Park: "#006989",
@@ -22,12 +23,12 @@ const StrategyEndgame: React.FC = () => {
           height={200}
           width={400}
           sectionColors={climbColorMap}
-          sections={teamData?.getAsLinearHistogram<ClimbKeys>("climb") || []}
+          sections={teamData?.getAsLinearHistogram<ClimbKeys>(matchFieldNames.climb) || []}
         />
       </div>
 
       <div className="section">
-        <PieChart pieData={teamData?.getAsPie("climb", climbColorMap) || {}} />
+        <PieChart pieData={teamData?.getAsPie(matchFieldNames.climb, climbColorMap) || {}} />
       </div>
 
       <div>

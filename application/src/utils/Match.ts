@@ -16,9 +16,11 @@ type ExcludeByType<T, U> = {
 
 export type Match = ExcludeByType<InputsMapped, never>;
 
-
-export const matchFieldNames = Object.keys(ScouterInputs)
-  .reduce((acccumulator, key) => {
+export const matchFieldNames = Object.keys(ScouterInputs).reduce(
+  (acccumulator, key) => {
     acccumulator[key] = key;
     return acccumulator;
-  }, {} as Record<keyof Match, keyof Match>);
+  },
+  {} as Record<keyof Match, keyof Match>
+);
+

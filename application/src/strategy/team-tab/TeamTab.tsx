@@ -15,7 +15,7 @@ const exampleData: TeamData = new TeamData([
     gameSide: "",
     startingPosition: "",
     noShow: false,
-    defense: undefined,
+    defense: 4,
     climb: "Off Barge",
     comment: "",
     autoMap: {
@@ -38,6 +38,16 @@ const exampleData: TeamData = new TeamData([
       L2: { score: 0, miss: 0 },
       L3: { score: 0, miss: 0 },
       L4: { score: 0, miss: 1 },
+      net: { score: 0, miss: 0 },
+      proccessor: 0,
+    },
+    teleopReef: {
+      L1: { score: 0, miss: 0 },
+      L2: { score: 5, miss: 2 },
+      L3: { score: 2, miss: 0 },
+      L4: { score: 0, miss: 1 },
+      net: { score: 3, miss: 0 },
+      proccessor: 0,
     },
   },
   {
@@ -47,7 +57,7 @@ const exampleData: TeamData = new TeamData([
     gameSide: "",
     startingPosition: "",
     noShow: false,
-    defense: undefined,
+    defense: 3,
     climb: "Park",
     comment: "",
     autoMap: {
@@ -70,6 +80,16 @@ const exampleData: TeamData = new TeamData([
       L2: { score: 2, miss: 0 },
       L3: { score: 0, miss: 0 },
       L4: { score: 0, miss: 1 },
+      net: { score: 0, miss: 0 },
+      proccessor: 0,
+    },
+    teleopReef: {
+      L1: { score: 5, miss: 1 },
+      L2: { score: 4, miss: 2 },
+      L3: { score: 2, miss: 3 },
+      L4: { score: 3, miss: 1 },
+      net: { score: 2, miss: 1 },
+      proccessor: 4,
     },
   },
 ]);

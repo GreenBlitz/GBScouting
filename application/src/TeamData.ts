@@ -3,8 +3,6 @@ import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/ReefForm";
-import { AllSushis } from "./scouter/input-types/auto-map/AutonomousMapInput";
-import { isDeepEqual } from "@mui/x-data-grid/internals";
 import { Auto } from "./utils/SeasonUI";
 
 interface Comment {
@@ -19,17 +17,27 @@ export class TeamData {
     this.matches = matches;
   }
 
-  getAsLine(field: keyof Match): Record<string, number> {
+  getAsLine(
+    field: keyof Match,
+    innerFields?: string[]
+  ): Record<string, number> {
     return Object.assign(
       {},
       ...Object.values(this.matches).map((match) => {
         if (!match[field]) {
           return;
         }
-        if (typeof match[field] !== "number") {
-          throw new Error("Invalid field: " + field);
+        const value = innerFields
+          ? innerFields.reduce(
+              (accumulator, innerField) => accumulator[innerField],
+              match[field]
+            )
+          : match[field];
+        console.log(field + "  " + innerFields + "  " + value);
+        if (typeof value !== "number") {
+          throw new Error("Invalid field: " + field + " " + innerFields);
         }
-        return { [match.qual.toString()]: match[field] };
+        return { [match.qual.toString()]: value };
       })
     );
   }
@@ -40,6 +48,12 @@ export class TeamData {
         return { body: match.comment, qual: match.qual };
       })
       .filter((comment) => comment.body !== "");
+  }
+
+  getScores(): number[] {
+    return this.matches.map((match) => {
+      return 0; //TODO: this
+    });
   }
 
   getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
@@ -118,6 +132,10 @@ export class TeamData {
 
   getAutoCorals() {
     return this.getAverageCorals("autoReef");
+  }
+
+  getTeleopCorals() {
+    return this.getAverageCorals("teleopReef");
   }
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {
