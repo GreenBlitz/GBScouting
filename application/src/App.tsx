@@ -5,15 +5,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
-<<<<<<< HEAD
 import GeneralTab from "./strategy/general-tab/GeneralTab";
-import TeamTab from "./strategy/TeamTab";
-import PreMatch from "./scouter/tabs/PreMatch";
-import Teleoperated from "./scouter/tabs/Teleoperated";
-import Autonomous from "./scouter/tabs/Autonomous";
-import PostMatch from "./scouter/tabs/PostMatch";
-=======
-import GeneralTab from "./strategy/GeneralTab";
 import TeamTab from "./strategy/team-tab/TeamTab";
 import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
 import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
@@ -23,7 +15,6 @@ import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleopera
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
 import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 import PageTransition from "./components/PageTransition";
->>>>>>> core
 
 function getHiddenImage(path: string) {
   return (

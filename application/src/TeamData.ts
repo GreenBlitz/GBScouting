@@ -15,8 +15,7 @@ export class TeamData {
   public readonly matches: Match[];
 
   constructor(matches: Match[]) {
-    this.matches = { ...matches };
-
+    this.matches = [...matches];
   }
 
   getAsLine(
@@ -49,6 +48,14 @@ export class TeamData {
         return { body: match.comment, qual: match.qual };
       })
       .filter((comment) => comment.body !== "");
+  }
+
+  getAverageScore() {
+    const scores = Object.values(this.getScores());
+    return (
+      scores.reduce((accumulator, value) => accumulator + value, 0) /
+      scores.length
+    );
   }
 
   getScores(): Record<string, number> {
@@ -200,6 +207,7 @@ export class TeamData {
   }
 
   getAutos(): Auto[] {
+    console.log(this.matches);
     return this.matches.map((match) => {
       return {
         collected: match.autoMap,
