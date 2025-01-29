@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import ScouterInputs from "../ScouterInputs";
 
 const ScouterAutonomous: React.FC = () => {
+  const [currentSection, setSection] = useState();
   return (
     <>
       <div className="">
