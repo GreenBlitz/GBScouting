@@ -1,5 +1,4 @@
 import { AutonomousMapInput } from "./input-types/auto-map/AutonomousMapInput";
-import ReefForm from "../components/ReefForm";
 import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
 import NumberInput from "./input-types/NumberInput";
@@ -7,8 +6,7 @@ import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
-import teleopForm from "../components/teleopForm.tsx";
-import TeleopForm from "../components/teleopForm.tsx";
+import TeleopForm from "../components/TeleopForm";
 
 interface Level {
   score: number;
@@ -80,7 +78,7 @@ export default class ScouterInputs {
     name: "Comment",
   });
 
-  static readonly teleopForm = new teleopForm({
+  static readonly teleopForm = new TeleopForm({
     route: "teleopForm",
     name: "teleopForm",
   });
