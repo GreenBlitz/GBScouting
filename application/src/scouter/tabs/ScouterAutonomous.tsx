@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ScouterInputs from "../ScouterInputs";
 
+const sections = ["Pick", "Score", "Collect"];
 const ScouterAutonomous: React.FC = () => {
-  const [currentSection, setSection] = useState();
+  const [currentSection, setSection] = useState(sections[0]) ;
   return (
     <>
       <div className="">
