@@ -17,6 +17,7 @@ const TeamTab: React.FC = () => {
   }
 
   const teamData = new TeamData(recentMatches);
+  
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}

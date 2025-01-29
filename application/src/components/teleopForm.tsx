@@ -15,7 +15,7 @@ interface Levels {
   L4: Level;
 }
 
-interface AllScore extends Levels {
+export interface AllScore extends Levels {
   net: Level;
   proccessor: number;
 }
