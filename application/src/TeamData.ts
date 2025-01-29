@@ -25,7 +25,7 @@ export class TeamData {
     return Object.assign(
       {},
       ...Object.values(this.matches).map((match) => {
-        if (!match[field]) {
+        if (!match[field] || match[field] === "undefined") {
           return;
         }
         const value = innerFields

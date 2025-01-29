@@ -2,7 +2,7 @@ import React from "react";
 import ScouterInputs from "../ScouterInputs";
 
 const ScouterTeleoperated: React.FC = () => {
-  return ScouterInputs.teleopForm.create();
+  return ScouterInputs.teleopReef.create();
 };
 
 export default ScouterTeleoperated;
