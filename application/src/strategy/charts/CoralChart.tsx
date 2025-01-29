@@ -26,13 +26,13 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
         <div key={levelName} className="flex flex-row items-center">
           <h2 className="mr-2.5 text-xl mb-0">{levelName}</h2>
           <div>
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-center pt-5">
               <h3 className="mr-2.5 mb-0">Score: {coralLevel.score}</h3>
               <h3 className="mr-2.5 mb-0">Miss: {coralLevel.miss}</h3>
             </div>
             <PercentageBarChart
               width={300}
-              height={250}
+              height={150}
               sections={[
                 { name: "Score", value: scorePercentage.value, color: "green" },
                 {
@@ -41,6 +41,7 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
                   color: "red",
                 },
               ]}
+              isAlwaysHovered={true}
             />
           </div>
         </div>

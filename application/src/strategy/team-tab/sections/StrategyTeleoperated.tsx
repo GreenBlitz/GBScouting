@@ -108,7 +108,7 @@ const StrategyTeleoperated: React.FC = () => {
 
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Corals</h1>
-        <CoralChart corals={teamData.getAutoCorals()} />
+        <CoralChart corals={teamData.getTeleopCorals()} />
       </div>
     </>
   );

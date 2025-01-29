@@ -9,6 +9,7 @@ interface PercentageBarProps {
   width: number;
   height: number;
   sections: Section[];
+  isAlwaysHovered?: boolean;
   style?: CSSProperties;
 }
 
@@ -29,6 +30,9 @@ const basicGaugeProps: AgGaugeProps = {
     scale: {
       min: 0,
       max: 100,
+      label: {
+        enabled: false,
+      },
     },
     theme: "ag-default-dark",
     cornerRadius: 4,
@@ -40,10 +44,15 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
   height,
   sections,
   style,
+  isAlwaysHovered,
 }) => {
-  const [hoveredSection, setHoveredSection] = useState<Section>();
+  const [hoveredSection, setHoveredSection] = useState<Section | undefined>(
+    isAlwaysHovered ? sections[0] : undefined
+  );
   const gaugeProps = { ...basicGaugeProps };
   gaugeProps.options.width = width;
+  gaugeProps.options.height = 100;
+  gaugeProps.style = style;
 
   let sectionValueSum = 0;
   const accumulatedSections = sections.map((section) => {
@@ -76,14 +85,16 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
   const onMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const hoveredX: number =
       event.pageX - event.currentTarget.offsetLeft - gaugeOffset;
-    setHoveredSection(getSection((hoveredX * 100) / gaugeWidth, 0));
+    if (!isAlwaysHovered) {
+      setHoveredSection(getSection((hoveredX * 100) / gaugeWidth, 0));
+    }
   };
 
   return (
     <div
       style={{ width, height }}
       onMouseMove={onMove}
-      onMouseLeave={() => setHoveredSection(undefined)}
+      onMouseLeave={() => (isAlwaysHovered ? {} : setHoveredSection(undefined))}
     >
       <AgGauge {...gaugeProps} />
       {hoveredSection && (
