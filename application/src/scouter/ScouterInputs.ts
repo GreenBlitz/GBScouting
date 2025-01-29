@@ -7,7 +7,23 @@ import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
+import teleopForm from "../components/teleopForm.tsx";
 
+interface Level {
+  score: number;
+  miss: number;
+}
+
+interface Levels {
+  L1: Level;
+  L2: Level;
+  L3: Level;
+  L4: Level;
+}
+interface undoAction {
+  level: keyof Levels;
+  point: keyof Level;
+}
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
     return inputs.map((input) => input.create());
@@ -61,6 +77,11 @@ export default class ScouterInputs {
   static readonly comment = new TextInput({
     route: "comment",
     name: "Comment",
+  });
+
+  static readonly teleopForm = new teleopForm({
+    route: "teleopForm",
+    name: "teleopForm",
   });
 
   static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
