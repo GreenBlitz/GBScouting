@@ -7,6 +7,7 @@ import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
 import TeleopForm from "../components/TeleopForm";
+import ReefPickInput from "./input-types/ReefPickInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -80,5 +81,10 @@ export default class ScouterInputs {
   });
   static readonly autoReef = new TeleopForm({
     route: "autoReef",
+  });
+
+  static readonly autoReefPick = new ReefPickInput({
+    route: "autoReefPick",
+    setUndo: () => {},
   });
 }

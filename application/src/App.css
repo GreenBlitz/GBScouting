@@ -9,7 +9,12 @@
     display: inline-block;
   }
 }
-
+.thirty-degrees {
+  transform: rotate(30deg);
+}
+.minus-thirty-degrees {
+  transform: rotate(-30deg);
+}
 .scouter-input {
   h3,
   h2,
