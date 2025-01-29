@@ -3,9 +3,8 @@ import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/ReefForm";
-import { AllSushis } from "./scouter/input-types/auto-map/AutonomousMapInput";
-import { isDeepEqual } from "@mui/x-data-grid/internals";
 import { Auto } from "./utils/SeasonUI";
+import { AllScore as AllScoreFromForm } from "./components/TeleopForm";
 
 interface Comment {
   body: string;
@@ -19,17 +18,26 @@ export class TeamData {
     this.matches = matches;
   }
 
-  getAsLine(field: keyof Match): Record<string, number> {
+  getAsLine(
+    field: keyof Match,
+    innerFields?: string[]
+  ): Record<string, number> {
     return Object.assign(
       {},
       ...Object.values(this.matches).map((match) => {
         if (!match[field]) {
           return;
         }
-        if (typeof match[field] !== "number") {
-          throw new Error("Invalid field: " + field);
+        const value = innerFields
+          ? innerFields.reduce(
+              (accumulator, innerField) => accumulator[innerField],
+              match[field]
+            )
+          : match[field];
+        if (typeof value !== "number") {
+          throw new Error("Invalid field: " + field + " " + innerFields);
         }
-        return { [match.qual.toString()]: match[field] };
+        return { [match.qual.toString()]: value };
       })
     );
   }
@@ -40,6 +48,45 @@ export class TeamData {
         return { body: match.comment, qual: match.qual };
       })
       .filter((comment) => comment.body !== "");
+  }
+
+  getScores(): Record<string, number> {
+    return Object.assign(
+      {},
+      ...this.matches.map((match) => {
+        let sum = 0;
+
+        sum += match.teleopReef.L1.score * 2;
+        sum += match.teleopReef.L2.score * 3;
+        sum += match.teleopReef.L3.score * 4;
+        sum += match.teleopReef.L4.score * 5;
+        sum += match.teleopReef.net.score * 4;
+        sum += match.teleopReef.proccessor * 4;
+
+        sum += match.autoReef.L1.score * 3;
+        sum += match.autoReef.L2.score * 4;
+        sum += match.autoReef.L3.score * 6;
+        sum += match.autoReef.L4.score * 7;
+        sum += match.autoReef.net.score * 4;
+        sum += match.autoReef.proccessor * 4;
+
+        const getClimb = () => {
+          switch (match.climb) {
+            case "Park":
+              return 2;
+            case "Shallow Cage":
+              return 6;
+            case "Deep Cage":
+              return 12;
+          }
+          return 0;
+        };
+
+        sum += getClimb();
+
+        return { [match.qual]: sum };
+      })
+    );
   }
 
   getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
@@ -118,6 +165,10 @@ export class TeamData {
 
   getAutoCorals() {
     return this.getAverageCorals("autoReef");
+  }
+
+  getTeleopCorals() {
+    return this.getAverageCorals("teleopReef");
   }
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {

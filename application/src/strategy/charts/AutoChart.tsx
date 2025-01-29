@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { Auto } from "../../utils/SeasonUI";
 import { Point } from "chart.js";
 import { Sushi } from "../../scouter/input-types/auto-map/AutonomousMapInput";
-import CoralChart from "./CoralChart";
 
 interface AutoProps {
   auto: Auto;
@@ -88,8 +87,12 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
         {Object.entries(auto.scored).map(([levelName, level]) => (
           <div key={levelName} className="flex flex-row items-start">
             <h1 className="p-2 text-2xl">{levelName}</h1>
-            <p className="p-2 text-2xl text-green-600">{level.score}</p>
-            <p className="p-2 text-2xl text-red-600">{level.miss}</p>
+            <p className="p-2 text-2xl text-green-600">
+              {levelName === "proccessor" ? level : level.score}
+            </p>
+            {levelName !== "proccessor" && (
+              <p className="p-2 text-2xl text-red-600">{level.miss}</p>
+            )}
           </div>
         ))}
       </div>
