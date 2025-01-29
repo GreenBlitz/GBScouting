@@ -67,7 +67,7 @@ class TeleopForm extends ScouterInput<
   }
 
   renderInput(): React.ReactNode {
-    const levelKeys: (keyof Levels)[] = ["L1", "L2", "L3", "L4"];
+    const levelKeys: (keyof Levels)[] = ["L4", "L3", "L2", "L1"];
 
     const handleClick = (action: CoralAction) => {
       const updatedValues = { ...this.state.values };
@@ -133,67 +133,63 @@ class TeleopForm extends ScouterInput<
     };
 
     return (
-      <div className="container">
-        <table>
-          <tr>
-            <td>
-              {levelKeys.map((levelKey) => {
-                const level = levelKey as keyof Levels;
-                return (
-                  <div className="section" key={level}>
-                    <h2>{level}</h2>
-                    <button
-                      className="buttonS"
-                      onClick={() =>
-                        handleClick({ level: level, point: "score" })
-                      }
-                    >
-                      {this.state.values[level].score}
-                    </button>
-                    <button
-                      className="buttonF"
-                      onClick={() =>
-                        handleClick({ level: level, point: "miss" })
-                      }
-                    >
-                      {this.state.values[level].miss}
-                    </button>
-                  </div>
-                );
-              })}
-            </td>
-            <td>
-              <div className="section">
-                <h2>Net</h2>
-                <button
-                  className="buttonS"
-                  onClick={() => handleNet({ type: "score" })}
-                >
-                  {this.state.values.net.score}
-                </button>
-                <button
-                  className="buttonF"
-                  onClick={() => handleNet({ type: "miss" })}
-                >
-                  {this.state.values.net.miss}
-                </button>
-              </div>
+      <div className="flex flex-col items-center">
+        {levelKeys.map((levelKey) => {
+          const level = levelKey as keyof Levels;
+          return (
+            <div className="flex" key={level}>
+              <h2
+                className={`mr-${
+                  level === "L1" ? 8 : 7
+                } text-xl flex items-center`}
+              >
+                {level}
+              </h2>
+              <button
+                className="buttonS mr-2"
+                onClick={() => handleClick({ level: level, point: "score" })}
+              >
+                {this.state.values[level].score}
+              </button>
+              <button
+                className="buttonF"
+                onClick={() => handleClick({ level: level, point: "miss" })}
+              >
+                {this.state.values[level].miss}
+              </button>
+            </div>
+          );
+        })}
+        <div className="flex">
+          <h2 className="mr-5 text-xl flex items-center">Net</h2>
+          <button
+            className="buttonS"
+            onClick={() => handleNet({ type: "score" })}
+          >
+            {this.state.values.net.score}
+          </button>
+          <button
+            className="buttonF"
+            onClick={() => handleNet({ type: "miss" })}
+          >
+            {this.state.values.net.miss}
+          </button>
+        </div>
 
-              <div className="section">
-                <h2>Algae</h2>
-                <button
-                  className="buttonS"
-                  onClick={() => handleAlgea("proccessor")}
-                >
-                  {this.state.values.proccessor}
-                </button>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <button className="buttonU" onClick={handleUndo}>
-          Undo
-        </button>
+        <div className="mr-12 flex">
+          <h2 className="text-xl flex items-center">Processor</h2>
+          <button className="buttonS" onClick={() => handleAlgea("proccessor")}>
+            {this.state.values.proccessor}
+          </button>
+        </div>
+        <div className="ml-12 flex">
+          <button
+            className="bg-purple-700 text-white py-2 px-4 rounded"
+            onClick={handleUndo}
+          >
+            Undo
+          </button>
+        </div>
       </div>
     );
   }
