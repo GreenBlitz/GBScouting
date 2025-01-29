@@ -8,6 +8,7 @@ import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
 import teleopForm from "../components/teleopForm.tsx";
+import TeleopForm from "../components/teleopForm.tsx";
 
 interface Level {
   score: number;
@@ -89,7 +90,7 @@ export default class ScouterInputs {
     route: "autoScore",
     name: "Coral Feeder",
   });
-  static readonly autoReef = new ReefForm({
+  static readonly autoReef = new TeleopForm({
     route: "autoReef",
   });
 }
