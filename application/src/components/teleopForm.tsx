@@ -15,64 +15,54 @@ interface Levels {
   L4: Level;
 }
 
-interface NetScore {
-  score: number;
-  miss: number;
+interface AllScore extends Levels {
+  net: Level;
+  proccessor: number;
 }
 
 interface NetAction {
-  type: keyof NetScore;
+  type: keyof Level;
 }
-type FullAction = NetAction | CoralAction | AlgeaAction;
+
+type ProccessorAction = "proccessor";
+
+type FullAction = NetAction | CoralAction | ProccessorAction;
 
 interface CoralAction {
   level: keyof Levels;
   point: keyof Level;
 }
-interface Algea {
-  algea: number;
-}
-interface AlgeaAction {
-  type: keyof Algea;
-}
 
 class TeleopForm extends ScouterInput<
-  Levels & NetScore & Algea,
+  AllScore,
   {},
   {
-    levels: Levels;
+    values: AllScore;
     undoStack: FullAction[];
-    netScore: NetScore;
-    algeaScore: Algea;
   }
 > {
   create(): React.JSX.Element {
     return <TeleopForm {...this.props} />;
   }
 
-  initialValue(): Levels & NetScore & Algea {
+  initialValue(): AllScore {
     return {
       L1: { score: 0, miss: 0 },
       L2: { score: 0, miss: 0 },
       L3: { score: 0, miss: 0 },
       L4: { score: 0, miss: 0 },
-      score: 0,
-      miss: 0,
-      algea: 0,
+      net: { score: 0, miss: 0 },
+      proccessor: 0,
     };
   }
 
-  getStartingState(props: InputProps<Levels>): {
-    levels: Levels;
+  getStartingState(props: InputProps<AllScore>): {
+    values: AllScore;
     undoStack: FullAction[];
-    netScore: NetScore;
-    algeaScore: Algea;
   } {
     return {
-      levels: this.initialValue(),
+      values: this.initialValue(),
       undoStack: [],
-      netScore: { score: 0, miss: 0 },
-      algeaScore: { algea: 0 },
     };
   }
 
@@ -80,43 +70,41 @@ class TeleopForm extends ScouterInput<
     const levelKeys: (keyof Levels)[] = ["L1", "L2", "L3", "L4"];
 
     const handleClick = (action: CoralAction) => {
-      const updatedLevels = { ...this.state.levels };
-      updatedLevels[action.level][action.point] += 1;
+      const updatedValues = { ...this.state.values };
+      updatedValues[action.level][action.point] += 1;
       this.setState({
         undoStack: [
           ...this.state.undoStack,
           { level: action.level, point: action.point },
         ],
+        values: updatedValues,
       });
       this.storage.set({
-        ...updatedLevels,
-        score: this.state.netScore.score,
-        miss: this.state.netScore.miss,
-        ...this.state.algeaScore,
+        ...updatedValues,
       });
     };
 
     const handleNet = (action: NetAction) => {
-      const updatedNetScore = { ...this.state.netScore };
-      updatedNetScore[action.type] += 1;
-      this.setState({ undoStack: [...this.state.undoStack, action] });
-      this.setState({ netScore: updatedNetScore });
+      const updatedValues = { ...this.state.values };
+      updatedValues["net"][action.type]++;
+      this.setState({
+        undoStack: [...this.state.undoStack, action],
+        values: updatedValues,
+      });
       this.storage.set({
-        ...this.state.levels,
-        ...updatedNetScore,
-        ...this.state.algeaScore,
+        ...updatedValues,
       });
     };
 
-    const handleAlgea = (action: AlgeaAction) => {
-      const updatedAlgeaScore = { ...this.state.algeaScore };
-      updatedAlgeaScore[action.type] += 1;
-      this.setState({ undoStack: [...this.state.undoStack, action] });
-      this.setState({ algeaScore: updatedAlgeaScore });
+    const handleAlgea = (action: ProccessorAction) => {
+      const updatedValues = { ...this.state.values };
+      updatedValues[action]++;
+      this.setState({
+        undoStack: [...this.state.undoStack, action],
+        values: updatedValues,
+      });
       this.storage.set({
-        ...this.state.levels,
-        ...this.state.netScore,
-        ...updatedAlgeaScore,
+        ...updatedValues,
       });
     };
 
@@ -124,32 +112,23 @@ class TeleopForm extends ScouterInput<
       if (this.state.undoStack.length === 0) return;
 
       const lastAction = this.state.undoStack[this.state.undoStack.length - 1];
-      const updatedNetScore = { ...this.state.netScore };
-      const updatedLevels = { ...this.state.levels };
-      const updatedAlgea = { ...this.state.algeaScore };
+      const updatedValues = { ...this.state.values };
 
-      if ("level" in lastAction) {
-        updatedLevels[lastAction.level][lastAction.point] -= 1;
-        this.setState({ levels: updatedLevels });
-      } else if (
-        ("type" in lastAction && lastAction.type === "score") ||
-        lastAction.type === "miss"
-      ) {
-        updatedNetScore[lastAction.type] -= 1;
-        this.setState({ netScore: updatedNetScore });
-      } else if ("type" in lastAction && lastAction.type === "algea") {
-        updatedAlgea.algea -= 1;
-        this.setState({ algeaScore: updatedAlgea });
+      if ("proccessor" === lastAction) {
+        updatedValues["proccessor"]--;
+      } else if ("level" in lastAction) {
+        updatedValues[lastAction.level][lastAction.point]--;
+      } else if ("type" in lastAction) {
+        updatedValues["net"][lastAction.type]--;
       }
 
       this.setState({
         undoStack: this.state.undoStack.slice(0, -1),
+        values: updatedValues,
       });
 
       this.storage.set({
-        ...updatedLevels,
-        ...updatedNetScore,
-        ...updatedAlgea,
+        ...updatedValues,
       });
     };
 
@@ -169,7 +148,7 @@ class TeleopForm extends ScouterInput<
                         handleClick({ level: level, point: "score" })
                       }
                     >
-                      {this.state.levels[level].score}
+                      {this.state.values[level].score}
                     </button>
                     <button
                       className="buttonF"
@@ -177,7 +156,7 @@ class TeleopForm extends ScouterInput<
                         handleClick({ level: level, point: "miss" })
                       }
                     >
-                      {this.state.levels[level].miss}
+                      {this.state.values[level].miss}
                     </button>
                   </div>
                 );
@@ -185,18 +164,18 @@ class TeleopForm extends ScouterInput<
             </td>
             <td>
               <div className="section">
-                <h2>Net Score</h2>
+                <h2>Net</h2>
                 <button
                   className="buttonS"
                   onClick={() => handleNet({ type: "score" })}
                 >
-                  {this.state.netScore.score}
+                  {this.state.values.net.score}
                 </button>
                 <button
                   className="buttonF"
                   onClick={() => handleNet({ type: "miss" })}
                 >
-                  {this.state.netScore.miss}
+                  {this.state.values.net.miss}
                 </button>
               </div>
 
@@ -204,9 +183,9 @@ class TeleopForm extends ScouterInput<
                 <h2>Algae</h2>
                 <button
                   className="buttonS"
-                  onClick={() => handleAlgea({ type: "algea" })}
+                  onClick={() => handleAlgea("proccessor")}
                 >
-                  {this.state.algeaScore.algea}
+                  {this.state.values.proccessor}
                 </button>
               </div>
             </td>
