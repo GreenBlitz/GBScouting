@@ -6,7 +6,7 @@ application/yarn-debug.log*
 application/yarn-error.log*
 application/pnpm-debug.log*
 application/lerna-debug.log*
-
+./app
 
 application/node_modules
 application/*.local
