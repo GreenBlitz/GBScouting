@@ -1,3 +1,4 @@
+
 export default class FolderStorage {
   private prefix: string;
   public readonly parent: Storage | FolderStorage;

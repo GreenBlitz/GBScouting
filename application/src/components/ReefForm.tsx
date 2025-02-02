@@ -15,7 +15,11 @@ interface Levels {
   L4: Level;
 }
 
-class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: { level: keyof Levels; point: keyof Level }[] }> {
+class ReefScoring extends ScouterInput<
+  Levels,
+  {},
+  { levels: Levels; undoStack: { level: keyof Levels; point: keyof Level }[] }
+> {
   create(): React.JSX.Element {
     return <ReefScoring {...this.props} />;
   }
@@ -29,7 +33,10 @@ class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: 
     };
   }
 
-  getStartingState(props: InputProps<Levels>): { levels: Levels; undoStack: { level: keyof Levels; point: keyof Level }[] } {
+  getStartingState(props: InputProps<Levels>): {
+    levels: Levels;
+    undoStack: { level: keyof Levels; point: keyof Level }[];
+  } {
     return {
       levels: this.initialValue(),
       undoStack: [],
@@ -40,10 +47,9 @@ class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: 
     const handleClick = (level: keyof Levels, point: keyof Level) => {
       const updatedLevels = { ...this.state.levels };
       updatedLevels[level][point] += 1;
-      this.setState({undoStack: [...this.state.undoStack, { level, point }]});
+      this.setState({ undoStack: [...this.state.undoStack, { level, point }] });
       this.storage.set(this.state.levels);
     };
-    
 
     const handleUndo = () => {
       if (this.state.undoStack.length === 0) return;
@@ -52,19 +58,21 @@ class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: 
       const updatedLevels = { ...this.state.levels };
       updatedLevels[lastAction.level][lastAction.point] -= 1;
 
-      this.setState({ levels: updatedLevels, undoStack: this.state.undoStack.slice(0, -1) });
+      this.setState({
+        levels: updatedLevels,
+        undoStack: this.state.undoStack.slice(0, -1),
+      });
 
       this.storage.set(this.state.levels);
     };
 
     return (
       <div>
-        <h1>Reef Scoring</h1>
         {Object.keys(this.state.levels).map((levelKey) => {
           const level = levelKey as keyof Levels;
           return (
             <div key={level}>
-              <h2>{level}</h2>
+                <h2 className="inline-block">{level}</h2>
               <button
                 className="buttonS"
                 onClick={() => handleClick(level, "score")}
@@ -80,7 +88,10 @@ class ReefScoring extends ScouterInput<Levels, {}, { levels: Levels; undoStack: 
             </div>
           );
         })}
-        <button className="buttonU" onClick={handleUndo}>
+        <button
+          className="bg-purple-700 text-white py-2 px-4 rounded"
+          onClick={handleUndo}
+        >
           Undo
         </button>
       </div>

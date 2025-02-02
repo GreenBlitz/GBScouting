@@ -3,10 +3,7 @@ import ScouterInputs from "../ScouterInputs";
 interface AutonomousProps {}
 
 const Autonomous: React.FC<AutonomousProps> = () => {
-  return (
-    <>
-    </>
-  );
+  return ScouterInputs.autoMap.create();
 };
 
 export default Autonomous;

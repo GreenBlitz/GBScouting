@@ -24,7 +24,11 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ data }) => {
       });
   }, [data]);
 
-  return <img src={qrCodeData || ""} alt="QR code" />;
+  return (
+    <div className="flex justify-center items-center h-full">
+      <img src={qrCodeData || ""} alt="QR code" />
+    </div>
+  );
 };
 
 export default QRCodeGenerator;
