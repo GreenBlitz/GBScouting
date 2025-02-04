@@ -9,16 +9,12 @@ import GeneralTab from "./strategy/general-tab/GeneralTab";
 import TeamTab from "./strategy/team-tab/TeamTab";
 import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
 import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
-import ScouterPather from "./scouter/tabs/pathing-panel/ScouterPather";
 import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
 import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
 import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 import PageTransition from "./components/PageTransition";
-import ScouterAutoPick from "./scouter/tabs/pathing-panel/ScouterAutoPick";
-import ScouterAutoCollect from "./scouter/tabs/pathing-panel/ScouterAutoCollect";
-import ScouterAutoScore from "./scouter/tabs/pathing-panel/ScouterAutoScore";
-import ScouterAutonomous from "./scouter/tabs/ScouterAutonomous";
+import ScouterAutonomous, { ScouterAutoPick, ScouterAutoScore } from "./scouter/tabs/ScouterAutonomous";
 
 function getHiddenImage(path: string) {
   return (
@@ -124,7 +120,6 @@ const App: React.FC = () => {
               <Route path="autonomous" element={<ScouterAutonomous />}>
                 <Route path="pick" element={<ScouterAutoPick />} />
                 <Route path="score" element={<ScouterAutoScore />} />
-                <Route path="collect" element={<ScouterAutoCollect />} />
               </Route>
               <Route path="postmatch" element={<ScouterPostMatch />} />
             </Route>

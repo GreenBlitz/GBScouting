@@ -228,6 +228,21 @@ class ReefPickInput extends ScouterInput<
         >
           <canvas ref={this.canvasRef} width={width} height={height} />
         </div>
+
+        <div className="flex flex-row justify-center mb-4">
+          <button
+            className="buttonS mr-2 items-center flex flex-col justify-center"
+            onClick={() => this.addAction("coralFeeder")}
+          >
+            {this.getActionValue("coralFeeder")}
+          </button>
+          <button
+            className="buttonS ml-4 mr-2 items-center flex flex-col justify-center"
+            onClick={() => this.addAction("coralGround")}
+          >
+            {this.getActionValue("coralGround")}
+          </button>
+        </div>
       </div>
     );
   }
