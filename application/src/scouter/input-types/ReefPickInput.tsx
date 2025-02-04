@@ -1,11 +1,19 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { Point } from "chart.js";
+import "../../components/reefScore.css";
 
 interface ReefSide {
   side: "left" | "right";
   proximity: "far" | "middle" | "close";
 }
+
+type AlgeaScored = "netScore" | "netMiss" | "processor";
+type Collected = "coralFeeder" | "coralGround" | "algeaGround";
+
+type PossibleActions = AlgeaScored | Collected;
+type PickedObjective = ReefSide | PossibleActions;
+
 const [width, height] = [262, 262];
 
 const triangleMiddles: { center: Point; reefSide: ReefSide }[] = [
@@ -53,20 +61,31 @@ const hexagonVertices: Point[] = [
 ];
 
 class ReefPickInput extends ScouterInput<
-  ReefSide[],
-  { setUndo: (undo: () => void) => void }
+  PickedObjective[],
+  { setUndo: (undo: () => void) => void },
+  { objectives: PickedObjective[] }
 > {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
 
   create(): React.JSX.Element {
     return <ReefPickInput {...this.props} />;
   }
-  initialValue(props: InputProps<ReefSide[]>): ReefSide[] {
+  initialValue(props: InputProps<PickedObjective[]>): PickedObjective[] {
     return [];
   }
 
+  getStartingState(
+    props: InputProps<PickedObjective[]> & {
+      setUndo: (undo: () => void) => void;
+    }
+  ): { objectives: PickedObjective[] } | undefined {
+    return { objectives: this.getValue() };
+  }
+
   constructor(
-    props: InputProps<ReefSide[]> & { setUndo: (undo: () => void) => void }
+    props: InputProps<PickedObjective[]> & {
+      setUndo: (undo: () => void) => void;
+    }
   ) {
     super(props);
     this.canvasRef = React.createRef<HTMLCanvasElement>();
@@ -128,8 +147,19 @@ class ReefPickInput extends ScouterInput<
   }
 
   addSide(side: ReefSide) {
-    const previous = this.getValue();
-    this.storage.set([...previous, side]);
+    this.state.objectives.push(side);
+    this.setState(this.state);
+    this.storage.set(this.state.objectives);
+  }
+
+  addAction(action: PossibleActions) {
+    this.state.objectives.push(action);
+    this.setState(this.state);
+    this.storage.set(this.state.objectives);
+  }
+
+  getActionValue(action: PossibleActions) {
+    return this.state.objectives.filter((value) => value === action).length;
   }
 
   getSide(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -155,18 +185,49 @@ class ReefPickInput extends ScouterInput<
     ).reefSide;
   }
 
+  updateButton(field: keyof PickedObjective) {
+    this.storage.set([...this.getValue()]);
+  }
+
   renderInput(): React.ReactNode {
     return (
-      <div
-        style={{
-          backgroundSize: "100% 100%",
-          width: width,
-          height: height,
-          position: "relative",
-        }}
-        onClick={(event) => this.addSide(this.getSide(event))}
-      >
-        <canvas ref={this.canvasRef} width={width} height={height} />
+      <div className="flex items-center justify-center flex-col">
+        <div className="flex flex-row justify-center mb-4">
+          <button
+            className="buttonS mr-2 items-center flex flex-col justify-center"
+            onClick={() => this.addAction("netScore")}
+          >
+            <h2 className="text-3xl font-extrabold">NET</h2>
+            {this.getActionValue("netScore")}
+          </button>
+          <button className="buttonF" onClick={() => this.addAction("netMiss")}>
+            {this.getActionValue("netMiss")}
+          </button>
+          <button
+            className="buttonS ml-4 mr-2 items-center flex flex-col justify-center"
+            onClick={() => this.addAction("processor")}
+          >
+            <h2 className="text-3xl font-extrabold">PRO.</h2>
+            {this.getActionValue("processor")}
+          </button>
+        </div>
+        <div
+          style={{
+            backgroundSize: "100% 100%",
+            width: width,
+            height: height,
+            position: "relative",
+          }}
+          onTouchStart={(event) => {
+            //change color
+          }}
+          onTouchEnd={(event) => {
+            //change color
+          }}
+          onClick={(event) => this.addSide(this.getSide(event))}
+        >
+          <canvas ref={this.canvasRef} width={width} height={height} />
+        </div>
       </div>
     );
   }

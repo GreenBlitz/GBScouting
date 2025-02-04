@@ -2,6 +2,7 @@ import React from "react";
 import ScouterInput from "../scouter/ScouterInput";
 import { InputProps } from "../scouter/ScouterInput";
 import "./reefScore.css";
+import algeaSVG from "../assets/Algea.svg";
 
 interface Level {
   score: number;
@@ -17,16 +18,13 @@ interface Levels {
 
 export interface AllScore extends Levels {
   net: Level;
-  proccessor: number;
 }
 
 interface NetAction {
   type: keyof Level;
 }
 
-type ProccessorAction = "proccessor";
-
-type FullAction = NetAction | CoralAction | ProccessorAction;
+type FullAction = NetAction | CoralAction;
 
 interface CoralAction {
   level: keyof Levels;
@@ -52,7 +50,6 @@ class TeleopForm extends ScouterInput<
       L3: { score: 0, miss: 0 },
       L4: { score: 0, miss: 0 },
       net: { score: 0, miss: 0 },
-      proccessor: 0,
     };
   }
 
@@ -96,27 +93,13 @@ class TeleopForm extends ScouterInput<
       });
     };
 
-    const handleAlgea = (action: ProccessorAction) => {
-      const updatedValues = { ...this.state.values };
-      updatedValues[action]++;
-      this.setState({
-        undoStack: [...this.state.undoStack, action],
-        values: updatedValues,
-      });
-      this.storage.set({
-        ...updatedValues,
-      });
-    };
-
     const handleUndo = () => {
       if (this.state.undoStack.length === 0) return;
 
       const lastAction = this.state.undoStack[this.state.undoStack.length - 1];
       const updatedValues = { ...this.state.values };
 
-      if ("proccessor" === lastAction) {
-        updatedValues["proccessor"]--;
-      } else if ("level" in lastAction) {
+      if ("level" in lastAction) {
         updatedValues[lastAction.level][lastAction.point]--;
       } else if ("type" in lastAction) {
         updatedValues["net"][lastAction.type]--;
@@ -139,16 +122,10 @@ class TeleopForm extends ScouterInput<
           return (
             <div className="flex" key={level}>
               <button
-                className="buttonS mr-2"
+                className="buttonS mr-2 items-center flex flex-col justify-center"
                 onClick={() => handleClick({ level: level, point: "score" })}
               >
-                <h2
-                  className={`mr-${
-                    level === "L1" ? 8 : 7
-                  } text-3xl justify-center font-bold flex items-center`}
-                >
-                  {level}
-                </h2>
+                <h2 className="text-3xl font-extrabold">{level}</h2>
                 {this.state.values[level].score}
               </button>
               <button
@@ -164,22 +141,16 @@ class TeleopForm extends ScouterInput<
         <div className="h-16" />
         <div className="flex">
           <button
-            className="buttonS bg-cyan-400"
+            className="buttonS"
             onClick={() => handleNet({ type: "score" })}
           >
-            {this.state.values.net.score}
+            <img src={algeaSVG} width={80} alt="Algea Icon" />
           </button>
           <button
-            className="buttonF bg-orange-700"
+            className="buttonF"
             onClick={() => handleNet({ type: "miss" })}
           >
-            {this.state.values.net.miss}
-          </button>
-          <button
-            className="buttonS ml-5 "
-            onClick={() => handleAlgea("proccessor")}
-          >
-            {this.state.values.proccessor}
+            <img src={algeaSVG} width={80} alt="Algea Icon" />
           </button>
         </div>
 

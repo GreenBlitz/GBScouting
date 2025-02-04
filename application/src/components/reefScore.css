@@ -17,7 +17,7 @@
   padding: 10px 15px;
   margin: 5px;
   cursor: pointer;
-  min-width: 70px;
+  width: 70px;
   height: 100px;
   font-size: 18px;
 }

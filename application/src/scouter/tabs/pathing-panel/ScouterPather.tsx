@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import ScouterInputs from "../../ScouterInputs";
 
-const ScouterAutonomous: React.FC = () => {
+const ScouterPather: React.FC = () => {
   return (
     <>
       <div className="w-96 flex flex-row">
@@ -12,7 +12,7 @@ const ScouterAutonomous: React.FC = () => {
         >
           AUTO
         </h2>
-        <div className="w-40" />
+        <div className="w-full" />
         <h3
           className="text-2xl text-yellow-300"
           style={{ fontFamily: "Franklin Gothic Black" }}
@@ -25,4 +25,4 @@ const ScouterAutonomous: React.FC = () => {
   );
 };
 
-export default ScouterAutonomous;
+export default ScouterPather;
