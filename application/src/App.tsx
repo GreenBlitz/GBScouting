@@ -9,12 +9,15 @@ import GeneralTab from "./strategy/general-tab/GeneralTab";
 import TeamTab from "./strategy/team-tab/TeamTab";
 import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
 import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
-import ScouterAutonomous from "./scouter/tabs/ScouterAutonomous";
+import ScouterAutonomous from "./scouter/tabs/auto/ScouterAutonomous";
 import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
 import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
 import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 import PageTransition from "./components/PageTransition";
+import ScouterAutoPick from "./scouter/tabs/auto/ScouterAutoPick";
+import ScouterAutoCollect from "./scouter/tabs/auto/ScouterAutoCollect";
+import ScouterAutoScore from "./scouter/tabs/auto/ScouterAutoScore";
 
 function getHiddenImage(path: string) {
   return (
@@ -117,7 +120,11 @@ const App: React.FC = () => {
             <Route path="/scouting" element={<ScouterTab />}>
               <Route path="prematch" element={<ScouterPreMatch />} />
               <Route path="teleoperated" element={<ScouterTeleoperated />} />
-              <Route path="autonomous" element={<ScouterAutonomous />} />
+              <Route path="autonomous" element={<ScouterAutonomous />}>
+                <Route path="pick" element={<ScouterAutoPick />}/>
+                <Route path="score" element={<ScouterAutoScore />}/>
+                <Route path="collect" element={<ScouterAutoCollect />}/>
+              </Route>
               <Route path="postmatch" element={<ScouterPostMatch />} />
             </Route>
             <Route path="/team" element={<TeamTab />}>

@@ -12,7 +12,7 @@ import PageTransition from "../components/PageTransition";
 
 const sectionNames: string[] = [
   "prematch",
-  "autonomous",
+  "autonomous/pick",
   "teleoperated",
   "postmatch",
 ];
