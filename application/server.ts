@@ -11,7 +11,7 @@ const app = express();
 const hostname = "0.0.0.0";
 const port = 4590;
 
-const dirName = "/app";
+const dirName = "";
 
 // SSL options for HTTPS
 let sslOptions;
