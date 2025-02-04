@@ -2,6 +2,8 @@ import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { Point } from "chart.js";
 import "../../components/reefScore.css";
+import coralSVG from "../../assets/low-coral.svg";
+import { Navigate } from "react-router-dom";
 
 interface ReefSide {
   side: "left" | "right";
@@ -62,8 +64,8 @@ const hexagonVertices: Point[] = [
 
 class ReefPickInput extends ScouterInput<
   PickedObjective[],
-  { setUndo: (undo: () => void) => void },
-  { objectives: PickedObjective[] }
+  { navigationDestination: string },
+  { objectives: PickedObjective[]; redirectToNext: boolean }
 > {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
 
@@ -76,30 +78,22 @@ class ReefPickInput extends ScouterInput<
 
   getStartingState(
     props: InputProps<PickedObjective[]> & {
-      setUndo: (undo: () => void) => void;
+      navigationDestination: string;
     }
-  ): { objectives: PickedObjective[] } | undefined {
-    return { objectives: this.getValue() };
+  ): { objectives: PickedObjective[]; redirectToNext: boolean } | undefined {
+    return { objectives: this.getValue(), redirectToNext: false };
   }
 
   constructor(
     props: InputProps<PickedObjective[]> & {
-      setUndo: (undo: () => void) => void;
+      navigationDestination: string;
     }
   ) {
     super(props);
     this.canvasRef = React.createRef<HTMLCanvasElement>();
   }
 
-  undo() {
-    const previous = this.getValue();
-    previous.splice(previous.length - 1, 1);
-    this.storage.set(previous);
-  }
-
   componentDidMount(): void {
-    this.props.setUndo(this.undo);
-
     const canvasContext = this.canvasRef.current
       ? this.canvasRef.current.getContext("2d")
       : null;
@@ -120,20 +114,13 @@ class ReefPickInput extends ScouterInput<
         return;
       }
 
-      context.strokeStyle = "black";
+      context.strokeStyle = "#90EE90";
 
       context.beginPath();
       context.moveTo(point.x, point.y);
       const otherPoint = hexagonVertices[index + hexagonVertices.length / 2];
       context.lineTo(otherPoint.x, otherPoint.y);
-      context.lineWidth = 10;
-      context.stroke();
-      context.closePath();
-
-      context.beginPath();
-      context.moveTo(point.x, point.y);
-      context.lineTo(otherPoint.x, otherPoint.y);
-      context.lineWidth = 10;
+      context.lineWidth = 5;
       context.stroke();
       context.closePath();
     });
@@ -148,7 +135,7 @@ class ReefPickInput extends ScouterInput<
 
   addSide(side: ReefSide) {
     this.state.objectives.push(side);
-    this.setState(this.state);
+    this.setState({ objectives: this.state.objectives, redirectToNext: true });
     this.storage.set(this.state.objectives);
   }
 
@@ -185,11 +172,16 @@ class ReefPickInput extends ScouterInput<
     ).reefSide;
   }
 
-  updateButton(field: keyof PickedObjective) {
-    this.storage.set([...this.getValue()]);
+  undo() {
+    this.state.objectives.pop();
+    this.setState(this.state);
+    this.storage.set(this.state.objectives);
   }
 
   renderInput(): React.ReactNode {
+    if (this.state.redirectToNext) {
+      return <Navigate to={this.props.navigationDestination} />;
+    }
     return (
       <div className="flex items-center justify-center flex-col">
         <div className="flex flex-row justify-center mb-4">
@@ -231,16 +223,30 @@ class ReefPickInput extends ScouterInput<
 
         <div className="flex flex-row justify-center mb-4">
           <button
-            className="buttonS mr-2 items-center flex flex-col justify-center"
+            className="buttonS mr-2 items-center flex flex-col justify-center relative"
             onClick={() => this.addAction("coralFeeder")}
           >
-            {this.getActionValue("coralFeeder")}
+            <img src={coralSVG} width={80} alt="Coral Icon" />
+            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
+              {this.getActionValue("coralFeeder")}
+            </span>
           </button>
           <button
-            className="buttonS ml-4 mr-2 items-center flex flex-col justify-center"
+            className="buttonS ml-4 mr-2 items-center flex flex-col justify-center relative"
             onClick={() => this.addAction("coralGround")}
           >
-            {this.getActionValue("coralGround")}
+            <img src={coralSVG} width={80} alt="Coral Icon" />
+            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
+              {this.getActionValue("coralGround")}
+            </span>
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={() => this.undo()}
+            className="bg-purple-700 w-48 h-20 text-white py-2 px-4 rounded"
+          >
+            Undo
           </button>
         </div>
       </div>

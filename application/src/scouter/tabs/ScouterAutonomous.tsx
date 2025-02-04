@@ -29,8 +29,8 @@ export const ScouterAutoPick: React.FC = () => {
   return ScouterInputs.autoReefPick.create();
 };
 
-export const ScouterAutoScore: React.FC = () => {
-  return <></>
-}
+export const ScouterAutoReef: React.FC = () => {
+  return ScouterInputs.autoReef.create();
+};
 
 export default ScouterAutonomous;

@@ -85,6 +85,6 @@ export default class ScouterInputs {
 
   static readonly autoReefPick = new ReefPickInput({
     route: "autoReefPick",
-    setUndo: () => {},
+    navigationDestination: "../reef",
   });
 }

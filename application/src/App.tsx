@@ -14,7 +14,10 @@ import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleopera
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
 import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 import PageTransition from "./components/PageTransition";
-import ScouterAutonomous, { ScouterAutoPick, ScouterAutoScore } from "./scouter/tabs/ScouterAutonomous";
+import ScouterAutonomous, {
+  ScouterAutoPick,
+  ScouterAutoReef,
+} from "./scouter/tabs/ScouterAutonomous";
 
 function getHiddenImage(path: string) {
   return (
@@ -119,7 +122,7 @@ const App: React.FC = () => {
               <Route path="teleoperated" element={<ScouterTeleoperated />} />
               <Route path="autonomous" element={<ScouterAutonomous />}>
                 <Route path="pick" element={<ScouterAutoPick />} />
-                <Route path="score" element={<ScouterAutoScore />} />
+                <Route path="reef" element={<ScouterAutoReef />} />
               </Route>
               <Route path="postmatch" element={<ScouterPostMatch />} />
             </Route>
