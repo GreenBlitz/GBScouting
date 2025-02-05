@@ -128,7 +128,7 @@ class ReefPickInput extends ScouterInput<
     // context.fillStyle = "red";
     // triangleMiddles.forEach(({ center: point, reefSide: _ }) => {
     //   context.beginPath();
-    //   context.arc(point.x, point.y, 10, 0, 2 * Math.PI);
+    //   context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
     //   context.fill();
     // });
   }
