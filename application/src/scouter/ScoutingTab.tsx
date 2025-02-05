@@ -10,17 +10,17 @@ import Matches from "./Matches";
 import SectionHandler from "../utils/SectionHandler.ts";
 import PageTransition from "../components/PageTransition";
 
-const sectionNames: string[] = [
-  "prematch",
-  "autonomous/pick",
-  "teleoperated/pick",
-  "postmatch",
-];
+const sectioNames = ["Prematch", "Autonomous", "Teleoperated", "Endgame"];
 
 export default function ScoutingTab() {
   const navigate = useNavigate();
   const sectionHandler = useMemo(() => {
-    return new SectionHandler(navigate, sectionNames);
+    return new SectionHandler(navigate, [
+      "prematch",
+      "autonomous/pick",
+      "teleoperated/pick",
+      "postmatch",
+    ]);
   }, []);
 
   function handleSubmit() {
@@ -55,21 +55,12 @@ export default function ScoutingTab() {
   const sectionElement = (
     <div className="space-y-6">
       <div className="w-full flex flex-row">
-        <div className="w-56 mt-2">
-          {!sectionHandler.isFirst() && (
-            <button
-              type="button"
-              onClick={() => sectionHandler.navigatePrevious()}
-              className="py-2 w-20 move-button"
-            >
-              Prev
-            </button>
-          )}
-        </div>
         <h2
           className="text-4xl mt-2"
           style={{ fontFamily: "Franklin Gothic Black" }}
-        ></h2>
+        >
+          {sectioNames[sectionHandler.getIndex()]}
+        </h2>
         <div className="w-full" />
         <h3
           className="text-2xl text-yellow-300 mr-5 mt-2"
@@ -84,6 +75,17 @@ export default function ScoutingTab() {
         </div>
       </PageTransition>
       <div className="flex justify-between items-center mt-8">
+        <div className="mr-auto ml-5 mb-2">
+          {!sectionHandler.isFirst() && (
+            <button
+              type="button"
+              onClick={() => sectionHandler.navigatePrevious()}
+              className="py-2 w-20 move-button"
+            >
+              Prev
+            </button>
+          )}
+        </div>
         <div className="flex gap-4 ml-auto mb-2 mr-2">
           <CancelConfirmation name="Reset" onClick={handleReset} />
           {sectionHandler.isLast() ? (
@@ -106,11 +108,14 @@ export default function ScoutingTab() {
     </div>
   );
 
+  const frontColor =
+    sectionHandler.getIndex() === 2 ? "bg-[#2C2C2C]" : "bg-dark-card";
+
   return (
     <div className="min-h-screen bg-dark-bg">
       {renderScouterNavBar()}
       <div className="max-w-4xl mx-auto py-6">
-        <div className="bg-dark-card rounded-lg shadow-lg">
+        <div className={`${frontColor} rounded-lg shadow-lg`}>
           {sectionElement}
         </div>
       </div>

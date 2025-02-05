@@ -1,15 +1,22 @@
 import { NavigateFunction } from "react-router-dom";
 
-export default class SectionHandler {
-  private readonly routes: string[];
-  private readonly navigate: (route: string) => void;
+export default class SectionHandler<
+  Section extends string,
+  Sections extends Section[]
+> {
+  private readonly routes: Section[];
+  private readonly navigate: (route: Section) => void;
 
   private currentIndex: number;
 
-  constructor(navigate: (route: string) => void, routes: string[]) {
+  constructor(navigate: (route: Section) => void, routes: Sections) {
     this.navigate = navigate;
     this.routes = routes;
     this.currentIndex = 0;
+  }
+
+  getIndex() {
+    return this.currentIndex;
   }
 
   isFirst() {

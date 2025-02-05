@@ -287,7 +287,7 @@ class ReefPickInput extends ScouterInput<
         className="buttonS mr-2 items-center flex flex-col justify-center relative"
         onClick={() => this.addAction("coralFeeder")}
       >
-        <h2 className="absolute mb-16 text-3xl font-extrabold">Feeder</h2>
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Feeder</h2>
         <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
         <span className="absolute mt-2 inset-0 flex items-center justify-center text-2xl text-black font-bold">
           {this.getActionValue("coralFeeder")}
@@ -300,7 +300,7 @@ class ReefPickInput extends ScouterInput<
         className="buttonS ml-4 mr-2 items-center flex flex-col justify-center relative"
         onClick={() => this.addAction("coralGround")}
       >
-        <h2 className="absolute mb-16 text-3xl font-extrabold">Ground</h2>
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
         <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
         <span className="absolute mt-2 inset-0 flex items-center justify-center text-2xl text-black font-bold">
           {this.getActionValue("coralGround")}
@@ -313,7 +313,7 @@ class ReefPickInput extends ScouterInput<
         className="buttonS ml-4 mr-2 items-center flex flex-col justify-center relative"
         onClick={() => this.addAction("algeaGround")}
       >
-        <h2 className="absolute mb-16 text-3xl font-extrabold">Ground</h2>
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
         <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
         <span className="absolute mt-6 inset-0 flex items-center justify-center text-2xl text-black font-bold">
           {this.getActionValue("algeaGround")}
@@ -376,7 +376,7 @@ class ReefPickInput extends ScouterInput<
         <div>
           <button
             onClick={() => this.undo()}
-            className="bg-[#596c86] w-48 h-20 text-white py-2 px-4 rounded mt-4"
+            className="bg-[#596c86] w-48 h-16 text-white py-2 px-4 rounded mt-4"
           >
             Undo
           </button>
