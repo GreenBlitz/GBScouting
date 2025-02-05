@@ -56,7 +56,7 @@ export default function ScoutingTab() {
     <div className="space-y-6">
       <div className="w-full flex flex-row">
         <h2
-          className="text-4xl mt-2"
+          className="text-4xl mt-2 ml-5"
           style={{ fontFamily: "Franklin Gothic Black" }}
         >
           {sectioNames[sectionHandler.getIndex()]}
