@@ -6,6 +6,7 @@ import coralSVG from "../../assets/low-coral.svg";
 import algeaSVG from "../../assets/low-algea.svg";
 import { Navigate } from "react-router-dom";
 import { Color } from "../../utils/Color";
+import { getDistance } from "../../utils/Utils";
 
 interface ReefSide {
   side: "left" | "right";
@@ -21,7 +22,14 @@ type PickedObjective = ReefSide | PossibleActions;
 const [width, height] = [262, 262];
 
 const triangleMiddles: { center: Point; reefSide: ReefSide }[] = [
+  { center: { x: 90, y: 200 }, reefSide: { side: "left", proximity: "close" } },
+  {
+    center: { x: 50, y: 130 },
+    reefSide: { side: "left", proximity: "middle" },
+  },
+  { center: { x: 90, y: 65 }, reefSide: { side: "left", proximity: "far" } },
   { center: { x: 170, y: 65 }, reefSide: { side: "right", proximity: "far" } },
+
   {
     center: { x: 210, y: 130 },
     reefSide: { side: "right", proximity: "middle" },
@@ -30,12 +38,6 @@ const triangleMiddles: { center: Point; reefSide: ReefSide }[] = [
     center: { x: 170, y: 200 },
     reefSide: { side: "right", proximity: "close" },
   },
-  { center: { x: 90, y: 65 }, reefSide: { side: "left", proximity: "far" } },
-  {
-    center: { x: 50, y: 130 },
-    reefSide: { side: "left", proximity: "middle" },
-  },
-  { center: { x: 90, y: 200 }, reefSide: { side: "left", proximity: "close" } },
 ];
 
 const hexagonRadius = Math.min(width, height) / 2;
@@ -67,7 +69,11 @@ const hexagonVertices: Point[] = [
 class ReefPickInput extends ScouterInput<
   PickedObjective[],
   { navigationDestination: string; color: Color },
-  { objectives: PickedObjective[]; redirectToNext: boolean }
+  {
+    objectives: PickedObjective[];
+    redirectToNext: boolean;
+    coloredTriangleIndex?: number;
+  }
 > {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
 
@@ -82,8 +88,18 @@ class ReefPickInput extends ScouterInput<
     props: InputProps<PickedObjective[]> & {
       navigationDestination: string;
     }
-  ): { objectives: PickedObjective[]; redirectToNext: boolean } | undefined {
-    return { objectives: this.getValue(), redirectToNext: false };
+  ):
+    | {
+        objectives: PickedObjective[];
+        redirectToNext: boolean;
+        coloredTriangleIndex?: number;
+      }
+    | undefined {
+    return {
+      objectives: this.getValue(),
+      redirectToNext: false,
+      coloredTriangleIndex: undefined,
+    };
   }
 
   constructor(
@@ -96,11 +112,20 @@ class ReefPickInput extends ScouterInput<
     this.canvasRef = React.createRef<HTMLCanvasElement>();
   }
 
+  componentDidUpdate(): void {
+    this.drawAll();
+  }
+
   componentDidMount(): void {
+    this.drawAll();
+  }
+
+  drawAll() {
     const canvasContext = this.canvasRef.current
       ? this.canvasRef.current.getContext("2d")
       : null;
     if (canvasContext) {
+      canvasContext.clearRect(0, 0, width, height);
       this.drawButtons(canvasContext);
     }
   }
@@ -110,6 +135,9 @@ class ReefPickInput extends ScouterInput<
     hexagonVertices.forEach((vertex, index) => {
       context.beginPath();
       context.fillStyle = this.props.color.toString();
+      if (index === this.state.coloredTriangleIndex) {
+        context.fillStyle = "green";
+      }
       const nextVertex =
         index === hexagonVertices.length - 1
           ? hexagonVertices[0]
@@ -177,7 +205,10 @@ class ReefPickInput extends ScouterInput<
 
   addSide(side: ReefSide) {
     this.state.objectives.push(side);
-    this.setState({ objectives: this.state.objectives, redirectToNext: true });
+    this.setState({
+      objectives: this.state.objectives,
+      redirectToNext: true,
+    });
     this.storage.set(this.state.objectives);
   }
 
@@ -195,9 +226,6 @@ class ReefPickInput extends ScouterInput<
     const clickedPoint = {
       x: event.pageX - event.currentTarget.offsetLeft,
       y: event.pageY - event.currentTarget.offsetTop,
-    };
-    const getDistance = (p1: Point, p2: Point) => {
-      return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
     };
 
     const minDistance = triangleMiddles.reduce(
@@ -218,6 +246,35 @@ class ReefPickInput extends ScouterInput<
     this.state.objectives.pop();
     this.setState(this.state);
     this.storage.set(this.state.objectives);
+  }
+
+  getTriangleIndex(
+    event:
+      | React.TouchEvent<HTMLDivElement>
+      | React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) {
+    const [touchEvent, mouseEvent] = [
+      event as React.TouchEvent<HTMLDivElement>,
+      event as React.MouseEvent<HTMLDivElement, MouseEvent>,
+    ];
+    const clickedPoint = touchEvent.touches
+      ? {
+          x: touchEvent.touches[0].pageX - event.currentTarget.offsetLeft,
+          y: touchEvent.touches[0].pageY - event.currentTarget.offsetTop,
+        }
+      : {
+          x: mouseEvent.pageX - event.currentTarget.offsetLeft,
+          y: mouseEvent.pageY - event.currentTarget.offsetTop,
+        };
+    const minDistance = triangleMiddles.reduce(
+      (accumulator, value) =>
+        Math.min(accumulator, getDistance(clickedPoint, value.center)),
+      width + height
+    );
+    return triangleMiddles.findIndex(
+      (value) =>
+        Math.abs(getDistance(clickedPoint, value.center) - minDistance) < 1
+    );
   }
 
   renderInput(): React.ReactNode {
@@ -292,10 +349,20 @@ class ReefPickInput extends ScouterInput<
             height: height,
             position: "relative",
           }}
-          onMouseDown={(event) => {}}
-          onTouchEnd={(event) => {
-            //change color
+          onTouchStart={(event) => {
+            this.setState({
+              coloredTriangleIndex: this.getTriangleIndex(event),
+            });
           }}
+          onTouchEnd={() => this.setState({ coloredTriangleIndex: undefined })}
+          onMouseMove={(event) => {
+            this.setState({
+              coloredTriangleIndex: this.getTriangleIndex(event),
+            });
+          }}
+          onMouseLeave={() =>
+            this.setState({ coloredTriangleIndex: undefined })
+          }
           onClick={(event) => this.addSide(this.getSide(event))}
         >
           <canvas ref={this.canvasRef} width={width} height={height} />
