@@ -120,65 +120,57 @@ class TeleopForm extends ScouterInput<
     };
 
     return (
-      <div className="flex flex-row ">
-        <div className="flex flex-col items-center">
-          {levelKeys.map((levelKey) => {
-            const level = levelKey as keyof Levels;
-            return (
-              <div className="flex" key={level}>
-                <button
-                  className="buttonS mr-2 items-center flex flex-col justify-center"
-                  onClick={() => handleClick({ level: level, point: "score" })}
-                >
-                  <h2 className="text-3xl font-extrabold">{level}</h2>
-                  {this.state.values[level].score}
-                </button>
-                <button
-                  className="buttonF"
-                  onClick={() => handleClick({ level: level, point: "miss" })}
-                >
-                  {this.state.values[level].miss}
-                </button>
-              </div>
-            );
-          })}
+      <div className="flex flex-col items-center">
+        {levelKeys.map((levelKey) => {
+          const level = levelKey as keyof Levels;
+          return (
+            <div className="flex" key={level}>
+              <button
+                className="buttonS mr-2 items-center flex flex-col justify-center"
+                onClick={() => handleClick({ level: level, point: "score" })}
+              >
+                <h2 className="text-3xl font-extrabold">{level}</h2>
+                {this.state.values[level].score}
+              </button>
+              <button
+                className="buttonF"
+                onClick={() => handleClick({ level: level, point: "miss" })}
+              >
+                {this.state.values[level].miss}
+              </button>
+            </div>
+          );
+        })}
 
-          <div className="flex mb-10 mt-5">
-            <button
-              className="bg-green-400 w-20 h-20 text-white py-2 px-4 rounded mr-2.5 relative"
-              onClick={() => handleNet({ type: "score" })}
-            >
-              <img src={algeaSVG} width={80} alt="Algea Icon" />
-              <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-                {this.state.values.net.score}
-              </span>
-            </button>
-            <button
-              className="bg-red-400 w-20 h-20 text-white py-2 px-4 rounded ml-2.5 relative"
-              onClick={() => handleNet({ type: "miss" })}
-            >
-              <img src={algeaSVG} width={80} alt="Algea Icon" />
-              <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-                {this.state.values.net.miss}
-              </span>
-            </button>
-          </div>
-
-          <div className="flex">
-            <button
-              className="bg-purple-700 w-48 h-20 text-white py-2 px-4 rounded"
-              onClick={handleUndo}
-            >
-              Undo
-            </button>
-          </div>
+        <div className="flex mb-10 mt-5">
+          <button
+            className="bg-green-400 w-20 h-20 text-white py-2 px-4 rounded mr-2.5 relative"
+            onClick={() => handleNet({ type: "score" })}
+          >
+            <img src={algeaSVG} width={80} alt="Algea Icon" />
+            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
+              {this.state.values.net.score}
+            </span>
+          </button>
+          <button
+            className="bg-red-400 w-20 h-20 text-white py-2 px-4 rounded ml-2.5 relative"
+            onClick={() => handleNet({ type: "miss" })}
+          >
+            <img src={algeaSVG} width={80} alt="Algea Icon" />
+            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
+              {this.state.values.net.miss}
+            </span>
+          </button>
         </div>
-        <img
-          className="ml-5 mb-32"
-          src={branchRightSVG}
-          width={80}
-          alt="Branch Icon"
-        />
+
+        <div className="flex">
+          <button
+            className="bg-[#596c86] w-48 h-20 text-white py-2 px-4 rounded"
+            onClick={handleUndo}
+          >
+            Undo
+          </button>
+        </div>
       </div>
     );
   }

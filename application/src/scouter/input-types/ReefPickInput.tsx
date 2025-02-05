@@ -66,7 +66,7 @@ const hexagonVertices: Point[] = [
 
 class ReefPickInput extends ScouterInput<
   PickedObjective[],
-  { navigationDestination: string, color: Color },
+  { navigationDestination: string; color: Color },
   { objectives: PickedObjective[]; redirectToNext: boolean }
 > {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -120,18 +120,49 @@ class ReefPickInput extends ScouterInput<
       context.fill();
       context.closePath();
     });
+
+    context.lineWidth = 8;
+
     hexagonVertices.forEach((point, index) => {
       if (index >= hexagonVertices.length / 2) {
         return;
       }
 
-      context.strokeStyle = "#90EE90";
+      const otherPoint = hexagonVertices[index + hexagonVertices.length / 2];
+
+      context.strokeStyle = "#1f2937";
 
       context.beginPath();
       context.moveTo(point.x, point.y);
-      const otherPoint = hexagonVertices[index + hexagonVertices.length / 2];
       context.lineTo(otherPoint.x, otherPoint.y);
-      context.lineWidth = 5;
+      context.stroke();
+      context.closePath();
+
+      context.strokeStyle = "#90EE90";
+      const xDiff = otherPoint.x - point.x;
+      const stepSize = 30;
+
+      if (Math.abs(xDiff) < 0.1) {
+        const topPoint =
+          Math.max(point.y, otherPoint.y) === point.y ? point : otherPoint;
+        const bottomPoint = point === topPoint ? otherPoint : point;
+
+        context.beginPath();
+        context.moveTo(topPoint.x, topPoint.y - stepSize);
+        context.lineTo(bottomPoint.x, bottomPoint.y + stepSize);
+        context.stroke();
+        context.closePath();
+      }
+
+      const slope = (otherPoint.y - point.y) / xDiff;
+
+      const rightPoint =
+        Math.max(point.x, otherPoint.x) === point.x ? point : otherPoint;
+      const leftPoint = point === rightPoint ? otherPoint : point;
+
+      context.beginPath();
+      context.moveTo(leftPoint.x + stepSize, leftPoint.y + stepSize * slope);
+      context.lineTo(rightPoint.x - stepSize, rightPoint.y - stepSize * slope);
       context.stroke();
       context.closePath();
     });
@@ -278,7 +309,7 @@ class ReefPickInput extends ScouterInput<
         <div>
           <button
             onClick={() => this.undo()}
-            className="bg-purple-700 w-48 h-20 text-white py-2 px-4 rounded mt-4"
+            className="bg-[#596c86] w-48 h-20 text-white py-2 px-4 rounded mt-4"
           >
             Undo
           </button>

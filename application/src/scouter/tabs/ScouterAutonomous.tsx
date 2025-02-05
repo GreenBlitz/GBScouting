@@ -17,7 +17,7 @@ export const ScouterAutoReef: React.FC = () => {
     <>
       {ScouterInputs.autoReef.create()}
       <button
-        className="bg-gray-500 w-20 h-10 text-white py-2 px-4 rounded"
+        className="bg-orange-500 w-20 h-10 text-white py-2 px-4 rounded"
         onClick={() => navigate("../pick")}
       >
         Back

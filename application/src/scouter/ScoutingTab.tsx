@@ -60,7 +60,7 @@ export default function ScoutingTab() {
             <button
               type="button"
               onClick={() => sectionHandler.navigatePrevious()}
-              className="py-2 w-20 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+              className="py-2 w-20 move-button"
             >
               Prev
             </button>
@@ -84,7 +84,7 @@ export default function ScoutingTab() {
         </div>
       </PageTransition>
       <div className="flex justify-between items-center mt-8">
-        <div className="flex gap-4 ml-auto">
+        <div className="flex gap-4 ml-auto mb-2 mr-2">
           <CancelConfirmation name="Reset" onClick={handleReset} />
           {sectionHandler.isLast() ? (
             <button
