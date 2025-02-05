@@ -13,7 +13,7 @@ import PageTransition from "../components/PageTransition";
 const sectionNames: string[] = [
   "prematch",
   "autonomous/pick",
-  "teleoperated",
+  "teleoperated/pick",
   "postmatch",
 ];
 
@@ -54,24 +54,37 @@ export default function ScoutingTab() {
 
   const sectionElement = (
     <div className="space-y-6">
+      <div className="w-full flex flex-row">
+        <div className="w-56 mt-2">
+          {!sectionHandler.isFirst() && (
+            <button
+              type="button"
+              onClick={() => sectionHandler.navigatePrevious()}
+              className="py-2 w-20 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+            >
+              Prev
+            </button>
+          )}
+        </div>
+        <h2
+          className="text-4xl mt-2"
+          style={{ fontFamily: "Franklin Gothic Black" }}
+        ></h2>
+        <div className="w-full" />
+        <h3
+          className="text-2xl text-yellow-300 mr-5 mt-2"
+          style={{ fontFamily: "Franklin Gothic Black" }}
+        >
+          {ScouterInputs.teamNumber.getValue()}
+        </h3>
+      </div>
       <PageTransition>
         <div className="min-h-[400px]">
           <Outlet />
         </div>
       </PageTransition>
       <div className="flex justify-between items-center mt-8">
-        <div>
-          {!sectionHandler.isFirst() && (
-            <button
-              type="button"
-              onClick={() => sectionHandler.navigatePrevious()}
-              className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
-            >
-              Previous
-            </button>
-          )}
-        </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 ml-auto">
           <CancelConfirmation name="Reset" onClick={handleReset} />
           {sectionHandler.isLast() ? (
             <button
@@ -97,7 +110,7 @@ export default function ScoutingTab() {
     <div className="min-h-screen bg-dark-bg">
       {renderScouterNavBar()}
       <div className="max-w-4xl mx-auto py-6">
-        <div className="bg-dark-card rounded-lg shadow-lg p-6">
+        <div className="bg-dark-card rounded-lg shadow-lg">
           {sectionElement}
         </div>
       </div>

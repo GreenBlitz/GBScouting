@@ -3,7 +3,9 @@ import ScouterInput, { InputProps } from "../ScouterInput";
 import { Point } from "chart.js";
 import "../../components/reefScore.css";
 import coralSVG from "../../assets/low-coral.svg";
+import algeaSVG from "../../assets/low-algea.svg";
 import { Navigate } from "react-router-dom";
+import { Color } from "../../utils/Color";
 
 interface ReefSide {
   side: "left" | "right";
@@ -64,7 +66,7 @@ const hexagonVertices: Point[] = [
 
 class ReefPickInput extends ScouterInput<
   PickedObjective[],
-  { navigationDestination: string },
+  { navigationDestination: string, color: Color },
   { objectives: PickedObjective[]; redirectToNext: boolean }
 > {
   private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -87,6 +89,7 @@ class ReefPickInput extends ScouterInput<
   constructor(
     props: InputProps<PickedObjective[]> & {
       navigationDestination: string;
+      color: Color;
     }
   ) {
     super(props);
@@ -103,12 +106,20 @@ class ReefPickInput extends ScouterInput<
   }
 
   drawButtons(context: CanvasRenderingContext2D) {
-    context.fillStyle = "#18723c";
-    context.moveTo(hexagonVertices[0].x, hexagonVertices[0].y);
-    hexagonVertices.forEach((vertex) => context.lineTo(vertex.x, vertex.y));
-    context.fill();
-    context.closePath();
-
+    const middleOfHexagon = { x: width / 2, y: height / 2 };
+    hexagonVertices.forEach((vertex, index) => {
+      context.beginPath();
+      context.fillStyle = this.props.color.toString();
+      const nextVertex =
+        index === hexagonVertices.length - 1
+          ? hexagonVertices[0]
+          : hexagonVertices[index + 1];
+      context.moveTo(vertex.x, vertex.y);
+      context.lineTo(nextVertex.x, nextVertex.y);
+      context.lineTo(middleOfHexagon.x, middleOfHexagon.y);
+      context.fill();
+      context.closePath();
+    });
     hexagonVertices.forEach((point, index) => {
       if (index >= hexagonVertices.length / 2) {
         return;
@@ -182,9 +193,49 @@ class ReefPickInput extends ScouterInput<
     if (this.state.redirectToNext) {
       return <Navigate to={this.props.navigationDestination} />;
     }
+
+    const coralFeederButton = (
+      <button
+        className="buttonS mr-2 items-center flex flex-col justify-center relative"
+        onClick={() => this.addAction("coralFeeder")}
+      >
+        <h2 className="absolute mb-16 text-3xl font-extrabold">Feeder</h2>
+        <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
+        <span className="absolute mt-2 inset-0 flex items-center justify-center text-2xl text-black font-bold">
+          {this.getActionValue("coralFeeder")}
+        </span>
+      </button>
+    );
+
+    const coralGroundButton = (
+      <button
+        className="buttonS ml-4 mr-2 items-center flex flex-col justify-center relative"
+        onClick={() => this.addAction("coralGround")}
+      >
+        <h2 className="absolute mb-16 text-3xl font-extrabold">Ground</h2>
+        <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
+        <span className="absolute mt-2 inset-0 flex items-center justify-center text-2xl text-black font-bold">
+          {this.getActionValue("coralGround")}
+        </span>
+      </button>
+    );
+
+    const algeaGroundButton = (
+      <button
+        className="buttonS ml-4 mr-2 items-center flex flex-col justify-center relative"
+        onClick={() => this.addAction("algeaGround")}
+      >
+        <h2 className="absolute mb-16 text-3xl font-extrabold">Ground</h2>
+        <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
+        <span className="absolute mt-6 inset-0 flex items-center justify-center text-2xl text-black font-bold">
+          {this.getActionValue("algeaGround")}
+        </span>
+      </button>
+    );
+
     return (
       <div className="flex items-center justify-center flex-col">
-        <div className="flex flex-row justify-center mb-4">
+        <div className="flex flex-row justify-center">
           <button
             className="buttonS mr-2 items-center flex flex-col justify-center"
             onClick={() => this.addAction("netScore")}
@@ -195,14 +246,14 @@ class ReefPickInput extends ScouterInput<
           <button className="buttonF" onClick={() => this.addAction("netMiss")}>
             {this.getActionValue("netMiss")}
           </button>
-          <button
-            className="buttonS ml-4 mr-2 items-center flex flex-col justify-center"
-            onClick={() => this.addAction("processor")}
-          >
-            <h2 className="text-3xl font-extrabold">PRO.</h2>
-            {this.getActionValue("processor")}
-          </button>
         </div>
+        <button
+          className="buttonS ml-4 mr-2 items-center flex flex-col justify-center mb-4"
+          onClick={() => this.addAction("processor")}
+        >
+          <h2 className="text-3xl font-extrabold">PRO.</h2>
+          {this.getActionValue("processor")}
+        </button>
         <div
           style={{
             backgroundSize: "100% 100%",
@@ -210,9 +261,7 @@ class ReefPickInput extends ScouterInput<
             height: height,
             position: "relative",
           }}
-          onTouchStart={(event) => {
-            //change color
-          }}
+          onMouseDown={(event) => {}}
           onTouchEnd={(event) => {
             //change color
           }}
@@ -221,30 +270,15 @@ class ReefPickInput extends ScouterInput<
           <canvas ref={this.canvasRef} width={width} height={height} />
         </div>
 
-        <div className="flex flex-row justify-center mb-4">
-          <button
-            className="buttonS mr-2 items-center flex flex-col justify-center relative"
-            onClick={() => this.addAction("coralFeeder")}
-          >
-            <img src={coralSVG} width={80} alt="Coral Icon" />
-            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-              {this.getActionValue("coralFeeder")}
-            </span>
-          </button>
-          <button
-            className="buttonS ml-4 mr-2 items-center flex flex-col justify-center relative"
-            onClick={() => this.addAction("coralGround")}
-          >
-            <img src={coralSVG} width={80} alt="Coral Icon" />
-            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-              {this.getActionValue("coralGround")}
-            </span>
-          </button>
+        <div className="flex flex-row justify-center">
+          {coralFeederButton}
+          {coralGroundButton}
         </div>
+        {algeaGroundButton}
         <div>
           <button
             onClick={() => this.undo()}
-            className="bg-purple-700 w-48 h-20 text-white py-2 px-4 rounded"
+            className="bg-purple-700 w-48 h-20 text-white py-2 px-4 rounded mt-4"
           >
             Undo
           </button>

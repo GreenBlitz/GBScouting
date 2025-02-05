@@ -1,28 +1,9 @@
 import React from "react";
 import ScouterInputs from "../ScouterInputs";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ScouterAutonomous: React.FC = () => {
-  return (
-    <>
-      <div className="w-96 flex flex-row">
-        <h2
-          className="text-2xl"
-          style={{ fontFamily: "Franklin Gothic Black" }}
-        >
-          AUTO
-        </h2>
-        <div className="w-full" />
-        <h3
-          className="text-2xl text-yellow-300"
-          style={{ fontFamily: "Franklin Gothic Black" }}
-        >
-          {ScouterInputs.teamNumber.getValue()}
-        </h3>
-      </div>
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 };
 
 export const ScouterAutoPick: React.FC = () => {
@@ -30,7 +11,19 @@ export const ScouterAutoPick: React.FC = () => {
 };
 
 export const ScouterAutoReef: React.FC = () => {
-  return ScouterInputs.autoReef.create();
+  const navigate = useNavigate();
+
+  return (
+    <>
+      {ScouterInputs.autoReef.create()}
+      <button
+        className="bg-gray-500 w-20 h-10 text-white py-2 px-4 rounded"
+        onClick={() => navigate("../pick")}
+      >
+        Back
+      </button>
+    </>
+  );
 };
 
 export default ScouterAutonomous;

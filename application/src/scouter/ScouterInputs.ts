@@ -74,6 +74,12 @@ export default class ScouterInputs {
     route: "teleopForm",
   });
 
+  static readonly teleReefPick = new ReefPickInput({
+    route: "teleReefPick",
+    navigationDestination: "../reef",
+    color: "#18723c",
+  });
+
   static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
   static readonly autoCollect = new CounterInput({
     route: "autoScore",
@@ -86,5 +92,6 @@ export default class ScouterInputs {
   static readonly autoReefPick = new ReefPickInput({
     route: "autoReefPick",
     navigationDestination: "../reef",
+    color: "#18723c",
   });
 }
