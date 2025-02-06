@@ -6,6 +6,7 @@ import { getDistance } from "../../utils/Utils";
 import { Color } from "../../utils/Color";
 
 const [width, height] = [262, 262];
+const stepSize = 30;
 
 const triangleMiddles: { center: Point; reefSide: ReefSide }[] = [
   { center: { x: 90, y: 200 }, reefSide: { side: "left", proximity: "close" } },
@@ -221,7 +222,6 @@ class ReefInput extends ScouterInput<
 
       context.strokeStyle = "#90EE90";
       const xDiff = otherPoint.x - point.x;
-      const stepSize = 30;
 
       if (Math.abs(xDiff) < 0.1) {
         const topPoint =
