@@ -11,7 +11,7 @@ import { matchFieldNames } from "../../utils/Match";
 
 interface GridItems {
   "Team Number": number;
-  "Average Points": number;
+  Points: number;
   L1: number;
   L2: number;
   L3: number;
@@ -24,13 +24,16 @@ interface GridItems {
 function processTeamData(teamNumber: string, data: TeamData): GridItems {
   return {
     "Team Number": parseInt(teamNumber),
-    "Average Points": data.getAverageScore() || 0,
-    L4: data.getAverage(matchFieldNames.teleopReef, ["L4", "score"]),
-    L3: data.getAverage(matchFieldNames.teleopReef, ["L3", "score"]),
-    L2: data.getAverage(matchFieldNames.teleopReef, ["L2", "score"]),
-    L1: data.getAverage(matchFieldNames.teleopReef, ["L1", "score"]),
-    Net: data.getAverage(matchFieldNames.teleopReef, ["net", "score"]),
-    Processor: data.getAverage(matchFieldNames.teleopReef, ["proccessor"]),
+    Points: data.getAverageScore() || 0,
+    L4: data.getAverage(matchFieldNames.teleopReefLevels, ["L4", "score"]),
+    L3: data.getAverage(matchFieldNames.teleopReefLevels, ["L3", "score"]),
+    L2: data.getAverage(matchFieldNames.teleopReefLevels, ["L2", "score"]),
+    L1: data.getAverage(matchFieldNames.teleopReefLevels, ["L1", "score"]),
+    Net: data.getAverageReefPickData(matchFieldNames.teleReefPick, "netScore"),
+    Processor: data.getAverageReefPickData(
+      matchFieldNames.teleReefPick,
+      "processor"
+    ),
     Auto: data.getAverageAutoScore(),
   };
 }
@@ -53,7 +56,7 @@ function getCellClassName(
   }
   const numberedValue =
     typeof params.value === "number" ? (params.value as number) : 0;
-  if (params.field === "Average Points") {
+  if (params.field === "Points") {
     return `bg-red-${getStrength([20, 40, 60, 80], numberedValue)}`;
   }
 

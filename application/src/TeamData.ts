@@ -121,6 +121,9 @@ export class TeamData {
   }
 
   getAverageReefPickData(reefPick: keyof Match, data: AlgeaAction) {
+    if (this.matches.length === 0) {
+      return 0;
+    }
     return (
       this.matches.reduce((accumulator, match) => {
         const reef: PickValues = match[reefPick] as PickValues;
@@ -135,21 +138,27 @@ export class TeamData {
   }
 
   getAverageAutoScore() {
-    return this.matches
-      .map((match) => {
-        let sum = 0;
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return (
+      this.matches
+        .map((match) => {
+          let sum = 0;
 
-        sum += match.autoReefLevels.L1.score * 3;
-        sum += match.autoReefLevels.L2.score * 4;
-        sum += match.autoReefLevels.L3.score * 6;
-        sum += match.autoReefLevels.L4.score * 7;
+          sum += match.autoReefLevels.L1.score * 3;
+          sum += match.autoReefLevels.L2.score * 4;
+          sum += match.autoReefLevels.L3.score * 6;
+          sum += match.autoReefLevels.L4.score * 7;
 
-        sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
-        sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
+          sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
+          sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
 
-        return sum;
-      })
-      .reduce((accumulator, value) => accumulator + value, 0);
+          return sum;
+        })
+        .reduce((accumulator, value) => accumulator + value, 0) /
+      this.matches.length
+    );
   }
 
   getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
@@ -164,26 +173,28 @@ export class TeamData {
     if (this.matches.length === 0) {
       return 0;
     }
-    return this.matches
-      .map((match) => {
-        if (match[field] === undefined || match[field] === "undefined") {
-          return 0;
-        }
-        const value = innerFields
-          ? innerFields.reduce(
-              (accumulator, innerField) => accumulator[innerField],
-              match[field]
-            )
-          : match[field];
+    return (
+      this.matches
+        .map((match) => {
+          if (match[field] === undefined || match[field] === "undefined") {
+            return 0;
+          }
+          const value = innerFields
+            ? innerFields.reduce(
+                (accumulator, innerField) => accumulator[innerField],
+                match[field]
+              )
+            : match[field];
 
-        if (typeof value !== "number") {
-          throw new Error("Invalid field: " + field);
-        }
-        return value;
-      })
-      .reduce((accumulator, value) => {
-        return accumulator + value;
-      });
+          if (typeof value !== "number") {
+            throw new Error("Invalid field: " + field);
+          }
+          return value;
+        })
+        .reduce((accumulator, value) => {
+          return accumulator + value;
+        }) / this.matches.length
+    );
   }
 
   getAsPie(
