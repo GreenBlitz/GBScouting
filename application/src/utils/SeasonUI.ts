@@ -1,17 +1,18 @@
 import { Levels } from "../components/teleopForm";
-import { ReefSide } from "../scouter/input-types/ReefInput";
 
 export interface Auto {
+  qual: number;
   corals: Levels;
-  usedSides: ReefSide[];
-  algeaCollection: CollectedAlgea;
   algeaScoring: UsedAlgea;
 }
 
-export interface CollectedAlgea {
-  reefCollected: boolean;
-  reefDropped: boolean;
-  groundCollected: boolean;
+export interface Collection {
+  algeaReefCollected: boolean;
+  algeaReefDropped: boolean;
+  algeaGroundCollected: boolean;
+
+  coralGroundCollected: boolean;
+  coralFeederCollected: boolean;
 }
 
 export interface UsedAlgea {

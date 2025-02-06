@@ -2,10 +2,10 @@ import { Color } from "./utils/Color";
 import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { Levels } from "./components/ReefForm";
-import { Auto } from "./utils/SeasonUI";
+import { Levels } from "./components/teleopForm";
+import { Auto, Collection as Collection } from "./utils/SeasonUI";
 import { AlgeaAction, PickValues } from "./scouter/input-types/ReefPickInput";
-import { areReefsSame, Level } from "./components/TeleopForm";
+import { AllScore, areReefsSame, Level } from "./components/TeleopForm";
 import { ReefSide } from "./scouter/input-types/ReefInput";
 
 interface Comment {
@@ -30,7 +30,6 @@ export class TeamData {
         if (!match[field] || match[field] === "undefined") {
           return;
         }
-        console.log(field + ", " + innerFields);
         const value = innerFields
           ? innerFields.reduce(
               (accumulator, innerField) => accumulator[innerField],
@@ -225,18 +224,22 @@ export class TeamData {
           L1: {
             score: accumulator.L1.score + matchLevel.L1.score,
             miss: accumulator.L1.miss + matchLevel.L1.miss,
+            sides: [],
           },
           L2: {
             score: accumulator.L2.score + matchLevel.L2.score,
             miss: accumulator.L2.miss + matchLevel.L2.miss,
+            sides: [],
           },
           L3: {
             score: accumulator.L3.score + matchLevel.L3.score,
             miss: accumulator.L3.miss + matchLevel.L3.miss,
+            sides: [],
           },
           L4: {
             score: accumulator.L4.score + matchLevel.L4.score,
             miss: accumulator.L4.miss + matchLevel.L4.miss,
+            sides: [],
           },
         };
       },
@@ -281,6 +284,47 @@ export class TeamData {
     return values;
   }
 
+  getCollections(levels: keyof Match, pick: keyof Match): Collection {
+    return this.matches.reduce<Collection>(
+      (accumulator, match) => {
+        const reefLevels = match[levels] as AllScore;
+        const reefPick = match[pick] as PickValues;
+        return {
+          algeaReefCollected:
+            reefLevels.algea.collected || accumulator.algeaReefCollected,
+          algeaReefDropped:
+            reefLevels.algea.dropped || accumulator.algeaReefDropped,
+          algeaGroundCollected:
+            reefPick.collected.algeaGround || accumulator.algeaGroundCollected,
+          coralGroundCollected:
+            reefPick.collected.coralGround || accumulator.coralGroundCollected,
+          coralFeederCollected:
+            reefPick.collected.coralFeeder || accumulator.coralFeederCollected,
+        };
+      },
+      {
+        algeaReefCollected: false,
+        algeaReefDropped: false,
+        algeaGroundCollected: false,
+        coralGroundCollected: false,
+        coralFeederCollected: false,
+      }
+    );
+  }
+
+  getUsedSides(levels: keyof Match) {
+    this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
+      const sides = matchesAccumulator.concat(
+        Object.values(match[levels] as Levels).reduce<ReefSide[]>(
+          (accumulator, level) => [...accumulator, level],
+          []
+        )
+      );
+
+      return sides.filter((side, index) => sides.indexOf(side) === index);
+    }, []);
+  }
+
   getAutos(): Auto[] {
     const getScoredAlgea = (field: AlgeaAction, actions: AlgeaAction[]) => {
       return actions.reduce(
@@ -292,24 +336,8 @@ export class TeamData {
     return this.matches.map((match) => {
       return {
         corals: match.autoReefLevels,
-        usedSides: Object.values(match.autoReefLevels).reduce<ReefSide[]>(
-          (accumulator, level) => {
-            (level as Level).sides.forEach((side) => {
-              if (
-                !accumulator.findIndex((value) => areReefsSame(value, side))
-              ) {
-                accumulator.push(side);
-              }
-            });
-            return accumulator;
-          },
-          []
-        ),
-        algeaCollection: {
-          reefCollected: match.autoReefLevels.algea.collected,
-          reefDropped: match.autoReefLevels.algea.dropped,
-          groundCollected: match.autoReefPick.collected.algeaGround,
-        },
+        qual: match.qual,
+
         algeaScoring: {
           netScore: getScoredAlgea("netScore", match.autoReefPick.algea),
           netMiss: getScoredAlgea("netMiss", match.autoReefPick.algea),

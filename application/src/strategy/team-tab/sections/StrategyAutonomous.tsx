@@ -5,12 +5,14 @@ import AutoChart from "../../charts/AutoChart";
 import CoralChart from "../../charts/CoralChart";
 import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
+import { Auto } from "../../../utils/SeasonUI";
+import CollectionChart from "../../charts/CollectionChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
 const StrategyAutonomous: React.FC = () => {
   const { teamData } = useOutletContext<{ teamData: TeamData }>();
-  const autos = useMemo(() => {
+  const autos: Auto[] = useMemo(() => {
     return teamData?.getAutos();
   }, [teamData]);
   const corals = useMemo(() => {
@@ -37,7 +39,6 @@ const StrategyAutonomous: React.FC = () => {
           )}
         />
       </div>
-
       <div className="section">
         <h1>Miss</h1>
         <LineChart
@@ -58,20 +59,22 @@ const StrategyAutonomous: React.FC = () => {
         />
       </div>
       <div className="h-48" />
-
+      <CollectionChart
+        collection={teamData.getCollections("autoReefLevels", "autoReefPick")}
+      />
+      <div className="h-48" />
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Average Corals</h1>
         <CoralChart corals={corals} />
       </div>
-
       <br />
       <br />
       <h1 className="text-4xl underline">All Autos</h1>
-      {/* {autos?.map((auto, index) => (
-        <div key={index}>
+      {autos?.map((auto, index) => (
+        <div className="mb-20 mt-5" key={index}>
           <AutoChart auto={auto} />
         </div>
-      ))} */}
+      ))}
     </>
   );
 };

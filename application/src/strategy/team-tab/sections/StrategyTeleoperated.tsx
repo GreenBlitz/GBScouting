@@ -5,6 +5,7 @@ import CoralChart from "../../charts/CoralChart";
 import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
+import CollectionChart from "../../charts/CollectionChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
@@ -18,6 +19,8 @@ const StrategyTeleoperated: React.FC = () => {
     () => teamData.getAverage(matchFieldNames.defense),
     [teamData]
   );
+
+  console.log(teamData.getUsedSides("teleopReefLevels"));
   return (
     <>
       <div className="section">
@@ -210,6 +213,10 @@ const StrategyTeleoperated: React.FC = () => {
         />
       </div>
 
+      <div className="h-20" />
+      <CollectionChart
+        collection={teamData.getCollections("teleopReefLevels", "teleReefPick")}
+      />
       <div className="h-48" />
 
       <div className="flex flex-col items-center">
