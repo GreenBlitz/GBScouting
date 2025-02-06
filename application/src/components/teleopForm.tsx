@@ -19,7 +19,7 @@ interface Levels {
 }
 
 export interface AllScore extends Levels {
-  net: Level;
+  algea: Level;
 }
 
 interface Action {
@@ -52,7 +52,7 @@ class TeleopForm extends ScouterInput<
       L2: { score: 0, miss: 0, sides: [] },
       L3: { score: 0, miss: 0, sides: [] },
       L4: { score: 0, miss: 0, sides: [] },
-      net: { score: 0, miss: 0, sides: [] },
+      algea: { score: 0, miss: 0, sides: [] },
     };
   }
 
@@ -153,20 +153,20 @@ class TeleopForm extends ScouterInput<
         <div className="flex mb-10 mt-5">
           <button
             className="bg-green-400 w-20 h-20 text-white py-2 px-4 rounded mr-2.5 relative"
-            onClick={() => handleClick({ level: "net", point: "score" })}
+            onClick={() => handleClick({ level: "algea", point: "score" })}
           >
             <img src={algeaSVG} width={80} alt="Algea Icon" />
             <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-              {this.state.values.net.score}
+              {this.state.values.algea.score}
             </span>
           </button>
           <button
             className="bg-red-400 w-20 h-20 text-white py-2 px-4 rounded ml-2.5 relative"
-            onClick={() => handleClick({ level: "net", point: "miss" })}
+            onClick={() => handleClick({ level: "algea", point: "miss" })}
           >
             <img src={algeaSVG} width={80} alt="Algea Icon" />
             <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-              {this.state.values.net.miss}
+              {this.state.values.algea.miss}
             </span>
           </button>
         </div>

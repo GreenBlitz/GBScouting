@@ -4,7 +4,7 @@ import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/ReefForm";
 import { Auto } from "./utils/SeasonUI";
-import { AllScore as AllScoreFromForm } from "./components/TeleopForm";
+import { AlgeaAction, PickValues } from "./scouter/input-types/ReefPickInput";
 
 interface Comment {
   body: string;
@@ -28,6 +28,7 @@ export class TeamData {
         if (!match[field] || match[field] === "undefined") {
           return;
         }
+        console.log(field + ", " + innerFields);
         const value = innerFields
           ? innerFields.reduce(
               (accumulator, innerField) => accumulator[innerField],
@@ -38,6 +39,26 @@ export class TeamData {
           throw new Error("Invalid field: " + field + " " + innerFields);
         }
         return { [match.qual.toString()]: value };
+      })
+    );
+  }
+
+  getAlgeaDataAsLine(
+    reefPick: keyof Match,
+    field: AlgeaAction
+  ): Record<string, number> {
+    return Object.assign(
+      {},
+      ...Object.values(this.matches).map((match) => {
+        if (!match[reefPick] || match[reefPick] === "undefined") {
+          return;
+        }
+        return {
+          [match.qual.toString()]: this.getReefPickData(
+            match[reefPick] as PickValues,
+            field
+          ),
+        };
       })
     );
   }
@@ -68,15 +89,17 @@ export class TeamData {
         sum += match.teleopReefLevels.L2.score * 3;
         sum += match.teleopReefLevels.L3.score * 4;
         sum += match.teleopReefLevels.L4.score * 5;
-        sum += match.teleopReefLevels.net.score * 4;
-        sum += match.teleopReefLevels.proccessor * 4;
+
+        sum += this.getReefPickData(match.teleReefPick, "netScore") * 4;
+        sum += this.getReefPickData(match.teleReefPick, "processor") * 4;
 
         sum += match.autoReefLevels.L1.score * 3;
         sum += match.autoReefLevels.L2.score * 4;
         sum += match.autoReefLevels.L3.score * 6;
         sum += match.autoReefLevels.L4.score * 7;
-        sum += match.autoReefLevels.net.score * 4;
-        sum += match.autoReefLevels.proccessor * 4;
+
+        sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
+        sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
 
         const getClimb = () => {
           switch (match.climb) {
@@ -97,6 +120,20 @@ export class TeamData {
     );
   }
 
+  getAverageReefPickData(reefPick: keyof Match, data: AlgeaAction) {
+    return (
+      this.matches.reduce((accumulator, match) => {
+        const reef: PickValues = match[reefPick] as PickValues;
+        const value = this.getReefPickData(reef, data);
+        return value + accumulator;
+      }, 0) / this.matches.length
+    );
+  }
+
+  getReefPickData(reef: PickValues, data: AlgeaAction) {
+    return reef.algea.filter((value) => value === data).length;
+  }
+
   getAverageAutoScore() {
     return this.matches
       .map((match) => {
@@ -106,8 +143,9 @@ export class TeamData {
         sum += match.autoReefLevels.L2.score * 4;
         sum += match.autoReefLevels.L3.score * 6;
         sum += match.autoReefLevels.L4.score * 7;
-        sum += match.autoReefLevels.net.score * 4;
-        sum += match.autoReefLevels.proccessor * 4;
+
+        sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
+        sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
 
         return sum;
       })
@@ -199,11 +237,11 @@ export class TeamData {
   }
 
   getAutoCorals() {
-    return this.getAverageCorals("autoReef");
+    return this.getAverageCorals("autoReefLevels");
   }
 
   getTeleopCorals() {
-    return this.getAverageCorals("teleopReef");
+    return this.getAverageCorals("teleopReefLevels");
   }
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {

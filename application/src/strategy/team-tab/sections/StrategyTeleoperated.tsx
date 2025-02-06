@@ -24,7 +24,7 @@ const StrategyTeleoperated: React.FC = () => {
         <RadarComponent
           inputs={[
             {
-              value: teamData.getAverage(matchFieldNames.teleopReef, [
+              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
                 "L4",
                 "score",
               ]),
@@ -33,7 +33,7 @@ const StrategyTeleoperated: React.FC = () => {
             },
 
             {
-              value: teamData.getAverage(matchFieldNames.teleopReef, [
+              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
                 "L3",
                 "score",
               ]),
@@ -42,7 +42,7 @@ const StrategyTeleoperated: React.FC = () => {
             },
 
             {
-              value: teamData.getAverage(matchFieldNames.teleopReef, [
+              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
                 "L2",
                 "score",
               ]),
@@ -50,10 +50,10 @@ const StrategyTeleoperated: React.FC = () => {
               name: "L2",
             },
             {
-              value: teamData.getAverage(matchFieldNames.teleopReef, [
-                "net",
-                "score",
-              ]),
+              value: teamData.getAverageReefPickData(
+                matchFieldNames.teleReefPick,
+                "netScore"
+              ),
               max: 18,
               name: "Net",
             },
@@ -74,7 +74,7 @@ const StrategyTeleoperated: React.FC = () => {
         <RadarComponent
           inputs={[
             {
-              value: teamData.getAverage(matchFieldNames.teleopReef, [
+              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
                 "L1",
                 "score",
               ]),
@@ -88,18 +88,20 @@ const StrategyTeleoperated: React.FC = () => {
             },
 
             {
-              value: teamData.getAverage(matchFieldNames.teleopReef, [
-                "net",
-                "score",
-              ]),
+              value: teamData.getAverageReefPickData(
+                matchFieldNames.teleReefPick,
+                "netScore"
+              ),
               max: 18,
               name: "Net",
             },
             { value: teamData.getAverageAutoScore(), max: 50, name: "Auto" },
             {
-              value: teamData.getAverage(matchFieldNames.teleopReef, [
-                "proccessor",
-              ]),
+              value: teamData.getAverageReefPickData(
+                matchFieldNames.teleReefPick,
+                "processor"
+              ),
+
               max: 12,
               name: "Processor",
             },
@@ -113,8 +115,13 @@ const StrategyTeleoperated: React.FC = () => {
         <LineChart
           dataSets={{
             Defense: {
-              color: "blue",
+              color: "purple",
               data: teamData.getAsLine(matchFieldNames.defense),
+            },
+
+            Resistance: {
+              color: "pink",
+              data: teamData.getAsLine(matchFieldNames.resistance),
             },
           }}
         />
@@ -124,17 +131,17 @@ const StrategyTeleoperated: React.FC = () => {
           dataSets={{
             Score: {
               color: "green",
-              data: teamData.getAsLine(matchFieldNames.teleopReef, [
-                "net",
-                "score",
-              ]),
+              data: teamData.getAlgeaDataAsLine(
+                matchFieldNames.teleReefPick,
+                "netScore"
+              ),
             },
             Miss: {
               color: "red",
-              data: teamData.getAsLine(matchFieldNames.teleopReef, [
-                "net",
-                "miss",
-              ]),
+              data: teamData.getAlgeaDataAsLine(
+                matchFieldNames.teleReefPick,
+                "netMiss"
+              ),
             },
           }}
         />
@@ -142,11 +149,12 @@ const StrategyTeleoperated: React.FC = () => {
       <div className="section">
         <LineChart
           dataSets={{
-            Proccessor: {
+            Processor: {
               color: "yellow",
-              data: teamData.getAsLine(matchFieldNames.teleopReef, [
-                "proccessor",
-              ]),
+              data: teamData.getAlgeaDataAsLine(
+                matchFieldNames.teleReefPick,
+                "processor"
+              ),
             },
           }}
         />
@@ -162,7 +170,7 @@ const StrategyTeleoperated: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.teleopReef, [
+                  data: teamData.getAsLine(matchFieldNames.teleopReefLevels, [
                     key,
                     "score",
                   ]),
@@ -182,7 +190,7 @@ const StrategyTeleoperated: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.teleopReef, [
+                  data: teamData.getAsLine(matchFieldNames.teleopReefLevels, [
                     key,
                     "miss",
                   ]),

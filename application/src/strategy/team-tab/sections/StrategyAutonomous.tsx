@@ -27,7 +27,7 @@ const StrategyAutonomous: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.autoReef, [
+                  data: teamData.getAsLine(matchFieldNames.autoReefLevels, [
                     key,
                     "score",
                   ]),
@@ -47,7 +47,7 @@ const StrategyAutonomous: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.autoReef, [
+                  data: teamData.getAsLine(matchFieldNames.autoReefLevels, [
                     key,
                     "miss",
                   ]),
@@ -67,11 +67,6 @@ const StrategyAutonomous: React.FC = () => {
       <br />
       <br />
       <h1 className="text-4xl underline">All Autos</h1>
-      {autos?.map((auto, index) => (
-        <div key={index}>
-          <AutoChart auto={auto} />
-        </div>
-      ))}
     </>
   );
 };
