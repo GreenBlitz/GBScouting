@@ -77,7 +77,8 @@ export default class ScouterInputs {
   static readonly teleReefPick = new ReefPickInput({
     route: "teleReefPick",
     navigationDestination: "../reef",
-    color: "#18723c",
+    triangleColor: "#18723c",
+    backgroundColor: "#2c2c2c",
   });
 
   static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
@@ -92,6 +93,7 @@ export default class ScouterInputs {
   static readonly autoReefPick = new ReefPickInput({
     route: "autoReefPick",
     navigationDestination: "../reef",
-    color: "#18723c",
+    triangleColor: "#18723c",
+    backgroundColor: "#1F2937",
   });
 }

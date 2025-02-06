@@ -68,7 +68,11 @@ const hexagonVertices: Point[] = [
 
 class ReefPickInput extends ScouterInput<
   PickedObjective[],
-  { navigationDestination: string; color: Color },
+  {
+    navigationDestination: string;
+    triangleColor: Color;
+    backgroundColor: Color;
+  },
   {
     objectives: PickedObjective[];
     redirectToNext: boolean;
@@ -105,7 +109,8 @@ class ReefPickInput extends ScouterInput<
   constructor(
     props: InputProps<PickedObjective[]> & {
       navigationDestination: string;
-      color: Color;
+      triangleColor: Color;
+      backgroundColor: Color;
     }
   ) {
     super(props);
@@ -134,7 +139,7 @@ class ReefPickInput extends ScouterInput<
     const middleOfHexagon = { x: width / 2, y: height / 2 };
     hexagonVertices.forEach((vertex, index) => {
       context.beginPath();
-      context.fillStyle = this.props.color.toString();
+      context.fillStyle = this.props.triangleColor.toString();
       if (index === this.state.coloredTriangleIndex) {
         context.fillStyle = "green";
       }
@@ -158,7 +163,7 @@ class ReefPickInput extends ScouterInput<
 
       const otherPoint = hexagonVertices[index + hexagonVertices.length / 2];
 
-      context.strokeStyle = "#1f2937";
+      context.strokeStyle = this.props.backgroundColor.toString();
 
       context.beginPath();
       context.moveTo(point.x, point.y);
@@ -321,6 +326,32 @@ class ReefPickInput extends ScouterInput<
       </button>
     );
 
+    const reef = (
+      <div
+        style={{
+          backgroundSize: "100% 100%",
+          width: width,
+          height: height,
+          position: "relative",
+        }}
+        onTouchStart={(event) => {
+          this.setState({
+            coloredTriangleIndex: this.getTriangleIndex(event),
+          });
+        }}
+        onTouchEnd={() => this.setState({ coloredTriangleIndex: undefined })}
+        onMouseMove={(event) => {
+          this.setState({
+            coloredTriangleIndex: this.getTriangleIndex(event),
+          });
+        }}
+        onMouseLeave={() => this.setState({ coloredTriangleIndex: undefined })}
+        onClick={(event) => this.addSide(this.getSide(event))}
+      >
+        <canvas ref={this.canvasRef} width={width} height={height} />
+      </div>
+    );
+
     return (
       <div className="flex items-center justify-center flex-col">
         <div className="flex flex-row justify-center">
@@ -342,31 +373,8 @@ class ReefPickInput extends ScouterInput<
           <h2 className="text-3xl font-extrabold">PRO.</h2>
           {this.getActionValue("processor")}
         </button>
-        <div
-          style={{
-            backgroundSize: "100% 100%",
-            width: width,
-            height: height,
-            position: "relative",
-          }}
-          onTouchStart={(event) => {
-            this.setState({
-              coloredTriangleIndex: this.getTriangleIndex(event),
-            });
-          }}
-          onTouchEnd={() => this.setState({ coloredTriangleIndex: undefined })}
-          onMouseMove={(event) => {
-            this.setState({
-              coloredTriangleIndex: this.getTriangleIndex(event),
-            });
-          }}
-          onMouseLeave={() =>
-            this.setState({ coloredTriangleIndex: undefined })
-          }
-          onClick={(event) => this.addSide(this.getSide(event))}
-        >
-          <canvas ref={this.canvasRef} width={width} height={height} />
-        </div>
+
+        {reef}
 
         <div className="flex flex-row justify-center">
           {coralFeederButton}
