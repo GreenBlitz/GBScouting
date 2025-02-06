@@ -8,13 +8,19 @@ import ScanningTab from "./scouter/scanner/ScanningTab";
 import GeneralTab from "./strategy/general-tab/GeneralTab";
 import TeamTab from "./strategy/team-tab/TeamTab";
 import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
-import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
-import ScouterAutonomous from "./scouter/tabs/ScouterAutonomous";
+import ScouterTeleoperated, {
+  ScouterTelePick,
+  ScouterTeleReef,
+} from "./scouter/tabs/ScouterTeleoperated";
 import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
 import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
 import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 import PageTransition from "./components/PageTransition";
+import ScouterAutonomous, {
+  ScouterAutoPick,
+  ScouterAutoReef,
+} from "./scouter/tabs/ScouterAutonomous";
 
 function getHiddenImage(path: string) {
   return (
@@ -116,8 +122,14 @@ const App: React.FC = () => {
             <Route path="/" element={<MatchList />} />
             <Route path="/scouting" element={<ScouterTab />}>
               <Route path="prematch" element={<ScouterPreMatch />} />
-              <Route path="teleoperated" element={<ScouterTeleoperated />} />
-              <Route path="autonomous" element={<ScouterAutonomous />} />
+              <Route path="teleoperated" element={<ScouterTeleoperated />}>
+                <Route path="pick" element={<ScouterTelePick />} />
+                <Route path="reef" element={<ScouterTeleReef />} />
+              </Route>
+              <Route path="autonomous" element={<ScouterAutonomous />}>
+                <Route path="pick" element={<ScouterAutoPick />} />
+                <Route path="reef" element={<ScouterAutoReef />} />
+              </Route>
               <Route path="postmatch" element={<ScouterPostMatch />} />
             </Route>
             <Route path="/team" element={<TeamTab />}>

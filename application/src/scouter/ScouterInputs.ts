@@ -7,6 +7,8 @@ import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
 import TeleopForm from "../components/TeleopForm";
+import ReefPickInput from "./input-types/ReefPickInput";
+import ReefInput from "./input-types/ReefInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -69,16 +71,43 @@ export default class ScouterInputs {
     name: "Comment",
   });
 
-  static readonly teleopReef = new TeleopForm({
-    route: "teleopForm",
+  static readonly teleopReef = new ReefInput({
+    route: "teleopReef",
+    navigationDestination: "../reef",
+    triangleColor: "#18723c",
+    backgroundColor: "#2c2c2c",
   });
 
-  static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
-  static readonly autoCollect = new CounterInput({
-    route: "autoScore",
-    name: "Coral Feeder",
+  static readonly teleopReefLevels = new TeleopForm({
+    route: "teleopReefLevels",
+    reefInput: this.teleopReef,
   });
-  static readonly autoReef = new TeleopForm({
+
+  static readonly teleReefPick = new ReefPickInput({
+    route: "teleReefPick",
+    reefInput: this.teleopReef,
+  });
+
+  // static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
+  // static readonly autoCollect = new CounterInput({
+  //   route: "autoScore",
+  //   name: "Coral Feeder",
+  // });
+
+  static readonly autoReef = new ReefInput({
     route: "autoReef",
+    navigationDestination: "../reef",
+    triangleColor: "#18723c",
+    backgroundColor: "#1f2937",
+  });
+
+  static readonly autoReefLevels = new TeleopForm({
+    route: "autoReefLevels",
+    reefInput: this.autoReef,
+  });
+
+  static readonly autoReefPick = new ReefPickInput({
+    route: "autoReefPick",
+    reefInput: this.autoReef,
   });
 }

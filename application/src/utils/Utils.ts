@@ -1,3 +1,4 @@
+import { Point } from "chart.js";
 import { Color } from "./Color";
 import { Match } from "./Match";
 
@@ -9,6 +10,10 @@ export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
 
 export function sortMatches(matches: Match[]) {
   return matches.sort((match1, match2) => match1.qual - match2.qual);
+}
+
+export function getDistance(p1: Point, p2: Point) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 }
 
 export interface DataSet {
@@ -84,19 +89,4 @@ export const FRCTeamList = [
   "9739\tFirefly",
   "9740\tCAN://Bus",
   "9741\tSTORM",
-  "9985\tOff-Season Demo Team 9986",
-  "9986\tOff-Season Demo Team 9986",
-  "9987\tOff-Season Demo Team 9986",
-  "9988\tOff-Season Demo Team 9986",
-  "9989\tOff-Season Demo Team 9986",
-  "9990\tOff-Season Demo Team 9986",
-  "9991\tOff-Season Demo Team 9986",
-  "9992\tOff-Season Demo Team 9986",
-  "9993\tOff-Season Demo Team 9986",
-  "9994\tOff-Season Demo Team 9986",
-  "9995\tOff-Season Demo Team 9986",
-  "9996\tOff-Season Demo Team 9986",
-  "9997\tOff-Season Demo Team 9986",
-  "9998\tOff-Season Demo Team 9986",
-  "9999\tOff-Season Demo Team 9986",
 ];

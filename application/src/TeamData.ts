@@ -64,19 +64,19 @@ export class TeamData {
       ...this.matches.map((match) => {
         let sum = 0;
 
-        sum += match.teleopReef.L1.score * 2;
-        sum += match.teleopReef.L2.score * 3;
-        sum += match.teleopReef.L3.score * 4;
-        sum += match.teleopReef.L4.score * 5;
-        sum += match.teleopReef.net.score * 4;
-        sum += match.teleopReef.proccessor * 4;
+        sum += match.teleopReefLevels.L1.score * 2;
+        sum += match.teleopReefLevels.L2.score * 3;
+        sum += match.teleopReefLevels.L3.score * 4;
+        sum += match.teleopReefLevels.L4.score * 5;
+        sum += match.teleopReefLevels.net.score * 4;
+        sum += match.teleopReefLevels.proccessor * 4;
 
-        sum += match.autoReef.L1.score * 3;
-        sum += match.autoReef.L2.score * 4;
-        sum += match.autoReef.L3.score * 6;
-        sum += match.autoReef.L4.score * 7;
-        sum += match.autoReef.net.score * 4;
-        sum += match.autoReef.proccessor * 4;
+        sum += match.autoReefLevels.L1.score * 3;
+        sum += match.autoReefLevels.L2.score * 4;
+        sum += match.autoReefLevels.L3.score * 6;
+        sum += match.autoReefLevels.L4.score * 7;
+        sum += match.autoReefLevels.net.score * 4;
+        sum += match.autoReefLevels.proccessor * 4;
 
         const getClimb = () => {
           switch (match.climb) {
@@ -102,12 +102,12 @@ export class TeamData {
       .map((match) => {
         let sum = 0;
 
-        sum += match.autoReef.L1.score * 3;
-        sum += match.autoReef.L2.score * 4;
-        sum += match.autoReef.L3.score * 6;
-        sum += match.autoReef.L4.score * 7;
-        sum += match.autoReef.net.score * 4;
-        sum += match.autoReef.proccessor * 4;
+        sum += match.autoReefLevels.L1.score * 3;
+        sum += match.autoReefLevels.L2.score * 4;
+        sum += match.autoReefLevels.L3.score * 6;
+        sum += match.autoReefLevels.L4.score * 7;
+        sum += match.autoReefLevels.net.score * 4;
+        sum += match.autoReefLevels.proccessor * 4;
 
         return sum;
       })
@@ -235,7 +235,7 @@ export class TeamData {
       return {
         collected: match.autoMap,
         feeded: match.autoCollect,
-        scored: match.autoReef,
+        scored: match.autoReefLevels,
       };
     });
   }

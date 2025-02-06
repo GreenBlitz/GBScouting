@@ -31,14 +31,14 @@ const CancelConfirmation: React.FC<CancelConfirmationProps> = ({
           <button
             type="button"
             onClick={() => setShowConfirmation(false)}
-            className="btn btn-secondary"
+            className="button-bg-blue small-button"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={handleConfirm}
-            className="btn btn-primary"
+            className="small-button button-bg-red"
           >
             Confirm
           </button>
@@ -52,7 +52,7 @@ const CancelConfirmation: React.FC<CancelConfirmationProps> = ({
       <button
         type="button"
         onClick={() => setShowConfirmation(true)}
-        className="btn btn-secondary"
+        className="small-button button-bg-red"
       >
         {name}
       </button>
