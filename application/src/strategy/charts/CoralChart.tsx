@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Level, Levels } from "../../components/ReefForm";
+import { Level, Levels } from "../../components/teleopForm";
 import PercentageBarChart from "./PercentageBarChart";
 import Percent from "../../utils/Percent";
 

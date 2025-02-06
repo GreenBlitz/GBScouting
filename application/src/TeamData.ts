@@ -5,6 +5,8 @@ import Percent from "./utils/Percent";
 import { Levels } from "./components/ReefForm";
 import { Auto } from "./utils/SeasonUI";
 import { AlgeaAction, PickValues } from "./scouter/input-types/ReefPickInput";
+import { areReefsSame, Level } from "./components/TeleopForm";
+import { ReefSide } from "./scouter/input-types/ReefInput";
 
 interface Comment {
   body: string;
@@ -280,11 +282,39 @@ export class TeamData {
   }
 
   getAutos(): Auto[] {
+    const getScoredAlgea = (field: AlgeaAction, actions: AlgeaAction[]) => {
+      return actions.reduce(
+        (accumulator, value) => accumulator + (value === field ? 1 : 0),
+        0
+      );
+    };
+
     return this.matches.map((match) => {
       return {
-        collected: match.autoMap,
-        feeded: match.autoCollect,
-        scored: match.autoReefLevels,
+        corals: match.autoReefLevels,
+        usedSides: Object.values(match.autoReefLevels).reduce<ReefSide[]>(
+          (accumulator, level) => {
+            (level as Level).sides.forEach((side) => {
+              if (
+                !accumulator.findIndex((value) => areReefsSame(value, side))
+              ) {
+                accumulator.push(side);
+              }
+            });
+            return accumulator;
+          },
+          []
+        ),
+        algeaCollection: {
+          reefCollected: match.autoReefLevels.algea.collected,
+          reefDropped: match.autoReefLevels.algea.dropped,
+          groundCollected: match.autoReefPick.collected.algeaGround,
+        },
+        algeaScoring: {
+          netScore: getScoredAlgea("netScore", match.autoReefPick.algea),
+          netMiss: getScoredAlgea("netMiss", match.autoReefPick.algea),
+          processor: getScoredAlgea("processor", match.autoReefPick.algea),
+        },
       };
     });
   }

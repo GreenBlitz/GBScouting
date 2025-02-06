@@ -1,8 +1,21 @@
-import { AllScore } from "../components/TeleopForm";
-import { AllSushis } from "../scouter/input-types/auto-map/AutonomousMapInput";
+import { Levels } from "../components/teleopForm";
+import { ReefSide } from "../scouter/input-types/ReefInput";
 
 export interface Auto {
-  collected: AllSushis;
-  feeded: number;
-  scored: AllScore;
+  corals: Levels;
+  usedSides: ReefSide[];
+  algeaCollection: CollectedAlgea;
+  algeaScoring: UsedAlgea;
+}
+
+export interface CollectedAlgea {
+  reefCollected: boolean;
+  reefDropped: boolean;
+  groundCollected: boolean;
+}
+
+export interface UsedAlgea {
+  netScore: number;
+  netMiss: number;
+  processor: number;
 }
