@@ -3,12 +3,12 @@ import ScouterInput from "../scouter/ScouterInput";
 import { InputProps } from "../scouter/ScouterInput";
 import "./reefScore.css";
 import algeaSVG from "../assets/low-algea.svg";
-import branchLeftSVG from "../assets/branch-left.svg";
-import branchRightSVG from "../assets/branch-right.svg";
+import ReefInput, { ReefSide } from "../scouter/input-types/ReefInput";
 
 interface Level {
   score: number;
   miss: number;
+  sides: ReefSide[];
 }
 
 interface Levels {
@@ -22,20 +22,21 @@ export interface AllScore extends Levels {
   net: Level;
 }
 
-interface NetAction {
-  type: keyof Level;
+interface Action {
+  level: keyof AllScore;
+  point: "score" | "miss";
 }
 
-type FullAction = NetAction | CoralAction;
-
-interface CoralAction {
-  level: keyof Levels;
-  point: keyof Level;
+interface FullAction extends Action {
+  side: ReefSide;
 }
+
+const areReefsSame = (side1: ReefSide, side2: ReefSide) =>
+  side1.proximity === side2.proximity && side1.side === side2.side;
 
 class TeleopForm extends ScouterInput<
   AllScore,
-  {},
+  { reefInput: ReefInput },
   {
     values: AllScore;
     undoStack: FullAction[];
@@ -47,11 +48,11 @@ class TeleopForm extends ScouterInput<
 
   initialValue(): AllScore {
     return {
-      L1: { score: 0, miss: 0 },
-      L2: { score: 0, miss: 0 },
-      L3: { score: 0, miss: 0 },
-      L4: { score: 0, miss: 0 },
-      net: { score: 0, miss: 0 },
+      L1: { score: 0, miss: 0, sides: [] },
+      L2: { score: 0, miss: 0, sides: [] },
+      L3: { score: 0, miss: 0, sides: [] },
+      L4: { score: 0, miss: 0, sides: [] },
+      net: { score: 0, miss: 0, sides: [] },
     };
   }
 
@@ -68,26 +69,24 @@ class TeleopForm extends ScouterInput<
   renderInput(): React.ReactNode {
     const levelKeys: (keyof Levels)[] = ["L4", "L3", "L2", "L1"];
 
-    const handleClick = (action: CoralAction) => {
+    const handleClick = (action: Action) => {
       const updatedValues = { ...this.state.values };
       updatedValues[action.level][action.point] += 1;
+
+      const currentReefSide = this.props.reefInput.getValue();
+      if (
+        !updatedValues[action.level].sides.find((value) =>
+          areReefsSame(value, currentReefSide)
+        )
+      ) {
+        updatedValues[action.level].sides.push(currentReefSide);
+      }
+
       this.setState({
         undoStack: [
           ...this.state.undoStack,
-          { level: action.level, point: action.point },
+          { level: action.level, point: action.point, side: currentReefSide },
         ],
-        values: updatedValues,
-      });
-      this.storage.set({
-        ...updatedValues,
-      });
-    };
-
-    const handleNet = (action: NetAction) => {
-      const updatedValues = { ...this.state.values };
-      updatedValues["net"][action.type]++;
-      this.setState({
-        undoStack: [...this.state.undoStack, action],
         values: updatedValues,
       });
       this.storage.set({
@@ -102,15 +101,24 @@ class TeleopForm extends ScouterInput<
 
       const lastAction = this.state.undoStack[this.state.undoStack.length - 1];
       const updatedValues = { ...this.state.values };
+      updatedValues[lastAction.level][lastAction.point]--;
+      updatedValues[lastAction.level].sides = updatedValues[
+        lastAction.level
+      ].sides.filter((side) => !areReefsSame(side, lastAction.side));
 
-      if ("level" in lastAction) {
-        updatedValues[lastAction.level][lastAction.point]--;
-      } else if ("type" in lastAction) {
-        updatedValues["net"][lastAction.type]--;
-      }
+      const updatedStack = this.state.undoStack.slice(0, -1);
+      updatedStack.forEach((action) => {
+        if (
+          !updatedValues[action.level].sides.find((value) =>
+            areReefsSame(value, action.side)
+          )
+        ) {
+          updatedValues[action.level].sides.push(action.side);
+        }
+      });
 
       this.setState({
-        undoStack: this.state.undoStack.slice(0, -1),
+        undoStack: updatedStack,
         values: updatedValues,
       });
 
@@ -145,7 +153,7 @@ class TeleopForm extends ScouterInput<
         <div className="flex mb-10 mt-5">
           <button
             className="bg-green-400 w-20 h-20 text-white py-2 px-4 rounded mr-2.5 relative"
-            onClick={() => handleNet({ type: "score" })}
+            onClick={() => handleClick({ level: "net", point: "score" })}
           >
             <img src={algeaSVG} width={80} alt="Algea Icon" />
             <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
@@ -154,7 +162,7 @@ class TeleopForm extends ScouterInput<
           </button>
           <button
             className="bg-red-400 w-20 h-20 text-white py-2 px-4 rounded ml-2.5 relative"
-            onClick={() => handleNet({ type: "miss" })}
+            onClick={() => handleClick({ level: "net", point: "miss" })}
           >
             <img src={algeaSVG} width={80} alt="Algea Icon" />
             <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
