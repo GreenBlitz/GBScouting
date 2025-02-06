@@ -45,7 +45,10 @@
 .button-red {
   background-color: lightcoral;
   border: 1px solid red;
+}
 
+.undo-color {
+  @apply bg-[#596c86];
 }
 
 .scouter-input {

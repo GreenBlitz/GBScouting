@@ -139,7 +139,7 @@ class ReefPickInput extends ScouterInput<
     const undoButton = (
       <button
         onClick={() => this.undo()}
-        className="bg-[#596c86] w-48 h-16 text-white py-2 px-4 rounded mt-4"
+        className="undo-color w-48 h-16 text-white py-2 px-4 rounded mt-4"
       >
         Undo
       </button>
