@@ -60,12 +60,20 @@ class LinearHistogramChart<
 
     this.gaugeProps = { ...basicGaugeProps };
     this.gaugeProps.options.width = props.width;
+
+    let sectionSum = 0;
     this.gaugeProps.options.segmentation = {
       enabled: true,
-      interval: { values: props.sections.map((section) => section.value) },
+      interval: {
+        values: props.sections.map((section) => {
+          sectionSum += section.value;
+          return sectionSum;
+        }),
+      },
       spacing: 5,
     };
 
+    console.log(this.gaugeProps);
     this.state = { hoveredSection: undefined, anchor: undefined };
 
     this.sumOfSectionValues = this.props.sections.reduce<number>(
@@ -118,7 +126,6 @@ class LinearHistogramChart<
     const hoveredX: number =
       event.pageX - event.currentTarget.offsetLeft - boxThickness;
 
-    console.log(hoveredX);
     const hoveredSection = this.getSection(hoveredX);
     if (hoveredSection) {
       hoveredSection.value = this.amountFromChartWidth(hoveredSection.value);
