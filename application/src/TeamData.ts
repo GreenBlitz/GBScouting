@@ -163,6 +163,52 @@ export class TeamData {
     return Percent.fromList(averages)[0];
   }
 
+  getAverageCoralAmount() {
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return (
+      this.matches.reduce((accumulator, match) => {
+        return (
+          match.autoReefLevels.L1.score +
+          match.autoReefLevels.L2.score +
+          match.autoReefLevels.L3.score +
+          match.autoReefLevels.L4.score +
+          match.teleopReefLevels.L1.score +
+          match.teleopReefLevels.L2.score +
+          match.teleopReefLevels.L3.score +
+          match.teleopReefLevels.L4.score +
+          accumulator
+        );
+      }, 0) / this.matches.length
+    );
+  }
+
+  getAverageObjectAmount() {
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return (
+      this.matches.reduce((accumulator, match) => {
+        return (
+          match.autoReefLevels.L1.score +
+          match.autoReefLevels.L2.score +
+          match.autoReefLevels.L3.score +
+          match.autoReefLevels.L4.score +
+          match.teleopReefLevels.L1.score +
+          match.teleopReefLevels.L2.score +
+          match.teleopReefLevels.L3.score +
+          match.teleopReefLevels.L4.score +
+          match.autoReefPick.algea.netScore +
+          match.autoReefPick.algea.processor +
+          match.teleReefPick.algea.netScore +
+          match.teleReefPick.algea.processor +
+          accumulator
+        );
+      }, 0) / this.matches.length
+    );
+  }
+
   getAverage(field: keyof Match, innerFields?: string[]): number {
     if (this.matches.length === 0) {
       return 0;
