@@ -4,6 +4,7 @@ import { InputProps } from "../scouter/ScouterInput";
 import "./reefScore.css";
 import algeaSVG from "../assets/low-algea.svg";
 import ReefInput, { ReefSide } from "../scouter/input-types/ReefInput";
+import { StorageBacked } from "../utils/FolderStorage";
 
 export interface Level {
   score: number;
@@ -48,9 +49,15 @@ class TeleopForm extends ScouterInput<
   { reefInput: ReefInput },
   {
     values: AllScore;
-    undoStack: Action[];
   }
 > {
+  private readonly undoStack: StorageBacked<Action[]>;
+
+  constructor(props: InputProps<AllScore> & { reefInput: ReefInput }) {
+    super(props);
+    this.undoStack = this.storage.subItem("/undoStack");
+  }
+
   create(): React.JSX.Element {
     return <TeleopForm {...this.props} />;
   }
@@ -67,11 +74,9 @@ class TeleopForm extends ScouterInput<
 
   getStartingState(props: InputProps<AllScore>): {
     values: AllScore;
-    undoStack: Action[];
   } {
     return {
       values: this.getValue(),
-      undoStack: [],
     };
   }
 
@@ -91,11 +96,11 @@ class TeleopForm extends ScouterInput<
         updatedValues[action.level].sides.push(currentReefSide);
       }
 
+      this.undoStack.set([
+        ...(this.undoStack.get() || []),
+        { level: action.level, point: action.point, side: currentReefSide },
+      ]);
       this.setState({
-        undoStack: [
-          ...this.state.undoStack,
-          { level: action.level, point: action.point, side: currentReefSide },
-        ],
         values: updatedValues,
       });
       this.storage.set({
@@ -111,8 +116,8 @@ class TeleopForm extends ScouterInput<
         updatedValues.algea.dropped = !updatedValues.algea.dropped;
       }
 
+      this.undoStack.set([...(this.undoStack.get() || []), action]);
       this.setState({
-        undoStack: [...this.state.undoStack, action],
         values: updatedValues,
       });
       this.storage.set({
@@ -121,11 +126,12 @@ class TeleopForm extends ScouterInput<
     };
 
     const handleUndo = () => {
-      if (this.state.undoStack.length === 0) {
+      const undoStack = this.undoStack.get() || [];
+      if (undoStack.length === 0) {
         return;
       }
 
-      const lastAction = this.state.undoStack[this.state.undoStack.length - 1];
+      const lastAction = undoStack[undoStack.length - 1];
       const updatedValues = { ...this.state.values };
       if ("level" in lastAction) {
         updatedValues[lastAction.level][lastAction.point]--;
@@ -141,7 +147,7 @@ class TeleopForm extends ScouterInput<
           : (updatedValues.algea.dropped = !previousValue);
       }
 
-      const updatedStack = this.state.undoStack.slice(0, -1);
+      const updatedStack = undoStack.slice(0, -1);
       updatedStack.forEach((action) => {
         if ("isCollected" in action) {
           return;
@@ -155,8 +161,8 @@ class TeleopForm extends ScouterInput<
         }
       });
 
+      this.undoStack.set(updatedStack);
       this.setState({
-        undoStack: updatedStack,
         values: updatedValues,
       });
 
