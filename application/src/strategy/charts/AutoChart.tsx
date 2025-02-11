@@ -69,7 +69,7 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
   );
 
   return (
-    <div className="rower">
+    <div className="rower border w-min mx-auto">
       {corals}
       {algeaScoring}
     </div>
