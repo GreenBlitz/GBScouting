@@ -39,6 +39,11 @@ class ReefPickInput extends ScouterInput<
     return <ReefPickInput {...this.props} />;
   }
 
+  clearValue(): void {
+    super.clearValue();
+    this.undoStack.remove();
+  }
+
   initialValue(props: InputProps<PickValues>): PickValues {
     return {
       algea: {

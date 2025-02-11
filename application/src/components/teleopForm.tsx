@@ -62,6 +62,11 @@ class TeleopForm extends ScouterInput<
     return <TeleopForm {...this.props} />;
   }
 
+  clearValue(): void {
+    super.clearValue();
+    this.undoStack.remove();
+  }
+
   initialValue(): AllScore {
     return {
       L1: { score: 0, miss: 0, sides: [] },

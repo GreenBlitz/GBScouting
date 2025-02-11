@@ -103,55 +103,66 @@ function getCellClassName(
   }
   const numberedValue = typeof params.value === "number" ? params.value : 0;
   const field = params.field as keyof GridItems;
-  if (field === "Points") {
-    return `bg-red-${getStrength([20, 40, 60, 80], numberedValue)}`;
+
+  if (field === "Team") {
+    return "";
   }
 
-  if (field == "Corals") {
-    return `bg-purple-${getStrength([1, 5, 7, 9, 11, 13, 15], numberedValue)}`;
-  }
+  const getBGColor = () => {
+    if (field === "Points") {
+      return `bg-red-${getStrength([20, 40, 60, 80], numberedValue)}`;
+    }
 
-  if (field === "Defense") {
-    return `bg-blue-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
-  }
+    if (field == "Corals") {
+      return `bg-purple-${getStrength(
+        [1, 5, 7, 9, 11, 13, 15],
+        numberedValue
+      )}`;
+    }
 
-  if (field === "Evasion") {
-    return `bg-purple-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
-  }
+    if (field === "Defense") {
+      return `bg-blue-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
+    }
 
-  if (field === "Objects") {
-    return `bg-blue-${getStrength([1, 6, 9, 12, 14, 16, 20], numberedValue)}`;
-  }
+    if (field === "Evasion") {
+      return `bg-purple-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
+    }
 
-  if (field === "L4") {
-    return `bg-purple-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
-  }
+    if (field === "Objects") {
+      return `bg-blue-${getStrength([1, 6, 9, 12, 14, 16, 20], numberedValue)}`;
+    }
 
-  if (field === "L3") {
-    return `bg-yellow-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
-  }
+    if (field === "L4") {
+      return `bg-purple-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
+    }
 
-  if (field === "L2") {
-    return `bg-red-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
-  }
+    if (field === "L3") {
+      return `bg-yellow-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
+    }
 
-  if (field === "L1") {
-    return `bg-green-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
-  }
+    if (field === "L2") {
+      return `bg-red-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
+    }
 
-  if (field === "Net") {
-    return `bg-green-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
-  }
+    if (field === "L1") {
+      return `bg-green-${getStrength([1, 3, 5, 7, 9], numberedValue)}`;
+    }
 
-  if (field === "Processor") {
-    return `bg-red-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
-  }
+    if (field === "Net") {
+      return `bg-green-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
+    }
 
-  if (field === "Auto") {
-    return `bg-blue-${getStrength([1, 5, 10, 15, 20], numberedValue)}`;
-  }
+    if (field === "Processor") {
+      return `bg-red-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
+    }
 
-  return "";
+    if (field === "Auto") {
+      return `bg-blue-${getStrength([1, 5, 10, 15, 20], numberedValue)}`;
+    }
+
+    return "";
+  };
+  return getBGColor();
 }
 
 const GeneralTab: React.FC = () => {
