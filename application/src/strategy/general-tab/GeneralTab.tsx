@@ -99,7 +99,7 @@ function getCellClassName(
 
   function getStrength(strengthValues: number[], value: number) {
     const strength = strengthValues.findIndex((strength) => value < strength);
-    return (strength === -1 ? strengthValues.length : strength) + 1;
+    return (strength === -1 ? strengthValues.length : strength) + 2;
   }
   const numberedValue = typeof params.value === "number" ? params.value : 0;
   const field = params.field as keyof GridItems;
@@ -160,9 +160,9 @@ function getCellClassName(
       return `bg-blue-${getStrength([1, 5, 10, 15, 20], numberedValue)}`;
     }
 
-    return "";
+    return "text-white";
   };
-  return getBGColor();
+  return `text-black  ${getBGColor()}`;
 }
 
 const GeneralTab: React.FC = () => {

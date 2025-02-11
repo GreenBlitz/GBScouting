@@ -80,6 +80,23 @@ export class TeamData {
     );
   }
 
+  getTeleopObjectsAsLine() {
+    return Object.assign(
+      {},
+      ...Object.values(this.matches).map((match) => {
+        return {
+          [match.qual.toString()]:
+            match.teleopReefLevels.L1.score +
+            match.teleopReefLevels.L2.score +
+            match.teleopReefLevels.L3.score +
+            match.teleopReefLevels.L4.score +
+            match.teleReefPick.algea.netScore +
+            match.teleReefPick.algea.processor,
+        };
+      })
+    );
+  }
+
   getScores(): Record<string, number> {
     return Object.assign(
       {},

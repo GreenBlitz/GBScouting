@@ -8,22 +8,43 @@ import { Color } from "../../utils/Color";
 const [width, height] = [262, 262];
 const stepSize = 30;
 
-const triangleMiddles: { center: Point; reefSide: ReefSide }[] = [
-  { center: { x: 90, y: 200 }, reefSide: { side: "left", proximity: "close" } },
+interface TriangleMiddle {
+  center: Point;
+  reefSide: ReefSide;
+  name: string;
+}
+
+export const triangleButtonMiddles: TriangleMiddle[] = [
+  {
+    center: { x: 90, y: 200 },
+    reefSide: { side: "left", proximity: "close" },
+    name: "1",
+  },
   {
     center: { x: 50, y: 130 },
     reefSide: { side: "left", proximity: "middle" },
+    name: "2",
   },
-  { center: { x: 90, y: 65 }, reefSide: { side: "left", proximity: "far" } },
-  { center: { x: 170, y: 65 }, reefSide: { side: "right", proximity: "far" } },
+  {
+    center: { x: 90, y: 65 },
+    reefSide: { side: "left", proximity: "far" },
+    name: "3",
+  },
+  {
+    center: { x: 170, y: 65 },
+    reefSide: { side: "right", proximity: "far" },
+    name: "4",
+  },
 
   {
     center: { x: 210, y: 130 },
     reefSide: { side: "right", proximity: "middle" },
+    name: "5",
   },
   {
     center: { x: 170, y: 200 },
     reefSide: { side: "right", proximity: "close" },
+    name: "6",
   },
 ];
 
@@ -116,17 +137,17 @@ class ReefInput extends ScouterInput<
       y: event.pageY - event.currentTarget.offsetTop,
     };
 
-    const minDistance = triangleMiddles.reduce(
+    const minDistance = triangleButtonMiddles.reduce(
       (accumulator, value) =>
         Math.min(accumulator, getDistance(clickedPoint, value.center)),
       width + height
     );
 
     return (
-      triangleMiddles.find(
+      triangleButtonMiddles.find(
         (value) =>
           Math.abs(getDistance(clickedPoint, value.center) - minDistance) < 1
-      ) || triangleMiddles[0]
+      ) || triangleButtonMiddles[0]
     ).reefSide;
   }
 
@@ -155,12 +176,12 @@ class ReefInput extends ScouterInput<
           x: mouseEvent.pageX - event.currentTarget.offsetLeft,
           y: mouseEvent.pageY - event.currentTarget.offsetTop,
         };
-    const minDistance = triangleMiddles.reduce(
+    const minDistance = triangleButtonMiddles.reduce(
       (accumulator, value) =>
         Math.min(accumulator, getDistance(clickedPoint, value.center)),
       width + height
     );
-    return triangleMiddles.findIndex(
+    return triangleButtonMiddles.findIndex(
       (value) =>
         Math.abs(getDistance(clickedPoint, value.center) - minDistance) < 1
     );
@@ -201,6 +222,15 @@ class ReefInput extends ScouterInput<
       context.lineTo(middleOfHexagon.x, middleOfHexagon.y);
       context.fill();
       context.closePath();
+
+      const centerTriangle = triangleButtonMiddles[index];
+      context.fillStyle = "white";
+      context.font = "25px Arial";
+      context.fillText(
+        centerTriangle.name,
+        centerTriangle.center.x,
+        centerTriangle.center.y
+      );
     });
 
     context.lineWidth = 8;
@@ -257,7 +287,7 @@ class ReefInput extends ScouterInput<
   }
 
   initialValue(props: InputProps<ReefSide> & ReefProps): ReefSide {
-    return triangleMiddles[0].reefSide;
+    return triangleButtonMiddles[0].reefSide;
   }
 
   getStartingState(

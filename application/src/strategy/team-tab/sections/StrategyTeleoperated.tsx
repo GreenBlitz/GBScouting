@@ -202,6 +202,13 @@ const StrategyTeleoperated: React.FC = () => {
       <div className="section">
         <LineChart
           dataSets={{
+            Objects: { color: "cyan", data: teamData.getTeleopObjectsAsLine() },
+          }}
+        />
+      </div>
+      <div className="section">
+        <LineChart
+          dataSets={{
             "Total Score": { color: "red", data: teamData.getScores() },
           }}
         />
