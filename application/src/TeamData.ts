@@ -3,9 +3,9 @@ import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/teleopForm";
-import { Auto, Collection as Collection } from "./utils/SeasonUI";
-import { AlgeaAction, PickValues } from "./scouter/input-types/ReefPickInput";
-import { AllScore, areReefsSame, Level } from "./components/TeleopForm";
+import { Auto, Collection as Collection, UsedAlgea } from "./utils/SeasonUI";
+import { PickValues } from "./scouter/input-types/ReefPickInput";
+import { AllScore } from "./components/TeleopForm";
 import { ReefSide } from "./scouter/input-types/ReefInput";
 
 interface Comment {
@@ -46,7 +46,7 @@ export class TeamData {
 
   getAlgeaDataAsLine(
     reefPick: keyof Match,
-    field: AlgeaAction
+    field: keyof UsedAlgea
   ): Record<string, number> {
     return Object.assign(
       {},
@@ -55,10 +55,7 @@ export class TeamData {
           return;
         }
         return {
-          [match.qual.toString()]: this.getReefPickData(
-            match[reefPick] as PickValues,
-            field
-          ),
+          [match.qual.toString()]: (match[reefPick] as PickValues)[field],
         };
       })
     );
@@ -91,16 +88,16 @@ export class TeamData {
         sum += match.teleopReefLevels.L3.score * 4;
         sum += match.teleopReefLevels.L4.score * 5;
 
-        sum += this.getReefPickData(match.teleReefPick, "netScore") * 4;
-        sum += this.getReefPickData(match.teleReefPick, "processor") * 4;
+        sum += match.teleReefPick.algea.netScore * 4;
+        sum += match.teleReefPick.algea.processor * 4;
 
         sum += match.autoReefLevels.L1.score * 3;
         sum += match.autoReefLevels.L2.score * 4;
         sum += match.autoReefLevels.L3.score * 6;
         sum += match.autoReefLevels.L4.score * 7;
 
-        sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
-        sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
+        sum += match.autoReefPick.algea.netScore * 4;
+        sum += match.autoReefPick.algea.processor * 4;
 
         const getClimb = () => {
           switch (match.climb) {
@@ -121,21 +118,17 @@ export class TeamData {
     );
   }
 
-  getAverageReefPickData(reefPick: keyof Match, data: AlgeaAction) {
+  getAverageReefPickData(reefPick: keyof Match, data: keyof UsedAlgea) {
     if (this.matches.length === 0) {
       return 0;
     }
     return (
       this.matches.reduce((accumulator, match) => {
         const reef: PickValues = match[reefPick] as PickValues;
-        const value = this.getReefPickData(reef, data);
+        const value = reef[data];
         return value + accumulator;
       }, 0) / this.matches.length
     );
-  }
-
-  getReefPickData(reef: PickValues, data: AlgeaAction) {
-    return reef.algea.filter((value) => value === data).length;
   }
 
   getAverageAutoScore() {
@@ -152,8 +145,8 @@ export class TeamData {
           sum += match.autoReefLevels.L3.score * 6;
           sum += match.autoReefLevels.L4.score * 7;
 
-          sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
-          sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
+          sum += match.autoReefPick.algea.netScore * 4;
+          sum += match.autoReefPick.algea.processor * 4;
 
           return sum;
         })
@@ -326,23 +319,12 @@ export class TeamData {
   }
 
   getAutos(): Auto[] {
-    const getScoredAlgea = (field: AlgeaAction, actions: AlgeaAction[]) => {
-      return actions.reduce(
-        (accumulator, value) => accumulator + (value === field ? 1 : 0),
-        0
-      );
-    };
-
     return this.matches.map((match) => {
       return {
         corals: match.autoReefLevels,
         qual: match.qual,
 
-        algeaScoring: {
-          netScore: getScoredAlgea("netScore", match.autoReefPick.algea),
-          netMiss: getScoredAlgea("netMiss", match.autoReefPick.algea),
-          processor: getScoredAlgea("processor", match.autoReefPick.algea),
-        },
+        algeaScoring: match.autoReefPick.algea,
       };
     });
   }
