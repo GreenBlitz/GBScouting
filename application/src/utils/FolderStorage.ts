@@ -99,6 +99,10 @@ export class StorageBacked<T> {
     return !!inputFolder.getItem(this.name);
   }
 
+  with(route: string): StorageBacked<T> {
+    return this.subItem<T>(route);
+  }
+
   subItem<U>(route: string): StorageBacked<U> {
     return new StorageBacked<U>(this.name + route, this.storage);
   }
