@@ -2,13 +2,13 @@ import {
   DataGrid,
   GridCellParams,
   GridColDef,
+  GridRowSelectionModel,
   GridTreeNode,
 } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const paginationModel = { page: 0, pageSize: 5 };
 
@@ -28,6 +28,7 @@ interface TableChartProps {
   getCellClassName?: (
     params: GridCellParams<any, any, any, GridTreeNode>
   ) => string;
+  onRowSelectionChange?: (rowSelectionModel: GridRowSelectionModel) => void;
 }
 
 const TableChart: React.FC<TableChartProps> = ({
@@ -37,6 +38,7 @@ const TableChart: React.FC<TableChartProps> = ({
   height,
   widthOfItem,
   getCellClassName,
+  onRowSelectionChange,
 }) => {
   const rows: Record<string, any>[] = tableData.map((row) => {
     return { ...row };
@@ -65,6 +67,14 @@ const TableChart: React.FC<TableChartProps> = ({
     };
   });
 
+  const [rowSelectionModel, setRowSelectionModel] =
+    useState<GridRowSelectionModel>([]);
+
+  useEffect(() => {
+    if (onRowSelectionChange) {
+      onRowSelectionChange(rowSelectionModel);
+    }
+  }, [rowSelectionModel]);
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -78,6 +88,9 @@ const TableChart: React.FC<TableChartProps> = ({
         }}
         getRowId={(row) => row[idName]}
         getCellClassName={getCellClassName}
+        checkboxSelection
+        rowSelectionModel={rowSelectionModel}
+        onRowSelectionModelChange={setRowSelectionModel}
       />
     </ThemeProvider>
   );

@@ -90,6 +90,7 @@ function getCellClassName(
 
   return "";
 }
+
 const GeneralTab: React.FC = () => {
   const [teamTable, setTeamTable] = useState<GridItems[]>([]);
 
@@ -112,17 +113,35 @@ const GeneralTab: React.FC = () => {
     updateTeamTable();
   }, []);
 
+  const [teamExclusions, setTeamExclusions] = useState<number[]>([]);
+
+  const getBestTeam = (predicate: (team: GridItems) => number) => {
+    if (teamTable.length === 0) {
+      return;
+    }
+    return teamTable.reduce((bestTeam, currentTeam) => {
+      if (teamExclusions.includes(currentTeam["Team Number"])) {
+        return bestTeam;
+      }
+      return predicate(currentTeam) > predicate(bestTeam)
+        ? currentTeam
+        : bestTeam;
+    }, teamTable.find((team) => !teamExclusions.includes(team["Team Number"])) || teamTable[0]);
+  };
+
+  console.log(getBestTeam((team) => team.Net));
+
   return (
     <>
       {renderStrategyNavBar()}
       <div className="section">
-        <h2>Table</h2>
         <TableChart
           tableData={teamTable}
           idName={"Team Number"}
           height={540}
           widthOfItem={130}
           getCellClassName={getCellClassName}
+          onRowSelectionChange={(model) => setTeamExclusions(model as number[])}
         />
       </div>
     </>

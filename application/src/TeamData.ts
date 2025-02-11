@@ -125,7 +125,7 @@ export class TeamData {
     return (
       this.matches.reduce((accumulator, match) => {
         const reef: PickValues = match[reefPick] as PickValues;
-        const value = reef[data];
+        const value = reef.algea[data];
         return value + accumulator;
       }, 0) / this.matches.length
     );
