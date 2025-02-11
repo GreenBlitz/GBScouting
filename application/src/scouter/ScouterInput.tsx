@@ -13,10 +13,11 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   InputProps<T> & Props,
   State
 > {
-  public readonly storage: StorageBackedInput<T>;
+  public readonly storage: StorageBackedInput<T>;  
   constructor(props: InputProps<T> & Props) {
     super(props);
     this.storage = new StorageBackedInput<T>(this.props.route);
+    
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
