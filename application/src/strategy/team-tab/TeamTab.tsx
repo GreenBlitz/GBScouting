@@ -7,7 +7,6 @@ import { renderStrategyNavBar } from "../../App";
 import { fetchMatchesByCriteria } from "../../utils/Fetches";
 import { Link, Outlet } from "react-router-dom";
 
-
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(5);
@@ -18,6 +17,7 @@ const TeamTab: React.FC = () => {
   }
 
   const teamData = new TeamData(recentMatches);
+  // const teamData = TeamData.random(1574);
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}

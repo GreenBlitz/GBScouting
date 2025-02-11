@@ -3,8 +3,12 @@ import ScouterInput from "../scouter/ScouterInput";
 import { InputProps } from "../scouter/ScouterInput";
 import "./reefScore.css";
 import algeaSVG from "../assets/low-algea.svg";
-import ReefInput, { ReefSide } from "../scouter/input-types/ReefInput";
+import ReefInput, {
+  ReefSide,
+  triangleButtonMiddles,
+} from "../scouter/input-types/ReefInput";
 import { StorageBacked } from "../utils/FolderStorage";
+import ScouterInputs from "../scouter/ScouterInputs";
 
 export interface Level {
   score: number;
@@ -60,6 +64,11 @@ class TeleopForm extends ScouterInput<
 
   create(): React.JSX.Element {
     return <TeleopForm {...this.props} />;
+  }
+
+  clearValue(): void {
+    super.clearValue();
+    this.undoStack.remove();
   }
 
   initialValue(): AllScore {
@@ -171,6 +180,11 @@ class TeleopForm extends ScouterInput<
       });
     };
 
+    const isBlue = ScouterInputs.gameSide.getValue() === "Blue";
+    const correctSide = isBlue
+      ? this.props.reefInput.getValue()
+      : this.props.reefInput.getOppositeSide(this.props.reefInput.getValue());
+
     return (
       <div className="flex flex-col items-center">
         {levelKeys.map((levelKey) => {
@@ -194,7 +208,18 @@ class TeleopForm extends ScouterInput<
           );
         })}
 
-        <div className="flex mb-10 mt-5">
+        <h1 className="text-2xl font-bold">
+          Side{" "}
+          {
+            (
+              triangleButtonMiddles.find((value) =>
+                areReefsSame(value.reefSide, correctSide)
+              ) || triangleButtonMiddles[0]
+            ).name
+          }
+        </h1>
+
+        <div className="flex mb-10">
           <button
             className={`${
               this.state.values.algea.collected ? "button-green" : "button-red"

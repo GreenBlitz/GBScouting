@@ -1,8 +1,8 @@
 import { Color } from "./utils/Color";
-import { Match } from "./utils/Match";
+import { Match, randomMatch } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { Levels } from "./components/teleopForm";
+import { Level, Levels } from "./components/teleopForm";
 import { Auto, Collection as Collection, UsedAlgea } from "./utils/SeasonUI";
 import { PickValues } from "./scouter/input-types/ReefPickInput";
 import { AllScore } from "./components/TeleopForm";
@@ -20,6 +20,12 @@ export class TeamData {
     this.matches = [...matches];
   }
 
+  static random(teamNumber: number) {
+    return new TeamData(
+      [1, 6, 11, 16, 21, 26].map((qual) => randomMatch(teamNumber, qual))
+    );
+  }
+
   getAsLine(
     field: keyof Match,
     innerFields?: string[]
@@ -28,7 +34,7 @@ export class TeamData {
       {},
       ...Object.values(this.matches).map((match) => {
         if (!match[field] || match[field] === "undefined") {
-          return;
+          return { [match.qual]: null };
         }
         const value = innerFields
           ? innerFields.reduce(
@@ -55,7 +61,7 @@ export class TeamData {
           return;
         }
         return {
-          [match.qual.toString()]: (match[reefPick] as PickValues)[field],
+          [match.qual.toString()]: (match[reefPick] as PickValues).algea[field],
         };
       })
     );
@@ -70,10 +76,30 @@ export class TeamData {
   }
 
   getAverageScore() {
+    if (this.matches.length === 0) {
+      return 0;
+    }
     const scores = Object.values(this.getScores());
     return (
       scores.reduce((accumulator, value) => accumulator + value, 0) /
       scores.length
+    );
+  }
+
+  getTeleopObjectsAsLine() {
+    return Object.assign(
+      {},
+      ...Object.values(this.matches).map((match) => {
+        return {
+          [match.qual.toString()]:
+            match.teleopReefLevels.L1.score +
+            match.teleopReefLevels.L2.score +
+            match.teleopReefLevels.L3.score +
+            match.teleopReefLevels.L4.score +
+            match.teleReefPick.algea.netScore +
+            match.teleReefPick.algea.processor,
+        };
+      })
     );
   }
 
@@ -125,7 +151,7 @@ export class TeamData {
     return (
       this.matches.reduce((accumulator, match) => {
         const reef: PickValues = match[reefPick] as PickValues;
-        const value = reef[data];
+        const value = reef.algea[data];
         return value + accumulator;
       }, 0) / this.matches.length
     );
@@ -161,6 +187,52 @@ export class TeamData {
       this.getAverage(compareField),
     ];
     return Percent.fromList(averages)[0];
+  }
+
+  getAverageCoralAmount() {
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return (
+      this.matches.reduce((accumulator, match) => {
+        return (
+          match.autoReefLevels.L1.score +
+          match.autoReefLevels.L2.score +
+          match.autoReefLevels.L3.score +
+          match.autoReefLevels.L4.score +
+          match.teleopReefLevels.L1.score +
+          match.teleopReefLevels.L2.score +
+          match.teleopReefLevels.L3.score +
+          match.teleopReefLevels.L4.score +
+          accumulator
+        );
+      }, 0) / this.matches.length
+    );
+  }
+
+  getAverageObjectAmount() {
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return (
+      this.matches.reduce((accumulator, match) => {
+        return (
+          match.autoReefLevels.L1.score +
+          match.autoReefLevels.L2.score +
+          match.autoReefLevels.L3.score +
+          match.autoReefLevels.L4.score +
+          match.teleopReefLevels.L1.score +
+          match.teleopReefLevels.L2.score +
+          match.teleopReefLevels.L3.score +
+          match.teleopReefLevels.L4.score +
+          match.autoReefPick.algea.netScore +
+          match.autoReefPick.algea.processor +
+          match.teleReefPick.algea.netScore +
+          match.teleReefPick.algea.processor +
+          accumulator
+        );
+      }, 0) / this.matches.length
+    );
   }
 
   getAverage(field: keyof Match, innerFields?: string[]): number {
@@ -306,10 +378,16 @@ export class TeamData {
   }
 
   getUsedSides(levels: keyof Match) {
-    this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
+    console.log(this.matches);
+    return this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
       const sides = matchesAccumulator.concat(
         Object.values(match[levels] as Levels).reduce<ReefSide[]>(
-          (accumulator, level) => [...accumulator, level],
+          (accumulator, level) => {
+            if ("sides" in level) {
+              return [...accumulator, ...level.sides];
+            }
+            return accumulator;
+          },
           []
         )
       );

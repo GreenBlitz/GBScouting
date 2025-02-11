@@ -73,7 +73,6 @@ class LinearHistogramChart<
       spacing: 5,
     };
 
-    console.log(this.gaugeProps);
     this.state = { hoveredSection: undefined, anchor: undefined };
 
     this.sumOfSectionValues = this.props.sections.reduce<number>(

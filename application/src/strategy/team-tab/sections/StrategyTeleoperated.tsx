@@ -6,13 +6,14 @@ import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
+import ReefChart from "../../charts/ReefChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
 const StrategyTeleoperated: React.FC = () => {
   const { teamData } = useOutletContext<{ teamData: TeamData }>();
-  const resistance = useMemo(
-    () => teamData.getAverage(matchFieldNames.resistance),
+  const evasion = useMemo(
+    () => teamData.getAverage(matchFieldNames.defensiveEvasion),
     [teamData]
   );
   const defense = useMemo(
@@ -20,7 +21,6 @@ const StrategyTeleoperated: React.FC = () => {
     [teamData]
   );
 
-  console.log(teamData.getUsedSides("teleopReefLevels"));
   return (
     <>
       <div className="section">
@@ -31,7 +31,7 @@ const StrategyTeleoperated: React.FC = () => {
                 "L4",
                 "score",
               ]),
-              max: 12,
+              max: 6,
               name: "L4",
             },
 
@@ -40,7 +40,7 @@ const StrategyTeleoperated: React.FC = () => {
                 "L3",
                 "score",
               ]),
-              max: 12,
+              max: 6,
               name: "L3",
             },
 
@@ -49,7 +49,7 @@ const StrategyTeleoperated: React.FC = () => {
                 "L2",
                 "score",
               ]),
-              max: 12,
+              max: 6,
               name: "L2",
             },
             {
@@ -57,16 +57,16 @@ const StrategyTeleoperated: React.FC = () => {
                 matchFieldNames.teleReefPick,
                 "netScore"
               ),
-              max: 18,
+              max: 10,
               name: "Net",
             },
             {
-              value: resistance !== 0 ? 6 - resistance : 0,
+              value: evasion,
               max: 5,
-              name: "Resistance",
+              name: "Evasion",
             },
 
-            { value: teamData.getAverageAutoScore(), max: 50, name: "Auto" },
+            { value: teamData.getAverageAutoScore(), max: 30, name: "Auto" },
           ]}
           size={300}
           substeps={5}
@@ -81,7 +81,7 @@ const StrategyTeleoperated: React.FC = () => {
                 "L1",
                 "score",
               ]),
-              max: 12,
+              max: 8,
               name: "L1",
             },
             {
@@ -114,6 +114,17 @@ const StrategyTeleoperated: React.FC = () => {
         />
       </div>
       <br />
+      <div className="h-20" />
+      <div className="rower">
+        <CollectionChart
+          collection={teamData.getCollections(
+            "teleopReefLevels",
+            "teleReefPick"
+          )}
+        />
+        <ReefChart sides={teamData.getUsedSides("teleopReefLevels")} />
+      </div>
+      <div className="h-20" />
       <div className="section">
         <LineChart
           dataSets={{
@@ -122,9 +133,9 @@ const StrategyTeleoperated: React.FC = () => {
               data: teamData.getAsLine(matchFieldNames.defense),
             },
 
-            Resistance: {
+            Evasion: {
               color: "pink",
-              data: teamData.getAsLine(matchFieldNames.resistance),
+              data: teamData.getAsLine(matchFieldNames.defensiveEvasion),
             },
           }}
         />
@@ -146,12 +157,6 @@ const StrategyTeleoperated: React.FC = () => {
                 "netMiss"
               ),
             },
-          }}
-        />
-      </div>
-      <div className="section">
-        <LineChart
-          dataSets={{
             Processor: {
               color: "yellow",
               data: teamData.getAlgeaDataAsLine(
@@ -208,15 +213,17 @@ const StrategyTeleoperated: React.FC = () => {
       <div className="section">
         <LineChart
           dataSets={{
+            Objects: { color: "cyan", data: teamData.getTeleopObjectsAsLine() },
+          }}
+        />
+      </div>
+      <div className="section">
+        <LineChart
+          dataSets={{
             "Total Score": { color: "red", data: teamData.getScores() },
           }}
         />
       </div>
-
-      <div className="h-20" />
-      <CollectionChart
-        collection={teamData.getCollections("teleopReefLevels", "teleReefPick")}
-      />
       <div className="h-48" />
 
       <div className="flex flex-col items-center">

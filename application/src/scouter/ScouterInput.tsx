@@ -56,6 +56,10 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
     return this.storage.get() || this.defaultValue();
   }
 
+  clearValue() {
+    this.storage.remove();
+  }
+
   abstract create(): React.JSX.Element;
   abstract renderInput(): React.ReactNode;
   abstract initialValue(props: InputProps<T> & Props): T;
