@@ -55,7 +55,7 @@ export class TeamData {
           return;
         }
         return {
-          [match.qual.toString()]: (match[reefPick] as PickValues)[field],
+          [match.qual.toString()]: (match[reefPick] as PickValues).algea[field],
         };
       })
     );
@@ -70,6 +70,9 @@ export class TeamData {
   }
 
   getAverageScore() {
+    if (this.matches.length === 0) {
+      return 0;
+    }
     const scores = Object.values(this.getScores());
     return (
       scores.reduce((accumulator, value) => accumulator + value, 0) /

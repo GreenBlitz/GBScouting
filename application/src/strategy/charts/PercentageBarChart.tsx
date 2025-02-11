@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useMemo, useState } from "react";
 import { Color } from "../../utils/Color";
 import { AgGauge, AgGaugeProps } from "ag-charts-react";
 import "ag-charts-enterprise";
@@ -49,10 +49,6 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
   const [hoveredSection, setHoveredSection] = useState<Section | undefined>(
     isAlwaysHovered ? sections[0] : undefined
   );
-  const gaugeProps = { ...basicGaugeProps };
-  gaugeProps.options.width = width;
-  gaugeProps.options.height = 100;
-  gaugeProps.style = style;
 
   let sectionValueSum = 0;
   const accumulatedSections = sections.map((section) => {
@@ -62,12 +58,35 @@ const PercentageBarChart: React.FC<PercentageBarProps> = ({
     return duplicatedSection;
   });
 
-  gaugeProps.options.bar = {
-    fills: accumulatedSections.map((section) => {
-      return { color: section.color, stop: section.value } as AgGaugeColorStop;
-    }),
-    fillMode: "discrete",
-  };
+  const gaugeProps = useMemo(() => {
+    const gauge = { ...basicGaugeProps };
+    gauge.options.width = width;
+    gauge.options.height = 100;
+    gauge.style = style;
+
+    let sectionSum = 0;
+    gauge.options.segmentation = {
+      enabled: true,
+      interval: {
+        values: sections.map((section) => {
+          sectionSum += section.value;
+          return sectionSum;
+        }),
+      },
+      spacing: 5,
+    };
+
+    gauge.options.bar = {
+      fills: accumulatedSections.map((section) => {
+        return {
+          color: section.color,
+          stop: section.value,
+        } as AgGaugeColorStop;
+      }),
+      fillMode: "discrete",
+    };
+    return gauge;
+  }, [width, sections]);
 
   const getSection = (xValue: number, startingIndex: number) => {
     if (startingIndex >= accumulatedSections.length) {

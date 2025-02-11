@@ -22,7 +22,7 @@ interface GridItems {
   L3: number;
   L4: number;
   Defense: number;
-  Resistance: number;
+  Evasion: number;
 }
 
 interface PickArea {
@@ -51,7 +51,7 @@ const pickList: PickArea[] = [
 
   {
     name: "Best Defensive Evasion",
-    predicate: (team) => team.Resistance,
+    predicate: (team) => team.Evasion,
   },
   {
     name: "Best Algea",
@@ -67,7 +67,7 @@ const pickList: PickArea[] = [
 function processTeamData(teamNumber: string, data: TeamData): GridItems {
   return {
     Team: parseInt(teamNumber),
-    Points: data.getAverageScore() || 0,
+    Points: data.getAverageScore(),
     Corals: data.getAverageCoralAmount(),
     Objects: data.getAverageObjectAmount(),
     Net: data.getAverageReefPickData(matchFieldNames.teleReefPick, "netScore"),
@@ -81,7 +81,7 @@ function processTeamData(teamNumber: string, data: TeamData): GridItems {
     L2: data.getAverage(matchFieldNames.teleopReefLevels, ["L2", "score"]),
     L1: data.getAverage(matchFieldNames.teleopReefLevels, ["L1", "score"]),
     Defense: data.getAverage(matchFieldNames.defense),
-    Resistance: data.getAverage(matchFieldNames.resistance),
+    Evasion: data.getAverage(matchFieldNames.defensiveEvasion),
   };
 }
 
@@ -115,7 +115,7 @@ function getCellClassName(
     return `bg-blue-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
   }
 
-  if (field === "Resistance") {
+  if (field === "Evasion") {
     return `bg-purple-${getStrength([1, 2, 3, 4, 5], numberedValue)}`;
   }
 
