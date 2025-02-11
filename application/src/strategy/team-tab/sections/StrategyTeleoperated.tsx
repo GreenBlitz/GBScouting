@@ -6,6 +6,7 @@ import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
+import ReefChart from "../../charts/ReefChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
@@ -20,7 +21,6 @@ const StrategyTeleoperated: React.FC = () => {
     [teamData]
   );
 
-  console.log(teamData.getUsedSides("teleopReefLevels"));
   return (
     <>
       <div className="section">
@@ -115,9 +115,15 @@ const StrategyTeleoperated: React.FC = () => {
       </div>
       <br />
       <div className="h-20" />
-      <CollectionChart
-        collection={teamData.getCollections("teleopReefLevels", "teleReefPick")}
-      />
+      <div className="rower">
+        <CollectionChart
+          collection={teamData.getCollections(
+            "teleopReefLevels",
+            "teleReefPick"
+          )}
+        />
+        <ReefChart sides={teamData.getUsedSides("teleopReefLevels")} />
+      </div>
       <div className="h-20" />
       <div className="section">
         <LineChart

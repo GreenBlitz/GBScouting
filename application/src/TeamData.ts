@@ -2,7 +2,7 @@ import { Color } from "./utils/Color";
 import { Match, randomMatch } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { Levels } from "./components/teleopForm";
+import { Level, Levels } from "./components/teleopForm";
 import { Auto, Collection as Collection, UsedAlgea } from "./utils/SeasonUI";
 import { PickValues } from "./scouter/input-types/ReefPickInput";
 import { AllScore } from "./components/TeleopForm";
@@ -378,10 +378,16 @@ export class TeamData {
   }
 
   getUsedSides(levels: keyof Match) {
-    this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
+    console.log(this.matches);
+    return this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
       const sides = matchesAccumulator.concat(
         Object.values(match[levels] as Levels).reduce<ReefSide[]>(
-          (accumulator, level) => [...accumulator, level],
+          (accumulator, level) => {
+            if ("sides" in level) {
+              return [...accumulator, ...level.sides];
+            }
+            return accumulator;
+          },
           []
         )
       );
