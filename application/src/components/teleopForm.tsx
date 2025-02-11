@@ -8,6 +8,7 @@ import ReefInput, {
   triangleButtonMiddles,
 } from "../scouter/input-types/ReefInput";
 import { StorageBacked } from "../utils/FolderStorage";
+import ScouterInputs from "../scouter/ScouterInputs";
 
 export interface Level {
   score: number;
@@ -179,6 +180,11 @@ class TeleopForm extends ScouterInput<
       });
     };
 
+    const isBlue = ScouterInputs.gameSide.getValue() === "Blue";
+    const correctSide = isBlue
+      ? this.props.reefInput.getValue()
+      : this.props.reefInput.getOppositeSide(this.props.reefInput.getValue());
+
     return (
       <div className="flex flex-col items-center">
         {levelKeys.map((levelKey) => {
@@ -207,7 +213,7 @@ class TeleopForm extends ScouterInput<
           {
             (
               triangleButtonMiddles.find((value) =>
-                areReefsSame(value.reefSide, this.props.reefInput.getValue())
+                areReefsSame(value.reefSide, correctSide)
               ) || triangleButtonMiddles[0]
             ).name
           }

@@ -4,6 +4,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { getDistance } from "../../utils/Utils";
 import { Color } from "../../utils/Color";
+import ScouterInputs from "../ScouterInputs";
 
 const [width, height] = [262, 262];
 const stepSize = 30;
@@ -143,12 +144,27 @@ class ReefInput extends ScouterInput<
       width + height
     );
 
-    return (
+    const correctSide = (
       triangleButtonMiddles.find(
         (value) =>
           Math.abs(getDistance(clickedPoint, value.center) - minDistance) < 1
       ) || triangleButtonMiddles[0]
     ).reefSide;
+    const isBlue = ScouterInputs.gameSide.getValue() === "Blue";
+
+    return isBlue ? correctSide : this.getOppositeSide(correctSide);
+  }
+
+  getOppositeSide(side: ReefSide): ReefSide {
+    return {
+      side: side.side === "left" ? "right" : "left",
+      proximity:
+        side.proximity === "close"
+          ? "far"
+          : side.proximity === "far"
+          ? "close"
+          : "middle",
+    };
   }
 
   addSide(side: ReefSide) {
