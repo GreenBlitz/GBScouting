@@ -114,6 +114,11 @@ const StrategyTeleoperated: React.FC = () => {
         />
       </div>
       <br />
+      <div className="h-20" />
+      <CollectionChart
+        collection={teamData.getCollections("teleopReefLevels", "teleReefPick")}
+      />
+      <div className="h-20" />
       <div className="section">
         <LineChart
           dataSets={{
@@ -213,11 +218,6 @@ const StrategyTeleoperated: React.FC = () => {
           }}
         />
       </div>
-
-      <div className="h-20" />
-      <CollectionChart
-        collection={teamData.getCollections("teleopReefLevels", "teleReefPick")}
-      />
       <div className="h-48" />
 
       <div className="flex flex-col items-center">

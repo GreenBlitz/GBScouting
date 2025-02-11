@@ -1,6 +1,7 @@
 import {
   CategoryScale,
   Chart,
+  ChartData,
   Legend,
   LinearScale,
   LineElement,
@@ -20,7 +21,7 @@ interface LineChartProps {
   width?: number;
 }
 const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
-  const data = {
+  const data: ChartData<"line", number[], string> = {
     labels: Object.keys(Object.values(dataSets)[0].data),
 
     datasets: Object.entries(dataSets).map(([dataSetName, dataSetValue]) => {
@@ -39,7 +40,15 @@ const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
         height={height || DefaultSize.height}
         width={width || DefaultSize.width}
         data={data}
-        options={{ maintainAspectRatio: true, responsive: true }}
+        options={{
+          maintainAspectRatio: true,
+          responsive: true,
+          scales: {
+            x: {
+              beginAtZero: true,
+            },
+          },
+        }}
       />
     </div>
   );
