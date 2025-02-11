@@ -4,8 +4,9 @@ import "../../components/reefScore.css";
 import coralSVG from "../../assets/low-coral.svg";
 import algeaSVG from "../../assets/low-algea.svg";
 import ReefInput from "./ReefInput";
+import { StorageBacked } from "../../utils/FolderStorage";
+import { UsedAlgea } from "../../utils/SeasonUI";
 
-export type AlgeaAction = "netScore" | "netMiss" | "processor";
 interface CollectedObject {
   coralFeeder: boolean;
   coralGround: boolean;
@@ -13,9 +14,12 @@ interface CollectedObject {
 }
 
 export interface PickValues {
-  algea: AlgeaAction[];
+  algea: UsedAlgea;
   collected: CollectedObject;
 }
+type AlgeaAction = keyof UsedAlgea;
+type CollectionAction = keyof CollectedObject;
+type Action = AlgeaAction | CollectionAction;
 
 class ReefPickInput extends ScouterInput<
   PickValues,
@@ -24,12 +28,24 @@ class ReefPickInput extends ScouterInput<
     objectives: PickValues;
   }
 > {
+  private readonly undoStack: StorageBacked<Action[]>;
+
+  constructor(props: InputProps<PickValues> & { reefInput: ReefInput }) {
+    super(props);
+    this.undoStack = this.storage.subItem<Action[]>("/undoStack");
+  }
+
   create(): React.JSX.Element {
     return <ReefPickInput {...this.props} />;
   }
+
   initialValue(props: InputProps<PickValues>): PickValues {
     return {
-      algea: [],
+      algea: {
+        netScore: 0,
+        netMiss: 0,
+        processor: 0,
+      },
       collected: { coralFeeder: false, coralGround: false, algeaGround: false },
     };
   }
@@ -45,25 +61,35 @@ class ReefPickInput extends ScouterInput<
   }
 
   addAction(action: AlgeaAction) {
-    this.state.objectives.algea.push(action);
+    this.state.objectives.algea[action]++;
     this.setState(this.state);
     this.storage.set(this.state.objectives);
+    this.undoStack.set([...(this.undoStack.get() || []), action]);
   }
 
-  updateCollection(collection: keyof CollectedObject) {
-    this.state.objectives.collected[collection] =
-      !this.state.objectives.collected[collection];
+  updateCollection(action: CollectionAction) {
+    this.state.objectives.collected[action] =
+      !this.state.objectives.collected[action];
     this.setState(this.state);
     this.storage.set(this.state.objectives);
-  }
-
-  getActionValue(action: AlgeaAction) {
-    return this.state.objectives.algea.filter((value) => value === action)
-      .length;
+    this.undoStack.set([...(this.undoStack.get() || []), action]);
   }
 
   undo() {
-    this.state.objectives.algea.pop();
+    const actions = this.undoStack.get() || [];
+    if (actions.length > 0) {
+      const lastAction = actions.pop();
+      if (!lastAction) {
+        return;
+      }
+      if (lastAction in this.state.objectives.algea) {
+        this.state.objectives.algea[lastAction as AlgeaAction]--;
+      } else if (lastAction in this.state.objectives.collected) {
+        this.state.objectives.collected[lastAction as CollectionAction] =
+          !this.state.objectives.collected[lastAction as CollectionAction];
+      }
+      this.undoStack.set(actions);
+    }
     this.setState(this.state);
     this.storage.set(this.state.objectives);
   }
@@ -117,13 +143,13 @@ class ReefPickInput extends ScouterInput<
         onClick={() => this.addAction("processor")}
       >
         <h2 className="text-3xl font-extrabold">PRO.</h2>
-        {this.getActionValue("processor")}
+        {this.state.objectives.algea.processor}
       </button>
     );
 
     const netMissButton = (
       <button className="buttonF" onClick={() => this.addAction("netMiss")}>
-        {this.getActionValue("netMiss")}
+        {this.state.objectives.algea.netMiss}
       </button>
     );
 
@@ -133,7 +159,7 @@ class ReefPickInput extends ScouterInput<
         onClick={() => this.addAction("netScore")}
       >
         <h2 className="text-3xl font-extrabold">NET</h2>
-        {this.getActionValue("netScore")}
+        {this.state.objectives.algea.netScore}
       </button>
     );
     const undoButton = (

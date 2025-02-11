@@ -98,6 +98,10 @@ export class StorageBacked<T> {
   exists(): boolean {
     return !!inputFolder.getItem(this.name);
   }
+
+  subItem<U>(route: string): StorageBacked<U> {
+    return new StorageBacked<U>(this.name + route, this.storage);
+  }
 }
 
 export class StorageBackedInput<T> extends StorageBacked<T> {
