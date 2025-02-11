@@ -37,6 +37,10 @@
   @apply w-20 ml-4 mr-2 items-center flex flex-col justify-center relative;
 }
 
+.rower {
+  @apply flex flex-row items-center justify-center;
+}
+
 .button-green {
   background-color: lightgreen;
   border: 1px solid green;

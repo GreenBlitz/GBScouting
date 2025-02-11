@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Level, Levels } from "../../components/ReefForm";
+import { Level, Levels } from "../../components/teleopForm";
 import PercentageBarChart from "./PercentageBarChart";
 import Percent from "../../utils/Percent";
 
@@ -48,6 +48,10 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
       </>
     );
   }
+
+  useEffect(() => {
+    setCorals([]);
+  }, [corals]);
 
   useEffect(() => {
     const coralLevels = Object.values(corals).reverse();

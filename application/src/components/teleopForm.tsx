@@ -5,33 +5,42 @@ import "./reefScore.css";
 import algeaSVG from "../assets/low-algea.svg";
 import ReefInput, { ReefSide } from "../scouter/input-types/ReefInput";
 
-interface Level {
+export interface Level {
   score: number;
   miss: number;
   sides: ReefSide[];
 }
 
-interface Levels {
+export interface Levels {
   L1: Level;
   L2: Level;
   L3: Level;
   L4: Level;
 }
 
-export interface AllScore extends Levels {
-  net: Level;
+interface AlgeaCollection {
+  collected: boolean;
+  dropped: boolean;
 }
 
-interface Action {
-  level: keyof AllScore;
+export interface AllScore extends Levels {
+  algea: AlgeaCollection;
+}
+
+interface CoralAction {
+  level: keyof Levels;
   point: "score" | "miss";
 }
 
-interface FullAction extends Action {
-  side: ReefSide;
+type FullCoralAction = CoralAction & { side: ReefSide };
+
+interface AlgeaAction {
+  isCollected: boolean;
 }
 
-const areReefsSame = (side1: ReefSide, side2: ReefSide) =>
+type Action = FullCoralAction | AlgeaAction;
+
+export const areReefsSame = (side1: ReefSide, side2: ReefSide) =>
   side1.proximity === side2.proximity && side1.side === side2.side;
 
 class TeleopForm extends ScouterInput<
@@ -39,7 +48,7 @@ class TeleopForm extends ScouterInput<
   { reefInput: ReefInput },
   {
     values: AllScore;
-    undoStack: FullAction[];
+    undoStack: Action[];
   }
 > {
   create(): React.JSX.Element {
@@ -52,13 +61,13 @@ class TeleopForm extends ScouterInput<
       L2: { score: 0, miss: 0, sides: [] },
       L3: { score: 0, miss: 0, sides: [] },
       L4: { score: 0, miss: 0, sides: [] },
-      net: { score: 0, miss: 0, sides: [] },
+      algea: { collected: false, dropped: false },
     };
   }
 
   getStartingState(props: InputProps<AllScore>): {
     values: AllScore;
-    undoStack: FullAction[];
+    undoStack: Action[];
   } {
     return {
       values: this.getValue(),
@@ -69,7 +78,7 @@ class TeleopForm extends ScouterInput<
   renderInput(): React.ReactNode {
     const levelKeys: (keyof Levels)[] = ["L4", "L3", "L2", "L1"];
 
-    const handleClick = (action: Action) => {
+    const handleCoral = (action: CoralAction) => {
       const updatedValues = { ...this.state.values };
       updatedValues[action.level][action.point] += 1;
 
@@ -94,6 +103,23 @@ class TeleopForm extends ScouterInput<
       });
     };
 
+    const handleAlgea = (action: AlgeaAction) => {
+      const updatedValues = { ...this.state.values };
+      if (action.isCollected) {
+        updatedValues.algea.collected = !updatedValues.algea.collected;
+      } else {
+        updatedValues.algea.dropped = !updatedValues.algea.dropped;
+      }
+
+      this.setState({
+        undoStack: [...this.state.undoStack, action],
+        values: updatedValues,
+      });
+      this.storage.set({
+        ...updatedValues,
+      });
+    };
+
     const handleUndo = () => {
       if (this.state.undoStack.length === 0) {
         return;
@@ -101,13 +127,25 @@ class TeleopForm extends ScouterInput<
 
       const lastAction = this.state.undoStack[this.state.undoStack.length - 1];
       const updatedValues = { ...this.state.values };
-      updatedValues[lastAction.level][lastAction.point]--;
-      updatedValues[lastAction.level].sides = updatedValues[
-        lastAction.level
-      ].sides.filter((side) => !areReefsSame(side, lastAction.side));
+      if ("level" in lastAction) {
+        updatedValues[lastAction.level][lastAction.point]--;
+        updatedValues[lastAction.level].sides = updatedValues[
+          lastAction.level
+        ].sides.filter((side) => !areReefsSame(side, lastAction.side));
+      } else {
+        const previousValue = lastAction.isCollected
+          ? updatedValues.algea.collected
+          : updatedValues.algea.dropped;
+        lastAction.isCollected
+          ? (updatedValues.algea.collected = !previousValue)
+          : (updatedValues.algea.dropped = !previousValue);
+      }
 
       const updatedStack = this.state.undoStack.slice(0, -1);
       updatedStack.forEach((action) => {
+        if ("isCollected" in action) {
+          return;
+        }
         if (
           !updatedValues[action.level].sides.find((value) =>
             areReefsSame(value, action.side)
@@ -135,14 +173,14 @@ class TeleopForm extends ScouterInput<
             <div className="flex" key={level}>
               <button
                 className="buttonS mr-2 items-center flex flex-col justify-center"
-                onClick={() => handleClick({ level: level, point: "score" })}
+                onClick={() => handleCoral({ level: level, point: "score" })}
               >
                 <h2 className="text-3xl font-extrabold">{level}</h2>
                 {this.state.values[level].score}
               </button>
               <button
                 className="buttonF"
-                onClick={() => handleClick({ level: level, point: "miss" })}
+                onClick={() => handleCoral({ level: level, point: "miss" })}
               >
                 {this.state.values[level].miss}
               </button>
@@ -152,22 +190,24 @@ class TeleopForm extends ScouterInput<
 
         <div className="flex mb-10 mt-5">
           <button
-            className="bg-green-400 w-20 h-20 text-white py-2 px-4 rounded mr-2.5 relative"
-            onClick={() => handleClick({ level: "net", point: "score" })}
+            className={`${
+              this.state.values.algea.collected ? "button-green" : "button-red"
+            } big-button ml-0`}
+            onClick={() => handleAlgea({ isCollected: true })}
           >
-            <img src={algeaSVG} width={80} alt="Algea Icon" />
-            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-              {this.state.values.net.score}
-            </span>
+            <h2 className="absolute mb-16 text-2xl font-extrabold">
+              Collected
+            </h2>
+            <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
           </button>
           <button
-            className="bg-red-400 w-20 h-20 text-white py-2 px-4 rounded ml-2.5 relative"
-            onClick={() => handleClick({ level: "net", point: "miss" })}
+            className={`${
+              this.state.values.algea.dropped ? "button-green" : "button-red"
+            } big-button ml-0`}
+            onClick={() => handleAlgea({ isCollected: false })}
           >
-            <img src={algeaSVG} width={80} alt="Algea Icon" />
-            <span className="absolute inset-0 flex items-center justify-center text-2xl text-black font-bold">
-              {this.state.values.net.miss}
-            </span>
+            <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
+            <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
           </button>
         </div>
 

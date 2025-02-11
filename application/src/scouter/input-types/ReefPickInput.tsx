@@ -5,16 +5,16 @@ import coralSVG from "../../assets/low-coral.svg";
 import algeaSVG from "../../assets/low-algea.svg";
 import ReefInput from "./ReefInput";
 
-type AlgeaAction = "netScore" | "netMiss" | "processor";
-interface Collected {
+export type AlgeaAction = "netScore" | "netMiss" | "processor";
+interface CollectedObject {
   coralFeeder: boolean;
   coralGround: boolean;
   algeaGround: boolean;
 }
 
-interface PickValues {
+export interface PickValues {
   algea: AlgeaAction[];
-  collected: Collected;
+  collected: CollectedObject;
 }
 
 class ReefPickInput extends ScouterInput<
@@ -40,7 +40,7 @@ class ReefPickInput extends ScouterInput<
       }
     | undefined {
     return {
-      objectives: this.initialValue(props),
+      objectives: this.getValue(),
     };
   }
 
@@ -50,7 +50,7 @@ class ReefPickInput extends ScouterInput<
     this.storage.set(this.state.objectives);
   }
 
-  updateCollection(collection: keyof Collected) {
+  updateCollection(collection: keyof CollectedObject) {
     this.state.objectives.collected[collection] =
       !this.state.objectives.collected[collection];
     this.setState(this.state);

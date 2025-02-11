@@ -2,9 +2,11 @@ import { Color } from "./utils/Color";
 import { Match } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { Levels } from "./components/ReefForm";
-import { Auto } from "./utils/SeasonUI";
-import { AllScore as AllScoreFromForm } from "./components/TeleopForm";
+import { Levels } from "./components/teleopForm";
+import { Auto, Collection as Collection } from "./utils/SeasonUI";
+import { AlgeaAction, PickValues } from "./scouter/input-types/ReefPickInput";
+import { AllScore, areReefsSame, Level } from "./components/TeleopForm";
+import { ReefSide } from "./scouter/input-types/ReefInput";
 
 interface Comment {
   body: string;
@@ -42,6 +44,26 @@ export class TeamData {
     );
   }
 
+  getAlgeaDataAsLine(
+    reefPick: keyof Match,
+    field: AlgeaAction
+  ): Record<string, number> {
+    return Object.assign(
+      {},
+      ...Object.values(this.matches).map((match) => {
+        if (!match[reefPick] || match[reefPick] === "undefined") {
+          return;
+        }
+        return {
+          [match.qual.toString()]: this.getReefPickData(
+            match[reefPick] as PickValues,
+            field
+          ),
+        };
+      })
+    );
+  }
+
   getComments(): Comment[] {
     return this.matches
       .map((match) => {
@@ -68,15 +90,17 @@ export class TeamData {
         sum += match.teleopReefLevels.L2.score * 3;
         sum += match.teleopReefLevels.L3.score * 4;
         sum += match.teleopReefLevels.L4.score * 5;
-        sum += match.teleopReefLevels.net.score * 4;
-        sum += match.teleopReefLevels.proccessor * 4;
+
+        sum += this.getReefPickData(match.teleReefPick, "netScore") * 4;
+        sum += this.getReefPickData(match.teleReefPick, "processor") * 4;
 
         sum += match.autoReefLevels.L1.score * 3;
         sum += match.autoReefLevels.L2.score * 4;
         sum += match.autoReefLevels.L3.score * 6;
         sum += match.autoReefLevels.L4.score * 7;
-        sum += match.autoReefLevels.net.score * 4;
-        sum += match.autoReefLevels.proccessor * 4;
+
+        sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
+        sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
 
         const getClimb = () => {
           switch (match.climb) {
@@ -97,21 +121,45 @@ export class TeamData {
     );
   }
 
+  getAverageReefPickData(reefPick: keyof Match, data: AlgeaAction) {
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return (
+      this.matches.reduce((accumulator, match) => {
+        const reef: PickValues = match[reefPick] as PickValues;
+        const value = this.getReefPickData(reef, data);
+        return value + accumulator;
+      }, 0) / this.matches.length
+    );
+  }
+
+  getReefPickData(reef: PickValues, data: AlgeaAction) {
+    return reef.algea.filter((value) => value === data).length;
+  }
+
   getAverageAutoScore() {
-    return this.matches
-      .map((match) => {
-        let sum = 0;
+    if (this.matches.length === 0) {
+      return 0;
+    }
+    return (
+      this.matches
+        .map((match) => {
+          let sum = 0;
 
-        sum += match.autoReefLevels.L1.score * 3;
-        sum += match.autoReefLevels.L2.score * 4;
-        sum += match.autoReefLevels.L3.score * 6;
-        sum += match.autoReefLevels.L4.score * 7;
-        sum += match.autoReefLevels.net.score * 4;
-        sum += match.autoReefLevels.proccessor * 4;
+          sum += match.autoReefLevels.L1.score * 3;
+          sum += match.autoReefLevels.L2.score * 4;
+          sum += match.autoReefLevels.L3.score * 6;
+          sum += match.autoReefLevels.L4.score * 7;
 
-        return sum;
-      })
-      .reduce((accumulator, value) => accumulator + value, 0);
+          sum += this.getReefPickData(match.autoReefPick, "netScore") * 4;
+          sum += this.getReefPickData(match.autoReefPick, "processor") * 4;
+
+          return sum;
+        })
+        .reduce((accumulator, value) => accumulator + value, 0) /
+      this.matches.length
+    );
   }
 
   getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
@@ -126,26 +174,28 @@ export class TeamData {
     if (this.matches.length === 0) {
       return 0;
     }
-    return this.matches
-      .map((match) => {
-        if (match[field] === undefined || match[field] === "undefined") {
-          return 0;
-        }
-        const value = innerFields
-          ? innerFields.reduce(
-              (accumulator, innerField) => accumulator[innerField],
-              match[field]
-            )
-          : match[field];
+    return (
+      this.matches
+        .map((match) => {
+          if (match[field] === undefined || match[field] === "undefined") {
+            return 0;
+          }
+          const value = innerFields
+            ? innerFields.reduce(
+                (accumulator, innerField) => accumulator[innerField],
+                match[field]
+              )
+            : match[field];
 
-        if (typeof value !== "number") {
-          throw new Error("Invalid field: " + field);
-        }
-        return value;
-      })
-      .reduce((accumulator, value) => {
-        return accumulator + value;
-      });
+          if (typeof value !== "number") {
+            throw new Error("Invalid field: " + field);
+          }
+          return value;
+        })
+        .reduce((accumulator, value) => {
+          return accumulator + value;
+        }) / this.matches.length
+    );
   }
 
   getAsPie(
@@ -174,18 +224,22 @@ export class TeamData {
           L1: {
             score: accumulator.L1.score + matchLevel.L1.score,
             miss: accumulator.L1.miss + matchLevel.L1.miss,
+            sides: [],
           },
           L2: {
             score: accumulator.L2.score + matchLevel.L2.score,
             miss: accumulator.L2.miss + matchLevel.L2.miss,
+            sides: [],
           },
           L3: {
             score: accumulator.L3.score + matchLevel.L3.score,
             miss: accumulator.L3.miss + matchLevel.L3.miss,
+            sides: [],
           },
           L4: {
             score: accumulator.L4.score + matchLevel.L4.score,
             miss: accumulator.L4.miss + matchLevel.L4.miss,
+            sides: [],
           },
         };
       },
@@ -199,11 +253,11 @@ export class TeamData {
   }
 
   getAutoCorals() {
-    return this.getAverageCorals("autoReef");
+    return this.getAverageCorals("autoReefLevels");
   }
 
   getTeleopCorals() {
-    return this.getAverageCorals("teleopReef");
+    return this.getAverageCorals("teleopReefLevels");
   }
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {
@@ -230,12 +284,65 @@ export class TeamData {
     return values;
   }
 
+  getCollections(levels: keyof Match, pick: keyof Match): Collection {
+    return this.matches.reduce<Collection>(
+      (accumulator, match) => {
+        const reefLevels = match[levels] as AllScore;
+        const reefPick = match[pick] as PickValues;
+        return {
+          algeaReefCollected:
+            reefLevels.algea.collected || accumulator.algeaReefCollected,
+          algeaReefDropped:
+            reefLevels.algea.dropped || accumulator.algeaReefDropped,
+          algeaGroundCollected:
+            reefPick.collected.algeaGround || accumulator.algeaGroundCollected,
+          coralGroundCollected:
+            reefPick.collected.coralGround || accumulator.coralGroundCollected,
+          coralFeederCollected:
+            reefPick.collected.coralFeeder || accumulator.coralFeederCollected,
+        };
+      },
+      {
+        algeaReefCollected: false,
+        algeaReefDropped: false,
+        algeaGroundCollected: false,
+        coralGroundCollected: false,
+        coralFeederCollected: false,
+      }
+    );
+  }
+
+  getUsedSides(levels: keyof Match) {
+    this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
+      const sides = matchesAccumulator.concat(
+        Object.values(match[levels] as Levels).reduce<ReefSide[]>(
+          (accumulator, level) => [...accumulator, level],
+          []
+        )
+      );
+
+      return sides.filter((side, index) => sides.indexOf(side) === index);
+    }, []);
+  }
+
   getAutos(): Auto[] {
+    const getScoredAlgea = (field: AlgeaAction, actions: AlgeaAction[]) => {
+      return actions.reduce(
+        (accumulator, value) => accumulator + (value === field ? 1 : 0),
+        0
+      );
+    };
+
     return this.matches.map((match) => {
       return {
-        collected: match.autoMap,
-        feeded: match.autoCollect,
-        scored: match.autoReefLevels,
+        corals: match.autoReefLevels,
+        qual: match.qual,
+
+        algeaScoring: {
+          netScore: getScoredAlgea("netScore", match.autoReefPick.algea),
+          netMiss: getScoredAlgea("netMiss", match.autoReefPick.algea),
+          processor: getScoredAlgea("processor", match.autoReefPick.algea),
+        },
       };
     });
   }
