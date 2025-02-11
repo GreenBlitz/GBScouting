@@ -1,5 +1,5 @@
 import { Color } from "./utils/Color";
-import { Match } from "./utils/Match";
+import { Match, randomMatch } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Levels } from "./components/teleopForm";
@@ -20,6 +20,12 @@ export class TeamData {
     this.matches = [...matches];
   }
 
+  static random(teamNumber: number) {
+    return new TeamData(
+      [1, 6, 11, 16, 21, 26].map((qual) => randomMatch(teamNumber, qual))
+    );
+  }
+
   getAsLine(
     field: keyof Match,
     innerFields?: string[]
@@ -28,7 +34,7 @@ export class TeamData {
       {},
       ...Object.values(this.matches).map((match) => {
         if (!match[field] || match[field] === "undefined") {
-          return;
+          return { [match.qual]: null };
         }
         const value = innerFields
           ? innerFields.reduce(
