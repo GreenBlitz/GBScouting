@@ -11,7 +11,7 @@ export async function fetchData(
   method: string = "GET",
   body?: string
 ) {
-  return await fetch(`http://${getServerHostname()}/${field}`, {
+  return await fetch(`https://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
@@ -37,7 +37,9 @@ export async function postMatch(match: Match) {
 
 export async function fetchQualificationResults(eventKey: string) {
   try {
-    const response = await fetchData(`TheBlueAlliance-event-leaderboard/${eventKey}`);
+    const response = await fetchData(
+      `TheBlueAlliance-event-leaderboard/${eventKey}`
+    );
     if (!response) throw new Error("No data received");
 
     // Extract qualification rankings from the API response
@@ -60,11 +62,13 @@ export async function fetchQualificationResults(eventKey: string) {
 export async function fetchMatchResults(matchKey: string) {
   try {
     // Call your backend API
-    const response = await fetchData(`TheBlueAlliance-match-results/${matchKey}`);
+    const response = await fetchData(
+      `TheBlueAlliance-match-results/${matchKey}`
+    );
     if (!response) throw new Error("No data received");
 
     // Extract important match details
-    const matchResults = {
+    const matchResults: MatchResults = {
       matchKey: response.key, // Match identifier
       compLevel: response.comp_level, // Qualification, Quarterfinals, etc.
       redAlliance: response.alliances.red.team_keys, // Red alliance teams
@@ -72,7 +76,9 @@ export async function fetchMatchResults(matchKey: string) {
       redScore: response.alliances.red.score, // Red alliance score
       blueScore: response.alliances.blue.score, // Blue alliance score
       winningAlliance: response.winning_alliance, // "red", "blue", or ""
-      time: response.time ? new Date(response.time * 1000).toLocaleString() : "N/A", // Match time
+      time: response.time
+        ? new Date(response.time * 1000).toLocaleString()
+        : "N/A", // Match time
     };
 
     return matchResults;
@@ -80,4 +86,15 @@ export async function fetchMatchResults(matchKey: string) {
     console.error("Error fetching match results:", error);
     return null;
   }
+}
+
+export interface MatchResults {
+  matchKey: string;
+  compLevel: string;
+  redAlliance: string[];
+  blueAlliance: string[];
+  redScore: number;
+  blueScore: number;
+  winningAlliance: "red" | "blue";
+  time: string;
 }

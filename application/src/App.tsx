@@ -21,6 +21,7 @@ import ScouterAutonomous, {
   ScouterAutoPick,
   ScouterAutoReef,
 } from "./scouter/tabs/ScouterAutonomous";
+import NoteTab from "./strategy/NoteTab";
 
 function getHiddenImage(path: string) {
   return (
@@ -103,6 +104,14 @@ export function renderStrategyNavBar() {
             General
           </Link>
         </li>
+        <li>
+          <Link
+            to="/notes"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Notes
+          </Link>
+        </li>
       </ul>
     </nav>
   );
@@ -148,6 +157,7 @@ const App: React.FC = () => {
               <Route path="autonomous" element={<StrategyAutonomous />} />
               <Route path="endgame" element={<StrategyEndgame />} />
             </Route>
+            <Route path="/notes" element={<NoteTab />} />
             <Route path="/general" element={<GeneralTab />} />
           </Routes>
         </PageTransition>
