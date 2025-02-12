@@ -294,12 +294,12 @@ class ReefInput extends ScouterInput<
       context.closePath();
     });
 
-    context.fillStyle = "red";
-    triangleButtonMiddles.forEach(({ center: point, reefSide: _ }) => {
-      context.beginPath();
-      context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
-      context.fill();
-    });
+    // context.fillStyle = "red";
+    // triangleButtonMiddles.forEach(({ center: point, reefSide: _ }) => {
+    //   context.beginPath();
+    //   context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+    //   context.fill();
+    // });
   }
 
   initialValue(props: InputProps<ReefSide> & ReefProps): ReefSide {
