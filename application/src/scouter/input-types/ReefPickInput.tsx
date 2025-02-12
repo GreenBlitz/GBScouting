@@ -134,7 +134,7 @@ class ReefPickInput extends ScouterInput<
           this.state.objectives.collected.algeaGround
             ? "button-green"
             : "button-red"
-        } big-button ml-0`}
+        } big-button ml-0 mr-0`}
         onClick={() => this.updateCollection("algeaGround")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
@@ -181,8 +181,8 @@ class ReefPickInput extends ScouterInput<
         <div className="flex flex-row justify-center">
           {netScoreButton}
           {netMissButton}
+          {processorButton}
         </div>
-        {processorButton}
 
         {this.props.reefInput.create()}
         <div className="flex flex-row justify-center">
