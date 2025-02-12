@@ -34,14 +34,25 @@ function getHiddenImage(path: string) {
   );
 }
 
+const hiddenImages = [
+  "./src/assets/crescendo-map.png",
+  "./src/assets/blue-auto-map.png",
+  "./src/assets/red-auto-map.png",
+]
+  .map(getHiddenImage)
+  .concat(
+    ["./src/assets/low-coral.svg", "./src/assets/low-algea.svg"].map(
+      getHiddenImage
+    )
+  );
+
 export function renderScouterNavBar() {
   return (
     <nav className="bg-dark-card shadow-lg w-86">
-      {getHiddenImage("./src/assets/crescendo-map.png")}
-      {getHiddenImage("./src/assets/blue-auto-map.png")}
-      {getHiddenImage("./src/assets/red-auto-map.png")}
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
+          {[...hiddenImages]}
+
           <Link
             to="/"
             className="text-dark-text hover:text-primary-400 transition-colors"
@@ -73,10 +84,10 @@ export function renderScouterNavBar() {
 export function renderStrategyNavBar() {
   return (
     <nav className="bg-dark-card shadow-lg">
-      {getHiddenImage("./src/assets/blue-auto-map.png")}
-
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
+          {[...hiddenImages]}
+
           <Link
             to="/team/autonomous"
             className="text-dark-text hover:text-primary-400 transition-colors"

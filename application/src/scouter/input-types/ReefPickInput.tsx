@@ -188,8 +188,8 @@ class ReefPickInput extends ScouterInput<
         <div className="flex flex-row justify-center">
           {coralFeederButton}
           {coralGroundButton}
+          {algeaGroundButton}
         </div>
-        {algeaGroundButton}
         {undoButton}
       </div>
     );
