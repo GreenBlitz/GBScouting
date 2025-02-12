@@ -6,7 +6,7 @@ import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
-import TeleopForm from "../components/TeleopForm";
+import ReefLevelsInput from "./input-types/reef-levels/ReefLevelsInput";
 import ReefPickInput from "./input-types/ReefPickInput";
 import ReefInput from "./input-types/ReefInput";
 
@@ -78,7 +78,7 @@ export default class ScouterInputs {
     backgroundColor: "#2c2c2c",
   });
 
-  static readonly teleopReefLevels = new TeleopForm({
+  static readonly teleopReefLevels = new ReefLevelsInput({
     route: "teleopReefLevels",
     reefInput: this.teleopReef,
   });
@@ -101,7 +101,7 @@ export default class ScouterInputs {
     backgroundColor: "#1f2937",
   });
 
-  static readonly autoReefLevels = new TeleopForm({
+  static readonly autoReefLevels = new ReefLevelsInput({
     route: "autoReefLevels",
     reefInput: this.autoReef,
   });

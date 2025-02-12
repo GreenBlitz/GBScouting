@@ -1,6 +1,6 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
-import "../../components/reefScore.css";
+import "./reef-levels/reefScore.css";
 import coralSVG from "../../assets/low-coral.svg";
 import algeaSVG from "../../assets/low-algea.svg";
 import ReefInput from "./ReefInput";

@@ -2,10 +2,13 @@ import { Color } from "./utils/Color";
 import { Match, randomMatch } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { Level, Levels } from "./components/teleopForm";
+import {
+  Level,
+  Levels,
+} from "./scouter/input-types/reef-levels/ReefLevelsInput";
 import { Auto, Collection as Collection, UsedAlgea } from "./utils/SeasonUI";
 import { PickValues } from "./scouter/input-types/ReefPickInput";
-import { AllScore } from "./components/TeleopForm";
+import { AllScore } from "./scouter/input-types/reef-levels/ReefLevelsInput";
 import { ReefSide } from "./scouter/input-types/ReefInput";
 
 interface Comment {
