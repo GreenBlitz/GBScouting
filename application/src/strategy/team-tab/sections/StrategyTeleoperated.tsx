@@ -25,15 +25,6 @@ const StrategyTeleoperated: React.FC = () => {
   return (
     <>
       <div className="section">
-        <BoxChart
-          data={{ Orbit: [1, 2, 3, 4, 5] }}
-          title="teams"
-          subtitle="idk"
-          xName={"sigma"}
-        />
-      </div>
-      <br />
-      <div className="section">
         <RadarComponent
           inputs={[
             {
