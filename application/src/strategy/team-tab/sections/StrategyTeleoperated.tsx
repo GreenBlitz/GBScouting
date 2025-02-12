@@ -7,6 +7,7 @@ import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
 import ReefChart from "../../charts/ReefChart";
+import BoxChart from "../../charts/BoxChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
@@ -23,6 +24,15 @@ const StrategyTeleoperated: React.FC = () => {
 
   return (
     <>
+      <div className="section">
+        <BoxChart
+          data={{ Orbit: [1, 2, 3, 4, 5] }}
+          title="teams"
+          subtitle="idk"
+          xName={"sigma"}
+        />
+      </div>
+      <br />
       <div className="section">
         <RadarComponent
           inputs={[

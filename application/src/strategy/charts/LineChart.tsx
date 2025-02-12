@@ -44,7 +44,7 @@ const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
           maintainAspectRatio: true,
           responsive: true,
           scales: {
-            x: {
+            y: {
               beginAtZero: true,
             },
           },
