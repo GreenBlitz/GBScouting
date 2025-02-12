@@ -7,6 +7,7 @@ import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
 import ReefChart from "../../charts/ReefChart";
+import BoxChart from "../../charts/BoxChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 

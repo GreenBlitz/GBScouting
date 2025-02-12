@@ -7,6 +7,7 @@ import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import { Auto } from "../../../utils/SeasonUI";
 import CollectionChart from "../../charts/CollectionChart";
+import ReefChart from "../../charts/ReefChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
@@ -59,9 +60,15 @@ const StrategyAutonomous: React.FC = () => {
         />
       </div>
       <div className="h-48" />
-      <CollectionChart
-        collection={teamData.getCollections("autoReefLevels", "autoReefPick")}
-      />
+      <div className="rower">
+        <CollectionChart
+          collection={teamData.getCollections(
+            "autoReefLevels",
+            "autoReefPick"
+          )}
+        />
+        <ReefChart sides={teamData.getUsedSides("autoReefLevels")} />
+      </div>
       <div className="h-48" />
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Average Corals</h1>
