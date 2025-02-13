@@ -161,6 +161,22 @@ app.get(
   }
 );
 
+app.get("/ScouterNames", async (req, res) => {
+  if (!db) {
+    return res.status(500).send("Database not connected");
+  }
+
+  const matchCollection = db.collection("matches");
+  try {
+    const items = await matchCollection.find().toArray();
+
+    const scouterNames = items.map(match => match.scouterName).filter(Boolean);
+
+    res.status(200).json(scouterNames);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 const server = (
   sslOptions.key === "" ? app : https.createServer(sslOptions, app)
 ).listen(port, hostname, () =>
