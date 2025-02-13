@@ -81,3 +81,8 @@ export async function fetchMatchResults(matchKey: string) {
     return null;
   }
 }
+export async function fetchScouterNames() {
+  return await fetchData("ScouterNames");
+
+}
+
