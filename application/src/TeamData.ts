@@ -11,16 +11,18 @@ import { PickValues } from "./scouter/input-types/ReefPickInput";
 import { AllScore } from "./scouter/input-types/reef-levels/ReefLevelsInput";
 import { ReefSide } from "./scouter/input-types/ReefInput";
 
-interface Comment {
+export interface Comment {
   body: string;
   qual: number;
 }
 
 export class TeamData {
   public readonly matches: Match[];
+  private readonly notes: Comment[];
 
-  constructor(matches: Match[], notes?: Comment) {
+  constructor(matches: Match[], notes?: Comment[]) {
     this.matches = [...matches];
+    this.notes = notes || [];
   }
 
   static random(teamNumber: number) {
@@ -75,7 +77,8 @@ export class TeamData {
       .map((match) => {
         return { body: match.comment, qual: match.qual };
       })
-      .filter((comment) => comment.body !== "");
+      .filter((comment) => comment.body !== "")
+      .concat(this.notes);
   }
 
   getAverageScore() {
