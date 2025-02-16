@@ -134,7 +134,7 @@ class ReefPickInput extends ScouterInput<
           this.state.objectives.collected.algeaGround
             ? "button-green"
             : "button-red"
-        } big-button ml-0 mr-0`}
+        } big-button mx-0`}
         onClick={() => this.updateCollection("algeaGround")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
