@@ -19,7 +19,7 @@ interface Comment {
 export class TeamData {
   public readonly matches: Match[];
 
-  constructor(matches: Match[]) {
+  constructor(matches: Match[], notes?: Comment) {
     this.matches = [...matches];
   }
 
@@ -381,7 +381,6 @@ export class TeamData {
   }
 
   getUsedSides(levels: keyof Match) {
-    console.log(this.matches);
     return this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
       const sides = matchesAccumulator.concat(
         Object.values(match[levels] as Levels).reduce<ReefSide[]>(

@@ -172,13 +172,12 @@ app.post("/notes/:qual", async (req: Request, res: Response) => {
 
   const notes = {
     qual: req.params.qual,
-    notes: notesData,
+    body: notesData,
   };
 
   try {
     notesCollection.deleteMany();
     const result = await notesCollection.insertOne(notes);
-    console.log(notes);
 
     res.status(201).json(result);
   } catch (error) {
@@ -194,14 +193,10 @@ app.get("/team_notes/:team", async (req: Request, res: Response) => {
   try {
     const items = (await notesCollection.find().toArray())
       .map((item) => {
-        
         return {
-          [item.qual]:
-            item.notes[
-              Object.keys(item.notes).find(
-                (teamNumber) => teamNumber === req.params.team
-              )
-            ],
+          [item.qual]: Object.entries(item.body).find(
+            ([teamNumber, _]) => teamNumber === req.params.team
+          )[1],
         };
       })
       .filter((item) => item);
