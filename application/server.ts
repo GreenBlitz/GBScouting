@@ -61,14 +61,16 @@ app.post("/Match", async (req: Request, res: Response) => {
 });
 
 //REMEMBER TO ADD AUTHENTICATION BEFORE DEPLOYMENT IN COMPETITION
-app.delete("/Matches", async (req, res) => {
+app.delete("/Database", async (req, res) => {
   if (!db) {
     return res.status(500).send("Database not connected");
   }
   const matchCollection = db.collection("matches");
+  const notesCollection = db.collection("notes");
   try {
     const items = await matchCollection.deleteMany();
-    res.status(200).json(items);
+    const notes = await notesCollection.deleteMany();
+    res.status(200).json({ items, notes });
   } catch (error) {
     res.status(500).send(error);
   }
