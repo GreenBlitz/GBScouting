@@ -1,5 +1,3 @@
-import { AutonomousMapInput } from "./input-types/auto-map/AutonomousMapInput";
-import CounterInput from "./input-types/CounterInput";
 import DropdownInput from "./input-types/DropdownInput";
 import NumberInput from "./input-types/NumberInput";
 import TextInput from "./input-types/TextInput";
