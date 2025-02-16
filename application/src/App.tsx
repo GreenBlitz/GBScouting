@@ -38,14 +38,9 @@ function getHiddenImage(path: string) {
 const hiddenImages = [
   "./src/assets/crescendo-map.png",
   "./src/assets/blue-auto-map.png",
-  "./src/assets/red-auto-map.png",
+  "./src/assets/red-auto-map.png","./src/assets/low-coral.svg", "./src/assets/low-algea.svg"
 ]
-  .map(getHiddenImage)
-  .concat(
-    ["./src/assets/low-coral.svg", "./src/assets/low-algea.svg"].map(
-      getHiddenImage
-    )
-  );
+  .map(getHiddenImage);
 
 export function renderScouterNavBar() {
   return (

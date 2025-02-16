@@ -163,6 +163,40 @@ app.get(
   }
 );
 
+app.post("/Notes", async (req: Request, res: Response) => {
+  if (!db) {
+    return res.status(500).send("Database not connected");
+  }
+  const notesCollection = db.collection("notes");
+  const notesData = req.body;
+
+  try {
+    const result = await notesCollection.insertOne(notesData);
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to insert data" });
+  }
+});
+
+app.get("/team_notes:team", async (req: Request, res: Response) => {
+  if (!db) {
+    return res.status(500).send("Database not connected");
+  }
+  const matchCollection = db.collection("notes");
+  try {
+    const items = (await matchCollection.find().toArray())
+      .map((item) => {
+        return Object.keys(item).find(
+          (teamNumber) => teamNumber === req.params.team
+        );
+      })
+      .filter((item) => item);
+    res.status(200).json(items);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 const server = (
   sslOptions.key === "" ? app : https.createServer(sslOptions, app)
 ).listen(port, hostname, () =>
