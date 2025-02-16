@@ -11,7 +11,7 @@ const app = express();
 const hostname = "0.0.0.0";
 const port = 4590;
 
-const dirName = process.env.PRODUCTION ? "/app" : "/app";
+const dirName = process.env.PRODUCTION ? "/app" : "";
 
 // SSL options for HTTPS
 let sslOptions;
@@ -59,14 +59,16 @@ app.post("/Match", async (req: Request, res: Response) => {
 });
 
 //REMEMBER TO ADD AUTHENTICATION BEFORE DEPLOYMENT IN COMPETITION
-app.delete("/Matches", async (req, res) => {
+app.delete("/Database", async (req, res) => {
   if (!db) {
     return res.status(500).send("Database not connected");
   }
   const matchCollection = db.collection("matches");
+  const notesCollection = db.collection("notes");
   try {
     const items = await matchCollection.deleteMany();
-    res.status(200).json(items);
+    const notes = await notesCollection.deleteMany();
+    res.status(200).json({ items, notes });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -160,6 +162,50 @@ app.get(
     }
   }
 );
+
+app.post("/notes/:qual", async (req: Request, res: Response) => {
+  if (!db) {
+    return res.status(500).send("Database not connected");
+  }
+  const notesCollection = db.collection("notes");
+  const notesData: Record<string, string> = req.body;
+
+  const notes = {
+    qual: req.params.qual,
+    body: notesData,
+  };
+
+  try {
+    notesCollection.deleteMany();
+    const result = await notesCollection.insertOne(notes);
+
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to insert data" });
+  }
+});
+
+app.get("/team_notes/:team", async (req: Request, res: Response) => {
+  if (!db) {
+    return res.status(500).send("Database not connected");
+  }
+  const notesCollection = db.collection("notes");
+  try {
+    const items = (await notesCollection.find().toArray())
+      .map((item) => {
+        return {
+          qual: item.qual,
+          body: Object.entries(item.body).find(
+            ([teamNumber, _]) => teamNumber === req.params.team
+          )[1],
+        };
+      })
+      .filter((item) => item.body);
+    res.status(200).json(items);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 const server = (
   sslOptions.key === "" ? app : https.createServer(sslOptions, app)

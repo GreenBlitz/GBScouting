@@ -1,14 +1,11 @@
 import React from "react";
-import ScouterInput from "../scouter/ScouterInput";
-import { InputProps } from "../scouter/ScouterInput";
+import ScouterInput from "../../ScouterInput";
+import { InputProps } from "../../ScouterInput";
+import algeaSVG from "../../../assets/low-algea.svg";
+import ReefInput, { ReefSide, triangleButtonMiddles } from "../ReefInput";
+import { StorageBacked } from "../../../utils/FolderStorage";
+import ScouterInputs from "../../ScouterInputs";
 import "./reefScore.css";
-import algeaSVG from "../assets/low-algea.svg";
-import ReefInput, {
-  ReefSide,
-  triangleButtonMiddles,
-} from "../scouter/input-types/ReefInput";
-import { StorageBacked } from "../utils/FolderStorage";
-import ScouterInputs from "../scouter/ScouterInputs";
 
 export interface Level {
   score: number;
@@ -48,7 +45,7 @@ type Action = FullCoralAction | AlgeaAction;
 export const areReefsSame = (side1: ReefSide, side2: ReefSide) =>
   side1.proximity === side2.proximity && side1.side === side2.side;
 
-class TeleopForm extends ScouterInput<
+class ReefLevelsInput extends ScouterInput<
   AllScore,
   { reefInput: ReefInput },
   {
@@ -63,7 +60,7 @@ class TeleopForm extends ScouterInput<
   }
 
   create(): React.JSX.Element {
-    return <TeleopForm {...this.props} />;
+    return <ReefLevelsInput {...this.props} />;
   }
 
   clearValue(): void {
@@ -187,6 +184,16 @@ class TeleopForm extends ScouterInput<
 
     return (
       <div className="flex flex-col items-center">
+        <h1 className="text-2xl font-bold">
+          Side{" "}
+          {
+            (
+              triangleButtonMiddles.find((value) =>
+                areReefsSame(value.reefSide, correctSide)
+              ) || triangleButtonMiddles[0]
+            ).name
+          }
+        </h1>
         {levelKeys.map((levelKey) => {
           const level = levelKey as keyof Levels;
           return (
@@ -207,17 +214,6 @@ class TeleopForm extends ScouterInput<
             </div>
           );
         })}
-
-        <h1 className="text-2xl font-bold">
-          Side{" "}
-          {
-            (
-              triangleButtonMiddles.find((value) =>
-                areReefsSame(value.reefSide, correctSide)
-              ) || triangleButtonMiddles[0]
-            ).name
-          }
-        </h1>
 
         <div className="flex mb-10">
           <button
@@ -255,4 +251,4 @@ class TeleopForm extends ScouterInput<
   }
 }
 
-export default TeleopForm;
+export default ReefLevelsInput;

@@ -1,4 +1,4 @@
-import { Levels } from "../components/teleopForm";
+import { Levels } from "../scouter/input-types/reef-levels/ReefLevelsInput";
 
 export interface Auto {
   qual: number;

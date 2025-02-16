@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Auto } from "../../utils/SeasonUI";
-import { Levels } from "../../components/TeleopForm";
+import { Levels } from "../../scouter/input-types/reef-levels/ReefLevelsInput";
 import BranchSVG from "../../assets/branch-right.svg";
 
 interface AutoProps {

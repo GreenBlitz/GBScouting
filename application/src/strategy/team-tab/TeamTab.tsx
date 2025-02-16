@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Match, matchFieldNames as matchFields } from "../../utils/Match";
 import { FRCTeamList, sortMatches } from "../../utils/Utils";
-import { TeamData } from "../../TeamData";
+import { Comment, TeamData } from "../../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../../App";
-import { fetchMatchesByCriteria } from "../../utils/Fetches";
+import { fetchMatchesByCriteria, fetchNotes } from "../../utils/Fetches";
 import { Link, Outlet } from "react-router-dom";
 
 const TeamTab: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
+  const [notes, setNotes] = useState<Comment[]>([]);
   const [recency, setRecency] = useState<number>(5);
 
   const recentMatches = sortMatches([...matches]);
@@ -16,7 +17,19 @@ const TeamTab: React.FC = () => {
     recentMatches.splice(0, recentMatches.length - recency);
   }
 
-  const teamData = new TeamData(recentMatches);
+  useEffect(() => {
+    if (!matches[0]) {
+      return;
+    }
+    async function updateNotes() {
+      setNotes(await fetchNotes(matches[0].teamNumber));
+    }
+    updateNotes();
+  }, [matches]);
+
+  console.log(notes);
+
+  const teamData = new TeamData(recentMatches, notes);
   // const teamData = TeamData.random(1574);
   return (
     <div className="strategy-app">

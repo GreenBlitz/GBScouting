@@ -1,7 +1,7 @@
 import { Point } from "chart.js";
 import React, { useEffect, useRef } from "react";
 import { Color } from "../../utils/Color";
-import { areReefsSame } from "../../components/TeleopForm";
+import { areReefsSame } from "../../scouter/input-types/reef-levels/ReefLevelsInput";
 
 const [width, height] = [262, 262];
 const stepSize = 30;
