@@ -88,8 +88,16 @@ export async function fetchMatchResults(matchKey: string) {
   }
 }
 
-export async function postNotes(notes: Record<number, string>) {
-  return await fetchData("notes", "POST", JSON.stringify(notes));
+export async function postNotes(notes: Record<number, string>, qual: number) {
+  return await fetchData(
+    `notes/${qual.toString()}`,
+    "POST",
+    JSON.stringify(notes)
+  );
+}
+
+export async function fetchNotes(teamNumber: number) {
+  return await fetchData(`team_notes/${teamNumber}`);
 }
 
 export interface MatchResults {

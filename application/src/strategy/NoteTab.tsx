@@ -3,7 +3,7 @@ import { renderStrategyNavBar } from "../App";
 import { fetchMatchResults, MatchResults, postNotes } from "../utils/Fetches";
 
 const NoteTab: React.FC = () => {
-  const [qual, setQual] = useState<number>(0);
+  const [qual, setQual] = useState<number>(1);
 
   const [matchResults, setMatchResults] = useState<MatchResults | null>(null);
 
@@ -62,6 +62,7 @@ const NoteTab: React.FC = () => {
           type="number"
           onChange={(event) => setQual(parseInt(event.target.value))}
           min={1}
+          defaultValue={1}
         />
       </div>
 
@@ -73,7 +74,7 @@ const NoteTab: React.FC = () => {
 
       <button
         className="bg-green-800"
-        onClick={() => notes && postNotes(notes)}
+        onClick={() => notes && postNotes(notes, qual)}
       >
         Submit
       </button>
