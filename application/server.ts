@@ -193,14 +193,18 @@ app.get("/team_notes/:team", async (req: Request, res: Response) => {
   try {
     const items = (await notesCollection.find().toArray())
       .map((item) => {
+        const found = Object.entries(item.body).find(
+          ([teamNumber, _]) => teamNumber === req.params.team
+        );
+        if (!found) {
+          return undefined;
+        }
         return {
           qual: item.qual,
-          body: Object.entries(item.body).find(
-            ([teamNumber, _]) => teamNumber === req.params.team
-          )[1],
+          body: found[1],
         };
       })
-      .filter((item) => item.body);
+      .filter((item) => item);
     res.status(200).json(items);
   } catch (error) {
     res.status(500).send(error);

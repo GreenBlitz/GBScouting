@@ -22,7 +22,7 @@ const BoxChart: React.FC<BoxProps> = ({
 }) => {
   const getSection = useMemo(
     () => (name: string, values: number[]) => {
-      const sortedValues = [...values].sort();
+      const sortedValues = [...values].sort((a, b) => a - b);
       return {
         [xName]: name,
         Min: sortedValues[0],
@@ -64,10 +64,10 @@ const BoxChart: React.FC<BoxProps> = ({
       ),
     };
   }, [data]);
-  console.log(chartOptions);
+
   return (
     <div className="">
-      <AgCharts className="chart-element" options={chartOptions as any} />
+      <AgCharts className="chart-element" options={chartOptions} />
     </div>
   );
 };

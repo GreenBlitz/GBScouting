@@ -31,6 +31,65 @@ export class TeamData {
     );
   }
 
+  static matchObjects(match: Match) {
+    return (
+      match.teleopReefLevels.L1.score +
+      match.teleopReefLevels.L2.score +
+      match.teleopReefLevels.L3.score +
+      match.teleopReefLevels.L4.score +
+      match.teleReefPick.algea.netScore +
+      match.teleReefPick.algea.processor +
+      match.autoReefLevels.L1.score +
+      match.autoReefLevels.L2.score +
+      match.autoReefLevels.L3.score +
+      match.autoReefLevels.L4.score +
+      match.autoReefPick.algea.netScore +
+      match.autoReefPick.algea.processor
+    );
+  }
+
+  static matchScore(match: Match) {
+    let sum = 0;
+
+    sum += match.teleopReefLevels.L1.score * 2;
+    sum += match.teleopReefLevels.L2.score * 3;
+    sum += match.teleopReefLevels.L3.score * 4;
+    sum += match.teleopReefLevels.L4.score * 5;
+
+    sum += match.teleReefPick.algea.netScore * 4;
+    sum += match.teleReefPick.algea.processor * 4;
+
+    sum += match.autoReefLevels.L1.score * 3;
+    sum += match.autoReefLevels.L2.score * 4;
+    sum += match.autoReefLevels.L3.score * 6;
+    sum += match.autoReefLevels.L4.score * 7;
+
+    sum += match.autoReefPick.algea.netScore * 4;
+    sum += match.autoReefPick.algea.processor * 4;
+
+    const getClimb = () => {
+      switch (match.climb) {
+        case "Park":
+          return 2;
+        case "Shallow Cage":
+          return 6;
+        case "Deep Cage":
+          return 12;
+      }
+      return 0;
+    };
+
+    sum += getClimb();
+    return sum;
+  }
+
+  getTeamNumber() {
+    if (!this.matches[0]) {
+      return 0;
+    }
+    return this.matches[0].teamNumber;
+  }
+
   getAsLine(
     field: keyof Match,
     innerFields?: string[]
@@ -113,39 +172,7 @@ export class TeamData {
     return Object.assign(
       {},
       ...this.matches.map((match) => {
-        let sum = 0;
-
-        sum += match.teleopReefLevels.L1.score * 2;
-        sum += match.teleopReefLevels.L2.score * 3;
-        sum += match.teleopReefLevels.L3.score * 4;
-        sum += match.teleopReefLevels.L4.score * 5;
-
-        sum += match.teleReefPick.algea.netScore * 4;
-        sum += match.teleReefPick.algea.processor * 4;
-
-        sum += match.autoReefLevels.L1.score * 3;
-        sum += match.autoReefLevels.L2.score * 4;
-        sum += match.autoReefLevels.L3.score * 6;
-        sum += match.autoReefLevels.L4.score * 7;
-
-        sum += match.autoReefPick.algea.netScore * 4;
-        sum += match.autoReefPick.algea.processor * 4;
-
-        const getClimb = () => {
-          switch (match.climb) {
-            case "Park":
-              return 2;
-            case "Shallow Cage":
-              return 6;
-            case "Deep Cage":
-              return 12;
-          }
-          return 0;
-        };
-
-        sum += getClimb();
-
-        return { [match.qual]: sum };
+        return { [match.qual]: TeamData.matchScore(match) };
       })
     );
   }
@@ -267,6 +294,10 @@ export class TeamData {
           return accumulator + value;
         }) / this.matches.length
     );
+  }
+
+  getAsBox(mapFunction: (match: Match) => number | undefined): number[] {
+    return this.matches.map(mapFunction).filter((value) => value !== undefined);
   }
 
   getAsPie(

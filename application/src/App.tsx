@@ -22,6 +22,7 @@ import ScouterAutonomous, {
   ScouterAutoReef,
 } from "./scouter/tabs/ScouterAutonomous";
 import NoteTab from "./strategy/NoteTab";
+import ComparisonTab from "./strategy/ComparisonTab";
 
 function getHiddenImage(path: string) {
   return (
@@ -38,9 +39,10 @@ function getHiddenImage(path: string) {
 const hiddenImages = [
   "./src/assets/crescendo-map.png",
   "./src/assets/blue-auto-map.png",
-  "./src/assets/red-auto-map.png","./src/assets/low-coral.svg", "./src/assets/low-algea.svg"
-]
-  .map(getHiddenImage);
+  "./src/assets/red-auto-map.png",
+  "./src/assets/low-coral.svg",
+  "./src/assets/low-algea.svg",
+].map(getHiddenImage);
 
 export function renderScouterNavBar() {
   return (
@@ -81,6 +83,14 @@ export function renderStrategyNavBar() {
   return (
     <nav className="bg-dark-card shadow-lg">
       <ul className="flex items-center justify-center space-x-6 py-4">
+        <li>
+          <Link
+            to="/compare"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Comparison
+          </Link>
+        </li>
         <li>
           {[...hiddenImages]}
 
@@ -154,6 +164,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/notes" element={<NoteTab />} />
             <Route path="/general" element={<GeneralTab />} />
+            <Route path="/compare" element={<ComparisonTab />} />
           </Routes>
         </PageTransition>
       </div>
