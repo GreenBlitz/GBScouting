@@ -58,7 +58,7 @@ const fieldOptions: FieldOption[] = [
 
 const ComparisonTab: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);
-  const [teamNumber, setTeamNumber] = useState<number>(3);
+  const [teamNumber, setTeamNumber] = useState<number>(2);
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 

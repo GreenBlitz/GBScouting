@@ -1,5 +1,14 @@
 import { rangeArr } from "./Utils";
 import { BitArray } from "./BitArray";
+import {
+  AlgeaCollection,
+  AllScore,
+  Level,
+  Levels,
+} from "../scouter/input-types/reef-levels/ReefLevelsInput";
+import { ReefSide } from "../scouter/input-types/ReefInput";
+import { CollectedObject, PickValues } from "../scouter/input-types/ReefPickInput";
+import { Collection, UsedAlgea } from "./SeasonUI";
 
 // TODO add signed support!
 function serdeUnsignedInt(bitCount: number): Serde<number> {
@@ -276,14 +285,16 @@ function serdeMixedArrayRecord<T, U>(
   };
 }
 
-function serdeEnumedString(possibleValues: string[]): Serde<string> {
+function serdeEnumedString<Options extends string>(
+  possibleValues: Options[]
+): Serde<Options> {
   function bitsNeeded(possibleValuesCount: number): number {
     return Math.ceil(Math.log2(possibleValuesCount));
   }
   function serializer(
-    possibleValues: string[],
+    possibleValues: Options[],
     serializedData: BitArray,
-    data: string
+    data: Options
   ) {
     const neededBits = bitsNeeded(possibleValues.length);
     for (let i = 0; i < possibleValues.length; i++) {
@@ -297,9 +308,9 @@ function serdeEnumedString(possibleValues: string[]): Serde<string> {
     );
   }
   function deserializer(
-    possibleValues: string[],
+    possibleValues: Options[],
     serializedData: BitArray
-  ): string {
+  ): Options {
     const neededBits = bitsNeeded(possibleValues.length);
     const valueIdentifier =
       serdeUnsignedInt(neededBits).deserializer(serializedData);
@@ -366,8 +377,8 @@ function serdeOptional<T>(tSerde: Serde<T>): Serde<T | undefined> {
   function serializer(serializedData: BitArray, value?: T) {
     serdeBool().serializer(serializedData, value != undefined);
     if (value) {
-      tSerde.serializer(serializedData, value)
-    };
+      tSerde.serializer(serializedData, value);
+    }
   }
   function deserializer(serializedData: BitArray): T | undefined {
     if (serdeBool().deserializer(serializedData)) {
@@ -387,8 +398,8 @@ function serdeRecordFieldsBuilder(
 ): FieldsRecordSerde<any> {
   let serdeRecord = { serializer: {}, deserializer: {} };
   fieldNamesSerdes.forEach(([fieldName, fieldSerde]) => {
-    serdeRecord["serializer"][fieldName] = fieldSerde.serializer;
-    serdeRecord["deserializer"][fieldName] = fieldSerde.deserializer;
+    serdeRecord.serializer[fieldName] = fieldSerde.serializer;
+    serdeRecord.deserializer[fieldName] = fieldSerde.deserializer;
   });
   return serdeRecord;
 }
@@ -423,12 +434,159 @@ const DEFENSE_RATING_BIT_COUNT = 3;
 
 const STARTING_POSITION_POSSIBLE_VALUES = ["Far Side", "Middle", "Close Side"];
 
+function serdeReefSide(): Serde<ReefSide> {
+  const proximitySerder = serdeEnumedString(["far", "middle", "close"]);
+  function serializer(serializedData: BitArray, side: ReefSide) {
+    serializedData.insertBool(side.side === "left");
+    proximitySerder.serializer(serializedData, side.proximity);
+  }
+  function deserializer(serializedData: BitArray): ReefSide {
+    return {
+      side: serializedData.consumeBool() ? "left" : "right",
+      proximity: proximitySerder.deserializer(serializedData),
+    };
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
+function serdeReefLevel(): Serde<Level> {
+  const scoreMissSerder = serdeUnsignedInt(7);
+  const sidesSerder = serdeArray(serdeReefSide(), 3);
+  function serializer(serializedData: BitArray, level: Level) {
+    scoreMissSerder.serializer(serializedData, level.score);
+    scoreMissSerder.serializer(serializedData, level.miss);
+    sidesSerder.serializer(serializedData, level.sides);
+  }
+  function deserializer(serializedData: BitArray): Level {
+    return {
+      score: scoreMissSerder.deserializer(serializedData),
+      miss: scoreMissSerder.deserializer(serializedData),
+      sides: sidesSerder.deserializer(serializedData),
+    };
+  }
+  return { serializer, deserializer };
+}
+
+function serdeReefAlgea(): Serde<AlgeaCollection> {
+  const algeaSerder = serdeBool();
+  function serializer(serializedData: BitArray, algea: AlgeaCollection) {
+    algeaSerder.serializer(serializedData, algea.collected);
+    algeaSerder.serializer(serializedData, algea.dropped);
+  }
+  function deserializer(serializedData: BitArray): AlgeaCollection {
+    return {
+      collected: algeaSerder.deserializer(serializedData),
+      dropped: algeaSerder.deserializer(serializedData),
+    };
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
+function serdeReefLevels(): Serde<AllScore> {
+  const levelSerder = serdeReefLevel();
+  const algeaSerder = serdeReefAlgea();
+  function serializer(serializedData: BitArray, scores: AllScore) {
+    levelSerder.serializer(serializedData, scores.L1);
+    levelSerder.serializer(serializedData, scores.L2);
+    levelSerder.serializer(serializedData, scores.L3);
+    levelSerder.serializer(serializedData, scores.L4);
+    algeaSerder.serializer(serializedData, scores.algea);
+  }
+  function deserializer(serializedData: BitArray) {
+    return {
+      L1: levelSerder.deserializer(serializedData),
+      L2: levelSerder.deserializer(serializedData),
+      L3: levelSerder.deserializer(serializedData),
+      L4: levelSerder.deserializer(serializedData),
+      algea: algeaSerder.deserializer(serializedData),
+    };
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
+function serdeUsedAlgea() : Serde<UsedAlgea> {
+  const algeaSerder = serdeUnsignedInt(7);
+  function serializer(serializedData: BitArray, algea: UsedAlgea) {
+    algeaSerder.serializer(serializedData, algea.netScore);
+    algeaSerder.serializer(serializedData, algea.netMiss);
+    algeaSerder.serializer(serializedData, algea.processor);
+  }
+  function deserializer(serializedData: BitArray): UsedAlgea {
+    return {
+      netScore: algeaSerder.deserializer(serializedData),
+      netMiss: algeaSerder.deserializer(serializedData),
+      processor: algeaSerder.deserializer(serializedData),
+    };
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
+function serdeCollectedObjects(): Serde<CollectedObject> {
+  const objectsSerder = serdeBool();
+  function serializer(serializedData: BitArray, objects: CollectedObject) {
+    objectsSerder.serializer(serializedData, objects.algeaGround);
+
+    objectsSerder.serializer(serializedData, objects.coralFeeder);
+    objectsSerder.serializer(serializedData, objects.coralGround);
+  }
+  function deserializer(serializedData: BitArray): CollectedObject {
+    return {
+      algeaGround: objectsSerder.deserializer(serializedData),
+      coralFeeder: objectsSerder.deserializer(serializedData),
+      coralGround: objectsSerder.deserializer(serializedData),
+    }
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
+function serdeReefPick(): Serde<PickValues> {
+  const algeaSerder = serdeUsedAlgea();
+  const collectedSerder = serdeCollectedObjects();
+  function serializer(serializedData: BitArray, values: PickValues) {
+    algeaSerder.serializer(serializedData, values.algea);
+    collectedSerder.serializer(serializedData, values.collected);
+  }
+  function deserializer(serializedData: BitArray) {
+    return {
+      algea: algeaSerder.deserializer(serializedData),
+      collected: collectedSerder.deserializer(serializedData),
+    };
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
 export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["teamNumber", serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT)],
+  ["teleopReefLevels", serdeReefLevels()],
+  ["autoReefLevels", serdeReefLevels()],
+  ["teleReefPick", serdeReefPick()],
+  ["autoReefPick", serdeReefPick()],
   ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["gameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
   ["defense", serdeOptional(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT))],
+  [
+    "defensiveEvasion",
+    serdeOptional(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT)),
+  ],
   ["scouterName", serdeString()],
   ["noShow", serdeBool()],
   ["comment", serdeString()],
