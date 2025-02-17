@@ -64,9 +64,9 @@ const pickList: PickArea[] = [
   },
 ];
 
-function processTeamData(teamNumber: string, data: TeamData): GridItems {
+function processTeamData(teamNumber: number, data: TeamData): GridItems {
   return {
-    Team: parseInt(teamNumber),
+    Team: teamNumber,
     Points: data.getAverageScore(),
     Corals: data.getAverageCoralAmount(),
     Objects: data.getAverageObjectAmount(),
@@ -170,19 +170,23 @@ const GeneralTab: React.FC = () => {
 
   //bruh this is kinda deep
   useEffect(() => {
-    async function getGridItems(teamName: string) {
+    async function getGridItems(teamNumber: number) {
       return processTeamData(
-        teamName,
+        teamNumber,
         new TeamData(
           await fetchMatchesByCriteria(
             matchFieldNames.teamNumber,
-            teamName.slice(0, teamName.indexOf(`\t`))
+            teamNumber.toString()
           )
         )
       );
     }
     async function updateTeamTable() {
-      setTeamTable(await Promise.all(FRCTeamList.map(getGridItems)));
+      setTeamTable(
+        await Promise.all(
+          Object.keys(FRCTeamList).map((key) => getGridItems(parseInt(key)))
+        )
+      );
     }
     updateTeamTable();
   }, []);

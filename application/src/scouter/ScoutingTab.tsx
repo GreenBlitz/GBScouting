@@ -9,6 +9,7 @@ import { Match } from "../utils/Match";
 import Matches from "./Matches";
 import SectionHandler from "../utils/SectionHandler.ts";
 import PageTransition from "../components/PageTransition";
+import { FRCTeamList } from "../utils/Utils.ts";
 
 const sectioNames = ["Prematch", "Autonomous", "Teleoperated", "Endgame"];
 
@@ -52,6 +53,12 @@ export default function ScoutingTab() {
     }
   };
 
+  const getTeamName = (teamNumber: number) => {
+    return FRCTeamList[teamNumber] || "Invalid Team";
+  };
+
+  const teamNumber = ScouterInputs.teamNumber.getValue();
+
   const sectionElement = (
     <div className="space-y-6">
       <div className="w-full flex flex-row">
@@ -66,7 +73,7 @@ export default function ScoutingTab() {
           className="text-2xl text-yellow-300 mr-5 mt-2"
           style={{ fontFamily: "Franklin Gothic Black" }}
         >
-          {ScouterInputs.teamNumber.getValue()}
+          {teamNumber !== 0 && getTeamName(teamNumber) + ` ${teamNumber}`}
         </h3>
       </div>
       <PageTransition>
