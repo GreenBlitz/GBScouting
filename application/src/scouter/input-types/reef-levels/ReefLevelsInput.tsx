@@ -20,7 +20,7 @@ export interface Levels {
   L4: Level;
 }
 
-interface AlgeaCollection {
+export interface AlgeaCollection {
   collected: boolean;
   dropped: boolean;
 }

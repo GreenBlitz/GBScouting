@@ -51,11 +51,14 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
           )
         }
       >
-        {FRCTeamList.map((item, index) => (
-          <option value={item} key={index}>
-            {item}
-          </option>
-        ))}
+        {Object.entries(FRCTeamList).map(([teamNumber, teamName], index) => {
+          const item = `${teamNumber} ${teamName}`;
+          return (
+            <option value={item} key={index}>
+              {item}
+            </option>
+          );
+        })}
       </select>
       <label htmlFor="recency">Recency</label>
       <input

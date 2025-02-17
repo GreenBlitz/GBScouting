@@ -7,7 +7,7 @@ import ReefInput from "./ReefInput";
 import { StorageBacked } from "../../utils/FolderStorage";
 import { UsedAlgea } from "../../utils/SeasonUI";
 
-interface CollectedObject {
+export interface CollectedObject {
   coralFeeder: boolean;
   coralGround: boolean;
   algeaGround: boolean;
