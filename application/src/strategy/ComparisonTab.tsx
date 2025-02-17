@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import TeamPicker from "../components/TeamPicker";
 import { TeamData } from "../TeamData";
 import { renderStrategyNavBar } from "../App";
 import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
+import { rangeArr } from "../utils/Utils";
 
 interface FieldOption {
   name: string;
@@ -56,8 +57,8 @@ const fieldOptions: FieldOption[] = [
 ];
 
 const ComparisonTab: React.FC = () => {
-  const [team1, setTeam1] = useState<TeamData>();
-  const [team2, setTeam2] = useState<TeamData>();
+  const [teams, setTeams] = useState<TeamData[]>([]);
+  const [teamNumber, setTeamNumber] = useState<number>(3);
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 
@@ -72,23 +73,49 @@ const ComparisonTab: React.FC = () => {
     };
   };
 
-  const team1Data = useMemo(() => {
-    return getBoxData(team1);
-  }, [team1, field]);
-  const team2Data = useMemo(() => {
-    return getBoxData(team2);
-  }, [team2, field]);
+  const teamsData = useMemo(() => {
+    return teams.map((team) => getBoxData(team)) || [];
+  }, [teams, field]);
 
   return (
     <div className="flex flex-col items-center">
       {renderStrategyNavBar()}
       <br />
-      <TeamPicker setTeamData={setTeam1} defaultRecency={5} />
-      <br />
-      <TeamPicker setTeamData={setTeam2} defaultRecency={5} />
-      <br />
 
+      {rangeArr(0, teamNumber).map((index) => (
+        <div className="rower my-5">
+          <TeamPicker
+            setTeamData={(team) => {
+              const newTeams = [...(teams || [])];
+              newTeams[index] = team;
+              setTeams(newTeams);
+            }}
+            defaultRecency={0}
+          />
+          <button
+            onClick={() => {
+              const newTeams = [...(teams || [])];
+              newTeams.splice(index, 1);
+              setTeamNumber(teamNumber - 1);
+              setTeams(newTeams);
+            }}
+            className="ml-5 bg-red-700 w-10 h-10 text-2xl "
+          >
+            -
+          </button>
+        </div>
+      ))}
+
+      <button
+        onClick={() => {
+          setTeamNumber(teamNumber + 1);
+        }}
+        className="ml-5 bg-green-700 w-10 h-10 text-2xl "
+      >
+        +
+      </button>
       <select
+        className="my-5"
         onChange={(event) => setField(event.currentTarget.value as keyof Match)}
       >
         {fieldOptions.map((option) => (
@@ -97,7 +124,7 @@ const ComparisonTab: React.FC = () => {
       </select>
       <div className="w-96 ">
         <BoxChart
-          data={Object.assign({}, ...[team1Data, team2Data])}
+          data={Object.assign({}, ...teamsData)}
           xName={"Team"}
           yName={field}
           title="Comparison"

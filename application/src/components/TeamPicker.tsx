@@ -37,7 +37,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
 
   return (
     <div className="team-picker">
-      <label htmlFor="team number">Team Number</label>
+      <label htmlFor="team number">Team</label>
 
       <select
         id="team number"
@@ -57,7 +57,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
           </option>
         ))}
       </select>
-      <label htmlFor="recency">Filter By Recency</label>
+      <label htmlFor="recency">Recency</label>
       <input
         type="number"
         id="recency"
