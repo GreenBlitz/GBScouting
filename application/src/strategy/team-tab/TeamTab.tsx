@@ -1,73 +1,24 @@
-import { useEffect, useState } from "react";
-import { Match, matchFieldNames as matchFields } from "../../utils/Match";
-import { FRCTeamList, sortMatches } from "../../utils/Utils";
-import { Comment, TeamData } from "../../TeamData";
+import { useState } from "react";
+import { TeamData } from "../../TeamData";
 import React from "react";
 import { renderStrategyNavBar } from "../../App";
-import { fetchMatchesByCriteria, fetchNotes } from "../../utils/Fetches";
 import { Link, Outlet } from "react-router-dom";
+import TeamPicker from "../../components/TeamPicker";
 
 const TeamTab: React.FC = () => {
-  const [matches, setMatches] = useState<Match[]>([]);
-  const [notes, setNotes] = useState<Comment[]>([]);
-  const [recency, setRecency] = useState<number>(5);
+  const [teamData, setTeamData] = useState<TeamData>(new TeamData([]));
 
-  const recentMatches = sortMatches([...matches]);
-  if (recency > 0 && recency < recentMatches.length) {
-    recentMatches.splice(0, recentMatches.length - recency);
-  }
+  
 
-  useEffect(() => {
-    if (!matches[0]) {
-      return;
-    }
-    async function updateNotes() {
-      setNotes(await fetchNotes(matches[0].teamNumber));
-    }
-    updateNotes();
-  }, [matches]);
-
-  console.log(notes);
-
-  const teamData = new TeamData(recentMatches, notes);
-  // const teamData = TeamData.random(1574);
   return (
     <div className="strategy-app">
       {renderStrategyNavBar()}
       <br />
       <br />
-      <div className="team-picker">
-        <label htmlFor="team number">Team Number</label>
-
-        <select
-          id="team number"
-          name="team number"
-          onChange={async (event) =>
-            setMatches(
-              await fetchMatchesByCriteria(
-                matchFields.teamNumber,
-                event.target.value.slice(0, 4) || "0"
-              )
-            )
-          }
-        >
-          {FRCTeamList.map((item, index) => (
-            <option value={item} key={index}>
-              {item}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="recency">Filter By Recency</label>
-        <input
-          type="number"
-          id="recency"
-          name="recency"
-          onChange={(event) => setRecency(parseInt(event.target.value))}
-          min={1}
-          max={matches.length}
-          defaultValue={recency}
-        />
-      </div>
+      <TeamPicker
+        setTeamData={setTeamData}
+        defaultRecency={5}
+      />
       <br />
       <nav className="nav-bar">
         <ul>
