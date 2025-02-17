@@ -53,11 +53,12 @@ export default function ScoutingTab() {
     }
   };
 
-  const getTeamName = (teamNumber: number) => {
-    return FRCTeamList[teamNumber] || "Invalid Team";
+  const isValid = (teamNumber: number) => {
+    return !!FRCTeamList[teamNumber];
   };
 
   const teamNumber = ScouterInputs.teamNumber.getValue();
+  const teamColor = isValid(teamNumber) ? "text-yellow-300" : "text-red-500";
 
   const sectionElement = (
     <div className="space-y-6">
@@ -70,10 +71,11 @@ export default function ScoutingTab() {
         </h2>
         <div className="w-full" />
         <h3
-          className="text-2xl text-yellow-300 mr-5 mt-2"
+          className={`text-2xl ${teamColor} mr-5 mt-2`}
           style={{ fontFamily: "Franklin Gothic Black" }}
         >
-          {teamNumber !== 0 && getTeamName(teamNumber) + ` ${teamNumber}`}
+          {teamNumber !== 0 &&
+            (isValid(teamNumber) ? teamNumber : "Invalid Team")}
         </h3>
       </div>
       <PageTransition>
