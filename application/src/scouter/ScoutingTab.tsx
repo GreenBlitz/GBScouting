@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import React, { useMemo } from "react";
 import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
@@ -83,36 +83,39 @@ export default function ScoutingTab() {
           <Outlet />
         </div>
       </PageTransition>
-      <div className="flex justify-between items-center mt-8">
-        <div className="mr-auto ml-5 mb-2">
-          {!sectionHandler.isFirst() && (
-            <button
-              type="button"
-              onClick={() => sectionHandler.navigatePrevious()}
-              className="py-2 w-20 move-button"
-            >
-              Prev
-            </button>
-          )}
-        </div>
-        <div className="flex gap-4 ml-auto mb-2 mr-2">
-          <CancelConfirmation name="Reset" onClick={handleReset} />
-          {sectionHandler.isLast() ? (
-            <button
-              onClick={handleSubmit}
-              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
-            >
-              Submit
-            </button>
-          ) : (
-            <button
-              onClick={navigateToNext}
-              className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
-            >
-              Next
-            </button>
-          )}
-        </div>
+    </div>
+  );
+
+  const navigationButtons = (
+    <div className="flex justify-between items-center mt-8">
+      <div className="mr-auto ml-5 mb-2">
+        {!sectionHandler.isFirst() && (
+          <button
+            type="button"
+            onClick={() => sectionHandler.navigatePrevious()}
+            className="py-2 w-20 move-button"
+          >
+            Prev
+          </button>
+        )}
+      </div>
+      <div className="flex gap-4 ml-auto mb-2 mr-2">
+        <CancelConfirmation name="Reset" onClick={handleReset} />
+        {sectionHandler.isLast() ? (
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            onClick={navigateToNext}
+            className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
@@ -120,12 +123,15 @@ export default function ScoutingTab() {
   const frontColor =
     sectionHandler.getIndex() === 2 ? "bg-[#2C2C2C]" : "bg-dark-card";
 
+  const location = useLocation();
+
   return (
     <div className="min-h-screen bg-dark-bg">
       {renderScouterNavBar()}
       <div className="max-w-4xl mx-auto py-6">
         <div className={`${frontColor} rounded-lg shadow-lg`}>
           {sectionElement}
+          {!location.pathname.endsWith("reef") && navigationButtons}
         </div>
       </div>
     </div>

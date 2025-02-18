@@ -416,20 +416,23 @@ export class TeamData {
 
   getUsedSides(levels: keyof Match) {
     return this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
-      const sides = matchesAccumulator.concat(
-        Object.values(match[levels] as Levels).reduce<ReefSide[]>(
-          (accumulator, level) => {
-            if ("sides" in level) {
-              return [...accumulator, ...level.sides];
-            }
-            return accumulator;
-          },
-          []
-        )
-      );
-
+      const sides = this.getMatchUsedSides(match, levels);
       return sides.filter((side, index) => sides.indexOf(side) === index);
     }, []);
+  }
+
+  private getMatchUsedSides(match: Match, levels: keyof Match) {
+    const sides = Object.values(match[levels] as Levels).reduce<ReefSide[]>(
+      (accumulator, level) => {
+        if ("sides" in level) {
+          return [...accumulator, ...level.sides];
+        }
+        return accumulator;
+      },
+      []
+    );
+
+    return sides.filter((side, index) => sides.indexOf(side) === index);
   }
 
   getAutos(): Auto[] {
@@ -439,6 +442,7 @@ export class TeamData {
         qual: match.qual,
 
         algeaScoring: match.autoReefPick.algea,
+        sides: this.getMatchUsedSides(match, "autoReefLevels"),
       };
     });
   }

@@ -17,7 +17,7 @@ export const ScouterTeleReef: React.FC = () => {
     <>
       {ScouterInputs.teleopReefLevels.create()}
       <button
-        className="bg-orange-500 w-20 h-10 text-white py-2 px-4 rounded"
+        className="bg-orange-500 w-64 h-16 text-white py-2 px-4 mb-5 rounded"
         onClick={() => navigate("../pick")}
       >
         Back

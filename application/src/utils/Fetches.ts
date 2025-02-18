@@ -26,9 +26,20 @@ export async function fetchData(
   });
 }
 
-export async function fetchMatchesByCriteria(field?: string, value?: string) {
+export async function fetchMatchesByCriteria(
+  field?: string,
+  value?: string
+): Promise<Match[]> {
   const searchedField = field && value ? `${field}/${value}` : ``;
   return await fetchData("Matches/" + searchedField);
+}
+
+export async function fetchAllTeamMatches(): Promise<Record<number, Match[]>> {
+  const matches: Record<number, Match[]> = {};
+  (await fetchMatchesByCriteria()).forEach((match) => {
+    matches[match.teamNumber] = [...(matches[match.teamNumber] || []), match];
+  });
+  return matches;
 }
 
 export async function postMatch(match: Match) {

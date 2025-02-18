@@ -1,9 +1,11 @@
 import { Levels } from "../scouter/input-types/reef-levels/ReefLevelsInput";
+import { ReefSide } from "../scouter/input-types/ReefInput";
 
 export interface Auto {
   qual: number;
   corals: Levels;
   algeaScoring: UsedAlgea;
+  sides: ReefSide[];
 }
 
 export interface Collection {
@@ -20,3 +22,5 @@ export interface UsedAlgea {
   netMiss: number;
   processor: number;
 }
+
+export const currentDistrict = "2025isde2";

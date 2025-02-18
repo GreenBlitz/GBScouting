@@ -4,7 +4,8 @@ import { TeamData } from "../TeamData";
 import { renderStrategyNavBar } from "../App";
 import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
-import { rangeArr } from "../utils/Utils";
+import { FRCTeamList, rangeArr } from "../utils/Utils";
+import { fetchAllTeamMatches, fetchMatchesByCriteria } from "../utils/Fetches";
 
 interface FieldOption {
   name: string;
@@ -58,7 +59,18 @@ const fieldOptions: FieldOption[] = [
 
 const ComparisonTab: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);
-  const [teamNumber, setTeamNumber] = useState<number>(2);
+
+  useEffect(() => {
+    async function updateTeams() {
+      setTeams(
+        Object.values(await fetchAllTeamMatches()).map(
+          (teamMatches) => new TeamData(teamMatches)
+        )
+      );
+    }
+
+    updateTeams();
+  });
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 
@@ -78,60 +90,30 @@ const ComparisonTab: React.FC = () => {
   }, [teams, field]);
 
   return (
-    <div className="flex flex-col items-center">
+    <>
       {renderStrategyNavBar()}
-      <br />
+      <div className="flex flex-col items-center">
+        <br />
 
-      {rangeArr(0, teamNumber).map((index) => (
-        <div className="rower my-5">
-          <TeamPicker
-            setTeamData={(team) => {
-              const newTeams = [...(teams || [])];
-              newTeams[index] = team;
-              setTeams(newTeams);
-            }}
-            defaultRecency={0}
+        <select
+          className="my-5"
+          onChange={(event) => setField(event.currentTarget.value)}
+        >
+          {fieldOptions.map((option) => (
+            <option>{option.name}</option>
+          ))}
+        </select>
+        <div className="w-96 ">
+          <BoxChart
+            data={Object.assign({}, ...teamsData)}
+            xName={"Team"}
+            yName={field}
+            title="Comparison"
+            subtitle="Between FRC Teams"
           />
-          <button
-            onClick={() => {
-              const newTeams = [...(teams || [])];
-              newTeams.splice(index, 1);
-              setTeamNumber(teamNumber - 1);
-              setTeams(newTeams);
-            }}
-            className="ml-5 bg-red-700 w-10 h-10 text-2xl "
-          >
-            -
-          </button>
         </div>
-      ))}
-
-      <button
-        onClick={() => {
-          setTeamNumber(teamNumber + 1);
-        }}
-        className="ml-5 bg-green-700 w-10 h-10 text-2xl "
-      >
-        +
-      </button>
-      <select
-        className="my-5"
-        onChange={(event) => setField(event.currentTarget.value as keyof Match)}
-      >
-        {fieldOptions.map((option) => (
-          <option>{option.name}</option>
-        ))}
-      </select>
-      <div className="w-96 ">
-        <BoxChart
-          data={Object.assign({}, ...teamsData)}
-          xName={"Team"}
-          yName={field}
-          title="Comparison"
-          subtitle="Between FRC Teams"
-        />
       </div>
-    </div>
+    </>
   );
 };
 
