@@ -21,6 +21,7 @@ import ScouterAutonomous, {
   ScouterAutoPick,
   ScouterAutoReef,
 } from "./scouter/tabs/ScouterAutonomous";
+import Leaderboard from "./components/Leaderboard";
 
 function getHiddenImage(path: string) {
   return (
@@ -138,7 +139,9 @@ const App: React.FC = () => {
               <Route path="endgame" element={<StrategyEndgame />} />
             </Route>
             <Route path="/general" element={<GeneralTab />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>
+          
         </PageTransition>
       </div>
     </BrowserRouter>
