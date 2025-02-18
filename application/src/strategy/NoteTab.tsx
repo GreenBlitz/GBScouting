@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { renderStrategyNavBar } from "../App";
 import { fetchMatchResults, MatchResults, postNotes } from "../utils/Fetches";
+import { currentDistrict } from "../utils/SeasonUI";
 
 const NoteTab: React.FC = () => {
   const [qual, setQual] = useState<number>(1);
@@ -9,7 +10,7 @@ const NoteTab: React.FC = () => {
 
   useEffect(() => {
     async function updateMatchResults() {
-      setMatchResults(await fetchMatchResults(`2024isde2_qm${qual}`));
+      setMatchResults(await fetchMatchResults(`${currentDistrict}_qm${qual}`));
     }
     updateMatchResults();
   }, [qual]);
