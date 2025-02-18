@@ -56,9 +56,16 @@ const fieldOptions: FieldOption[] = [
   { name: "Qual", getData: (match) => match.qual },
 ];
 
+interface ComparisonData {
+  teamNumber: number;
+  data?: TeamData;
+}
+
 const ComparisonTab: React.FC = () => {
-  const [teams, setTeams] = useState<TeamData[]>([]);
-  const [teamNumber, setTeamNumber] = useState<number>(2);
+  const [teams, setTeams] = useState<ComparisonData[]>([
+    { teamNumber: 0 },
+    { teamNumber: 0 },
+  ]);
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 
@@ -74,64 +81,73 @@ const ComparisonTab: React.FC = () => {
   };
 
   const teamsData = useMemo(() => {
-    return teams.map((team) => getBoxData(team)) || [];
+    return teams.map((team) => getBoxData(team.data)) || [];
   }, [teams, field]);
 
   return (
-    <div className="flex flex-col items-center">
+    <>
+      {" "}
       {renderStrategyNavBar()}
-      <br />
+      <div className="flex flex-col items-center">
+        <br />
 
-      {rangeArr(0, teamNumber).map((index) => (
-        <div className="rower my-5">
-          <TeamPicker
-            setTeamData={(team) => {
-              const newTeams = [...(teams || [])];
-              newTeams[index] = team;
-              setTeams(newTeams);
-            }}
-            defaultRecency={0}
-          />
-          <button
-            onClick={() => {
-              const newTeams = [...(teams || [])];
-              newTeams.splice(index, 1);
-              setTeamNumber(teamNumber - 1);
-              setTeams(newTeams);
-            }}
-            className="ml-5 bg-red-700 w-10 h-10 text-2xl "
-          >
-            -
-          </button>
-        </div>
-      ))}
-
-      <button
-        onClick={() => {
-          setTeamNumber(teamNumber + 1);
-        }}
-        className="ml-5 bg-green-700 w-10 h-10 text-2xl "
-      >
-        +
-      </button>
-      <select
-        className="my-5"
-        onChange={(event) => setField(event.currentTarget.value as keyof Match)}
-      >
-        {fieldOptions.map((option) => (
-          <option>{option.name}</option>
+        {teams.map((comparedTeam, index) => (
+          <div className="rower my-5">
+            <TeamPicker
+              setTeamData={(teamData) => {
+                const newTeams = [...teams];
+                newTeams[index] = {
+                  teamNumber: comparedTeam.teamNumber,
+                  data: teamData,
+                };
+                setTeams(newTeams);
+              }}
+              defaultRecency={0}
+            />
+            <button
+              onClick={() => {
+                const newTeams = [...(teams || [])];
+                newTeams.splice(index, 1);
+                setTeams(newTeams);
+              }}
+              className="ml-5 bg-red-700 w-10 h-10 text-2xl "
+            >
+              -
+            </button>
+          </div>
         ))}
-      </select>
-      <div className="w-96 ">
-        <BoxChart
-          data={Object.assign({}, ...teamsData)}
-          xName={"Team"}
-          yName={field}
-          title="Comparison"
-          subtitle="Between FRC Teams"
-        />
+
+        <button
+          onClick={() => {
+            const newTeams = [...teams];
+            newTeams.push({ teamNumber: 0 });
+            setTeams(newTeams);
+          }}
+          className="ml-5 bg-green-700 w-10 h-10 text-2xl "
+        >
+          +
+        </button>
+        <select
+          className="my-5"
+          onChange={(event) =>
+            setField(event.currentTarget.value as keyof Match)
+          }
+        >
+          {fieldOptions.map((option) => (
+            <option>{option.name}</option>
+          ))}
+        </select>
+        <div className="w-96 ">
+          <BoxChart
+            data={Object.assign({}, ...teamsData)}
+            xName={"Team"}
+            yName={field}
+            title="Comparison"
+            subtitle="Between FRC Teams"
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

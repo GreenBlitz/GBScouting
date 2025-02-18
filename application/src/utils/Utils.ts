@@ -89,4 +89,6 @@ export const FRCTeamList: Record<number, string> = {
   9739: "Firefly",
   9740: "CAN://Bus",
   9741: "STORM",
+  10139: "Tsunami",
+  10695: "Galileo",
 };
