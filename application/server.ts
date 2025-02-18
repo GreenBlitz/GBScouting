@@ -32,6 +32,10 @@ const mongoURI = process.env.PRODUCTION
   ? "mongodb://mongo:27017"
   : "mongodb://0.0.0.0:27017";
 
+const databaseAUTHToken = [...Array(64)]
+  .map(() => Math.random().toString(36)[2])
+  .join("");
+
 let db: Db;
 
 // Connect to MongoDB
@@ -58,11 +62,16 @@ app.post("/Match", async (req: Request, res: Response) => {
   }
 });
 
-//REMEMBER TO ADD AUTHENTICATION BEFORE DEPLOYMENT IN COMPETITION
 app.delete("/Database", async (req, res) => {
   if (!db) {
     return res.status(500).send("Database not connected");
   }
+  const authToken = req.headers.authorization;
+
+  if (authToken !== databaseAUTHToken) {
+    return res.status(401).send("Unauthorized");
+  }
+
   const matchCollection = db.collection("matches");
   const notesCollection = db.collection("notes");
   try {
@@ -103,6 +112,7 @@ app.get("/Matches/:type/:value", async (req, res) => {
 });
 
 console.log("Is Production: " + !!process.env.PRODUCTION);
+console.log("Database AUTH Token: " + databaseAUTHToken);
 
 app.get("/TheBlueAlliance-event-leaderboard/:event", async (req, res) => {
   try {
