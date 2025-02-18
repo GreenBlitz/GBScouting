@@ -215,7 +215,7 @@ class ReefLevelsInput extends ScouterInput<
           );
         })}
 
-        <div className="flex mb-10">
+        <div className="flex mb-5">
           <button
             className={`${
               this.state.values.algea.collected ? "button-green" : "button-red"
