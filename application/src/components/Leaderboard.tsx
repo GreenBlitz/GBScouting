@@ -18,7 +18,7 @@ const Leaderboard: React.FC = () => {
                 {leaderboardData.map((entry, index) => (
                     <li key={index} className="flex justify-between py-2 border-b last:border-b-0">
                         <span className="font-semibold">{entry.name}</span>
-                        <span className="text-gray-600">{entry.count}</span>
+                        <span className="text-black-600">{entry.count}</span>
                     </li>
                 ))}
             </ul>
