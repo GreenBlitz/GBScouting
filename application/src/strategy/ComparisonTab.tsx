@@ -4,7 +4,8 @@ import { TeamData } from "../TeamData";
 import { renderStrategyNavBar } from "../App";
 import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
-import { rangeArr } from "../utils/Utils";
+import { FRCTeamList, rangeArr } from "../utils/Utils";
+import { fetchAllTeamMatches, fetchMatchesByCriteria } from "../utils/Fetches";
 
 interface FieldOption {
   name: string;
@@ -56,16 +57,20 @@ const fieldOptions: FieldOption[] = [
   { name: "Qual", getData: (match) => match.qual },
 ];
 
-interface ComparisonData {
-  teamNumber: number;
-  data?: TeamData;
-}
-
 const ComparisonTab: React.FC = () => {
-  const [teams, setTeams] = useState<ComparisonData[]>([
-    { teamNumber: 0 },
-    { teamNumber: 0 },
-  ]);
+  const [teams, setTeams] = useState<TeamData[]>([]);
+
+  useEffect(() => {
+    async function updateTeams() {
+      setTeams(
+        Object.values(await fetchAllTeamMatches()).map(
+          (teamMatches) => new TeamData(teamMatches)
+        )
+      );
+    }
+
+    updateTeams();
+  });
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 
@@ -81,7 +86,7 @@ const ComparisonTab: React.FC = () => {
   };
 
   const teamsData = useMemo(() => {
-    return teams.map((team) => getBoxData(team.data)) || [];
+    return teams.map((team) => getBoxData(team)) || [];
   }, [teams, field]);
 
   return (
@@ -91,42 +96,6 @@ const ComparisonTab: React.FC = () => {
       <div className="flex flex-col items-center">
         <br />
 
-        {teams.map((comparedTeam, index) => (
-          <div className="rower my-5">
-            <TeamPicker
-              setTeamData={(teamData) => {
-                const newTeams = [...teams];
-                newTeams[index] = {
-                  teamNumber: comparedTeam.teamNumber,
-                  data: teamData,
-                };
-                setTeams(newTeams);
-              }}
-              defaultRecency={0}
-            />
-            <button
-              onClick={() => {
-                const newTeams = [...(teams || [])];
-                newTeams.splice(index, 1);
-                setTeams(newTeams);
-              }}
-              className="ml-5 bg-red-700 w-10 h-10 text-2xl "
-            >
-              -
-            </button>
-          </div>
-        ))}
-
-        <button
-          onClick={() => {
-            const newTeams = [...teams];
-            newTeams.push({ teamNumber: 0 });
-            setTeams(newTeams);
-          }}
-          className="ml-5 bg-green-700 w-10 h-10 text-2xl "
-        >
-          +
-        </button>
         <select
           className="my-5"
           onChange={(event) =>
