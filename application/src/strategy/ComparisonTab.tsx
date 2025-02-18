@@ -91,16 +91,13 @@ const ComparisonTab: React.FC = () => {
 
   return (
     <>
-      {" "}
       {renderStrategyNavBar()}
       <div className="flex flex-col items-center">
         <br />
 
         <select
           className="my-5"
-          onChange={(event) =>
-            setField(event.currentTarget.value as keyof Match)
-          }
+          onChange={(event) => setField(event.currentTarget.value)}
         >
           {fieldOptions.map((option) => (
             <option>{option.name}</option>
