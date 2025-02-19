@@ -66,6 +66,14 @@ export function renderScouterNavBar() {
             Scan Match
           </Link>
         </li>
+        <li>
+          <Link
+            to="/leaderboard"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Leaderboard
+          </Link>
+        </li>
       </ul>
     </nav>
   );
