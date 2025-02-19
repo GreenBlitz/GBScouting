@@ -1,7 +1,9 @@
 import { Express, Request, Response} from "express";
 import {Db} from "mongodb";
+import fs from "fs";
+import path from "path";
 
-export function applyRoutes(app: Express, db: Db) {
+export function applyRoutes(app: Express, db: Db, dirName: string) {
   // Define routes
   app.post("/Match", async (req: Request, res: Response) => {
     if (!db) {
@@ -18,10 +20,20 @@ export function applyRoutes(app: Express, db: Db) {
     }
   });
 
+  const getterAuthToken = fs.readFileSync(path.resolve(dirName, "get-token.txt")).toString();
+
+  console.log("Getter AUTH Token: " + getterAuthToken);
+
   app.get("/Matches", async (req, res) => {
     if (!db) {
       return res.status(500).send("Database not connected");
     }
+
+    const authToken = req.headers.authorization;
+    if (getterAuthToken !== authToken) {
+      return res.status(401).send("Invalid authorization token");
+    }
+
     const matchCollection = db.collection("matches");
     try {
       const items = await matchCollection.find().toArray();
@@ -35,6 +47,11 @@ export function applyRoutes(app: Express, db: Db) {
     if (!db) {
       return res.status(500).send("Database not connected");
     }
+    const authToken = req.headers.authorization;
+    if (getterAuthToken !== authToken) {
+      return res.status(401).send("Invalid authorization token");
+    }
+
     const matchCollection = db.collection("matches");
     try {
       const items = (await matchCollection.find().toArray()).filter((item) => {

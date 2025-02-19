@@ -57,6 +57,8 @@ export const sessionFolder = new FolderStorage(sessionStorage);
 
 export const inputFolder = localFolder.with("inputs/");
 
+
+
 export class StorageBacked<T> {
   public readonly name: string;
   private readonly storage: FolderStorage | Storage;
@@ -113,3 +115,6 @@ export class StorageBackedInput<T> extends StorageBacked<T> {
     super(name, inputFolder);
   }
 }
+
+
+export const authorizationStorage: StorageBacked<string> = new StorageBacked("strategy/auth",localFolder);

@@ -1,3 +1,4 @@
+import { authorizationStorage } from "./FolderStorage";
 import { Match } from "./Match";
 
 export const getServerHostname = () => {
@@ -5,17 +6,19 @@ export const getServerHostname = () => {
 };
 
 export async function fetchData(field: string);
-export async function fetchData(field: string, method: string, body: string);
+export async function fetchData(field: string, method: string, body: string, authorization?: string);
 export async function fetchData(
   field: string,
   method: string = "GET",
-  body?: string
+  body?: string,
+  authorization: string = "",
 ) {
   return await fetch(`https://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": authorization,
     },
     body: body,
   }).then((response) => {
@@ -31,7 +34,12 @@ export async function fetchMatchesByCriteria(
   value?: string
 ): Promise<Match[]> {
   const searchedField = field && value ? `${field}/${value}` : ``;
-  return await fetchData("Matches/" + searchedField);
+  return await fetchData("Matches/" + searchedField,"GET", "", authorizationStorage.get() || undefined).then((data) => {
+    if (!data) {
+      authorizationStorage.remove();
+    }
+    return data;
+  });
 }
 
 export async function fetchAllTeamMatches(): Promise<Record<number, Match[]>> {
