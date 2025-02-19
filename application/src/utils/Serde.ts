@@ -573,6 +573,8 @@ function serdeReefPick(): Serde<PickValues> {
   };
 }
 
+// the previous use of functions for this that are better written with serdeRecordFieldsBuilder is not reccomended, use it instead of being like yoni  :)
+
 export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["teamNumber", serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT)],
   ["teleopReefLevels", serdeReefLevels()],
