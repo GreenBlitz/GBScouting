@@ -5,14 +5,15 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 import cors from "cors";
-import * as matches from "./matches";
-import * as tba from "./tba";
+import * as matches from "./matches.js";
+import * as tba from "./tba.js";
+import * as notes from "./notes.js";
 
 const app = express();
 const hostname = "0.0.0.0";
 const port = 4590;
 
-const dirName = process.env.PRODUCTION ? "/app" : "";
+const dirName = process.env.PRODUCTION ? "/app" : "../";
 
 // SSL options for HTTPS
 let sslOptions;
@@ -33,7 +34,7 @@ const mongoURI = process.env.PRODUCTION
   ? "mongodb://mongo:27017"
   : "mongodb://0.0.0.0:27017";
 
-const databaseAUTHToken = [...Array(64)]
+const databaseAUTHToken = [...Array(32)]
   .map(() => Math.random().toString(36)[2])
   .join("");
 
@@ -45,9 +46,14 @@ MongoClient.connect(mongoURI)
     console.log("Connected to MongoDB");
     db = client.db("admin");
   })
-  .catch((error) => console.error(`Cannot connect: \n${error}`));
+  .catch((error) => console.error(`Cannot connect: \n${error}`))
+  .then(() => {
+    matches.applyRoutes(app, db);
+    tba.applyRoutes(app, dirName);
+    notes.applyRoutes(app, db);
+  });
 
-app.delete("/Database", async (req, res) => {
+app.delete("/Database", async (req: Request, res: Response) => {
   if (!db) {
     return res.status(500).send("Database not connected");
   }
@@ -67,9 +73,6 @@ app.delete("/Database", async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-matches.applyRoutes(app, db);
-tba.applyRoutes(app, dirName);
 
 console.log("Is Production: " + !!process.env.PRODUCTION);
 console.log("Database AUTH Token: " + databaseAUTHToken);

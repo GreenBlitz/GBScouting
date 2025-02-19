@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "full": "npx tsc -b tsconfig.json && node compiled/server.js",
+    "full": "npx tsc -b tsconfig.json && cd compiled && node server.js",
     "docker-up": "cd .. && docker-compose up ",
     "docker": "cd .. && docker-compose build && docker-compose up",
     "build": "tsc -b && vite build",
