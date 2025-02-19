@@ -6,5 +6,5 @@
     "moduleResolution": "bundler",
     "outDir": "compiled"
   },
-  "files": ["server.ts"]
+  "files": ["src/backend/server.ts"]
 }
