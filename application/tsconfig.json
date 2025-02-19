@@ -3,7 +3,8 @@
     "module": "ES2022",
     "esModuleInterop": true,
     "moduleResolution": "bundler",
-    "outDir": "compiled"
+    "outDir": "compiled",
+    "jsx": "react"
   },
   "include": ["src/backend/**/*.ts"]
 }

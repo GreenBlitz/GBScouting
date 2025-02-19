@@ -8,6 +8,8 @@ import cors from "cors";
 import * as matches from "./matches.js";
 import * as tba from "./tba.js";
 import * as notes from "./notes.js";
+import * as accounts from "./accounts.js";
+
 
 const app = express();
 const hostname = "0.0.0.0";
@@ -45,12 +47,15 @@ MongoClient.connect(mongoURI)
   .then((client) => {
     console.log("Connected to MongoDB");
     db = client.db("admin");
-  })
-  .catch((error) => console.error(`Cannot connect: \n${error}`))
-  .then(() => {
+
     matches.applyRoutes(app, db);
     tba.applyRoutes(app, dirName);
     notes.applyRoutes(app, db);
+    accounts.applyRoutes(app, db);
+  })
+  .catch((error) => console.error(`Cannot connect: \n${error}`))
+  .then(() => {
+    
   });
 
 app.delete("/Database", async (req: Request, res: Response) => {
