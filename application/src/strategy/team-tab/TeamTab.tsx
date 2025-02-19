@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { TeamData } from "../../TeamData";
 import React from "react";
-import { renderStrategyNavBar } from "../../App";
 import { Link, Outlet } from "react-router-dom";
 import TeamPicker from "../../components/TeamPicker";
 
@@ -12,7 +11,6 @@ const TeamTab: React.FC = () => {
 
   return (
     <div className="strategy-app">
-      {renderStrategyNavBar()}
       <br />
       <br />
       <TeamPicker

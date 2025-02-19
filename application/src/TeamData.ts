@@ -416,7 +416,9 @@ export class TeamData {
 
   getUsedSides(levels: keyof Match) {
     return this.matches.reduce<ReefSide[]>((matchesAccumulator, match) => {
-      const sides = this.getMatchUsedSides(match, levels);
+      const sides = matchesAccumulator.concat(
+        this.getMatchUsedSides(match, levels)
+      );
       return sides.filter((side, index) => sides.indexOf(side) === index);
     }, []);
   }

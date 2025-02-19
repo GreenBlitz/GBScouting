@@ -39,7 +39,7 @@ function getHiddenImage(path: string) {
   );
 }
 
-const hiddenImages = [
+export const loadedHiddenImages = [
   "./src/assets/crescendo-map.png",
   "./src/assets/blue-auto-map.png",
   "./src/assets/red-auto-map.png",
@@ -52,7 +52,7 @@ export function renderScouterNavBar() {
     <nav className="bg-dark-card shadow-lg w-86">
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          {[...hiddenImages]}
+          {[...loadedHiddenImages]}
 
           <Link
             to="/scouter/matches"
@@ -75,49 +75,6 @@ export function renderScouterNavBar() {
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Scan Match
-          </Link>
-        </li>
-      </ul>
-    </nav>
-  );
-}
-
-export function renderStrategyNavBar() {
-  return (
-    <nav className="bg-dark-card shadow-lg ">
-      <ul className="flex items-center justify-center space-x-6 py-4">
-        <li>
-          <Link
-            to="/strategy/compare"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Comparison
-          </Link>
-        </li>
-        <li>
-          {[...hiddenImages]}
-
-          <Link
-            to="/strategy/team/autonomous"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Team Data
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/strategy/general"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            General
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/strategy/notes"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Notes
           </Link>
         </li>
       </ul>

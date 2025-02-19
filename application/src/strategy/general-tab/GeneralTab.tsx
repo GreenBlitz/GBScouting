@@ -3,7 +3,6 @@ import TableChart from "../charts/TableChart";
 import { FRCTeamList } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
 import React from "react";
-import { renderStrategyNavBar } from "../../App";
 import { fetchMatchesByCriteria } from "../../utils/Fetches";
 import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 import "./GeneralTable.css";
@@ -215,7 +214,6 @@ const GeneralTab: React.FC = () => {
 
   return (
     <>
-      {renderStrategyNavBar()}
       <table className="mx-auto">
         <thead>
           <tr>
