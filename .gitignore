@@ -27,3 +27,4 @@ application/package-lock.json
 ssl-key.pem
 ssl.pem
 TBAkey.txt
+get-token.txt

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { renderStrategyNavBar } from "../App";
 import { fetchMatchResults, MatchResults, postNotes } from "../utils/Fetches";
 import { currentDistrict } from "../utils/SeasonUI";
 
@@ -56,7 +55,6 @@ const NoteTab: React.FC = () => {
 
   return (
     <>
-      {renderStrategyNavBar()}
       <div className="rower mt-10">
         <h1 className="text-2xl mr-3">Qual</h1>
         <input
@@ -74,7 +72,7 @@ const NoteTab: React.FC = () => {
       <div className="mt-10 bg-red-900">{redAlliance?.map(getTeamElement)}</div>
 
       <button
-        className="bg-green-800"
+        className="bg-green-800 px-12 py-6"
         onClick={() => notes && postNotes(notes, qual)}
       >
         Submit

@@ -14,7 +14,7 @@ const MatchList: React.FC = () => {
 
   function removeMatch(match: Match) {
     Matches.remove(match);
-    navigate("/");
+    navigate("/scouter/matches");
   }
 
   function sendMatch(match: Match) {

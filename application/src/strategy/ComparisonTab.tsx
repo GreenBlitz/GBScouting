@@ -1,11 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import TeamPicker from "../components/TeamPicker";
 import { TeamData } from "../TeamData";
-import { renderStrategyNavBar } from "../App";
 import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
-import { FRCTeamList, rangeArr } from "../utils/Utils";
-import { fetchAllTeamMatches, fetchMatchesByCriteria } from "../utils/Fetches";
+import { fetchAllTeamMatches } from "../utils/Fetches";
 
 interface FieldOption {
   name: string;
@@ -91,7 +88,6 @@ const ComparisonTab: React.FC = () => {
 
   return (
     <>
-      {renderStrategyNavBar()}
       <div className="flex flex-col items-center">
         <br />
 

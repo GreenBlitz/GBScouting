@@ -37,12 +37,12 @@ export default function ScoutingTab() {
         }
       });
     Matches.add(matchValues as Match);
-    navigate("/");
+    navigate("/scouter/matches");
   }
 
   const handleReset = () => {
     inputFolder.keys().forEach((item) => inputFolder.removeItem(item));
-    navigate("/");
+    navigate("/scouter/matches");
   };
 
   const navigateToNext = () => {

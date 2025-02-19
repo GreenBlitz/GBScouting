@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import ScouterTab from "./scouter/ScoutingTab";
 import MatchList from "./scouter/MatchList";
 import ScanningTab from "./scouter/scanner/ScanningTab";
@@ -23,6 +23,9 @@ import ScouterAutonomous, {
 } from "./scouter/tabs/ScouterAutonomous";
 import NoteTab from "./strategy/NoteTab";
 import ComparisonTab from "./strategy/ComparisonTab";
+import Strategy from "./strategy/Strategy";
+import PasswordUpdater from "./components/PasswordUpdater";
+import { authorizationStorage } from "./utils/FolderStorage";
 
 function getHiddenImage(path: string) {
   return (
@@ -36,7 +39,7 @@ function getHiddenImage(path: string) {
   );
 }
 
-const hiddenImages = [
+export const loadedHiddenImages = [
   "./src/assets/crescendo-map.png",
   "./src/assets/blue-auto-map.png",
   "./src/assets/red-auto-map.png",
@@ -49,10 +52,10 @@ export function renderScouterNavBar() {
     <nav className="bg-dark-card shadow-lg w-86">
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          {[...hiddenImages]}
+          {[...loadedHiddenImages]}
 
           <Link
-            to="/"
+            to="/scouter/matches"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Match List
@@ -60,7 +63,7 @@ export function renderScouterNavBar() {
         </li>
         <li>
           <Link
-            to="/scouting/prematch"
+            to="/scouter/scouting/prematch"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Scout Game
@@ -68,53 +71,10 @@ export function renderScouterNavBar() {
         </li>
         <li>
           <Link
-            to="/scanner"
+            to="/scouter/scanner"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Scan Match
-          </Link>
-        </li>
-      </ul>
-    </nav>
-  );
-}
-
-export function renderStrategyNavBar() {
-  return (
-    <nav className="bg-dark-card shadow-lg ">
-      <ul className="flex items-center justify-center space-x-6 py-4">
-        <li>
-          <Link
-            to="/compare"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Comparison
-          </Link>
-        </li>
-        <li>
-          {[...hiddenImages]}
-
-          <Link
-            to="/team/autonomous"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Team Data
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/general"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            General
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/notes"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Notes
           </Link>
         </li>
       </ul>
@@ -143,28 +103,39 @@ const App: React.FC = () => {
       <div className="min-h-screen min-w-screen bg-dark-bg ">
         <PageTransition>
           <Routes>
-            <Route path="/scanner" element={<ScanningTab />} />
-            <Route path="/" element={<MatchList />} />
-            <Route path="/scouting" element={<ScouterTab />}>
-              <Route path="prematch" element={<ScouterPreMatch />} />
-              <Route path="teleoperated" element={<ScouterTeleoperated />}>
-                <Route path="pick" element={<ScouterTelePick />} />
-                <Route path="reef" element={<ScouterTeleReef />} />
+            <Route path="/" element={<Navigate to="/scouter/matches" />} />
+            <Route
+              path="/stratpass"
+              element={
+                <PasswordUpdater storageUpdater={authorizationStorage.set} />
+              }
+            />
+            <Route path="/scouter">
+              <Route path="scanner" element={<ScanningTab />} />
+              <Route path="matches" element={<MatchList />} />
+              <Route path="scouting" element={<ScouterTab />}>
+                <Route path="prematch" element={<ScouterPreMatch />} />
+                <Route path="teleoperated" element={<ScouterTeleoperated />}>
+                  <Route path="pick" element={<ScouterTelePick />} />
+                  <Route path="reef" element={<ScouterTeleReef />} />
+                </Route>
+                <Route path="autonomous" element={<ScouterAutonomous />}>
+                  <Route path="pick" element={<ScouterAutoPick />} />
+                  <Route path="reef" element={<ScouterAutoReef />} />
+                </Route>
+                <Route path="postmatch" element={<ScouterPostMatch />} />
               </Route>
-              <Route path="autonomous" element={<ScouterAutonomous />}>
-                <Route path="pick" element={<ScouterAutoPick />} />
-                <Route path="reef" element={<ScouterAutoReef />} />
+            </Route>
+            <Route path="/strategy" element={<Strategy />}>
+              <Route path="team" element={<TeamTab />}>
+                <Route path="teleoperated" element={<StrategyTeleoperated />} />
+                <Route path="autonomous" element={<StrategyAutonomous />} />
+                <Route path="endgame" element={<StrategyEndgame />} />
               </Route>
-              <Route path="postmatch" element={<ScouterPostMatch />} />
+              <Route path="notes" element={<NoteTab />} />
+              <Route path="general" element={<GeneralTab />} />
+              <Route path="compare" element={<ComparisonTab />} />
             </Route>
-            <Route path="/team" element={<TeamTab />}>
-              <Route path="teleoperated" element={<StrategyTeleoperated />} />
-              <Route path="autonomous" element={<StrategyAutonomous />} />
-              <Route path="endgame" element={<StrategyEndgame />} />
-            </Route>
-            <Route path="/notes" element={<NoteTab />} />
-            <Route path="/general" element={<GeneralTab />} />
-            <Route path="/compare" element={<ComparisonTab />} />
           </Routes>
         </PageTransition>
       </div>
