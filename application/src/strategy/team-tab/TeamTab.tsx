@@ -23,13 +23,13 @@ const TeamTab: React.FC = () => {
       <nav className="nav-bar">
         <ul>
           <li>
-            <Link to="/team/autonomous">Autonomous</Link>
+            <Link to="/strategy/team/autonomous">Autonomous</Link>
           </li>
           <li>
-            <Link to="/team/teleoperated">Teleoperated</Link>
+            <Link to="/strategy/team/teleoperated">Teleoperated</Link>
           </li>
           <li>
-            <Link to="/team/endgame">Endgame</Link>
+            <Link to="/strategy/team/endgame">Endgame</Link>
           </li>
         </ul>
       </nav>

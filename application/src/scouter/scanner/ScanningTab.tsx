@@ -20,7 +20,7 @@ const ScanningTab = () => {
     const data = serde.deserialize(serde.serdeRecord(serde.qrSerde).deserializer,decode(result.data));
     console.log("data: " + data);
 
-    navigate("/", { state: data });
+    navigate("/scouter/matches", { state: data });
   };
 
   const onScanFail = (err: string | Error) => {

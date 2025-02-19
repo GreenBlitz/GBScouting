@@ -6,7 +6,7 @@ export const getServerHostname = () => {
 };
 
 export async function fetchData(field: string);
-export async function fetchData(field: string, method: string, body: string, authorization?: string);
+export async function fetchData(field: string, method: string, body?: string, authorization?: string);
 export async function fetchData(
   field: string,
   method: string = "GET",
@@ -34,7 +34,7 @@ export async function fetchMatchesByCriteria(
   value?: string
 ): Promise<Match[]> {
   const searchedField = field && value ? `${field}/${value}` : ``;
-  return await fetchData("Matches/" + searchedField,"GET", "", authorizationStorage.get() || undefined).then((data) => {
+  return await fetchData("Matches/" + searchedField,"GET", undefined, authorizationStorage.get() || undefined).then((data) => {
     if (!data) {
       authorizationStorage.remove();
     }

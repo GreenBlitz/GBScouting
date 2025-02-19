@@ -98,7 +98,7 @@ export class StorageBacked<T> {
   }
 
   exists(): boolean {
-    return !!inputFolder.getItem(this.name);
+    return !!this.storage.getItem(this.name);
   }
 
   with(route: string): StorageBacked<T> {
