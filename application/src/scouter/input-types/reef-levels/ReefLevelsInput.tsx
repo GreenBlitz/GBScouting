@@ -177,23 +177,8 @@ class ReefLevelsInput extends ScouterInput<
       });
     };
 
-    const isBlue = ScouterInputs.gameSide.getValue() === "Blue";
-    const correctSide = isBlue
-      ? this.props.reefInput.getValue()
-      : this.props.reefInput.getOppositeSide(this.props.reefInput.getValue());
-
     return (
       <div className="flex flex-col items-center">
-        <h1 className="text-2xl font-bold">
-          Side{" "}
-          {
-            (
-              triangleButtonMiddles.find((value) =>
-                areReefsSame(value.reefSide, correctSide)
-              ) || triangleButtonMiddles[0]
-            ).name
-          }
-        </h1>
         {levelKeys.map((levelKey) => {
           const level = levelKey as keyof Levels;
           return (
