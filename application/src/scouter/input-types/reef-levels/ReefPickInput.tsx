@@ -1,14 +1,11 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../../ScouterInput";
 import "./reefScore.css";
-import coralSVG from "../../../assets/low-coral.svg";
-import algeaSVG from "../../../assets/low-algea.svg";
 import { StorageBacked } from "../../../utils/FolderStorage";
 import { Collection, UsedAlgea } from "../../../utils/SeasonUI";
 
 export interface PickValues {
   algea: UsedAlgea;
-  collected: Collection;
   levels: Levels;
 }
 
@@ -31,8 +28,7 @@ interface CoralAction {
 
 type AlgeaAction = keyof UsedAlgea;
 
-type CollectionAction = keyof Collection;
-type Action = AlgeaAction | CollectionAction | CoralAction;
+type Action = AlgeaAction | CoralAction;
 
 class ReefPickInput extends ScouterInput<
   PickValues,
@@ -63,13 +59,6 @@ class ReefPickInput extends ScouterInput<
         netScore: 0,
         netMiss: 0,
         processor: 0,
-      },
-      collected: {
-        coralFeederCollected: false,
-        coralGroundCollected: false,
-        algeaGroundCollected: false,
-        algeaReefCollected: false,
-        algeaReefDropped: false,
       },
       levels: {
         L1: {
@@ -116,14 +105,6 @@ class ReefPickInput extends ScouterInput<
     this.undoStack.set([...(this.undoStack.get() || []), action]);
   }
 
-  updateCollection(action: CollectionAction) {
-    this.state.objectives.collected[action] =
-      !this.state.objectives.collected[action];
-    this.setState(this.state);
-    this.storage.set(this.state.objectives);
-    this.undoStack.set([...(this.undoStack.get() || []), action]);
-  }
-
   undo() {
     const actions = this.undoStack.get() || [];
     if (actions.length > 0) {
@@ -133,15 +114,11 @@ class ReefPickInput extends ScouterInput<
       }
       const coralAction = lastAction as CoralAction;
       const algeaAction = lastAction as AlgeaAction;
-      const collectionAction = lastAction as CollectionAction;
 
       if (coralAction.level && coralAction.point) {
         this.state.objectives.levels[coralAction.level][coralAction.point]--;
-      } else if (algeaAction in this.state.objectives.algea) {
+      } else {
         this.state.objectives.algea[algeaAction]--;
-      } else if (collectionAction in this.state.objectives.collected) {
-        this.state.objectives.collected[collectionAction] =
-          !this.state.objectives.collected[collectionAction];
       }
       this.undoStack.set(actions);
     }
@@ -150,48 +127,6 @@ class ReefPickInput extends ScouterInput<
   }
 
   renderInput(): React.ReactNode {
-    const coralFeederButton = (
-      <button
-        className={`${
-          this.state.objectives.collected.coralFeederCollected
-            ? "button-green"
-            : "button-red"
-        } big-button ml-0`}
-        onClick={() => this.updateCollection("coralFeederCollected")}
-      >
-        <h2 className="absolute mb-16 text-2xl font-extrabold">Feeder</h2>
-        <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
-      </button>
-    );
-
-    const coralGroundButton = (
-      <button
-        className={`${
-          this.state.objectives.collected.coralGroundCollected
-            ? "button-green"
-            : "button-red"
-        } big-button ml-0`}
-        onClick={() => this.updateCollection("coralGroundCollected")}
-      >
-        <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
-        <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
-      </button>
-    );
-
-    const algeaGroundButton = (
-      <button
-        className={`${
-          this.state.objectives.collected.algeaGroundCollected
-            ? "button-green"
-            : "button-red"
-        } big-button mx-0`}
-        onClick={() => this.updateCollection("algeaGroundCollected")}
-      >
-        <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
-        <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
-      </button>
-    );
-
     const processorButton = (
       <button
         className="buttonS ml-4 mr-2 items-center flex flex-col justify-center mb-4"
@@ -254,34 +189,6 @@ class ReefPickInput extends ScouterInput<
       );
     });
 
-    const algeaCollectedButton = (
-      <button
-        className={`${
-          this.state.objectives.collected.algeaReefCollected
-            ? "button-green"
-            : "button-red"
-        } big-button ml-0`}
-        onClick={() => this.updateCollection("algeaReefCollected")}
-      >
-        <h2 className="absolute mb-16 text-2xl font-extrabold">Collected</h2>
-        <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
-      </button>
-    );
-
-    const algeaDroppedButton = (
-      <button
-        className={`${
-          this.state.objectives.collected.algeaReefDropped
-            ? "button-green"
-            : "button-red"
-        } big-button ml-0`}
-        onClick={() => this.updateCollection("algeaReefDropped")}
-      >
-        <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
-        <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
-      </button>
-    );
-
     return (
       <div className="flex items-center justify-center flex-col">
         <div className="flex flex-row justify-center">
@@ -290,18 +197,7 @@ class ReefPickInput extends ScouterInput<
           {processorButton}
         </div>
 
-        <div className="flex flex-row justify-center">
-          <div className="flex flex-col justify-center mr-5">
-            {levelelements}
-          </div>
-          <div className="flex flex-col ml-5">
-            {coralFeederButton}
-            {coralGroundButton}
-            {algeaGroundButton}
-            {algeaCollectedButton}
-            {algeaDroppedButton}
-          </div>
-        </div>
+        <div className="flex flex-col justify-center">{levelelements}</div>
         {undoButton}
       </div>
     );

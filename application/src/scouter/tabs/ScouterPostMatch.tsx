@@ -9,6 +9,7 @@ const ScouterPostMatch: React.FC = () => {
         ScouterInputs.comment,
         ScouterInputs.defense,
         ScouterInputs.defensiveEvasion,
+        ScouterInputs.endgameCollection,
       ])}
     </>
   );

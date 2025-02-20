@@ -5,6 +5,7 @@ import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckBoxedSliderInput";
 import ReefPickInput from "./input-types/reef-levels/ReefPickInput";
+import CollectionInput from "./input-types/CollectionInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -79,5 +80,9 @@ export default class ScouterInputs {
 
   static readonly autoReefPick = new ReefPickInput({
     route: "autoReefPick",
+  });
+
+  static readonly endgameCollection = new CollectionInput({
+    route: "collection",
   });
 }

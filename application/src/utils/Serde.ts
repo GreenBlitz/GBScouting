@@ -519,7 +519,6 @@ function serdeReefPick(): Serde<PickValues> {
   const levelsSerder = serdeReefLevels();
   function serializer(serializedData: BitArray, values: PickValues) {
     algeaSerder.serializer(serializedData, values.algea);
-    collectedSerder.serializer(serializedData, values.collected);
     levelsSerder.serializer(serializedData, values.levels);
   }
   function deserializer(serializedData: BitArray) {
@@ -541,6 +540,7 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["teamNumber", serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT)],
   ["teleReefPick", serdeReefPick()],
   ["autoReefPick", serdeReefPick()],
+  ["endgameCollection", serdeCollectedObjects()],
   ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["gameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
