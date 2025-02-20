@@ -37,7 +37,6 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
 
     const authToken = req.headers.authorization;
 
-    console.log("Auth Token: " + authToken, "Getter Auth Token: " + getterAuthToken);  
     if (getterAuthToken !== authToken) {
       return res.status(401).send("Invalid authorization token");
     }
@@ -57,9 +56,17 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
     const authToken = req.headers.authorization;
 
-    console.log("Auth Token: " + authToken, "Getter Auth Token: " + getterAuthToken);  
+    console.log(
+      "Auth Token: " + authToken,
+      "Getter Auth Token: " + getterAuthToken
+    );
 
     if (getterAuthToken !== authToken) {
+      console.log(
+        "Getter Auth Token: " + getterAuthToken,
+        "Auth Token: " + authToken
+      );
+
       return res.status(401).send("Invalid authorization token");
     }
 
