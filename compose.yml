@@ -1,11 +1,11 @@
-version: '3.7'
+version: "3.7"
 
 services:
   application:
     build:
       context: application
     environment:
-      PRODUCTION: TRUE
+      PRODUCTION: "TRUE"
     ports:
       - 5173:5173
       - 4590:4590
@@ -27,7 +27,8 @@ services:
       - express-mongo
     expose:
       - 27017
-    attach: false
+    logging:
+      driver: ""
 
 networks:
   react-express:
