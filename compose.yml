@@ -28,7 +28,7 @@ services:
     expose:
       - 27017
     logging:
-      driver: ""
+      driver: "none"
 
 networks:
   react-express:
