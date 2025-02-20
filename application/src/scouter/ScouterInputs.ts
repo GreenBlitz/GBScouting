@@ -3,7 +3,7 @@ import NumberInput from "./input-types/NumberInput";
 import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
-import CheckboxedSliderInput from "./input-types/CheckboxedSliderInput";
+import CheckboxedSliderInput from "./input-types/CheckBoxedSliderInput";
 import ReefLevelsInput from "./input-types/reef-levels/ReefLevelsInput";
 import ReefPickInput from "./input-types/ReefPickInput";
 import ReefInput from "./input-types/ReefInput";

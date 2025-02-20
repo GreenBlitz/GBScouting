@@ -1,5 +1,5 @@
-import { Express, Request, Response} from "express";
-import {Db} from "mongodb";
+import { Express, Request, Response } from "express";
+import { Db } from "mongodb";
 import fs from "fs";
 import path from "path";
 
@@ -20,7 +20,13 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
   });
 
-  const getterAuthToken = fs.readFileSync(path.resolve(dirName, "get-token.txt")).toString();
+  const getterAuthToken = (() => {
+    try {
+      return fs.readFileSync(path.resolve(dirName, "get-token.txt")).toString();
+    } catch (error) {
+      return "";
+    }
+  })();
 
   console.log("Getter AUTH Token: " + getterAuthToken);
 
@@ -42,7 +48,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       res.status(500).send(error);
     }
   });
-  
+
   app.get("/Matches/:type/:value", async (req, res) => {
     if (!db) {
       return res.status(500).send("Database not connected");
@@ -62,6 +68,4 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       res.status(500).send(error);
     }
   });
-  
-  
 }

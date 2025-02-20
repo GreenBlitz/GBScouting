@@ -58,7 +58,7 @@ export function renderScouterNavBar() {
             to="/scouter/matches"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
-            Match List
+            Matches
           </Link>
         </li>
         <li>
@@ -66,7 +66,7 @@ export function renderScouterNavBar() {
             to="/scouter/scouting/prematch"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
-            Scout Game
+            Scout
           </Link>
         </li>
         <li>
@@ -74,7 +74,7 @@ export function renderScouterNavBar() {
             to="/scouter/scanner"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
-            Scan Match
+            Scan
           </Link>
         </li>
       </ul>
