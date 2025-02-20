@@ -240,7 +240,7 @@ class ReefLevelsInput extends ScouterInput<
 
         <div className="flex">
           <button
-            className="undo-color w-48 h-20 text-white py-2 px-4 rounded"
+            className="undo-color w-48 h-10 text-white py-2 px-4 rounded"
             onClick={handleUndo}
           >
             Undo

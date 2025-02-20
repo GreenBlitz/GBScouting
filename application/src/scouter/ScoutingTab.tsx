@@ -87,7 +87,7 @@ export default function ScoutingTab() {
   );
 
   const navigationButtons = (
-    <div className="flex justify-between items-center mt-8">
+    <div className="flex justify-between items-center mt-4">
       <div className="mr-auto ml-5 mb-2">
         {!sectionHandler.isFirst() && (
           <button

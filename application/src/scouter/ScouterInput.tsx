@@ -13,11 +13,11 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   InputProps<T> & Props,
   State
 > {
-  public readonly storage: StorageBackedInput<T>;  
+  public readonly storage: StorageBackedInput<T>;
   constructor(props: InputProps<T> & Props) {
     super(props);
     this.storage = new StorageBackedInput<T>(this.props.route);
-    
+
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
@@ -29,13 +29,13 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
       this.storage.set(this.defaultValue());
     }
     return (
-      <div className="p-4 space-y-2">
+      <div className="p-4 space-y-2 flex flex-row items-center justify-center">
         {this.props.name && (
-          <h2 className="text-lg font-semibold text-dark-text">
+          <h1 className="text-lg font-semibold text-dark-text mr-2 whitespace-nowrap">
             {this.props.name}
-          </h2>
+          </h1>
         )}
-        <div className="w-full">{this.renderInput()}</div>
+        <div className="">{this.renderInput()}</div>
       </div>
     );
   }

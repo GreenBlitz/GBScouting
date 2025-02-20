@@ -62,11 +62,6 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     );
 
     if (getterAuthToken !== authToken) {
-      console.log(
-        "Getter Auth Token: " + getterAuthToken,
-        "Auth Token: " + authToken
-      );
-
       return res.status(401).send("Invalid authorization token");
     }
 
