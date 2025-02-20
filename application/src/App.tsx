@@ -107,7 +107,7 @@ const App: React.FC = () => {
             <Route
               path="/stratpass"
               element={
-                <PasswordUpdater storageUpdater={authorizationStorage.set} />
+                <PasswordUpdater storageUpdater={(value) => authorizationStorage.set(value)} />
               }
             />
             <Route path="/scouter">

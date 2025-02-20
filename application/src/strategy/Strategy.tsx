@@ -5,6 +5,7 @@ import PasswordUpdater from "../components/PasswordUpdater";
 import { loadedHiddenImages } from "../App";
 
 const Strategy: React.FC = () => {
+  const setReload = useState(false)[1];
   const navBar = (
     <nav className="bg-dark-card shadow-lg ">
       <ul className="flex items-center justify-center space-x-6 py-4">
@@ -47,10 +48,22 @@ const Strategy: React.FC = () => {
   );
 
   if (authorizationStorage.get()) {
-    return <>{navBar}<Outlet /></>;
+    return (
+      <>
+        {navBar}
+        <Outlet />
+      </>
+    );
   }
 
-  return <PasswordUpdater storageUpdater={authorizationStorage.set} />;
+  return (
+    <PasswordUpdater
+      storageUpdater={(value) => {
+        authorizationStorage.set(value);
+        setReload(true);
+      }}
+    />
+  );
 };
 
 export default Strategy;
