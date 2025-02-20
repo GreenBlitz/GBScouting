@@ -6,6 +6,7 @@ import algeaSVG from "../../assets/low-algea.svg";
 import ReefInput from "./ReefInput";
 import { StorageBacked } from "../../utils/FolderStorage";
 import { UsedAlgea } from "../../utils/SeasonUI";
+import ReefLevelsInput from "./reef-levels/ReefLevelsInput";
 
 export interface CollectedObject {
   coralFeeder: boolean;
@@ -23,14 +24,14 @@ type Action = AlgeaAction | CollectionAction;
 
 class ReefPickInput extends ScouterInput<
   PickValues,
-  { reefInput: ReefInput },
+  { reefInput: ReefLevelsInput },
   {
     objectives: PickValues;
   }
 > {
   private readonly undoStack: StorageBacked<Action[]>;
 
-  constructor(props: InputProps<PickValues> & { reefInput: ReefInput }) {
+  constructor(props: InputProps<PickValues> & { reefInput: ReefLevelsInput }) {
     super(props);
     this.undoStack = this.storage.subItem<Action[]>("/undoStack");
   }

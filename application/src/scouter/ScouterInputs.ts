@@ -83,7 +83,7 @@ export default class ScouterInputs {
 
   static readonly teleReefPick = new ReefPickInput({
     route: "teleReefPick",
-    reefInput: this.teleopReef,
+    reefInput: this.teleopReefLevels,
   });
 
   // static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
@@ -106,6 +106,6 @@ export default class ScouterInputs {
 
   static readonly autoReefPick = new ReefPickInput({
     route: "autoReefPick",
-    reefInput: this.autoReef,
+    reefInput: this.teleopReefLevels,
   });
 }
