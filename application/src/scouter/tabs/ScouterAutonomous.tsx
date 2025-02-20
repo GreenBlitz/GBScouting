@@ -15,13 +15,13 @@ export const ScouterAutoReef: React.FC = () => {
 
   return (
     <>
-      {ScouterInputs.autoReefLevels.create()}
       <button
         className="bg-orange-500 w-64 h-16 text-white py-2 px-4 mb-5 rounded"
         onClick={() => navigate("../pick")}
       >
         Back
       </button>
+      {ScouterInputs.autoReefLevels.create()}
     </>
   );
 };
