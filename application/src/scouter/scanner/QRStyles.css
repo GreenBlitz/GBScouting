@@ -1,8 +1,3 @@
-.qr-reader {
-  width: 24rem;
-  height: 100vh;
-  position: relative;
-}
 
 .qr-reader video {
   width: 100%;
