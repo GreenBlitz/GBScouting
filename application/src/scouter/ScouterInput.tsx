@@ -29,13 +29,16 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
       this.storage.set(this.defaultValue());
     }
     return (
-      <div className="p-4 space-y-2 flex flex-row items-center justify-center">
-        {this.props.name && (
-          <h1 className="text-lg font-semibold text-dark-text mr-2 whitespace-nowrap">
-            {this.props.name}
-          </h1>
-        )}
-        <div className="">{this.renderInput()}</div>
+      <div className="p-4 space-y-2">
+        <div className=" flex flex-row items-center justify-center">
+          {this.props.name && (
+            <h1 className="text-lg font-semibold text-dark-text mr-2 whitespace-nowrap">
+              {this.props.name}
+            </h1>
+          )}
+          {this.renderInput()}
+        </div>
+        {this.renderBelow()}
       </div>
     );
   }
@@ -62,6 +65,9 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
 
   abstract create(): React.JSX.Element;
   abstract renderInput(): React.ReactNode;
+  renderBelow(): React.ReactNode {
+    return <></>;
+  }
   abstract initialValue(props: InputProps<T> & Props): T;
 }
 
