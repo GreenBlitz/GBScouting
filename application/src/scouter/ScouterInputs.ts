@@ -106,6 +106,6 @@ export default class ScouterInputs {
 
   static readonly autoReefPick = new ReefPickInput({
     route: "autoReefPick",
-    reefInput: this.teleopReefLevels,
+    reefInput: this.autoReefLevels,
   });
 }
