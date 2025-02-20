@@ -4,9 +4,7 @@ import TextInput from "./input-types/TextInput";
 import ScouterInput from "./ScouterInput";
 import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckBoxedSliderInput";
-import ReefLevelsInput from "./input-types/reef-levels/ReefLevelsInput";
-import ReefPickInput from "./input-types/ReefPickInput";
-import ReefInput from "./input-types/ReefInput";
+import ReefPickInput from "./input-types/reef-levels/ReefPickInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -69,21 +67,8 @@ export default class ScouterInputs {
     name: "Comment",
   });
 
-  static readonly teleopReef = new ReefInput({
-    route: "teleopReef",
-    navigationDestination: "../reef",
-    triangleColor: "#18723c",
-    backgroundColor: "#2c2c2c",
-  });
-
-  static readonly teleopReefLevels = new ReefLevelsInput({
-    route: "teleopReefLevels",
-    reefInput: this.teleopReef,
-  });
-
   static readonly teleReefPick = new ReefPickInput({
     route: "teleReefPick",
-    reefInput: this.teleopReefLevels,
   });
 
   // static readonly autoMap = new AutonomousMapInput({ route: "autoMap" });
@@ -92,20 +77,7 @@ export default class ScouterInputs {
   //   name: "Coral Feeder",
   // });
 
-  static readonly autoReef = new ReefInput({
-    route: "autoReef",
-    navigationDestination: "../reef",
-    triangleColor: "#18723c",
-    backgroundColor: "#1f2937",
-  });
-
-  static readonly autoReefLevels = new ReefLevelsInput({
-    route: "autoReefLevels",
-    reefInput: this.autoReef,
-  });
-
   static readonly autoReefPick = new ReefPickInput({
     route: "autoReefPick",
-    reefInput: this.autoReefLevels,
   });
 }

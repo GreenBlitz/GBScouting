@@ -75,10 +75,10 @@ function processTeamData(teamNumber: number, data: TeamData): GridItems {
       "processor"
     ),
     Auto: data.getAverageAutoScore(),
-    L4: data.getAverage(matchFieldNames.teleopReefLevels, ["L4", "score"]),
-    L3: data.getAverage(matchFieldNames.teleopReefLevels, ["L3", "score"]),
-    L2: data.getAverage(matchFieldNames.teleopReefLevels, ["L2", "score"]),
-    L1: data.getAverage(matchFieldNames.teleopReefLevels, ["L1", "score"]),
+    L4: data.getAverage(matchFieldNames.teleReefPick, ["levels","L4", "score"]),
+    L3: data.getAverage(matchFieldNames.teleReefPick, ["levels","L3", "score"]),
+    L2: data.getAverage(matchFieldNames.teleReefPick, ["levels","L2", "score"]),
+    L1: data.getAverage(matchFieldNames.teleReefPick, ["levels","L1", "score"]),
     Defense: data.getAverage(matchFieldNames.defense),
     Evasion: data.getAverage(matchFieldNames.defensiveEvasion),
   };

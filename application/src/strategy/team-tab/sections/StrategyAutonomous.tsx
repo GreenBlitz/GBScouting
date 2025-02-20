@@ -7,7 +7,6 @@ import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import { Auto } from "../../../utils/SeasonUI";
 import CollectionChart from "../../charts/CollectionChart";
-import ReefChart from "../../charts/ReefChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
@@ -30,7 +29,8 @@ const StrategyAutonomous: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.autoReefLevels, [
+                  data: teamData.getAsLine(matchFieldNames.autoReefPick, [
+                    "levels",
                     key,
                     "score",
                   ]),
@@ -49,7 +49,8 @@ const StrategyAutonomous: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.autoReefLevels, [
+                  data: teamData.getAsLine(matchFieldNames.autoReefPick, [
+                    "levels",
                     key,
                     "miss",
                   ]),
@@ -61,13 +62,7 @@ const StrategyAutonomous: React.FC = () => {
       </div>
       <div className="h-48" />
       <div className="rower">
-        <CollectionChart
-          collection={teamData.getCollections(
-            "autoReefLevels",
-            "autoReefPick"
-          )}
-        />
-        <ReefChart sides={teamData.getUsedSides("autoReefLevels")} />
+        <CollectionChart collection={teamData.getCollections("autoReefPick")} />
       </div>
       <div className="h-48" />
       <div className="flex flex-col items-center">

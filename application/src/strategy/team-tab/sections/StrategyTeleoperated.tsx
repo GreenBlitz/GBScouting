@@ -6,8 +6,6 @@ import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
-import ReefChart from "../../charts/ReefChart";
-import BoxChart from "../../charts/BoxChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
 
@@ -28,7 +26,8 @@ const StrategyTeleoperated: React.FC = () => {
         <RadarComponent
           inputs={[
             {
-              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
+              value: teamData.getAverage(matchFieldNames.teleReefPick, [
+                "levels",
                 "L4",
                 "score",
               ]),
@@ -37,7 +36,8 @@ const StrategyTeleoperated: React.FC = () => {
             },
 
             {
-              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
+              value: teamData.getAverage(matchFieldNames.teleReefPick, [
+                "levels",
                 "L3",
                 "score",
               ]),
@@ -46,7 +46,8 @@ const StrategyTeleoperated: React.FC = () => {
             },
 
             {
-              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
+              value: teamData.getAverage(matchFieldNames.teleReefPick, [
+                "levels",
                 "L2",
                 "score",
               ]),
@@ -78,7 +79,8 @@ const StrategyTeleoperated: React.FC = () => {
         <RadarComponent
           inputs={[
             {
-              value: teamData.getAverage(matchFieldNames.teleopReefLevels, [
+              value: teamData.getAverage(matchFieldNames.teleReefPick, [
+                "levels",
                 "L1",
                 "score",
               ]),
@@ -117,13 +119,7 @@ const StrategyTeleoperated: React.FC = () => {
       <br />
       <div className="h-20" />
       <div className="rower">
-        <CollectionChart
-          collection={teamData.getCollections(
-            "teleopReefLevels",
-            "teleReefPick"
-          )}
-        />
-        <ReefChart sides={teamData.getUsedSides("teleopReefLevels")} />
+        <CollectionChart collection={teamData.getCollections("teleReefPick")} />
       </div>
       <div className="h-20" />
       <div className="section">
@@ -179,7 +175,8 @@ const StrategyTeleoperated: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.teleopReefLevels, [
+                  data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+                    "levels",
                     key,
                     "score",
                   ]),
@@ -199,7 +196,8 @@ const StrategyTeleoperated: React.FC = () => {
               return {
                 [key]: {
                   color: value,
-                  data: teamData.getAsLine(matchFieldNames.teleopReefLevels, [
+                  data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+                    "levels",
                     key,
                     "miss",
                   ]),

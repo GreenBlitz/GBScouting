@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
+import PercentageBarChart from "./PercentageBarChart";
+import Percent from "../../utils/Percent";
 import {
   Level,
   Levels,
-} from "../../scouter/input-types/reef-levels/ReefLevelsInput";
-import PercentageBarChart from "./PercentageBarChart";
-import Percent from "../../utils/Percent";
+} from "../../scouter/input-types/reef-levels/ReefPickInput";
 
 interface CoralChartProps {
   corals: Levels;

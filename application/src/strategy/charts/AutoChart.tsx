@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, {} from "react";
 import { Auto } from "../../utils/SeasonUI";
-import { Levels } from "../../scouter/input-types/reef-levels/ReefLevelsInput";
 import BranchSVG from "../../assets/branch-right.svg";
-import ReefChart from "./ReefChart";
+import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
 
 interface AutoProps {
   auto: Auto;
@@ -68,7 +67,6 @@ const AutoChart: React.FC<AutoProps> = ({ auto }) => {
           {auto.algeaScoring.processor !== 0 && auto.algeaScoring.processor}
         </h3>
       </button>
-      <ReefChart sides={auto.sides} />
     </div>
   );
 

@@ -21,22 +21,22 @@ const fieldOptions: FieldOption[] = [
   {
     name: "L1",
     getData: (match) =>
-      match.teleopReefLevels.L1.score + match.autoReefLevels.L1.score,
+      match.teleReefPick.levels.L1.score + match.autoReefPick.levels.L1.score,
   },
   {
     name: "L2",
     getData: (match) =>
-      match.teleopReefLevels.L2.score + match.autoReefLevels.L2.score,
+      match.teleReefPick.levels.L2.score + match.autoReefPick.levels.L2.score,
   },
   {
     name: "L3",
     getData: (match) =>
-      match.teleopReefLevels.L3.score + match.autoReefLevels.L3.score,
+      match.teleReefPick.levels.L3.score + match.autoReefPick.levels.L3.score,
   },
   {
     name: "L4",
     getData: (match) =>
-      match.teleopReefLevels.L4.score + match.autoReefLevels.L4.score,
+      match.teleReefPick.levels.L4.score + match.autoReefPick.levels.L4.score,
   },
   {
     name: "Net",

@@ -10,7 +10,6 @@ import TeamTab from "./strategy/team-tab/TeamTab";
 import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
 import ScouterTeleoperated, {
   ScouterTelePick,
-  ScouterTeleReef,
 } from "./scouter/tabs/ScouterTeleoperated";
 import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
 import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
@@ -19,7 +18,6 @@ import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 import PageTransition from "./components/PageTransition";
 import ScouterAutonomous, {
   ScouterAutoPick,
-  ScouterAutoReef,
 } from "./scouter/tabs/ScouterAutonomous";
 import NoteTab from "./strategy/NoteTab";
 import ComparisonTab from "./strategy/ComparisonTab";
@@ -107,7 +105,9 @@ const App: React.FC = () => {
             <Route
               path="/stratpass"
               element={
-                <PasswordUpdater storageUpdater={(value) => authorizationStorage.set(value)} />
+                <PasswordUpdater
+                  storageUpdater={(value) => authorizationStorage.set(value)}
+                />
               }
             />
             <Route path="/scouter">
@@ -117,11 +117,9 @@ const App: React.FC = () => {
                 <Route path="prematch" element={<ScouterPreMatch />} />
                 <Route path="teleoperated" element={<ScouterTeleoperated />}>
                   <Route path="pick" element={<ScouterTelePick />} />
-                  <Route path="reef" element={<ScouterTeleReef />} />
                 </Route>
                 <Route path="autonomous" element={<ScouterAutonomous />}>
                   <Route path="pick" element={<ScouterAutoPick />} />
-                  <Route path="reef" element={<ScouterAutoReef />} />
                 </Route>
                 <Route path="postmatch" element={<ScouterPostMatch />} />
               </Route>
