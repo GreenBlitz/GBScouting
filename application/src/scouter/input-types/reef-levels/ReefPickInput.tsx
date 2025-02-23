@@ -192,12 +192,13 @@ class ReefPickInput extends ScouterInput<
     return (
       <div className="flex items-center justify-center flex-col">
         <div className="flex flex-row justify-center">
-          {netScoreButton}
-          {netMissButton}
-          {processorButton}
+          <div className="flex flex-col justify-center">{levelelements}</div>
+          <div className="flex flex-col justify-center items-center">
+            {netScoreButton}
+            {netMissButton}
+            {processorButton}
+          </div>
         </div>
-
-        <div className="flex flex-col justify-center">{levelelements}</div>
         {undoButton}
       </div>
     );
