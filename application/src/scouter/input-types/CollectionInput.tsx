@@ -100,7 +100,7 @@ class CollectionInput extends ScouterInput<
     );
 
     return (
-      <>
+      <div className="flex flex-col items-center">
         <div className="rower">
           {algeaGroundButton}
           {algeaCollectedButton}
@@ -110,7 +110,7 @@ class CollectionInput extends ScouterInput<
           {coralFeederButton}
           {coralGroundButton}
         </div>
-      </>
+      </div>
     );
   }
 
