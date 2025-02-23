@@ -91,7 +91,7 @@ class CollectionInput extends ScouterInput<
       <button
         className={`${
           this.state.objectives.algeaReefDropped ? "button-green" : "button-red"
-        } big-button ml-0`}
+        } big-button mx-0`}
         onClick={() => this.updateCollection("algeaReefDropped")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
