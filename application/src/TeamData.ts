@@ -384,26 +384,21 @@ export class TeamData {
     return values;
   }
 
-  getCollections(pick: keyof Match): Collection {
+  getCollections(): Collection {
     return this.matches.reduce<Collection>(
       (accumulator, match) => {
-        const reefPick = match[pick] as PickValues;
+        const collection = match.endgameCollection;
         return {
           algeaReefCollected:
-            reefPick.collected.algeaReefCollected ||
-            accumulator.algeaReefCollected,
+            collection.algeaReefCollected || accumulator.algeaReefCollected,
           algeaReefDropped:
-            reefPick.collected.algeaReefCollected ||
-            accumulator.algeaReefDropped,
+            collection.algeaReefCollected || accumulator.algeaReefDropped,
           algeaGroundCollected:
-            reefPick.collected.algeaGroundCollected ||
-            accumulator.algeaGroundCollected,
+            collection.algeaGroundCollected || accumulator.algeaGroundCollected,
           coralGroundCollected:
-            reefPick.collected.coralGroundCollected ||
-            accumulator.coralGroundCollected,
+            collection.coralGroundCollected || accumulator.coralGroundCollected,
           coralFeederCollected:
-            reefPick.collected.coralFeederCollected ||
-            accumulator.coralFeederCollected,
+            collection.coralFeederCollected || accumulator.coralFeederCollected,
         };
       },
       {

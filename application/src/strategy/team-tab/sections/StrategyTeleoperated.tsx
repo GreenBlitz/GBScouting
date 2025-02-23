@@ -119,7 +119,7 @@ const StrategyTeleoperated: React.FC = () => {
       <br />
       <div className="h-20" />
       <div className="rower">
-        <CollectionChart collection={teamData.getCollections("teleReefPick")} />
+        <CollectionChart collection={teamData.getCollections()} />
       </div>
       <div className="h-20" />
       <div className="section">

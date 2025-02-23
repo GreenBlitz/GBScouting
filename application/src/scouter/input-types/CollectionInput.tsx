@@ -100,13 +100,17 @@ class CollectionInput extends ScouterInput<
     );
 
     return (
-      <div className="rower">
-        {coralFeederButton}
-        {coralGroundButton}
-        {algeaGroundButton}
-        {algeaCollectedButton}
-        {algeaDroppedButton}
-      </div>
+      <>
+        <div className="rower">
+          {algeaGroundButton}
+          {algeaCollectedButton}
+          {algeaDroppedButton}
+        </div>
+        <div className="rower">
+          {coralFeederButton}
+          {coralGroundButton}
+        </div>
+      </>
     );
   }
 
