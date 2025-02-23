@@ -5,7 +5,7 @@ import QrScanner from "qr-scanner";
 import React from "react";
 import { renderScouterNavBar } from "../../App";
 import * as serde from "../../utils/Serde";
-import {decode} from "uint8-to-base64";
+import { decode } from "uint8-to-base64";
 
 const ScanningTab = () => {
   const navigate = useNavigate();
@@ -17,8 +17,13 @@ const ScanningTab = () => {
   const onScanSuccess = (result: QrScanner.ScanResult) => {
     console.log("raw " + result.data);
 
-    const data = serde.deserialize(serde.serdeRecord(serde.qrSerde).deserializer,decode(result.data));
+    const data = serde.deserialize(
+      serde.serdeRecord(serde.qrSerde).deserializer,
+      decode(result.data)
+    );
     console.log("data: " + data);
+
+    alert(data);
 
     navigate("/scouter/matches", { state: data });
   };
