@@ -515,7 +515,6 @@ function serdeCollectedObjects(): Serde<Collection> {
 
 function serdeReefPick(): Serde<PickValues> {
   const algeaSerder = serdeUsedAlgea();
-  const collectedSerder = serdeCollectedObjects();
   const levelsSerder = serdeReefLevels();
   function serializer(serializedData: BitArray, values: PickValues) {
     algeaSerder.serializer(serializedData, values.algea);
@@ -524,7 +523,6 @@ function serdeReefPick(): Serde<PickValues> {
   function deserializer(serializedData: BitArray) {
     return {
       algea: algeaSerder.deserializer(serializedData),
-      collected: collectedSerder.deserializer(serializedData),
       levels: levelsSerder.deserializer(serializedData),
     };
   }
