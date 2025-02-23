@@ -26,7 +26,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     } catch (error) {
       return "";
     }
-  })();
+  })().substring(0,10);
 
   console.log("Getter AUTH Token: " + getterAuthToken);
 
