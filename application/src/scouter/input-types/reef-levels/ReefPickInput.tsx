@@ -129,7 +129,7 @@ class ReefPickInput extends ScouterInput<
   renderInput(): React.ReactNode {
     const processorButton = (
       <button
-        className="buttonS ml-4 mr-2 items-center flex flex-col justify-center mb-4"
+        className="buttonS mr-2 items-center flex flex-col justify-center mb-4"
         onClick={() => this.addAlgeaAction("processor")}
       >
         <h2 className="text-3xl font-extrabold">PRO.</h2>
@@ -139,7 +139,7 @@ class ReefPickInput extends ScouterInput<
 
     const netMissButton = (
       <button
-        className="buttonS ml-4 mr-2 items-center flex flex-col justify-center mb-4 light-coral"
+        className="buttonS mr-2 items-center flex flex-col justify-center mb-4 light-coral"
         onClick={() => this.addAlgeaAction("netMiss")}
       >
         <h2 className="text-3xl font-extrabold">NET</h2>
