@@ -140,10 +140,10 @@ class ReefPickInput extends ScouterInput<
     const netMissButton = (
       <button
         className="buttonS ml-4 mr-2 items-center flex flex-col justify-center mb-4 light-coral"
-        onClick={() => this.addAlgeaAction("processor")}
+        onClick={() => this.addAlgeaAction("netMiss")}
       >
-        <h2 className="text-3xl font-extrabold">PRO.</h2>
-        {this.state.objectives.algea.processor}
+        <h2 className="text-3xl font-extrabold">NET</h2>
+        {this.state.objectives.algea.netMiss}
       </button>
     );
 
