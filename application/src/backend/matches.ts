@@ -56,9 +56,9 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
     const authToken = req.headers.authorization;
 
-    // if (getterAuthToken !== authToken) {
-    //   return res.status(401).send("Invalid authorization token");
-    // }
+    if (getterAuthToken !== authToken) {
+      return res.status(401).send("Invalid authorization token");
+    }
 
     const matchCollection = db.collection("matches");
     try {

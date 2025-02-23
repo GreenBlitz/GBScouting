@@ -4,7 +4,6 @@ import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
 import { Auto, Collection as Collection, UsedAlgea } from "./utils/SeasonUI";
 import {
-  CollectedObject,
   Levels,
   PickValues,
 } from "./scouter/input-types/reef-levels/ReefPickInput";
