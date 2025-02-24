@@ -269,8 +269,13 @@ export class TeamData {
     if (this.matches.length === 0) {
       return 0;
     }
+
+    const filteredMatches = this.matches.filter((match) => {
+      return match[field] !== undefined && match[field] !== "undefined";
+    });
+
     return (
-      this.matches
+      filteredMatches
         .map((match) => {
           if (match[field] === undefined || match[field] === "undefined") {
             return 0;
@@ -289,7 +294,7 @@ export class TeamData {
         })
         .reduce((accumulator, value) => {
           return accumulator + value;
-        }) / this.matches.length
+        }) / filteredMatches.length
     );
   }
 
