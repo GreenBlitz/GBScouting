@@ -22,6 +22,7 @@ export default class ScouterInputs {
     route: "scouterName",
     name: "Scouter Name",
     doesReset: false,
+    isLockable: true,
   });
   static readonly qual = new NumberInput({
     route: "qual",
