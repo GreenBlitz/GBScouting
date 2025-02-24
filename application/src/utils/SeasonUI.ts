@@ -6,14 +6,17 @@ export interface Auto {
   algeaScoring: UsedAlgea;
 }
 
-export interface Collection {
-  algeaReefCollected: boolean;
-  algeaReefDropped: boolean;
-  algeaGroundCollected: boolean;
+interface AbstractCollection<T> {
+  algeaReefCollected: T;
+  algeaReefDropped: T;
+  algeaGroundCollected: T;
 
-  coralGroundCollected: boolean;
-  coralFeederCollected: boolean;
+  coralGroundCollected: T;
+  coralFeederCollected: T;
 }
+
+export type Collection = AbstractCollection<boolean>;
+export type NumberedCollection = AbstractCollection<number>;
 
 export interface UsedAlgea {
   netScore: number;

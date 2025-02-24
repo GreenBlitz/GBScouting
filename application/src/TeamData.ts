@@ -2,7 +2,12 @@ import { Color } from "./utils/Color";
 import { Match, randomMatch } from "./utils/Match";
 import { SectionData } from "./strategy/charts/PieChart";
 import Percent from "./utils/Percent";
-import { Auto, Collection as Collection, UsedAlgea } from "./utils/SeasonUI";
+import {
+  Auto,
+  Collection as Collection,
+  NumberedCollection,
+  UsedAlgea,
+} from "./utils/SeasonUI";
 import {
   Levels,
   PickValues,
@@ -391,29 +396,29 @@ export class TeamData {
     return values;
   }
 
-  getCollections(): Collection {
-    return this.matches.reduce<Collection>(
+  getCollections(): NumberedCollection {
+    return this.matches.reduce<NumberedCollection>(
       (accumulator, match) => {
         const collection = match.endgameCollection;
         return {
           algeaReefCollected:
-            collection.algeaReefCollected || accumulator.algeaReefCollected,
+            +collection.algeaReefCollected + accumulator.algeaReefCollected,
           algeaReefDropped:
-            collection.algeaReefCollected || accumulator.algeaReefDropped,
+            +collection.algeaReefCollected + accumulator.algeaReefDropped,
           algeaGroundCollected:
-            collection.algeaGroundCollected || accumulator.algeaGroundCollected,
+            +collection.algeaGroundCollected + accumulator.algeaGroundCollected,
           coralGroundCollected:
-            collection.coralGroundCollected || accumulator.coralGroundCollected,
+            +collection.coralGroundCollected + accumulator.coralGroundCollected,
           coralFeederCollected:
-            collection.coralFeederCollected || accumulator.coralFeederCollected,
+            +collection.coralFeederCollected + accumulator.coralFeederCollected,
         };
       },
       {
-        algeaReefCollected: false,
-        algeaReefDropped: false,
-        algeaGroundCollected: false,
-        coralGroundCollected: false,
-        coralFeederCollected: false,
+        algeaReefCollected: 0,
+        algeaReefDropped: 0,
+        algeaGroundCollected: 0,
+        coralGroundCollected: 0,
+        coralFeederCollected: 0,
       }
     );
   }

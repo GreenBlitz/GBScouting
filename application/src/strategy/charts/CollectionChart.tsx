@@ -1,10 +1,10 @@
 import React from "react";
-import { Collection } from "../../utils/SeasonUI";
+import { NumberedCollection } from "../../utils/SeasonUI";
 import AlgeaSVG from "../../assets/low-algea.svg";
 import CoralSVG from "../../assets/low-coral.svg";
 
 interface CollectionProps {
-  collection: Collection;
+  collection: NumberedCollection;
 }
 const CollectionChart: React.FC<CollectionProps> = ({ collection }) => {
   const algeaScoring = (
@@ -13,27 +13,30 @@ const CollectionChart: React.FC<CollectionProps> = ({ collection }) => {
         <button
           className={`${
             collection.algeaReefCollected ? "button-green" : "button-red"
-          } big-button ml-0`}
+          } big-button ml-0 text-xl`}
         >
           <h2 className="absolute mb-16 text-2xl font-extrabold">Collected</h2>
-          <img className="mt-6" src={AlgeaSVG} width={60} alt="Algea Icon" />
+          <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
+          {collection.algeaReefCollected}
         </button>
         <button
           className={`${
             collection.algeaReefDropped ? "button-green" : "button-red"
-          } big-button ml-0`}
+          } big-button ml-0 text-xl`}
         >
           <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
-          <img className="mt-6" src={AlgeaSVG} width={60} alt="Algea Icon" />
+          <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
+          {collection.algeaReefDropped}
         </button>
       </div>
       <button
         className={`${
           collection.algeaGroundCollected ? "button-green" : "button-red"
-        } big-button ml-0`}
+        } big-button ml-0 text-xl`}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
-        <img className="mt-6" src={AlgeaSVG} width={60} alt="Algea Icon" />
+        <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
+        {collection.algeaGroundCollected}
       </button>
     </div>
   );
@@ -43,18 +46,20 @@ const CollectionChart: React.FC<CollectionProps> = ({ collection }) => {
       <button
         className={`${
           collection.coralFeederCollected ? "button-green" : "button-red"
-        } big-button ml-0`}
+        } big-button ml-0 text-xl`}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Feeder</h2>
-        <img className="mt-2" src={CoralSVG} width={80} alt="Coral Icon" />
+        <img className="mt-5" src={CoralSVG} width={80} alt="Coral Icon" />
+        {collection.coralFeederCollected}
       </button>
       <button
         className={`${
           collection.coralGroundCollected ? "button-green" : "button-red"
-        } big-button ml-0`}
+        } big-button ml-0 text-xl`}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
-        <img className="mt-2" src={CoralSVG} width={80} alt="Coral Icon" />
+        <img className="mt-5" src={CoralSVG} width={80} alt="Coral Icon" />
+        {collection.coralGroundCollected}
       </button>
     </div>
   );
