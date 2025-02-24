@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Match } from "../utils/Match";
+import { Match, mergeMatches } from "../utils/Match";
 import { FRCTeamList, sortMatches } from "../utils/Utils";
 import { fetchMatchesByCriteria, fetchNotes } from "../utils/Fetches";
 import { matchFieldNames } from "../utils/Match";
@@ -25,7 +25,20 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
   };
 
   useEffect(() => {
-    const recentMatches = sortMatches([...matches]);
+    const recentMatches = sortMatches([...matches]).reduce((acc, current) => {
+      const otherMatch = acc.findIndex(
+        (item) =>
+          item.qual === current.qual && item.teamNumber === current.teamNumber
+      );
+      if (otherMatch === -1) {
+        return acc.concat([current]);
+      }
+
+      acc[otherMatch] = mergeMatches(current, acc[otherMatch]);
+
+      return acc;
+    }, [] as Match[]);
+
     if (recency > 0 && recency < recentMatches.length) {
       recentMatches.splice(0, recentMatches.length - recency);
     }

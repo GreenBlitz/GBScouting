@@ -24,110 +24,175 @@ export const matchFieldNames = Object.keys(ScouterInputs).reduce(
   {} as Record<keyof Match, keyof Match>
 );
 
-export const randomMatch = (teamNumber: number, qual: number) => {
-  const climbNumber = Math.floor(Math.random() * 4 + 1);
-  const match: Match = {
-    scouterName: "Random",
-    qual,
-    teamNumber,
-    gameSide: "Blue",
-    startingPosition: "Far Side",
-    noShow: false,
-    defense: Math.floor(Math.random() * 5 + 1),
-    defensiveEvasion: Math.floor(Math.random() * 5 + 1),
-    climb:
-      climbNumber === 4
-        ? "Off Barge"
-        : climbNumber === 3
-        ? "Park"
-        : climbNumber === 2
-        ? "Shallow Cage"
-        : "Deep Cage",
-    comment: "Random",
-    teleopReef: {
-      side: "left",
-      proximity: "far",
-    },
-    teleopReefLevels: {
-      algea: {
-        collected: Math.random() > 0.5,
-        dropped: Math.random() > 0.5,
-      },
-      L1: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
-      },
-      L2: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
-      },
-      L3: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
-      },
-      L4: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
-      },
-    },
+export const mergeMatches: (match1: Match, match2: Match) => Match = (
+  match1: Match,
+  match2: Match
+) => {
+  const avg = (n1: number, n2: number) => (n1 + n2) / 2;
+
+  const mergeUndefinedNumbers = (
+    n1: number | undefined,
+    n2: number | undefined
+  ) => {
+    if (n1 && n2) {
+      return avg(n1, n2);
+    }
+    if (n1) {
+      return n1;
+    }
+    return n2;
+  };
+
+  return {
+    scouterName: match1.scouterName + " & " + match2.scouterName,
+    qual: match1.qual,
+    teamNumber: match1.teamNumber,
+    gameSide: match1.gameSide,
+    startingPosition: match1.startingPosition,
+    noShow: match1.noShow,
+    defense: mergeUndefinedNumbers(match1.defense, match2.defense),
+    defensiveEvasion: mergeUndefinedNumbers(
+      match1.defensiveEvasion,
+      match2.defensiveEvasion
+    ),
+    climb: match1.climb,
+    comment: match1.comment + ",   " + match2.comment,
     teleReefPick: {
       algea: {
-        netScore: Math.floor(Math.random() * 3 + 1),
-        netMiss: Math.floor(Math.random() * 3 + 1),
-        processor: Math.floor(Math.random() * 3 + 1),
+        netScore: avg(
+          match1.teleReefPick.algea.netScore,
+          match2.teleReefPick.algea.netScore
+        ),
+        netMiss: avg(
+          match1.teleReefPick.algea.netMiss,
+          match2.teleReefPick.algea.netMiss
+        ),
+        processor: avg(
+          match1.teleReefPick.algea.processor,
+          match2.teleReefPick.algea.processor
+        ),
       },
-      collected: {
-        coralFeeder: Math.random() > 0.5,
-        coralGround: Math.random() > 0.5,
-        algeaGround: Math.random() > 0.5,
-      },
-    },
-    autoReef: {
-      side: "left",
-      proximity: "far",
-    },
-    autoReefLevels: {
-      algea: {
-        collected: Math.random() > 0.5,
-        dropped: Math.random() > 0.5,
-      },
-      L1: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
-      },
-      L2: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
-      },
-      L3: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
-      },
-      L4: {
-        score: Math.floor(Math.random() * 3 + 1),
-        miss: Math.floor(Math.random() * 3 + 1),
-        sides: [],
+      levels: {
+        L1: {
+          score: avg(
+            match1.teleReefPick.levels.L1.score,
+            match1.teleReefPick.levels.L1.score
+          ),
+          miss: avg(
+            match1.teleReefPick.levels.L1.miss,
+            match1.teleReefPick.levels.L1.miss
+          ),
+        },
+        L2: {
+          score: avg(
+            match1.teleReefPick.levels.L2.score,
+            match1.teleReefPick.levels.L2.score
+          ),
+          miss: avg(
+            match1.teleReefPick.levels.L2.miss,
+            match1.teleReefPick.levels.L2.miss
+          ),
+        },
+        L3: {
+          score: avg(
+            match1.teleReefPick.levels.L3.score,
+            match1.teleReefPick.levels.L3.score
+          ),
+          miss: avg(
+            match1.teleReefPick.levels.L3.miss,
+            match1.teleReefPick.levels.L3.miss
+          ),
+        },
+        L4: {
+          score: avg(
+            match1.teleReefPick.levels.L4.score,
+            match1.teleReefPick.levels.L4.score
+          ),
+          miss: avg(
+            match1.teleReefPick.levels.L4.miss,
+            match1.teleReefPick.levels.L4.miss
+          ),
+        },
       },
     },
     autoReefPick: {
       algea: {
-        netScore: Math.floor(Math.random() * 3 + 1),
-        netMiss: Math.floor(Math.random() * 3 + 1),
-        processor: Math.floor(Math.random() * 3 + 1),
+        netScore: avg(
+          match1.autoReefPick.algea.netScore,
+          match2.autoReefPick.algea.netScore
+        ),
+        netMiss: avg(
+          match1.autoReefPick.algea.netMiss,
+          match2.autoReefPick.algea.netMiss
+        ),
+        processor: avg(
+          match1.autoReefPick.algea.processor,
+          match2.autoReefPick.algea.processor
+        ),
       },
-      collected: {
-        coralFeeder: Math.random() > 0.5,
-        coralGround: Math.random() > 0.5,
-        algeaGround: Math.random() > 0.5,
+      levels: {
+        L1: {
+          score: avg(
+            match1.autoReefPick.levels.L1.score,
+            match1.autoReefPick.levels.L1.score
+          ),
+          miss: avg(
+            match1.autoReefPick.levels.L1.miss,
+            match1.autoReefPick.levels.L1.miss
+          ),
+        },
+        L2: {
+          score: avg(
+            match1.autoReefPick.levels.L2.score,
+            match1.autoReefPick.levels.L2.score
+          ),
+          miss: avg(
+            match1.autoReefPick.levels.L2.miss,
+            match1.autoReefPick.levels.L2.miss
+          ),
+        },
+        L3: {
+          score: avg(
+            match1.autoReefPick.levels.L3.score,
+            match1.autoReefPick.levels.L3.score
+          ),
+          miss: avg(
+            match1.autoReefPick.levels.L3.miss,
+            match1.autoReefPick.levels.L3.miss
+          ),
+        },
+        L4: {
+          score: avg(
+            match1.autoReefPick.levels.L4.score,
+            match1.autoReefPick.levels.L4.score
+          ),
+          miss: avg(
+            match1.autoReefPick.levels.L4.miss,
+            match1.autoReefPick.levels.L4.miss
+          ),
+        },
       },
     },
+    endgameCollection: {
+      algeaReefCollected:
+        match1.endgameCollection.algeaReefCollected ||
+        match2.endgameCollection.algeaReefCollected,
+      algeaReefDropped:
+        match1.endgameCollection.algeaReefDropped ||
+        match2.endgameCollection.algeaReefDropped,
+      algeaGroundCollected:
+        match1.endgameCollection.algeaGroundCollected ||
+        match2.endgameCollection.algeaGroundCollected,
+      coralGroundCollected:
+        match1.endgameCollection.coralGroundCollected ||
+        match2.endgameCollection.coralGroundCollected,
+      coralFeederCollected:
+        match1.endgameCollection.coralFeederCollected ||
+        match2.endgameCollection.coralFeederCollected,
+    },
   };
-  return match;
+};
+
+export const randomMatch = (teamNumber: number, qual: number) => {
+  return {} as Match;
 };
