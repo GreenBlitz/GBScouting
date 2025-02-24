@@ -273,6 +273,9 @@ export class TeamData {
     const filteredMatches = this.matches.filter((match) => {
       return match[field] !== undefined && match[field] !== "undefined";
     });
+    if (filteredMatches.length === 0) {
+      return 0;
+    }
 
     return (
       filteredMatches
