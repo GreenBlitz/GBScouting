@@ -25,34 +25,35 @@ import Strategy from "./strategy/Strategy";
 import PasswordUpdater from "./components/PasswordUpdater";
 import { authorizationStorage } from "./utils/FolderStorage";
 
+import CoralSVG from "./assets/low-coral.svg";
+import AlgeaSVG from "./assets/low-algea.svg";
+
 function getHiddenImage(path: string) {
   return (
     <div
       style={{
         backgroundImage: 'url("' + path + '")',
-        width: 0,
-        height: 0,
+        width: 10,
+        height: 10,
       }}
     ></div>
   );
 }
 
-export const loadedHiddenImages = [
-  "./src/assets/crescendo-map.png",
-  "./src/assets/blue-auto-map.png",
-  "./src/assets/red-auto-map.png",
-  "./src/assets/low-coral.svg",
-  "./src/assets/low-algea.svg",
-  "./src/assets/Algea.svg",
-  "./src/assets/Coral.svg",
-].map(getHiddenImage);
+function getHiddenSVG(svg) {
+  return <img src={svg} width={0} alt="Hidden Icon" />;
+}
+
+export const loadedHiddenImages = [CoralSVG, AlgeaSVG].map((path) =>
+  getHiddenSVG(path)
+);
 
 export function renderScouterNavBar() {
   return (
     <nav className="bg-dark-card shadow-lg w-86">
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          {[...loadedHiddenImages]}
+          <div className="w-0 h-0"> {[...loadedHiddenImages]}</div>
 
           <Link
             to="/scouter/matches"
