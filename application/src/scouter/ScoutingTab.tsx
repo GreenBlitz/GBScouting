@@ -5,7 +5,7 @@ import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
 import ScouterInputs from "./ScouterInputs.ts";
 import ScouterInput from "./ScouterInput.tsx";
-import { Match } from "../utils/Match";
+import { Match, matchFieldNames } from "../utils/Match";
 import Matches from "./Matches";
 import SectionHandler from "../utils/SectionHandler.ts";
 import PageTransition from "../components/PageTransition";
@@ -41,7 +41,12 @@ export default function ScoutingTab() {
   }
 
   const handleReset = () => {
-    inputFolder.keys().forEach((item) => inputFolder.removeItem(item));
+    inputFolder.keys().forEach((item) => {
+      if (item.endsWith(matchFieldNames.scouterName)) {
+        return;
+      }
+      inputFolder.removeItem(item);
+    });
     navigate("/scouter/matches");
   };
 
