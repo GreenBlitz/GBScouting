@@ -6,7 +6,7 @@ export interface InputProps<T> {
   name?: string;
   required?: boolean;
   defaultValue?: T;
-  doesReset?: boolean;
+  doesRemain?: boolean;
 }
 
 abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
@@ -48,7 +48,7 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   }
 
   shouldReset(): boolean {
-    return !!this.props.doesReset;
+    return !this.props.doesRemain;
   }
 
   defaultValue(): T {

@@ -32,7 +32,7 @@ export default function ScoutingTab() {
       .forEach(([inputName, value]) => {
         const input = value as ScouterInput<any, any, any>;
         matchValues[inputName] = input.getValue();
-        if (!input.shouldReset()) {
+        if (input.shouldReset()) {
           input.clearValue();
         }
       });

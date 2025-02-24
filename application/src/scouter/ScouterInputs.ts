@@ -21,7 +21,7 @@ export default class ScouterInputs {
   static readonly scouterName = new TextInput({
     route: "scouterName",
     name: "Scouter Name",
-    doesReset: false,
+    doesRemain: true,
     isLockable: true,
   });
   static readonly qual = new NumberInput({
@@ -36,7 +36,7 @@ export default class ScouterInputs {
     route: "gameSide",
     name: "Game Side",
     options: ["Blue", "Red"],
-    doesReset: false,
+    doesRemain: false,
   });
   static readonly startingPosition = new DropdownInput({
     route: "startingPosition",
