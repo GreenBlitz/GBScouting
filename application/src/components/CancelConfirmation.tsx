@@ -3,11 +3,13 @@ import React, { useState } from "react";
 interface CancelConfirmationProps {
   name: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }
 
 const CancelConfirmation: React.FC<CancelConfirmationProps> = ({
   name,
   onClick,
+  className = "small-button button-bg-red"
 }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -52,7 +54,7 @@ const CancelConfirmation: React.FC<CancelConfirmationProps> = ({
       <button
         type="button"
         onClick={() => setShowConfirmation(true)}
-        className="small-button button-bg-red"
+        className={className}
       >
         {name}
       </button>

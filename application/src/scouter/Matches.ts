@@ -16,13 +16,11 @@ export default class Matches {
     const matches = this.getAll();
 
     function isMatchEqual(match1: Match, match2: Match) {
-      Object.values(match1).every(
-        (value, index) => Object.values(match2)[index] === value
-      );
+      return match1.scouterName === match2.scouterName && match1.qual == match2.qual;
     }
 
     this.storage.set(
-      matches.filter((match) => isMatchEqual(match, removedMatch))
+      matches.filter((match) => !isMatchEqual(match, removedMatch))
     );
   }
 
