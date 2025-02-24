@@ -26,6 +26,7 @@ import { authorizationStorage } from "./utils/FolderStorage";
 
 import CoralSVG from "./assets/low-coral.svg";
 import AlgeaSVG from "./assets/low-algea.svg";
+import TestLinear from "./strategy/team-tab/sections/TestLinear";
 
 function getHiddenImage(path: string) {
   return (
@@ -128,7 +129,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/strategy" element={<Strategy />}>
               <Route path="team" element={<TeamTab />}>
-                <Route path="teleoperated" element={<StrategyTeleoperated />} />
+                <Route path="teleoperated" element={<StrategyTeleoperated />} >
+                  <Route path="linear" element={<TestLinear />}/>
+                </Route>
                 <Route path="autonomous" element={<StrategyAutonomous />} />
               </Route>
               <Route path="notes" element={<NoteTab />} />

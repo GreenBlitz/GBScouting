@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 import { TeamData } from "../../../TeamData";
 import CoralChart from "../../charts/CoralChart";
 import LineChart from "../../charts/LineChart";
@@ -37,6 +37,9 @@ const StrategyTeleoperated: React.FC = () => {
     teamData: TeamData;
     teamTable: GridItems[];
   }>();
+
+  const navigate = useNavigate();
+
   const evasion = useMemo(
     () => teamData.getAverage(matchFieldNames.defensiveEvasion),
     [teamData]
@@ -52,6 +55,15 @@ const StrategyTeleoperated: React.FC = () => {
       0
     );
   };
+
+  useEffect(() => {
+    if (teamData.matches.length === 0) {
+      navigate("/strategy/team/teleoperated");
+    }
+    if (teamData.matches.length > 0) {
+      navigate("/strategy/team/teleoperated/linear");
+    }
+  }, [teamData]);
 
   return (
     <>
@@ -167,15 +179,7 @@ const StrategyTeleoperated: React.FC = () => {
         <CollectionChart collection={teamData.getCollections()} />
       </div>
       <div className="section">
-        <LinearHistogramChart
-          height={200}
-          width={400}
-          sectionColors={climbColorMap}
-          sections={
-            teamData?.getAsLinearHistogram<ClimbKeys>(matchFieldNames.climb) ||
-            []
-          }
-        />
+        <Outlet context={{ teamData }} />
       </div>
       <div className="h-20" />
       <div className="mb-10">
