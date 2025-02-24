@@ -30,15 +30,6 @@ const StrategyEndgame: React.FC = () => {
       <div className="section">
         <PieChart pieData={teamData?.getAsPie(matchFieldNames.climb, climbColorMap) || {}} />
       </div>
-
-      <div>
-        <h1>Comments</h1>
-        {teamData?.getComments().map((comment) => (
-          <h3 style={{ border: "solid" }}>
-            {"Qual #" + comment.qual + ": " + comment.body}
-          </h3>
-        ))}
-      </div>
     </>
   );
 };

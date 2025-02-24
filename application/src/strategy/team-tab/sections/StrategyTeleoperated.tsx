@@ -223,6 +223,16 @@ const StrategyTeleoperated: React.FC = () => {
           }}
         />
       </div>
+
+      <div className="h-32" />
+      <div>
+        <h1>Comments</h1>
+        {teamData?.getComments().map((comment) => (
+          <h3 style={{ border: "solid" }}>
+            {"Qual #" + comment.qual + ": " + comment.body}
+          </h3>
+        ))}
+      </div>
       <div className="h-48" />
 
       <div className="flex flex-col items-center">

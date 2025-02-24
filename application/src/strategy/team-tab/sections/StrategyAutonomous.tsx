@@ -60,7 +60,6 @@ const StrategyAutonomous: React.FC = () => {
         />
       </div>
       <div className="h-48" />
-      <div className="h-48" />
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Average Corals</h1>
         <CoralChart corals={corals} />
