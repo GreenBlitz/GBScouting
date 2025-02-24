@@ -136,6 +136,7 @@ class LinearHistogramChart<
   }
 
   render() {
+    
     return (
       <div
         style={{

@@ -7,8 +7,9 @@ import { fetchMatchesByCriteria } from "../../utils/Fetches";
 import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 import "./GeneralTable.css";
 import { matchFieldNames } from "../../utils/Match";
+import { mergeSimilarMatches } from "../../components/TeamPicker";
 
-interface GridItems {
+export interface GridItems {
   Team: number;
   Points: number;
   Corals: number;
@@ -63,7 +64,7 @@ const pickList: PickArea[] = [
   },
 ];
 
-function processTeamData(teamNumber: number, data: TeamData): GridItems {
+export function processTeamData(teamNumber: number, data: TeamData): GridItems {
   return {
     Team: teamNumber,
     Points: data.getAverageScore(),
@@ -173,10 +174,10 @@ const GeneralTab: React.FC = () => {
       return processTeamData(
         teamNumber,
         new TeamData(
-          await fetchMatchesByCriteria(
+          mergeSimilarMatches(await fetchMatchesByCriteria(
             matchFieldNames.teamNumber,
             teamNumber.toString()
-          )
+          ))
         )
       );
     }

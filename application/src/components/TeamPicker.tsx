@@ -10,6 +10,22 @@ interface TeamPickerProps {
   defaultRecency: number;
 }
 
+export function mergeSimilarMatches(matches: Match[]) {
+  return matches.reduce((acc, current) => {
+    const otherMatch = acc.findIndex(
+      (item) =>
+        item.qual === current.qual && item.teamNumber === current.teamNumber
+    );
+    if (otherMatch === -1) {
+      return acc.concat([current]);
+    }
+
+    acc[otherMatch] = mergeMatches(current, acc[otherMatch]);
+
+    return acc;
+  }, [] as Match[]);
+}
+
 const TeamPicker: React.FC<TeamPickerProps> = ({
   setTeamData,
   defaultRecency,
@@ -25,19 +41,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
   };
 
   useEffect(() => {
-    const recentMatches = sortMatches([...matches]).reduce((acc, current) => {
-      const otherMatch = acc.findIndex(
-        (item) =>
-          item.qual === current.qual && item.teamNumber === current.teamNumber
-      );
-      if (otherMatch === -1) {
-        return acc.concat([current]);
-      }
-
-      acc[otherMatch] = mergeMatches(current, acc[otherMatch]);
-
-      return acc;
-    }, [] as Match[]);
+    const recentMatches = mergeSimilarMatches(sortMatches([...matches]))
 
     if (recency > 0 && recency < recentMatches.length) {
       recentMatches.splice(0, recentMatches.length - recency);

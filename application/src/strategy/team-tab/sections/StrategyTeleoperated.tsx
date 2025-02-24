@@ -7,6 +7,7 @@ import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
 import LinearHistogramChart from "../../charts/LinearHistogramChart";
+import { GridItems } from "../../general-tab/GeneralTab";
 
 export const reefColorsScore = {
   L1: "#e5ffc9",
@@ -32,7 +33,10 @@ const climbColorMap = {
 type ClimbKeys = keyof typeof climbColorMap;
 
 const StrategyTeleoperated: React.FC = () => {
-  const { teamData } = useOutletContext<{ teamData: TeamData }>();
+  const { teamData, teamTable } = useOutletContext<{
+    teamData: TeamData;
+    teamTable: GridItems[];
+  }>();
   const evasion = useMemo(
     () => teamData.getAverage(matchFieldNames.defensiveEvasion),
     [teamData]
@@ -41,6 +45,13 @@ const StrategyTeleoperated: React.FC = () => {
     () => teamData.getAverage(matchFieldNames.defense),
     [teamData]
   );
+
+  const getMax = (field: keyof GridItems) => {
+    return teamTable.reduce(
+      (accumulator, team) => Math.max(accumulator, team[field]),
+      0
+    );
+  };
 
   return (
     <>
@@ -53,7 +64,7 @@ const StrategyTeleoperated: React.FC = () => {
                 "L4",
                 "score",
               ]),
-              max: 6,
+              max: getMax("L4"),
               name: "L4",
             },
 
@@ -63,7 +74,7 @@ const StrategyTeleoperated: React.FC = () => {
                 "L3",
                 "score",
               ]),
-              max: 6,
+              max: getMax("L3"),
               name: "L3",
             },
 
@@ -73,7 +84,7 @@ const StrategyTeleoperated: React.FC = () => {
                 "L2",
                 "score",
               ]),
-              max: 6,
+              max: getMax("L2"),
               name: "L2",
             },
             {
@@ -81,16 +92,20 @@ const StrategyTeleoperated: React.FC = () => {
                 matchFieldNames.teleReefPick,
                 "netScore"
               ),
-              max: 10,
+              max: getMax("Net"),
               name: "Net",
             },
             {
               value: evasion,
-              max: 5,
+              max: getMax("Evasion"),
               name: "Evasion",
             },
 
-            { value: teamData.getAverageAutoScore(), max: 30, name: "Auto" },
+            {
+              value: teamData.getAverageAutoScore(),
+              max: getMax("Auto"),
+              name: "Auto",
+            },
           ]}
           size={300}
           substeps={5}
@@ -106,12 +121,12 @@ const StrategyTeleoperated: React.FC = () => {
                 "L1",
                 "score",
               ]),
-              max: 8,
+              max: getMax("L1"),
               name: "L1",
             },
             {
               value: defense !== 0 ? 6 - defense : 0,
-              max: 5,
+              max: getMax("Defense"),
               name: "Defense",
             },
 
@@ -120,17 +135,21 @@ const StrategyTeleoperated: React.FC = () => {
                 matchFieldNames.teleReefPick,
                 "netScore"
               ),
-              max: 18,
+              max: getMax("Net"),
               name: "Net",
             },
-            { value: teamData.getAverageAutoScore(), max: 50, name: "Auto" },
+            {
+              value: teamData.getAverageAutoScore(),
+              max: getMax("Auto"),
+              name: "Auto",
+            },
             {
               value: teamData.getAverageReefPickData(
                 matchFieldNames.teleReefPick,
                 "processor"
               ),
 
-              max: 12,
+              max: getMax("Processor"),
               name: "Processor",
             },
           ]}
@@ -230,21 +249,21 @@ const StrategyTeleoperated: React.FC = () => {
           <LineChart
             dataSets={{
               Score: {
-                color: "green",
+                color: "#172db8",
                 data: teamData.getAlgeaDataAsLine(
                   matchFieldNames.teleReefPick,
                   "netScore"
                 ),
               },
               Miss: {
-                color: "red",
+                color: "#b81616",
                 data: teamData.getAlgeaDataAsLine(
                   matchFieldNames.teleReefPick,
                   "netMiss"
                 ),
               },
               Processor: {
-                color: "yellow",
+                color: "#8fb4ff",
                 data: teamData.getAlgeaDataAsLine(
                   matchFieldNames.teleReefPick,
                   "processor"
