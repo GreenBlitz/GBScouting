@@ -43,6 +43,8 @@ export const loadedHiddenImages = [
   "./src/assets/red-auto-map.png",
   "./src/assets/low-coral.svg",
   "./src/assets/low-algea.svg",
+  "./src/assets/Algea.svg",
+  "./src/assets/Coral.svg",
 ].map(getHiddenImage);
 
 export function renderScouterNavBar() {
