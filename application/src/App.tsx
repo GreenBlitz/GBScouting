@@ -14,7 +14,6 @@ import ScouterTeleoperated, {
 import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
 import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
-import StrategyEndgame from "./strategy/team-tab/sections/StrategyEndgame";
 import PageTransition from "./components/PageTransition";
 import ScouterAutonomous, {
   ScouterAutoPick,
@@ -131,7 +130,6 @@ const App: React.FC = () => {
               <Route path="team" element={<TeamTab />}>
                 <Route path="teleoperated" element={<StrategyTeleoperated />} />
                 <Route path="autonomous" element={<StrategyAutonomous />} />
-                <Route path="endgame" element={<StrategyEndgame />} />
               </Route>
               <Route path="notes" element={<NoteTab />} />
               <Route path="general" element={<GeneralTab />} />

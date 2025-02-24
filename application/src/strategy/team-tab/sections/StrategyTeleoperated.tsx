@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { TeamData } from "../../../TeamData";
 import CoralChart from "../../charts/CoralChart";
@@ -6,8 +6,18 @@ import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
+import LinearHistogramChart from "../../charts/LinearHistogramChart";
 
 const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
+
+const climbColorMap = {
+  Park: "#006989",
+  "Off Barge": "#E94F37",
+  "Shallow Cage": "#F9DC5C",
+  "Deep Cage": "#44BBA4",
+};
+
+type ClimbKeys = keyof typeof climbColorMap;
 
 const StrategyTeleoperated: React.FC = () => {
   const { teamData } = useOutletContext<{ teamData: TeamData }>();
@@ -20,6 +30,7 @@ const StrategyTeleoperated: React.FC = () => {
     [teamData]
   );
 
+  
   return (
     <>
       <div className="section">
@@ -117,53 +128,34 @@ const StrategyTeleoperated: React.FC = () => {
         />
       </div>
       <br />
+      <h1 className="text-2xl">Average Score: {teamData.getAverageScore()}</h1>
+      <h1 className="text-2xl">
+        Average Auto Score: {teamData.getAverageAutoScore()}
+      </h1>
       <div className="h-20" />
       <div className="rower">
         <CollectionChart collection={teamData.getCollections()} />
       </div>
+      <div className="section">
+        <LinearHistogramChart
+          height={200}
+          width={400}
+          sectionColors={climbColorMap}
+          sections={
+            teamData?.getAsLinearHistogram<ClimbKeys>(matchFieldNames.climb) ||
+            []
+          }
+        />
+      </div>
       <div className="h-20" />
       <div className="section">
         <LineChart
           dataSets={{
-            Defense: {
-              color: "purple",
-              data: teamData.getAsLine(matchFieldNames.defense),
-            },
+            "Total Score": { color: "red", data: teamData.getScores() },
+          }}
+        />
+      </div>
 
-            Evasion: {
-              color: "pink",
-              data: teamData.getAsLine(matchFieldNames.defensiveEvasion),
-            },
-          }}
-        />
-      </div>
-      <div className="section">
-        <LineChart
-          dataSets={{
-            Score: {
-              color: "green",
-              data: teamData.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "netScore"
-              ),
-            },
-            Miss: {
-              color: "red",
-              data: teamData.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "netMiss"
-              ),
-            },
-            Processor: {
-              color: "yellow",
-              data: teamData.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "processor"
-              ),
-            },
-          }}
-        />
-      </div>
       <br />
 
       <div className="section">
@@ -219,7 +211,43 @@ const StrategyTeleoperated: React.FC = () => {
       <div className="section">
         <LineChart
           dataSets={{
-            "Total Score": { color: "red", data: teamData.getScores() },
+            Score: {
+              color: "green",
+              data: teamData.getAlgeaDataAsLine(
+                matchFieldNames.teleReefPick,
+                "netScore"
+              ),
+            },
+            Miss: {
+              color: "red",
+              data: teamData.getAlgeaDataAsLine(
+                matchFieldNames.teleReefPick,
+                "netMiss"
+              ),
+            },
+            Processor: {
+              color: "yellow",
+              data: teamData.getAlgeaDataAsLine(
+                matchFieldNames.teleReefPick,
+                "processor"
+              ),
+            },
+          }}
+        />
+      </div>
+
+      <div className="section">
+        <LineChart
+          dataSets={{
+            Defense: {
+              color: "purple",
+              data: teamData.getAsLine(matchFieldNames.defense),
+            },
+
+            Evasion: {
+              color: "pink",
+              data: teamData.getAsLine(matchFieldNames.defensiveEvasion),
+            },
           }}
         />
       </div>

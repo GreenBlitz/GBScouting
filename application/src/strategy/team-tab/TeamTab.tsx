@@ -26,9 +26,6 @@ const TeamTab: React.FC = () => {
           <li>
             <Link to="/strategy/team/teleoperated">Teleoperated</Link>
           </li>
-          <li>
-            <Link to="/strategy/team/endgame">Endgame</Link>
-          </li>
         </ul>
       </nav>
       <Outlet context={{ teamData }} />
