@@ -41,7 +41,7 @@ const pickList: PickArea[] = [
   },
   {
     name: "Best Overall",
-    predicate: (team) => team.Objects,
+    predicate: (team) => team.Points,
   },
   {
     name: "Best Defense",
