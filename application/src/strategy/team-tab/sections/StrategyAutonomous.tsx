@@ -6,8 +6,7 @@ import CoralChart from "../../charts/CoralChart";
 import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import { Auto } from "../../../utils/SeasonUI";
-
-const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
+import { reefColorsMiss, reefColorsScore } from "./StrategyTeleoperated";
 
 const StrategyAutonomous: React.FC = () => {
   const { teamData } = useOutletContext<{ teamData: TeamData }>();
@@ -24,7 +23,7 @@ const StrategyAutonomous: React.FC = () => {
         <LineChart
           dataSets={Object.assign(
             {},
-            ...Object.entries(reefColors).map(([key, value]) => {
+            ...Object.entries(reefColorsScore).map(([key, value]) => {
               return {
                 [key]: {
                   color: value,
@@ -44,7 +43,7 @@ const StrategyAutonomous: React.FC = () => {
         <LineChart
           dataSets={Object.assign(
             {},
-            ...Object.entries(reefColors).map(([key, value]) => {
+            ...Object.entries(reefColorsMiss).map(([key, value]) => {
               return {
                 [key]: {
                   color: value,

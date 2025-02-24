@@ -8,7 +8,19 @@ import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
 import LinearHistogramChart from "../../charts/LinearHistogramChart";
 
-const reefColors = { L1: "green", L2: "red", L3: "yellow", L4: "blue" };
+export const reefColorsScore = {
+  L1: "#e5ffc9",
+  L2: "#a1d994",
+  L3: "#5eb25e",
+  L4: "#1a8c29",
+};
+
+export const reefColorsMiss = {
+  L1: "#ffb78e",
+  L2: "#f58a6b",
+  L3: "#eb5e48",
+  L4: "#e13125",
+};
 
 const climbColorMap = {
   Park: "#006989",
@@ -30,7 +42,6 @@ const StrategyTeleoperated: React.FC = () => {
     [teamData]
   );
 
-  
   return (
     <>
       <div className="section">
@@ -148,108 +159,116 @@ const StrategyTeleoperated: React.FC = () => {
         />
       </div>
       <div className="h-20" />
-      <div className="section">
-        <LineChart
-          dataSets={{
-            "Total Score": { color: "red", data: teamData.getScores() },
-          }}
-        />
+      <div className="mb-10">
+        <h1 className="text-xl mb-5">Overall</h1>
+        <div className="section">
+          <LineChart
+            dataSets={{
+              "Total Score": { color: "red", data: teamData.getScores() },
+            }}
+          />
+        </div>
+        <div className="section">
+          <LineChart
+            dataSets={{
+              Objects: {
+                color: "cyan",
+                data: teamData.getTeleopObjectsAsLine(),
+              },
+            }}
+          />
+        </div>
       </div>
 
       <br />
+      <div className="mb-10">
+        <h1 className="text-xl mb-5">Coral</h1>
+        <div className="section">
+          <LineChart
+            dataSets={Object.assign(
+              {},
+              ...Object.entries(reefColorsScore).map(([key, value]) => {
+                return {
+                  [key]: {
+                    color: value,
+                    data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+                      "levels",
+                      key,
+                      "score",
+                    ]),
+                  },
+                };
+              })
+            )}
+          />
+        </div>
 
-      <div className="section">
-        <h1>Score</h1>
-        <LineChart
-          dataSets={Object.assign(
-            {},
-            ...Object.entries(reefColors).map(([key, value]) => {
-              return {
-                [key]: {
-                  color: value,
-                  data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-                    "levels",
-                    key,
-                    "score",
-                  ]),
-                },
-              };
-            })
-          )}
-        />
+        <div className="section">
+          <LineChart
+            dataSets={Object.assign(
+              {},
+              ...Object.entries(reefColorsMiss).map(([key, value]) => {
+                return {
+                  [key]: {
+                    color: value,
+                    data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+                      "levels",
+                      key,
+                      "miss",
+                    ]),
+                  },
+                };
+              })
+            )}
+          />
+        </div>
       </div>
-
-      <div className="section">
-        <h1>Miss</h1>
-        <LineChart
-          dataSets={Object.assign(
-            {},
-            ...Object.entries(reefColors).map(([key, value]) => {
-              return {
-                [key]: {
-                  color: value,
-                  data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-                    "levels",
-                    key,
-                    "miss",
-                  ]),
-                },
-              };
-            })
-          )}
-        />
-      </div>
-
       <br />
-      <div className="section">
-        <LineChart
-          dataSets={{
-            Objects: { color: "cyan", data: teamData.getTeleopObjectsAsLine() },
-          }}
-        />
-      </div>
-      <div className="section">
-        <LineChart
-          dataSets={{
-            Score: {
-              color: "green",
-              data: teamData.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "netScore"
-              ),
-            },
-            Miss: {
-              color: "red",
-              data: teamData.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "netMiss"
-              ),
-            },
-            Processor: {
-              color: "yellow",
-              data: teamData.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "processor"
-              ),
-            },
-          }}
-        />
-      </div>
+      <div className="mb-10">
+        <h1 className="text-xl mb-5">Algea + Defense</h1>
+        <div className="section">
+          <LineChart
+            dataSets={{
+              Score: {
+                color: "green",
+                data: teamData.getAlgeaDataAsLine(
+                  matchFieldNames.teleReefPick,
+                  "netScore"
+                ),
+              },
+              Miss: {
+                color: "red",
+                data: teamData.getAlgeaDataAsLine(
+                  matchFieldNames.teleReefPick,
+                  "netMiss"
+                ),
+              },
+              Processor: {
+                color: "yellow",
+                data: teamData.getAlgeaDataAsLine(
+                  matchFieldNames.teleReefPick,
+                  "processor"
+                ),
+              },
+            }}
+          />
+        </div>
 
-      <div className="section">
-        <LineChart
-          dataSets={{
-            Defense: {
-              color: "purple",
-              data: teamData.getAsLine(matchFieldNames.defense),
-            },
+        <div className="section">
+          <LineChart
+            dataSets={{
+              Defense: {
+                color: "purple",
+                data: teamData.getAsLine(matchFieldNames.defense),
+              },
 
-            Evasion: {
-              color: "pink",
-              data: teamData.getAsLine(matchFieldNames.defensiveEvasion),
-            },
-          }}
-        />
+              Evasion: {
+                color: "pink",
+                data: teamData.getAsLine(matchFieldNames.defensiveEvasion),
+              },
+            }}
+          />
+        </div>
       </div>
 
       <div className="h-32" />
