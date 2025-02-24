@@ -424,12 +424,10 @@ const CLIMB_POSSIBLE_VALUES = [
   "Deep Cage",
 ];
 
-const GAME_SIDE_POSSIBLE_VALUES = ["Blue", "Red"];
 
 const QUAL_BIT_COUNT = 9;
 const DEFENSE_RATING_BIT_COUNT = 3;
 
-const STARTING_POSITION_POSSIBLE_VALUES = ["Far Side", "Middle", "Close Side"];
 
 function serdeReefLevel(): Serde<Level> {
   const scoreMissSerder = serdeUnsignedInt(7);
@@ -540,7 +538,6 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["autoReefPick", serdeReefPick()],
   ["endgameCollection", serdeCollectedObjects()],
   ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
-  ["gameSide", serdeEnumedString(GAME_SIDE_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
   ["defense", serdeOptional(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT))],
   [
@@ -550,5 +547,4 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["scouterName", serdeString()],
   ["noShow", serdeBool()],
   ["comment", serdeString()],
-  ["startingPosition", serdeEnumedString(STARTING_POSITION_POSSIBLE_VALUES)],
 ]);

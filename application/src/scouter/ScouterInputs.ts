@@ -32,17 +32,6 @@ export default class ScouterInputs {
     route: "teamNumber",
     name: "Team Number",
   });
-  static readonly gameSide = new DropdownInput({
-    route: "gameSide",
-    name: "Game Side",
-    options: ["Blue", "Red"],
-    doesRemain: false,
-  });
-  static readonly startingPosition = new DropdownInput({
-    route: "startingPosition",
-    name: "Starting Position",
-    options: ["Far Side", "Middle", "Close Side"],
-  });
   static readonly noShow = new CheckboxInput({
     route: "noShow",
     name: "No Show?",

@@ -8,8 +8,6 @@ const ScouterPreMatch: React.FC = () => {
         ScouterInputs.scouterName,
         ScouterInputs.qual,
         ScouterInputs.teamNumber,
-        ScouterInputs.gameSide,
-        ScouterInputs.startingPosition,
         ScouterInputs.noShow,
       ])}
     </div>

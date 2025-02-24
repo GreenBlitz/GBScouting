@@ -47,8 +47,6 @@ export const mergeMatches: (match1: Match, match2: Match) => Match = (
     scouterName: match1.scouterName + " & " + match2.scouterName,
     qual: match1.qual,
     teamNumber: match1.teamNumber,
-    gameSide: match1.gameSide,
-    startingPosition: match1.startingPosition,
     noShow: match1.noShow,
     defense: mergeUndefinedNumbers(match1.defense, match2.defense),
     defensiveEvasion: mergeUndefinedNumbers(
