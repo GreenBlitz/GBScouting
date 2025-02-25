@@ -23,6 +23,7 @@ export interface GridItems {
   L4: number;
   Defense: number;
   Evasion: number;
+  Climb: number;
 }
 
 interface PickArea {
@@ -62,6 +63,7 @@ const pickList: PickArea[] = [
     name: "Best Auto",
     predicate: (team) => team.Auto,
   },
+  { name: "Best Climb", predicate: (team) => team.Climb },
 ];
 
 export function processTeamData(teamNumber: number, data: TeamData): GridItems {
@@ -76,12 +78,29 @@ export function processTeamData(teamNumber: number, data: TeamData): GridItems {
       "processor"
     ),
     Auto: data.getAverageAutoScore(),
-    L4: data.getAverage(matchFieldNames.teleReefPick, ["levels","L4", "score"]),
-    L3: data.getAverage(matchFieldNames.teleReefPick, ["levels","L3", "score"]),
-    L2: data.getAverage(matchFieldNames.teleReefPick, ["levels","L2", "score"]),
-    L1: data.getAverage(matchFieldNames.teleReefPick, ["levels","L1", "score"]),
+    L4: data.getAverage(matchFieldNames.teleReefPick, [
+      "levels",
+      "L4",
+      "score",
+    ]),
+    L3: data.getAverage(matchFieldNames.teleReefPick, [
+      "levels",
+      "L3",
+      "score",
+    ]),
+    L2: data.getAverage(matchFieldNames.teleReefPick, [
+      "levels",
+      "L2",
+      "score",
+    ]),
+    L1: data.getAverage(matchFieldNames.teleReefPick, [
+      "levels",
+      "L1",
+      "score",
+    ]),
     Defense: data.getAverage(matchFieldNames.defense),
     Evasion: data.getAverage(matchFieldNames.defensiveEvasion),
+    Climb: data.getAverageClimb(),
   };
 }
 
@@ -160,6 +179,10 @@ function getCellClassName(
       return `bg-blue-${getStrength([1, 5, 10, 15, 20], numberedValue)}`;
     }
 
+    if (field === "Climb") {
+      return `bg-green-${getStrength([1, 3, 6, 9, 12], numberedValue)}`;
+    }
+
     return "text-white";
   };
   return `text-black  ${getBGColor()}`;
@@ -174,10 +197,12 @@ const GeneralTab: React.FC = () => {
       return processTeamData(
         teamNumber,
         new TeamData(
-          mergeSimilarMatches(await fetchMatchesByCriteria(
-            matchFieldNames.teamNumber,
-            teamNumber.toString()
-          ))
+          mergeSimilarMatches(
+            await fetchMatchesByCriteria(
+              matchFieldNames.teamNumber,
+              teamNumber.toString()
+            )
+          )
         )
       );
     }

@@ -8,11 +8,11 @@ import { matchFieldNames } from "../../utils/Match";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { FRCTeamList } from "../../utils/Utils";
 
-
 const TeamTab: React.FC = () => {
   const [teamData, setTeamData] = useState<TeamData>(new TeamData([]));
 
   const [teamTable, setTeamTable] = useState<GridItems[]>([]);
+
 
   //bruh this is kinda deep
   useEffect(() => {
@@ -20,10 +20,12 @@ const TeamTab: React.FC = () => {
       return processTeamData(
         teamNumber,
         new TeamData(
-          mergeSimilarMatches(await fetchMatchesByCriteria(
-            matchFieldNames.teamNumber,
-            teamNumber.toString()
-          ))
+          mergeSimilarMatches(
+            await fetchMatchesByCriteria(
+              matchFieldNames.teamNumber,
+              teamNumber.toString()
+            )
+          )
         )
       );
     }

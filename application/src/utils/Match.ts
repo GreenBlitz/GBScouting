@@ -31,16 +31,16 @@ export const mergeMatches: (match1: Match, match2: Match) => Match = (
   const avg = (n1: number, n2: number) => (n1 + n2) / 2;
 
   const mergeUndefinedNumbers = (
-    n1: number | undefined,
-    n2: number | undefined
+    n1: number | "undefined" | undefined,
+    n2: number | "undefined" | undefined
   ) => {
-    if (n1 && n2) {
+    if (typeof n1 === "number" && typeof n2 === "number") {
       return avg(n1, n2);
     }
-    if (n1) {
+    if (typeof n1 === "number") {
       return n1;
     }
-    return n2;
+    return typeof n2 === "number" ? n2 : undefined;
   };
 
   return {
