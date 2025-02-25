@@ -47,14 +47,14 @@ const Strategy: React.FC = () => {
     </nav>
   );
 
-  if (authorizationStorage.get()) {
-    return (
-      <>
-        {navBar}
-        <Outlet />
-      </>
-    );
-  }
+  // if (authorizationStorage.get()) {
+  return (
+    <>
+      {navBar}
+      <Outlet />
+    </>
+  );
+  // }
 
   return (
     <PasswordUpdater
