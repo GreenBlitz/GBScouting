@@ -35,11 +35,11 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       return res.status(500).send("Database not connected");
     }
 
-    const authToken = req.headers.authorization.substring(0, 10);
+    // const authToken = req.headers.authorization.substring(0, 10);
 
-    if (getterAuthToken !== authToken) {
-      return res.status(401).send("Invalid authorization token");
-    }
+    // if (getterAuthToken !== authToken) {
+    //   return res.status(401).send("Invalid authorization token");
+    // }
 
     const matchCollection = db.collection("matches");
     try {
@@ -55,11 +55,11 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       return res.status(500).send("Database not connected");
     }
 
-    const authToken = req.headers.authorization.substring(0, 10);
+    // const authToken = req.headers.authorization.substring(0, 10);
     
-    if (getterAuthToken !== authToken) {
-      return res.status(401).send("Invalid authorization token");
-    }
+    // if (getterAuthToken !== authToken) {
+    //   return res.status(401).send("Invalid authorization token");
+    // }
 
     const matchCollection = db.collection("matches");
     try {
