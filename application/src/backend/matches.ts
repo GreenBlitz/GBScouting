@@ -21,13 +21,18 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
               serde.serdeRecord(serde.qrSerde).serializer,
               value
             ) ===
-            serde.serialize(serde.serdeRecord(serde.qrSerde).serializer, matchData)
+            serde.serialize(
+              serde.serdeRecord(serde.qrSerde).serializer,
+              matchData
+            )
         )
       ) {
-        res.status(401).send("Match Already In Database")
+        res.status(401).send("Match Already In Database");
         return;
       }
-        const result = await matchCollection.insertOne(matchData);
+    } catch (error) {}
+    try {
+      const result = await matchCollection.insertOne(matchData);
       res.status(201).json(result);
     } catch (error) {
       res.status(500).json({ error: "Failed to insert data" });
@@ -48,6 +53,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
 
     const matchCollection = db.collection("matches");
+
     try {
       const items = await matchCollection.find().toArray();
       const uniqueItems = items.filter(
