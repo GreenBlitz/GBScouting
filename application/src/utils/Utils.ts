@@ -74,6 +74,7 @@ export const FRCTeamList: Record<number, string> = {
   6738: "Excalibur",
   6740: "G3",
   6741: "Space monkeys",
+  6969: "AmiRimon",
   7039: "❌⭕",
   7067: "Team Streak",
   7112: "EverGreen",
