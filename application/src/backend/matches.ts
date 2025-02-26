@@ -2,7 +2,7 @@ import { Express, Request, Response } from "express";
 import { Db } from "mongodb";
 import fs from "fs";
 import path from "path";
-import * as serde from "../utils/Serde";
+// import * as serde from "../utils/Serde";
 
 export function applyRoutes(app: Express, db: Db, dirName: string) {
   // Define routes
@@ -14,22 +14,22 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     const matchData = req.body;
 
     try {
-      if (
-        matchCollection.find(
-          (value) =>
-            serde.serialize(
-              serde.serdeRecord(serde.qrSerde).serializer,
-              value
-            ) ===
-            serde.serialize(
-              serde.serdeRecord(serde.qrSerde).serializer,
-              matchData
-            )
-        )
-      ) {
-        res.status(401).send("Match Already In Database");
-        return;
-      }
+      // if (
+      //   matchCollection.find(
+      //     (value) =>
+      //       serde.serialize(
+      //         serde.serdeRecord(serde.qrSerde).serializer,
+      //         value
+      //       ) ===
+      //       serde.serialize(
+      //         serde.serdeRecord(serde.qrSerde).serializer,
+      //         matchData
+      //       )
+      //   )
+      // ) {
+      //   res.status(401).send("Match Already In Database");
+      //   return;
+      // }
     } catch (error) {}
     try {
       const result = await matchCollection.insertOne(matchData);
@@ -47,35 +47,35 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
   })().substring(0, 10);
 
-  app.delete("/Duplicates", async (req, res) => {
-    if (!db) {
-      return res.status(500).send("Database not connected");
-    }
+  // app.delete("/Duplicates", async (req, res) => {
+  //   if (!db) {
+  //     return res.status(500).send("Database not connected");
+  //   }
 
-    const matchCollection = db.collection("matches");
+  //   const matchCollection = db.collection("matches");
 
-    try {
-      const items = await matchCollection.find().toArray();
-      const uniqueItems = items.filter(
-        (item, index, self) =>
-          index ===
-          self.findIndex(
-            (other) =>
-              serde.serialize(
-                serde.serdeRecord(serde.qrSerde).serializer,
-                other
-              ) ===
-              serde.serialize(serde.serdeRecord(serde.qrSerde).serializer, item)
-          )
-      );
-      await matchCollection.deleteMany({});
-      await matchCollection.insertMany(uniqueItems);
+  //   try {
+  //     const items = await matchCollection.find().toArray();
+  //     const uniqueItems = items.filter(
+  //       (item, index, self) =>
+  //         index ===
+  //         self.findIndex(
+  //           (other) =>
+  //             serde.serialize(
+  //               serde.serdeRecord(serde.qrSerde).serializer,
+  //               other
+  //             ) ===
+  //             serde.serialize(serde.serdeRecord(serde.qrSerde).serializer, item)
+  //         )
+  //     );
+  //     await matchCollection.deleteMany({});
+  //     await matchCollection.insertMany(uniqueItems);
 
-      res.status(200).json(uniqueItems);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  });
+  //     res.status(200).json(uniqueItems);
+  //   } catch (error) {
+  //     res.status(500).send(error);
+  //   }
+  // });
 
   console.log("Getter AUTH Token: " + getterAuthToken);
 
