@@ -14,7 +14,20 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     const matchData = req.body;
 
     try {
-      const result = await matchCollection.insertOne(matchData);
+      if (
+        matchCollection.find(
+          (value) =>
+            serde.serialize(
+              serde.serdeRecord(serde.qrSerde).serializer,
+              value
+            ) ===
+            serde.serialize(serde.serdeRecord(serde.qrSerde).serializer, matchData)
+        )
+      ) {
+        res.status(200).send("Match Already In Database")
+        return;
+      }
+        const result = await matchCollection.insertOne(matchData);
       res.status(201).json(result);
     } catch (error) {
       res.status(500).json({ error: "Failed to insert data" });
