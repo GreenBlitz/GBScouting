@@ -26,6 +26,15 @@ export function mergeSimilarMatches(matches: Match[]) {
   }, [] as Match[]);
 }
 
+export function useRecent(matches: Match[], recency: number): Match[] {
+  const recentMatches = mergeSimilarMatches(sortMatches([...matches]));
+
+  if (recency > 0 && recency < recentMatches.length) {
+    recentMatches.splice(0, recentMatches.length - recency);
+  }
+  return recentMatches;
+}
+
 const TeamPicker: React.FC<TeamPickerProps> = ({
   setTeamData,
   defaultRecency,
@@ -41,11 +50,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
   };
 
   useEffect(() => {
-    const recentMatches = mergeSimilarMatches(sortMatches([...matches]))
-
-    if (recency > 0 && recency < recentMatches.length) {
-      recentMatches.splice(0, recentMatches.length - recency);
-    }
+    const recentMatches = useRecent(matches,recency);
     async function updateTeamData() {
       setTeamData(new TeamData(recentMatches, await getNotes(recentMatches)));
     }

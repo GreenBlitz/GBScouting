@@ -3,6 +3,7 @@ import { TeamData } from "../TeamData";
 import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
 import { fetchAllTeamMatches } from "../utils/Fetches";
+import { useRecent } from "../components/TeamPicker";
 
 interface FieldOption {
   name: string;
@@ -56,12 +57,13 @@ const fieldOptions: FieldOption[] = [
 
 const ComparisonTab: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);
+  const [recency, setRecency] = useState<number>(0);
 
   useEffect(() => {
     async function updateTeams() {
       setTeams(
         Object.values(await fetchAllTeamMatches()).map(
-          (teamMatches) => new TeamData(teamMatches)
+          (teamMatches) => new TeamData(useRecent(teamMatches, recency))
         )
       );
     }
@@ -99,6 +101,14 @@ const ComparisonTab: React.FC = () => {
             <option>{option.name}</option>
           ))}
         </select>
+        <label htmlFor="recency">Recency</label>
+        <input
+          type="number"
+          id="recency"
+          name="recency"
+          onChange={(event) => setRecency(parseInt(event.target.value))}
+          min={1}
+        />
         <div className="w-96 ">
           <BoxChart
             data={Object.assign({}, ...teamsData)}
