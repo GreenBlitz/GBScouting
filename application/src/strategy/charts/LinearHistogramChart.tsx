@@ -121,6 +121,20 @@ class LinearHistogramChart<
     return section ? { ...section } : undefined;
   }
 
+  onTouch(event: React.TouchEvent<HTMLDivElement>) {
+    const hoveredX: number =
+      event.touches[0].pageX - event.currentTarget.offsetLeft - boxThickness;
+
+    const hoveredSection = this.getSection(hoveredX);
+    if (hoveredSection) {
+      hoveredSection.value = this.amountFromChartWidth(hoveredSection.value);
+    }
+    this.setState({
+      anchor: event.currentTarget,
+      hoveredSection: hoveredSection,
+    });
+  }
+
   onMove(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const hoveredX: number =
       event.pageX - event.currentTarget.offsetLeft - boxThickness;
@@ -136,7 +150,6 @@ class LinearHistogramChart<
   }
 
   render() {
-    
     return (
       <div
         style={{
@@ -146,6 +159,8 @@ class LinearHistogramChart<
         }}
         onMouseMove={(event) => this.onMove(event)}
         onMouseLeave={() => this.setState({ hoveredSection: undefined })}
+        onTouchMove={(event) => this.onTouch(event)}
+        onTouchEnd={() => this.setState({hoveredSection: undefined})}
       >
         <AgGauge {...this.gaugeProps} />
         {this.state.hoveredSection && this.state.anchor && (
