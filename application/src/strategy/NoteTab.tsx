@@ -73,7 +73,14 @@ const NoteTab: React.FC = () => {
 
       <button
         className="bg-green-800 px-12 py-6"
-        onClick={() => notes && postNotes(notes, qual)}
+        onClick={() =>
+          notes &&
+          postNotes(notes, qual)
+            .then(() => {
+              alert("successfuly sent notes");
+            })
+            .catch(() => alert("couldn't send notes"))
+        }
       >
         Submit
       </button>
