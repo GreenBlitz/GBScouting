@@ -8,6 +8,7 @@ import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 import "./GeneralTable.css";
 import { matchFieldNames } from "../../utils/Match";
 import { mergeSimilarMatches } from "../../components/TeamPicker";
+import { useRecent } from "../../components/TeamPicker";
 
 export interface GridItems {
   Team: number;
@@ -197,11 +198,14 @@ const GeneralTab: React.FC = () => {
       return processTeamData(
         teamNumber,
         new TeamData(
-          mergeSimilarMatches(
-            await fetchMatchesByCriteria(
-              matchFieldNames.teamNumber,
-              teamNumber.toString()
-            )
+          useRecent(
+            mergeSimilarMatches(
+              await fetchMatchesByCriteria(
+                matchFieldNames.teamNumber,
+                teamNumber.toString()
+              )
+            ),
+            recency
           )
         )
       );
@@ -217,6 +221,8 @@ const GeneralTab: React.FC = () => {
   }, []);
 
   const [teamExclusions, setTeamExclusions] = useState<number[]>([]);
+
+  const [recency, setRecency] = useState<number>(0);
 
   const getBestTeam = (predicate: (team: GridItems) => number) => {
     return teamTable.reduce((bestTeam, currentTeam) => {
@@ -260,6 +266,16 @@ const GeneralTab: React.FC = () => {
           </tr>
         </tbody>
       </table>
+
+      <label htmlFor="recency">Recency</label>
+      <input
+        type="number"
+        id="recency"
+        name="recency"
+        onChange={(event) => setRecency(parseInt(event.target.value))}
+        min={1}
+      />
+
       <div className="section">
         <TableChart
           tableData={teamTable}
