@@ -28,6 +28,7 @@ import CoralSVG from "./assets/low-coral.svg";
 import AlgeaSVG from "./assets/low-algea.svg";
 import TestLinear from "./strategy/team-tab/sections/TestLinear";
 import Leaderboard from "./components/Leaderboard";
+import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
 
 function getHiddenImage(path: string) {
   return (
@@ -140,6 +141,7 @@ const App: React.FC = () => {
               <Route path="team" element={<TeamTab />}>
                 <Route path="teleoperated" element={<StrategyTeleoperated />}>
                   <Route path="linear" element={<TestLinear />} />
+                  <Route path="histogram" element={<TestLinear2 />} />
                 </Route>
                 <Route path="autonomous" element={<StrategyAutonomous />} />
               </Route>

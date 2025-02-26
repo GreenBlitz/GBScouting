@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
 import { TeamData } from "../../../TeamData";
 import CoralChart from "../../charts/CoralChart";
 import LineChart from "../../charts/LineChart";
@@ -56,12 +61,15 @@ const StrategyTeleoperated: React.FC = () => {
     );
   };
 
+  const location = useLocation();
   useEffect(() => {
+    const isAlready = location.pathname.includes("linear");
     if (teamData.matches.length === 0) {
       navigate("/strategy/team/teleoperated");
-    }
-    if (teamData.matches.length > 0) {
+    } else if (!isAlready) {
       navigate("/strategy/team/teleoperated/linear");
+    } else {
+      navigate("/strategy/team/teleoperated/histogram");
     }
   }, [teamData]);
 
