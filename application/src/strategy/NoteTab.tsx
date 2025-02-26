@@ -7,6 +7,8 @@ const NoteTab: React.FC = () => {
 
   const [matchResults, setMatchResults] = useState<MatchResults | null>(null);
 
+  const [team, setTeam] = useState<number | null>(null);
+
   useEffect(() => {
     async function updateMatchResults() {
       setMatchResults(await fetchMatchResults(`${currentDistrict}_qm${qual}`));
@@ -38,6 +40,8 @@ const NoteTab: React.FC = () => {
     [redAlliance]
   );
 
+  console.log(notes);
+
   const getTeamElement = (team: number) => {
     return (
       <div className="mx-2 my-5">
@@ -64,6 +68,15 @@ const NoteTab: React.FC = () => {
           defaultValue={1}
         />
       </div>
+
+      <div className="rower mt-10">
+        <h1>Team Number</h1>
+        <input
+          type="number"
+          onChange={(event) => setTeam(parseInt(event.target.value))}
+        />
+      </div>
+      {team && getTeamElement(team)}
 
       <div className="mt-10 bg-blue-900">
         {blueAlliance?.map(getTeamElement)}
