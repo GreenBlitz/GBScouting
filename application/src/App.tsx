@@ -88,9 +88,6 @@ export function renderScouterNavBar() {
             Leaderboard
           </Link>
         </li>
-        <li>
-          <Link to="/scouter-stats">Scouter Stats</Link>
-        </li>
       </ul>
     </nav>
   );

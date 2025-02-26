@@ -42,7 +42,8 @@ const Strategy: React.FC = () => {
           >
             Notes
           </Link>
-        </li><li>
+        </li>
+        <li>
           <Link
             to="/strategy/scouter-stats"
             className="text-dark-text hover:text-primary-400 transition-colors"

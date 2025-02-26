@@ -4,7 +4,6 @@ import PieChart from "./charts/PieChart";
 import BarChart from "./charts/BarChart";
 import { fetchMatchesByCriteria } from "../utils/Fetches";
 import { Color, randomColor } from "../utils/Color";
-import { renderStrategyNavBar } from "../App";
 import { DataSet } from "../utils/Utils";
 
 function getDataSetByPredicate(
@@ -61,7 +60,6 @@ const ScouterStats: React.FC = () => {
 
   return (
     <>
-      {renderStrategyNavBar()}
       <h2>Scouter Scouting</h2>
       <PieChart pieData={pieData} />
       <h2>Quals Followed</h2>
