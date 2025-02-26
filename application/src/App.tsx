@@ -29,6 +29,7 @@ import AlgeaSVG from "./assets/low-algea.svg";
 import TestLinear from "./strategy/team-tab/sections/TestLinear";
 import Leaderboard from "./components/Leaderboard";
 import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
+import ScouterStats from "./strategy/ScouterStats";
 
 function getHiddenImage(path: string) {
   return (
@@ -86,6 +87,9 @@ export function renderScouterNavBar() {
           >
             Leaderboard
           </Link>
+        </li>
+        <li>
+          <Link to="/scouter-stats">Scouter Stats</Link>
         </li>
       </ul>
     </nav>
@@ -148,6 +152,7 @@ const App: React.FC = () => {
               <Route path="notes" element={<NoteTab />} />
               <Route path="general" element={<GeneralTab />} />
               <Route path="compare" element={<ComparisonTab />} />
+              <Route path="scouter-stats" element={<ScouterStats />} />
             </Route>
           </Routes>
         </PageTransition>
