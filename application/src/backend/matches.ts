@@ -24,7 +24,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
             serde.serialize(serde.serdeRecord(serde.qrSerde).serializer, matchData)
         )
       ) {
-        res.status(200).send("Match Already In Database")
+        res.status(401).send("Match Already In Database")
         return;
       }
         const result = await matchCollection.insertOne(matchData);
