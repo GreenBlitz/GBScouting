@@ -1,8 +1,8 @@
 import React from "react";
 import { Collection } from "../../utils/SeasonUI";
 
-import coralSVG from "../../assets/low-coral.svg";
-import algeaSVG from "../../assets/low-algea.svg";
+import CoralSVG from "../../assets/low-coral.svg";
+import AlgeaSVG from "../../assets/low-algea.svg";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { StorageBacked } from "../../utils/FolderStorage";
 
@@ -41,7 +41,7 @@ class CollectionInput extends ScouterInput<
         onClick={() => this.updateCollection("coralFeederCollected")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Feeder</h2>
-        <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
+        <img className="mt-2" src={CoralSVG} width={80} alt="Coral Icon" />
       </button>
     );
 
@@ -55,7 +55,7 @@ class CollectionInput extends ScouterInput<
         onClick={() => this.updateCollection("coralGroundCollected")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
-        <img className="mt-2" src={coralSVG} width={80} alt="Coral Icon" />
+        <img className="mt-2" src={CoralSVG} width={80} alt="Coral Icon" />
       </button>
     );
 
@@ -69,7 +69,7 @@ class CollectionInput extends ScouterInput<
         onClick={() => this.updateCollection("algeaGroundCollected")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
-        <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
+        <img className="mt-6" src={AlgeaSVG} width={60} alt="Algea Icon" />
       </button>
     );
 
@@ -83,7 +83,7 @@ class CollectionInput extends ScouterInput<
         onClick={() => this.updateCollection("algeaReefCollected")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Collected</h2>
-        <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
+        <img className="mt-6" src={AlgeaSVG} width={60} alt="Algea Icon" />
       </button>
     );
 
@@ -95,7 +95,7 @@ class CollectionInput extends ScouterInput<
         onClick={() => this.updateCollection("algeaReefDropped")}
       >
         <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
-        <img className="mt-6" src={algeaSVG} width={60} alt="Algea Icon" />
+        <img className="mt-6" src={AlgeaSVG} width={60} alt="Algea Icon" />
       </button>
     );
 
