@@ -27,6 +27,7 @@ import { authorizationStorage } from "./utils/FolderStorage";
 import CoralSVG from "./assets/low-coral.svg";
 import AlgeaSVG from "./assets/low-algea.svg";
 import TestLinear from "./strategy/team-tab/sections/TestLinear";
+import Leaderboard from "./components/Leaderboard";
 
 function getHiddenImage(path: string) {
   return (
@@ -54,7 +55,6 @@ export function renderScouterNavBar() {
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
           <div className="w-0 h-0"> {[...loadedHiddenImages]}</div>
-
           <Link
             to="/scouter/matches"
             className="text-dark-text hover:text-primary-400 transition-colors"
@@ -76,6 +76,14 @@ export function renderScouterNavBar() {
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Scan
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/scouter/leaderboard"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Leaderboard
           </Link>
         </li>
       </ul>
@@ -126,11 +134,12 @@ const App: React.FC = () => {
                 </Route>
                 <Route path="postmatch" element={<ScouterPostMatch />} />
               </Route>
+              <Route path="leaderboard" element={<Leaderboard />} />
             </Route>
             <Route path="/strategy" element={<Strategy />}>
               <Route path="team" element={<TeamTab />}>
-                <Route path="teleoperated" element={<StrategyTeleoperated />} >
-                  <Route path="linear" element={<TestLinear />}/>
+                <Route path="teleoperated" element={<StrategyTeleoperated />}>
+                  <Route path="linear" element={<TestLinear />} />
                 </Route>
                 <Route path="autonomous" element={<StrategyAutonomous />} />
               </Route>

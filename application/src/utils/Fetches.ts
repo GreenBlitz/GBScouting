@@ -129,3 +129,8 @@ export interface MatchResults {
   winningAlliance: "red" | "blue";
   time: string;
 }
+export async function fetchScouterNames() {
+  return await fetchData("ScouterNames");
+
+}
+

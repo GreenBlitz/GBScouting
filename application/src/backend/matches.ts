@@ -71,4 +71,29 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       res.status(500).send(error);
     }
   });
+
+  app.get("/ScouterNames", async (req, res) => {
+    if (!db) {
+      return res.status(500).send("Database not connected");
+    }
+  
+    const matchCollection = db.collection("matches");
+    try {
+      const items = await matchCollection.find().toArray();
+      const scouterNames = items.map(match => match.scouterName).filter(Boolean);
+  
+      const nameCounts = scouterNames.reduce((acc, name) => {
+        acc[name] = (acc[name] || 0) + 1;
+        return acc;
+      }, {});
+  
+      const sortedNames = Object.entries(nameCounts)
+        .sort((a, b) => Number(b[1]) - Number(a[1])) // Sort by count in descending order
+        .map(([name, count]) => ({ name, count })); // Convert to array of objects
+  
+      res.status(200).json(sortedNames);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
 }
