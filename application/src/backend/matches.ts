@@ -65,8 +65,8 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
           })
         );
       });
-      await matchCollection.deleteMany({});
-      await matchCollection.insertMany(uniqueItems);
+      // await matchCollection.deleteMany({});
+      // await matchCollection.insertMany(uniqueItems);
 
       res.status(200).json(uniqueItems);
     } catch (error) {
