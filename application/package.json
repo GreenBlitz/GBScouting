@@ -26,6 +26,7 @@
     "axios": "^1.7.9",
     "chart.js": "^4.4.4",
     "cors": "^2.8.5",
+    "deep-equal": "^2.2.3",
     "express": "^4.21.0",
     "framer-motion": "^11.16.0",
     "html-colors": "^0.0.6",
