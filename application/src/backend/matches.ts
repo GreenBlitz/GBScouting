@@ -21,10 +21,10 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
         return stringedMatch === jsoned;
       });
 
-      // if (similarMatch) {
-      //   res.status(401).send("Match Already In Database");
-      //   return;
-      // }
+      if (similarMatch) {
+        res.status(401).send("Match Already In Database");
+        return;
+      }
     } catch (error) {
       console.log(error);
     }
