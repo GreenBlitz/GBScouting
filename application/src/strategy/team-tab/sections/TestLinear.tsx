@@ -8,6 +8,7 @@ const climbColorMap = {
   "Off Barge": "#E94F37",
   "Shallow Cage": "#F9DC5C",
   "Deep Cage": "#44BBA4",
+  "Tried Deep": "#ED7117",
 };
 
 type ClimbKeys = keyof typeof climbColorMap;

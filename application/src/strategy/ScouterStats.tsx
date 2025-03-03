@@ -10,9 +10,9 @@ function getDataSetByPredicate(
   predicate: (value: number) => boolean,
   data: Record<number, number>
 ): Record<string, number> {
-  return Object.entries(data)
-    .filter(([key, value]) => predicate(value))
-    .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+  return Object.entries(data).reduce((acc, [key, value]) => {
+    return { ...acc, [key]: predicate(value) ? value : undefined };
+  }, {});
 }
 
 const ScouterStats: React.FC = () => {
@@ -42,8 +42,12 @@ const ScouterStats: React.FC = () => {
       data[qual]++;
     });
 
+    const amazingDataset: DataSet = {
+      data: getDataSetByPredicate((value) => value >= 12, data),
+      color: "cyan",
+    };
     const goodDataset: DataSet = {
-      data: getDataSetByPredicate((value) => value >= 6, data),
+      data: getDataSetByPredicate((value) => value >= 6 && value < 12, data),
       color: "green",
     };
     const okDataset: DataSet = {
@@ -55,7 +59,12 @@ const ScouterStats: React.FC = () => {
       color: "red",
     };
 
-    return { Good: goodDataset, Ok: okDataset, Bad: badDataset };
+    return {
+      Amazing: amazingDataset,
+      Good: goodDataset,
+      Ok: okDataset,
+      Bad: badDataset,
+    };
   }, [stats]);
 
   return (

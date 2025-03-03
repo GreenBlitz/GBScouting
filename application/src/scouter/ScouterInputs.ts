@@ -51,7 +51,7 @@ export default class ScouterInputs {
   static readonly climb = new DropdownInput({
     route: "climb",
     name: "Climb",
-    options: ["Off Barge", "Park", "Shallow Cage", "Deep Cage"],
+    options: ["Off Barge", "Park", "Shallow Cage", "Deep Cage", "Tried Deep"],
   });
   static readonly comment = new TextInput({
     route: "comment",

@@ -422,6 +422,7 @@ const CLIMB_POSSIBLE_VALUES = [
   "Park",
   "Shallow Cage",
   "Deep Cage",
+  "Tried Deep"
 ];
 
 

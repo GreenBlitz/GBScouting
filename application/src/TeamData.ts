@@ -77,6 +77,8 @@ export class TeamData {
           return 6;
         case "Deep Cage":
           return 12;
+        case "Tried Deep":
+          return 2;
       }
       return 0;
     };
@@ -449,6 +451,8 @@ export class TeamData {
               return 6;
             case "Deep Cage":
               return 12;
+            case "Tried Deep":
+              return 2;
           }
           return 0;
         };
