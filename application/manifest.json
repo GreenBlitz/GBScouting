@@ -1,0 +1,11 @@
+{
+    "name": "GBScouting",
+    "short_name": "GBScouting",
+    "start_url": ".",
+    "display":"standalone",
+    "icons": [{
+        "src": "",
+        "size": "",
+        "type": ""
+    }]
+}
