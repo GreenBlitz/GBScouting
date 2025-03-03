@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { fetchMatchResults, MatchResults, postNotes } from "../utils/Fetches";
-import { currentDistrict } from "../utils/SeasonUI";
 
 const NoteTab: React.FC = () => {
   const [qual, setQual] = useState<number>(1);
@@ -11,7 +10,7 @@ const NoteTab: React.FC = () => {
 
   useEffect(() => {
     async function updateMatchResults() {
-      setMatchResults(await fetchMatchResults(`${currentDistrict}_qm${qual}`));
+      setMatchResults(await fetchMatchResults(""));
     }
     updateMatchResults();
   }, [qual]);

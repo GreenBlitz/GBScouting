@@ -23,5 +23,3 @@ export interface UsedAlgea {
   netMiss: number;
   processor: number;
 }
-
-export const currentDistrict = "2025isde2";

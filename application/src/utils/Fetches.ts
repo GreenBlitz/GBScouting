@@ -6,24 +6,34 @@ export const getServerHostname = () => {
 };
 
 export async function fetchData(field: string);
-export async function fetchData(field: string, method: string, body?: string, authorization?: string);
+export async function fetchData(
+  field: string,
+  method: string,
+  body?: string,
+  authorization?: string
+);
 export async function fetchData(
   field: string,
   method: string = "GET",
   body?: string,
-  authorization: string = "",
+  authorization: string = ""
 ) {
   return await fetch(`https://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": authorization,
+      Authorization: authorization,
     },
     body: body,
   }).then((response) => {
     if (!response.ok) {
-      throw new Error("Network response was not ok: " + response.statusText + ", " + response.body);
+      throw new Error(
+        "Network response was not ok: " +
+          response.statusText +
+          ", " +
+          response.body
+      );
     }
     return response.json();
   });
@@ -34,7 +44,12 @@ export async function fetchMatchesByCriteria(
   value?: string
 ): Promise<Match[]> {
   const searchedField = field && value ? `${field}/${value}` : ``;
-  return await fetchData("Matches/" + searchedField,"GET", undefined, authorizationStorage.get() || undefined).then((data) => {
+  return await fetchData(
+    "Matches/" + searchedField,
+    "GET",
+    undefined,
+    authorizationStorage.get() || undefined
+  ).then((data) => {
     if (!data) {
       authorizationStorage.remove();
     }
@@ -54,11 +69,9 @@ export async function postMatch(match: Match) {
   return await fetchData("Match", "POST", JSON.stringify(match));
 }
 
-export async function fetchQualificationResults(eventKey: string) {
+export async function fetchQualificationResults() {
   try {
-    const response = await fetchData(
-      `TheBlueAlliance-event-leaderboard/${eventKey}`
-    );
+    const response = await fetchData(`TBA/rankings`);
     if (!response) throw new Error("No data received");
 
     // Extract qualification rankings from the API response
@@ -78,12 +91,34 @@ export async function fetchQualificationResults(eventKey: string) {
   }
 }
 
-export async function fetchMatchResults(matchKey: string) {
+export interface MatchTeams {
+  blueAlliance: number[];
+  redAlliance: number[];
+}
+
+export async function fetchAllAwaitingMatches() {
+  try {
+    const response = await fetchData(`TBA/matches`);
+    if (!response) throw new Error("No data received");
+
+    const getTeamNumber = (team: string) => parseInt(team.slice(3));
+    // Extract qualification rankings from the API response
+    const qualificationResults: MatchTeams[] = response.map((match) => ({
+      blueTeams: match.alliances.blue.team_keys.map(getTeamNumber),
+      redTeams: match.alliances.blue.team_keys.map(getTeamNumber),
+    }));
+
+    return qualificationResults;
+  } catch (error) {
+    console.error("Error fetching qualification results:", error);
+    return null;
+  }
+}
+
+export async function fetchMatchResults(matchNumber: string) {
   try {
     // Call your backend API
-    const response = await fetchData(
-      `TheBlueAlliance-match-results/${matchKey}`
-    );
+    const response = await fetchData(`TBA/match/${matchNumber}`);
     if (!response) throw new Error("No data received");
 
     // Extract important match details
@@ -131,6 +166,4 @@ export interface MatchResults {
 }
 export async function fetchScouterNames() {
   return await fetchData("ScouterNames");
-
 }
-
