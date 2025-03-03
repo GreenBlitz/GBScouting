@@ -102,11 +102,18 @@ export async function fetchAllAwaitingMatches() {
     if (!response) throw new Error("No data received");
 
     const getTeamNumber = (team: string) => parseInt(team.slice(3));
+    const getQual = (match: any) => parseInt((match.key as string).slice(12));
+
     // Extract qualification rankings from the API response
-    const qualificationResults: MatchTeams[] = response.map((match) => ({
-      blueTeams: match.alliances.blue.team_keys.map(getTeamNumber),
-      redTeams: match.alliances.blue.team_keys.map(getTeamNumber),
-    }));
+    const qualificationResults: MatchTeams[] = (response as any[])
+      .filter((match) => match.comp_level === "qm")
+      .sort((match1, match2) => getQual(match1) - getQual(match2))
+      .map((match) => ({
+        blueAlliance: match.alliances.blue.team_keys.map(getTeamNumber),
+        redAlliance: match.alliances.red.team_keys.map(getTeamNumber),
+      }));
+
+    console.log(qualificationResults);
 
     return qualificationResults;
   } catch (error) {

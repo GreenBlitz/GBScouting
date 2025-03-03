@@ -1,29 +1,42 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { fetchMatchResults, MatchResults, postNotes } from "../utils/Fetches";
+import {
+  fetchAllAwaitingMatches,
+  MatchTeams,
+  postNotes,
+} from "../utils/Fetches";
+import { StorageBacked } from "../utils/FolderStorage";
 
 const NoteTab: React.FC = () => {
+  const allMatches = useMemo(
+    () => new StorageBacked<MatchTeams[]>("notes/matches", localStorage),
+    []
+  );
+
   const [qual, setQual] = useState<number>(1);
 
-  const [matchResults, setMatchResults] = useState<MatchResults | null>(null);
+  const [matchResults, setMatchResults] = useState<MatchTeams | null>(null);
 
   const [team, setTeam] = useState<number | null>(null);
 
   useEffect(() => {
-    async function updateMatchResults() {
-      setMatchResults(await fetchMatchResults(""));
+    if (allMatches.exists()) {
+      return;
     }
-    updateMatchResults();
-  }, [qual]);
+    console.log("ss");
 
-  const toTeamNumber = (value: string) => parseInt(value.slice(3));
-  const redAlliance = useMemo(
-    () => matchResults?.redAlliance.map(toTeamNumber),
-    [matchResults]
-  );
-  const blueAlliance = useMemo(
-    () => matchResults?.blueAlliance.map(toTeamNumber),
-    [matchResults]
-  );
+    async function updateMatchResults() {
+      const matchResults = await fetchAllAwaitingMatches();
+      if (matchResults) allMatches.set(matchResults);
+    }
+    updateMatchResults()
+      .then(() => alert("Successfuly pulled matches."))
+      .catch(() => alert("Could not pull matches"));
+  }, []);
+
+  useEffect(() => {
+    const matches = allMatches.get();
+    if (matches) setMatchResults(matches[qual]);
+  }, [qual]);
 
   const [notes, setNotes] = useState<Record<number, string>>();
   useEffect(
@@ -31,12 +44,14 @@ const NoteTab: React.FC = () => {
       setNotes(
         Object.assign(
           {},
-          ...(redAlliance?.concat(blueAlliance || []).map((value) => {
-            return { [value]: "" };
-          }) || [])
+          ...(matchResults?.redAlliance
+            .concat(matchResults.blueAlliance || [])
+            .map((value) => {
+              return { [value]: "" };
+            }) || [])
         )
       ),
-    [redAlliance]
+    [matchResults?.redAlliance]
   );
 
   console.log(notes);
@@ -78,10 +93,12 @@ const NoteTab: React.FC = () => {
       {team && getTeamElement(team)}
 
       <div className="mt-10 bg-blue-900">
-        {blueAlliance?.map(getTeamElement)}
+        {matchResults?.blueAlliance.map(getTeamElement)}
       </div>
 
-      <div className="mt-10 bg-red-900">{redAlliance?.map(getTeamElement)}</div>
+      <div className="mt-10 bg-red-900">
+        {matchResults?.redAlliance.map(getTeamElement)}
+      </div>
 
       <button
         className="bg-green-800 px-12 py-6"
