@@ -191,6 +191,7 @@ function getCellClassName(
 
 const GeneralTab: React.FC = () => {
   const [teamTable, setTeamTable] = useState<GridItems[]>([]);
+  const [recency, setRecency] = useState<number>(0);
 
   //bruh this is kinda deep
   useEffect(() => {
@@ -218,11 +219,9 @@ const GeneralTab: React.FC = () => {
       );
     }
     updateTeamTable();
-  }, []);
+  }, [recency]);
 
   const [teamExclusions, setTeamExclusions] = useState<number[]>([]);
-
-  const [recency, setRecency] = useState<number>(0);
 
   const getBestTeam = (predicate: (team: GridItems) => number) => {
     return teamTable.reduce((bestTeam, currentTeam) => {

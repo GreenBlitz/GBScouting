@@ -435,19 +435,25 @@ export class TeamData {
   }
 
   getAverageClimb(): number {
-    return this.matches.reduce((accumulator, { climb }) => {
-      const getValue = () => {
-        switch (climb) {
-          case "Park":
-            return 2;
-          case "Shallow Cage":
-            return 6;
-          case "Deep Cage":
-            return 12;
-        }
-        return 0;
-      };
-      return getValue() + accumulator;
-    }, 0);
+    if (this.matches.length <= 0) {
+      return 0;
+    }
+
+    return (
+      this.matches.reduce((accumulator, { climb }) => {
+        const getValue = () => {
+          switch (climb) {
+            case "Park":
+              return 2;
+            case "Shallow Cage":
+              return 6;
+            case "Deep Cage":
+              return 12;
+          }
+          return 0;
+        };
+        return getValue() + accumulator;
+      }, 0) / this.matches.length
+    );
   }
 }

@@ -59,12 +59,12 @@ const ScouterStats: React.FC = () => {
   }, [stats]);
 
   return (
-    <>
-      <h2>Scouter Scouting</h2>
-      <PieChart pieData={pieData} />
-      <h2>Quals Followed</h2>
+    <div className="flex flex-col items-center">
+      <h2 className="mt-10">Scouter Scouting</h2>
+      <PieChart width={500} pieData={pieData} />
+      <h2 className="mt-10">Quals Followed</h2>
       <BarChart dataSets={barData} />
-    </>
+    </div>
   );
 };
 

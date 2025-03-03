@@ -11,9 +11,10 @@ export interface SectionData {
 }
 interface PieChartProps {
   pieData: Record<string, SectionData>;
+  width?: number;
 }
 
-const PieChart: React.FC<PieChartProps> = ({ pieData }) => {
+const PieChart: React.FC<PieChartProps> = ({ pieData, width }) => {
   const names = Object.keys(pieData);
   const data = Object.values(pieData).map((section) => {
     return section.percentage;
@@ -41,7 +42,7 @@ const PieChart: React.FC<PieChartProps> = ({ pieData }) => {
   };
 
   return (
-    <div>
+    <div style={{ width }}>
       <Pie data={chartData} options={options} />
     </div>
   );
