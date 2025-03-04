@@ -1,0 +1,11 @@
+{
+    "name": "GB Scouting",
+    "short_name": "GB Scouting",
+    "start_url":".",
+    "display": "standalone",
+    "icons": [{
+        "src": "",
+        "sizes": "",
+        "type": ""
+    }]
+}
