@@ -1,9 +1,15 @@
 const { response } = require("express")
 
+const cacheName = 'static'
+const resourcesToPrecache = [
+    '/.'
+]
+
 self.addEventListener('install', e=>{
     e.waitUntil(
-        caches.open('static').then(caches=>{
-            return caches.addAll(['./'])
+        caches.open(cacheName)
+        .then(caches=>{
+            return caches.addAll(resourcesToPrecache)
         })
     )
 })
