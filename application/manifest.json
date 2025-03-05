@@ -1,7 +1,7 @@
 {
     "name": "GB Scouting",
     "short_name": "GB Scouting",
-    "start_url":".",
+    "start_url":"/.",
     "display": "standalone",
     "icons": [{
         "src": "Full Color.png",
