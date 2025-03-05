@@ -1,15 +1,34 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
-import React from "react";
+import {
+  DataGrid,
+  GridCellParams,
+  GridColDef,
+  GridRowSelectionModel,
+  GridTreeNode,
+} from "@mui/x-data-grid";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
+import React, { useEffect, useState } from "react";
 
 const paginationModel = { page: 0, pageSize: 5 };
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 interface TableChartProps {
   tableData: Record<string, any>[];
   calculations?: Record<string, (row: Record<string, any>) => string>;
+
   idName: string;
   height: number;
   widthOfItem: number;
+  getCellClassName?: (
+    params: GridCellParams<any, any, any, GridTreeNode>
+  ) => string;
+  onRowSelectionChange?: (rowSelectionModel: GridRowSelectionModel) => void;
 }
 
 const TableChart: React.FC<TableChartProps> = ({
@@ -18,6 +37,8 @@ const TableChart: React.FC<TableChartProps> = ({
   calculations,
   height,
   widthOfItem,
+  getCellClassName,
+  onRowSelectionChange,
 }) => {
   const rows: Record<string, any>[] = tableData.map((row) => {
     return { ...row };
@@ -46,19 +67,32 @@ const TableChart: React.FC<TableChartProps> = ({
     };
   });
 
+  const [rowSelectionModel, setRowSelectionModel] =
+    useState<GridRowSelectionModel>([]);
+
+  useEffect(() => {
+    if (onRowSelectionChange) {
+      onRowSelectionChange(rowSelectionModel);
+    }
+  }, [rowSelectionModel]);
   return (
-    <Paper sx={{ height: height, width: "100%" }}>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <DataGrid
         rows={rows}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10, 67]}
         sx={{
-          border: 0,
+          border: 2,
         }}
         getRowId={(row) => row[idName]}
+        getCellClassName={getCellClassName}
+        checkboxSelection
+        rowSelectionModel={rowSelectionModel}
+        onRowSelectionModelChange={setRowSelectionModel}
       />
-    </Paper>
+    </ThemeProvider>
   );
 };
 

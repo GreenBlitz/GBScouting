@@ -24,11 +24,6 @@ class CheckboxedSliderInput extends ScouterInput<
     return <CheckboxedSliderInput {...this.props} />;
   }
   renderInput(): React.ReactNode {
-    const updateSliderStorage = (target: EventTarget | null) => {
-      const actualTarget = target as EventTarget & { value: number };
-      this.storage.set(actualTarget.value);
-    };
-
     const updateCheckbox = () => {
       if (this.state.isEnabled) {
         this.storage.set(undefined);
@@ -50,6 +45,15 @@ class CheckboxedSliderInput extends ScouterInput<
       />
     );
 
+    return <div>{checkbox}</div>;
+  }
+
+  renderBelow(): React.ReactNode {
+    const updateSliderStorage = (target: EventTarget | null) => {
+      const actualTarget = target as EventTarget & { value: number };
+      this.storage.set(actualTarget.value);
+    };
+
     const slider = (
       <Slider
         step={this.props.step}
@@ -61,13 +65,7 @@ class CheckboxedSliderInput extends ScouterInput<
         onChange={(event) => updateSliderStorage(event.target)}
       />
     );
-
-    return (
-      <div>
-        {checkbox}
-        {this.state.isEnabled && slider}
-      </div>
-    );
+    return this.state.isEnabled && slider;
   }
 
   initialValue(): number | undefined {

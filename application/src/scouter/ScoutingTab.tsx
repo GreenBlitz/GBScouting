@@ -1,32 +1,28 @@
-import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import React, { useMemo } from "react";
 import { renderScouterNavBar } from "../App";
-import CancelConfirmation from "../components/CancelConfirmation";
 import { inputFolder } from "../utils/FolderStorage";
-import PageTransition from "../components/PageTransition";
-import Autonomous from "./tabs/Autonomous";
-import PreMatch from "./tabs/PreMatch";
-import Teleoperated from "./tabs/Teleoperated";
-import PostMatch from "./tabs/PostMatch";
+import CancelConfirmation from "../components/CancelConfirmation";
+import ScouterInputs from "./ScouterInputs.ts";
+import ScouterInput from "./ScouterInput.tsx";
+import { Match, matchFieldNames } from "../utils/Match";
 import Matches from "./Matches";
-import ScouterInputs from "./ScouterInputs";
-import ScouterInput from "./ScouterInput";
-import { Match } from "../utils/Match";
+import SectionHandler from "../utils/SectionHandler.ts";
+import PageTransition from "../components/PageTransition";
+import { FRCTeamList } from "../utils/Utils.ts";
 
-const sectionNames: string[] = [
-  PreMatch,
-  Autonomous,
-  Teleoperated,
-  PostMatch,
-].map((section) => section.name);
+const sectioNames = ["Prematch", "Autonomous", "Teleoperated", "Endgame"];
+
 export default function ScoutingTab() {
   const navigate = useNavigate();
-  const [currentSectionNumber, setSectionNumber] = useState<number>(0);
-
-  const navigateToSection = (section: number) => {
-    setSectionNumber(section);
-    navigate(sectionNames[section]);
-  };
+  const sectionHandler = useMemo(() => {
+    return new SectionHandler(navigate, [
+      "prematch",
+      "autonomous/pick",
+      "teleoperated/pick",
+      "postmatch",
+    ]);
+  }, []);
 
   function handleSubmit() {
     const matchValues: Record<string, any> = {};
@@ -36,77 +32,115 @@ export default function ScoutingTab() {
       .forEach(([inputName, value]) => {
         const input = value as ScouterInput<any, any, any>;
         matchValues[inputName] = input.getValue();
-        if (!input.shouldReset()) {
-          input.storage.remove();
+        if (input.shouldReset()) {
+          input.clearValue();
         }
       });
     Matches.add(matchValues as Match);
-    navigate("/");
+    navigate("/scouter/matches");
   }
 
   const handleReset = () => {
-    inputFolder.keys().forEach((item) => inputFolder.removeItem(item));
-    navigate("/");
+    inputFolder.keys().forEach((item) => {
+      if (item.endsWith(matchFieldNames.scouterName)) {
+        return;
+      }
+      inputFolder.removeItem(item);
+    });
+    navigate("/scouter/matches");
   };
 
   const navigateToNext = () => {
     if (ScouterInputs.noShow.storage.get()) {
       handleSubmit();
     } else {
-      navigateToSection(currentSectionNumber + 1);
+      sectionHandler.navigateNext();
     }
   };
 
+  const isValid = (teamNumber: number) => {
+    return !!FRCTeamList[teamNumber];
+  };
+
+  const teamNumber = ScouterInputs.teamNumber.getValue();
+  const teamColor = isValid(teamNumber) ? "text-yellow-300" : "text-red-500";
+
   const sectionElement = (
     <div className="space-y-6">
+      <div className="w-full flex flex-row">
+        <h2
+          className="text-4xl mt-2 ml-5"
+          style={{ fontFamily: "Franklin Gothic Black" }}
+        >
+          {sectioNames[sectionHandler.getIndex()]}
+        </h2>
+        <div className="w-full" />
+        <h3
+          className={`text-2xl ${teamColor} mr-5 mt-2`}
+          style={{ fontFamily: "Franklin Gothic Black" }}
+        >
+          {teamNumber !== 0 &&
+            (isValid(teamNumber) ? teamNumber : "Invalid Team")}
+        </h3>
+      </div>
       <PageTransition>
         <div className="min-h-[400px]">
           <Outlet />
         </div>
       </PageTransition>
-      <div className="flex justify-between items-center mt-8">
-        <div>
-          {currentSectionNumber !== 0 && (
-            <button
-              type="button"
-              onClick={() => navigateToSection(currentSectionNumber - 1)}
-              className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
-            >
-              Previous
-            </button>
-          )}
-        </div>
-        <div className="flex gap-4">
-          <CancelConfirmation name="Reset" onClick={handleReset} />
-          {currentSectionNumber === sectionNames.length - 1 ? (
-            <button
-              onClick={handleSubmit}
-              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
-            >
-              Submit
-            </button>
-          ) : (
-            <button
-              onClick={navigateToNext}
-              className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
-            >
-              Next
-            </button>
-          )}
-        </div>
+    </div>
+  );
+
+  const navigationButtons = (
+    <div className="flex justify-between items-center mt-4">
+      <div className="mr-auto ml-5 mb-2">
+        {!sectionHandler.isFirst() && (
+          <button
+            type="button"
+            onClick={() => sectionHandler.navigatePrevious()}
+            className="py-2 w-20 move-button"
+          >
+            Prev
+          </button>
+        )}
+      </div>
+      <div className="flex gap-4 ml-auto mb-2 mr-2">
+        <CancelConfirmation name="Reset" onClick={handleReset} />
+        {sectionHandler.isLast() ? (
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            onClick={navigateToNext}
+            className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
+
+  const frontColor =
+    sectionHandler.getIndex() === 1
+      ? "bg-[#ff9a00]"
+      : sectionHandler.getIndex() === 2
+      ? "bg-[#bd00ff]"
+      : "bg-dark-card";
+
+  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-dark-bg">
       {renderScouterNavBar()}
       <div className="max-w-4xl mx-auto py-6">
-        <div className="bg-dark-card rounded-lg shadow-lg p-6">
-          <h1 className="text-2xl font-bold mb-6 text-dark-text">
-            {sectionNames[currentSectionNumber]}
-          </h1>
+        <div className={`${frontColor} rounded-lg shadow-lg`}>
           {sectionElement}
+          {!location.pathname.endsWith("reef") && navigationButtons}
         </div>
       </div>
     </div>

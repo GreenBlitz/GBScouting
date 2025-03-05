@@ -1,10 +1,10 @@
 {
-
   "compilerOptions": {
     "module": "ES2022",
     "esModuleInterop": true,
     "moduleResolution": "bundler",
-    "outDir": "compiled"
+    "outDir": "compiled",
+    "jsx": "react"
   },
-  "files": ["server.ts"]
+  "include": ["src/backend/**/*.ts"]
 }

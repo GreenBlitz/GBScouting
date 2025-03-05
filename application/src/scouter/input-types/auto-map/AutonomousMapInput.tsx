@@ -1,12 +1,11 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../../ScouterInput";
-import AutonomousForm from "./AutonomousForm";
 import { StorageBackedInput } from "../../../utils/FolderStorage";
 import SushiButton from "./SushiButton";
 
 export interface Sushi {
-  HasSeeded: boolean;
-  HasHarvested: boolean;
+  coral: boolean;
+  algea: boolean;
 }
 
 export interface AllSushis {
@@ -28,7 +27,6 @@ export interface ValuesToBePassed {
 }
 
 export class AutonomousMapInput extends ScouterInput<AllSushis> {
-
   create(): React.JSX.Element {
     return <AutonomousMapInput {...this.props} />;
   }
@@ -45,11 +43,11 @@ export class AutonomousMapInput extends ScouterInput<AllSushis> {
     const buttons = <div className="sushi-buttons">{sushiButtons}</div>;
 
     const blueAllienceAutonomousMap = (
-      <div className="field-container">
+      <div className="relative">
         <img
+          className="relative w-96"
           src="/src/assets/blue-auto-map.png"
           alt="Field"
-          style={{ width: "70%" }}
         ></img>
         {buttons}
       </div>
@@ -57,12 +55,12 @@ export class AutonomousMapInput extends ScouterInput<AllSushis> {
 
     return <>{blueAllienceAutonomousMap}</>;
   }
-  
+
   initialValue(props: InputProps<AllSushis>): AllSushis {
     return {
-      Sushi1: { HasSeeded: false, HasHarvested: false },
-      Sushi2: { HasSeeded: false, HasHarvested: false },
-      Sushi3: { HasSeeded: false, HasHarvested: false },
+      Sushi1: { coral: false, algea: false },
+      Sushi2: { coral: false, algea: false },
+      Sushi3: { coral: false, algea: false },
     };
   }
 }

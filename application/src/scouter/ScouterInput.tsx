@@ -6,7 +6,7 @@ export interface InputProps<T> {
   name?: string;
   required?: boolean;
   defaultValue?: T;
-  doesReset?: boolean;
+  doesRemain?: boolean;
 }
 
 abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
@@ -17,6 +17,7 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   constructor(props: InputProps<T> & Props) {
     super(props);
     this.storage = new StorageBackedInput<T>(this.props.route);
+
     const startingState = this.getStartingState(props);
     if (startingState) {
       this.state = startingState;
@@ -29,10 +30,15 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
     }
     return (
       <div className="p-4 space-y-2">
-        {this.props.name && (
-          <h2 className="text-lg font-semibold text-dark-text mb-2">{this.props.name}</h2>
-        )}
-        <div className="w-full">{this.renderInput()}</div>
+        <div className=" flex flex-row items-center justify-center">
+          {this.props.name && (
+            <h1 className="text-lg font-semibold text-dark-text mr-2 whitespace-nowrap">
+              {this.props.name}
+            </h1>
+          )}
+          {this.renderInput()}
+        </div>
+        {this.renderBelow()}
       </div>
     );
   }
@@ -42,7 +48,7 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
   }
 
   shouldReset(): boolean {
-    return !!this.props.doesReset;
+    return !this.props.doesRemain;
   }
 
   defaultValue(): T {
@@ -53,8 +59,15 @@ abstract class ScouterInput<T, Props = {}, State = {}> extends React.Component<
     return this.storage.get() || this.defaultValue();
   }
 
+  clearValue() {
+    this.storage.remove();
+  }
+
   abstract create(): React.JSX.Element;
   abstract renderInput(): React.ReactNode;
+  renderBelow(): React.ReactNode {
+    return <></>;
+  }
   abstract initialValue(props: InputProps<T> & Props): T;
 }
 

@@ -6,6 +6,8 @@ import React from "react";
 import { renderScouterNavBar } from "../../App";
 import * as serde from "../../utils/Serde";
 import {decode} from "uint8-to-base64";
+import Matches from "../Matches";
+import { Match } from "../../utils/Match";
 
 const ScanningTab = () => {
   const navigate = useNavigate();
@@ -19,8 +21,10 @@ const ScanningTab = () => {
 
     const data = serde.deserialize(serde.serdeRecord(serde.qrSerde).deserializer,decode(result.data));
     console.log("data: " + data);
+    
+    Matches.add(data as Match);
 
-    navigate("/", { state: data });
+    navigate("/scouter/matches");
   };
 
   const onScanFail = (err: string | Error) => {
