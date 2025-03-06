@@ -34,29 +34,29 @@ self.addEventListener('activate', event => {
 
 
 // On fetch, use cache but update the entry with the latest contents from the server.
-self.addEventListener('fetch', function(evt) {
+self.addEventListener('fetch', event=> {
   // If the request doesn't come from the same origin as the referrer, don't store it
-  if (!evt.request.url.includes(evt.request.referrer)){
+  if (!event.request.url.includes(event.request.referrer)){
     return; // You can also remove the return statement if you want every request to be cached
   }
   // You can use respondWith() to answer ASAP…
-  evt.respondWith(fromCache(evt.request));
+  event.respondWith(fromCache(event.request));
   // ...and waitUntil() to prevent the worker to be killed until the cache is updated.
-  evt.waitUntil(
-    update(evt.request)
+  event.waitUntil(
+    update(event.request)
   );
 });
 
 // Open the cache where the assets were stored and search for the requested resource. Notice that in case of no matching, the promise still resolves but it does with undefined as value.
 function fromCache(request) {
-  return caches.open(PRECACHE).then(function(cache) {
+  return caches.open(PRECACHE).then(cache=> {
     return cache.match(request);
   });
 }
 
 // Update consists in opening the cache, performing a network request and storing the new response data.
 function update(request) {
-  return caches.open(PRECACHE).then(function(cache) {
+  return caches.open(PRECACHE).then(cache=> {
     return fetch(request).then(function(response) {
       return cache.put(request, response.clone()).then(function() {
         return response;
