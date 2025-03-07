@@ -287,7 +287,12 @@ export class TeamData {
     return (
       filteredMatches
         .map((match) => {
-          if (match[field] === undefined || match[field] === "undefined") {
+          if (
+            match[field] === undefined ||
+            match[field] === null ||
+            match[field] === "null" ||
+            match[field] === "undefined"
+          ) {
             return 0;
           }
           const value = innerFields
@@ -298,7 +303,9 @@ export class TeamData {
             : match[field];
 
           if (typeof value !== "number") {
-            throw new Error("Invalid field: " + field);
+            throw new Error(
+              "Invalid field: " + field + ", with value: " + value
+            );
           }
           return value;
         })

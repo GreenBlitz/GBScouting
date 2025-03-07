@@ -152,10 +152,10 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     const range = "RawData";
     const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
 
-    const bbbcollection = db.collection("bbb");
+    const bbbCollection = db.collection("bbb");
 
-    bbbcollection.deleteMany();
-    bbbcollection.insertMany(data);
+    bbbCollection.deleteMany();
+    bbbCollection.insertMany(data);
 
     if (data) {
       res.json({ success: true, data });
