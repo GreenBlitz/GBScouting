@@ -1,28 +1,126 @@
 import { Express, Request, Response } from "express";
 import { Db } from "mongodb";
 import { google } from "googleapis";
-import { JWT } from "google-auth-library";
 import dotenv from "dotenv";
 import path from "path";
+import fs from "fs";
 
-export function applyRoutes(app: Express, db: Db) {
-  console.log("sheet1");
+const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
+  const getClimb = () => {
+    const success = bbbMatch["E_ClimbSuccess"] === "TRUE";
+    const climb = bbbMatch["E_Climb"];
 
+    if (climb === "DEEP") {
+      return success ? "Deep Cage" : "Tried Deep";
+    }
+    if (climb === "SHALLOW" && success) {
+      return "Shallow Cage";
+    }
+
+    return "Park";
+  };
+  return {
+    scouterName: bbbMatch["D_ScouterName"],
+    qual: parseInt(bbbMatch["D_MatchNumber"]),
+    teamNumber: parseInt(bbbMatch["D_TeamNumber"].slice(0, 6).trim()),
+    noShow: bbbMatch["D_Played"] === "FALSE",
+    defense:
+      bbbMatch["G_DefenceLevel"] === ""
+        ? undefined
+        : parseInt(bbbMatch["G_DefenceLevel"]),
+    defensiveEvasion:
+      bbbMatch["G_CopeWithDefence"] === ""
+        ? undefined
+        : parseInt(bbbMatch["G_CopeWithDefence"]),
+    climb: getClimb(),
+    comment: bbbMatch["G_Comments"],
+    teleReefPick: {
+      algea: {
+        netScore: parseInt(bbbMatch["T_NetScored"]),
+        netMiss: parseInt(bbbMatch["T_NetFailed"]),
+        processor: parseInt(bbbMatch["T_ProcessorScored"]),
+      },
+      levels: {
+        L1: {
+          score: parseInt(bbbMatch["T_L1Scored"]),
+          miss: parseInt(bbbMatch["T_L1Failed"]),
+        },
+        L2: {
+          score: parseInt(bbbMatch["T_L2Scored"]),
+          miss: parseInt(bbbMatch["T_L2Failed"]),
+        },
+        L3: {
+          score: parseInt(bbbMatch["T_L3Scored"]),
+          miss: parseInt(bbbMatch["T_L3Failed"]),
+        },
+        L4: {
+          score: parseInt(bbbMatch["T_L4Scored"]),
+          miss: parseInt(bbbMatch["T_L4Failed"]),
+        },
+      },
+    },
+    autoReefPick: {
+      algea: {
+        netScore: parseInt(bbbMatch["A_NetScored"]),
+        netMiss: parseInt(bbbMatch["A_NetFailed"]),
+        processor: 0,
+      },
+      levels: {
+        L1: {
+          score: parseInt(bbbMatch["A_L1Scored"]),
+          miss: parseInt(bbbMatch["A_L1Failed"]),
+        },
+        L2: {
+          score: parseInt(bbbMatch["A_L2Scored"]),
+          miss: parseInt(bbbMatch["A_L2Failed"]),
+        },
+        L3: {
+          score: parseInt(bbbMatch["A_L3Scored"]),
+          miss: parseInt(bbbMatch["A_L3Failed"]),
+        },
+        L4: {
+          score: parseInt(bbbMatch["A_L4Scored"]),
+          miss: parseInt(bbbMatch["A_L4Failed"]),
+        },
+      },
+    },
+    endgameCollection: {
+      algeaReefCollected: bbbMatch["G_AlgaeInReef"] === "Direct",
+      algeaReefDropped: bbbMatch["G_AlgaeInReef"] === "Drop",
+      algeaGroundCollected: bbbMatch["G_AlgaeFloorCollect"] === "TRUE",
+      coralGroundCollected: bbbMatch["G_CoralFloorCollect"] === "TRUE",
+      coralFeederCollected: false, //they don't collect this data
+    },
+  };
+};
+
+export function applyRoutes(app: Express, db: Db, dirName: string) {
   dotenv.config();
 
   // Load Service Account Key
   const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
-  const KEY_FILE_PATH = path.join(__dirname, "../../sheets-key.json");
+  const KEY_FILE_PATH = path.join(dirName, "./sheets-key.json");
 
   // Google Authentication
   const auth = new google.auth.GoogleAuth({
     keyFile: KEY_FILE_PATH,
     scopes: SCOPES,
   });
-  console.log("sheet2");
+  // SSL options for HTTPS
+  let spreadsheetId = "";
+  try {
+    spreadsheetId = fs
+      .readFileSync(path.resolve(dirName, "sheets-id.txt"))
+      .toString()
+      .trim();
+  } catch (exception) {
+    console.log(exception);
+  }
+
+  console.log("SpreadSheet ID: " + spreadsheetId);
 
   const sheets = google.sheets({ version: "v4", auth });
-  const getSheetData = async (spreadsheetId: string, range: string) => {
+  const getSheetData = async (range: string) => {
     try {
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId,
@@ -36,11 +134,29 @@ export function applyRoutes(app: Express, db: Db) {
     }
   };
 
-  app.get("/sheet", async (req, res) => {
-    const spreadsheetId = ""; // Get from Google Sheets URL
-    const range = "Sheet1!A1:C10"; // Adjust the range
+  const formatData = (data: string[][]) => {
+    const keys = data[0];
+    const recordValues: Record<string, string>[] = data
+      .slice(1)
+      .map((match) =>
+        Object.assign(
+          {},
+          ...match.map((value, index) => ({ [keys[index]]: value }))
+        )
+      );
 
-    const data = await getSheetData(spreadsheetId, range);
+    return recordValues;
+  };
+
+  app.get("/beeascout", async (req: Request, res: Response) => {
+    const range = "RawData";
+    const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
+
+    const bbbcollection = db.collection("bbb");
+
+    bbbcollection.deleteMany();
+    bbbcollection.insertMany(data);
+
     if (data) {
       res.json({ success: true, data });
     } else {

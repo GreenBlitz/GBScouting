@@ -50,7 +50,7 @@ MongoClient.connect(mongoURI)
     matches.applyRoutes(app, db, dirName);
     tba.applyRoutes(app, dirName);
     notes.applyRoutes(app, db);
-    sheets.applyRoutes(app, db);
+    sheets.applyRoutes(app, db, dirName);
   })
   .catch((error) => console.error(`Cannot connect: \n${error}`))
   .then(() => {});
