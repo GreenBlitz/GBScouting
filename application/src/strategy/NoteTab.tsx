@@ -35,7 +35,7 @@ const NoteTab: React.FC = () => {
 
   useEffect(() => {
     const matches = allMatches.get();
-    if (matches) setMatchResults(matches[qual]);
+    if (matches) setMatchResults(matches[qual - 1]);
   }, [qual]);
 
   const [notes, setNotes] = useState<Record<number, string>>();
@@ -61,6 +61,9 @@ const NoteTab: React.FC = () => {
       <div className="mx-2 my-5">
         <h1 className="text-2xl">{team}</h1>
         <textarea
+          ref={(input) => {
+            if (input) input.value = notes ? notes[team] || "" : "";
+          }}
           className="h-24 bg-dark-card"
           onChange={(event) => {
             if (notes) notes[team] = event.currentTarget.value;
@@ -70,6 +73,8 @@ const NoteTab: React.FC = () => {
       </div>
     );
   };
+
+  const teamElement = useMemo(() => team && getTeamElement(team), [team]);
 
   return (
     <>
@@ -90,7 +95,7 @@ const NoteTab: React.FC = () => {
           onChange={(event) => setTeam(parseInt(event.target.value))}
         />
       </div>
-      {team && getTeamElement(team)}
+      {teamElement}
 
       <div className="mt-10 bg-blue-900">
         {matchResults?.blueAlliance.map(getTeamElement)}
@@ -106,9 +111,9 @@ const NoteTab: React.FC = () => {
           notes &&
           postNotes(notes, qual)
             .then(() => {
-              alert("successfuly sent notes");
+              alert("Successfuly Sent Notes");
             })
-            .catch(() => alert("couldn't send notes"))
+            .catch(() => alert("Couldn't Send Notes"))
         }
       >
         Submit
