@@ -148,15 +148,26 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     return recordValues;
   };
 
-  app.get("/beeascout", async (req: Request, res: Response) => {
+  const updateData = async () => {
     const range = "RawData";
     const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
 
     const bbbCollection = db.collection("bbb");
 
-    bbbCollection.deleteMany();
-    bbbCollection.insertMany(data);
+    await bbbCollection
+      .deleteMany({})
+      .then(() => bbbCollection.insertMany(data));
 
+    console.log("Updated Bumblebee Data");
+    return data;
+  };
+
+  updateData(); // Initial call to start the loop
+  setInterval(updateData, 5 * 60 * 1000); // Makes updateData happen every five minutes
+
+  app.get("/beeascout", async (req: Request, res: Response) => {
+    const bbbCollection = db.collection("bbb");
+    const data = await bbbCollection.find().toArray();
     if (data) {
       res.json({ success: true, data });
     } else {
