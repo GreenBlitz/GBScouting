@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
+    "target": "ES2015", // Ensure ECMAScript 2015+ is targeted
     "module": "ES2022",
-    "esModuleInterop": true,
     "moduleResolution": "bundler",
+    "esModuleInterop": true,
     "outDir": "compiled",
-    "jsx": "react"
+    "jsx": "react",
+    "lib": ["ES2015", "DOM"], // Ensure ES2015 and DOM APIs are available
+    "skipLibCheck": true
   },
   "include": ["src/backend/**/*.ts"]
 }

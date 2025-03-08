@@ -28,3 +28,5 @@ ssl-key.pem
 ssl.pem
 TBAkey.txt
 get-token.txt
+sheets-key.json
+sheets-id.txt
