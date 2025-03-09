@@ -7,7 +7,9 @@
     "outDir": "compiled",
     "jsx": "react",
     "lib": ["ES2015", "DOM"], // Ensure ES2015 and DOM APIs are available
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "incremental": true,
+    "sourceMap": false
   },
   "include": ["src/backend/**/*.ts"]
 }
