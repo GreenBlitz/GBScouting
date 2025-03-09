@@ -87,9 +87,13 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     //   return res.status(401).send("Invalid authorization token");
     // }
 
-    const matchCollection = db.collection("matches");
+    const matchCollection = db.collection("matches");    
+    
+    const bbbCollection = db.collection("bbb");
     try {
-      const items = await matchCollection.find().toArray();
+      const items = (await matchCollection.find().toArray()).concat(
+        await bbbCollection.find().toArray()
+      );
       res.status(200).json(items);
     } catch (error) {
       res.status(500).send(error);
@@ -108,10 +112,13 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     // }
 
     const matchCollection = db.collection("matches");
+    const bbbCollection = db.collection("bbb");
     try {
-      const items = (await matchCollection.find().toArray()).filter((item) => {
-        return item[req.params.type].toString() === req.params.value;
-      });
+      const items = (await matchCollection.find().toArray())
+         .concat(await bbbCollection.find().toArray())
+         .filter((item) => {
+           return item[req.params.type].toString() === req.params.value;
+         });
       res.status(200).json(items);
     } catch (error) {
       res.status(500).send(error);
