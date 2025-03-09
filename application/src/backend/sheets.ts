@@ -1,7 +1,6 @@
 import { Express, Request, Response } from "express";
 import { Db } from "mongodb";
 import { google } from "googleapis";
-import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 
@@ -95,31 +94,30 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
 };
 
 export function applyRoutes(app: Express, db: Db, dirName: string) {
-  dotenv.config();
 
   // Load Service Account Key
   const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
   const KEY_FILE_PATH = path.join(dirName, "./sheets-key.json");
 
   // Google Authentication
-  const auth = new google.auth.GoogleAuth({
-    keyFile: KEY_FILE_PATH,
-    scopes: SCOPES,
-  });
-  // SSL options for HTTPS
-  let spreadsheetId = "";
-  try {
-    spreadsheetId = fs
-      .readFileSync(path.resolve(dirName, "sheets-id.txt"))
-      .toString()
-      .trim();
-  } catch (exception) {
-    console.log(exception);
-  }
+  // const auth = new google.auth.GoogleAuth({
+  //   keyFile: KEY_FILE_PATH,
+  //   scopes: SCOPES,
+  // });
+  // // SSL options for HTTPS
+  // let spreadsheetId = "";
+  // try {
+  //   spreadsheetId = fs
+  //     .readFileSync(path.resolve(dirName, "sheets-id.txt"))
+  //     .toString()
+  //     .trim();
+  // } catch (exception) {
+  //   console.log(exception);
+  // }
 
-  console.log("SpreadSheet ID: " + spreadsheetId);
+  // console.log("SpreadSheet ID: " + spreadsheetId);
 
-  const sheets = google.sheets({ version: "v4", auth });
+  // const sheets = google.sheets({ version: "v4", auth });
   const getSheetData = async (range: string) => {
     try {
       const response = await sheets.spreadsheets.values.get({
