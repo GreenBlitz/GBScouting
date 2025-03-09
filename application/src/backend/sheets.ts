@@ -95,82 +95,83 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
 
 export function applyRoutes(app: Express, db: Db, dirName: string) {
 
-  // // Load Service Account Key
-  // const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
-  // const KEY_FILE_PATH = path.join(dirName, "./sheets-key.json");
+  // Load Service Account Key
+  const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
+  const KEY_FILE_PATH = path.join(dirName, "./sheets-key.json");
 
-  // // Google Authentication
-  // const auth = new google.auth.GoogleAuth({
-  //   keyFile: KEY_FILE_PATH,
-  //   scopes: SCOPES,
-  // });
-  // // SSL options for HTTPS
-  // let spreadsheetId = "";
-  // try {
-  //   spreadsheetId = fs
-  //     .readFileSync(path.resolve(dirName, "sheets-id.txt"))
-  //     .toString()
-  //     .trim();
-  // } catch (exception) {
-  //   console.log(exception);
-  // }
+  // Google Authentication
+  const auth = new google.auth.GoogleAuth({
+    keyFile: KEY_FILE_PATH,
+    scopes: SCOPES,
+  });
+  // SSL options for HTTPS
+  let spreadsheetId = "";
+  try {
+    spreadsheetId = fs
+      .readFileSync(path.resolve(dirName, "sheets-id.txt"))
+      .toString()
+      .trim();
+  } catch (exception) {
+    console.log(exception);
+    return;
+  }
 
-  // console.log("SpreadSheet ID: " + spreadsheetId);
+  console.log("SpreadSheet ID: " + spreadsheetId);
 
-  // const sheets = google.sheets({ version: "v4", auth });
-  // const getSheetData = async (range: string) => {
-  //   try {
-  //     const response = await sheets.spreadsheets.values.get({
-  //       spreadsheetId,
-  //       range,
-  //     });
+  const sheets = google.sheets({ version: "v4", auth });
+  const getSheetData = async (range: string) => {
+    try {
+      const response = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range,
+      });
 
-  //     return response.data.values;
-  //   } catch (error) {
-  //     console.error("Error reading Google Sheet:", error);
-  //     return null;
-  //   }
-  // };
+      return response.data.values;
+    } catch (error) {
+      console.error("Error reading Google Sheet:", error);
+      return null;
+    }
+  };
 
-  // const formatData = (data: string[][]) => {
-  //   const keys = data[0];
-  //   const recordValues: Record<string, string>[] = data
-  //     .slice(1)
-  //     .map((match) =>
-  //       Object.assign(
-  //         {},
-  //         ...match.map((value, index) => ({ [keys[index]]: value }))
-  //       )
-  //     );
+  const formatData = (data: string[][]) => {
+    const keys = data[0];
+    const recordValues: Record<string, string>[] = data
+      .slice(1)
+      .map((match) =>
+        Object.assign(
+          {},
+          ...match.map((value, index) => ({ [keys[index]]: value }))
+        )
+      );
 
-  //   return recordValues;
-  // };
+    return recordValues;
+  };
 
-  // const updateData = async () => {
-  //   const range = "RawData";
-  //   const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
+  const updateData = async () => {
+    const range = "RawData";
+    const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
 
-  //   const bbbCollection = db.collection("bbb");
+    const bbbCollection = db.collection("bbb");
 
-  //   await bbbCollection
-  //     .deleteMany({})
-  //     .then(() => bbbCollection.insertMany(data));
+    await bbbCollection
+      .deleteMany({})
+      .then(() => bbbCollection.insertMany(data));
 
-  //   console.log("Updated Bumblebee Data");
-  //   return data;
-  // };
+    console.log("Updated Bumblebee Data");
+    return data;
+  };
 
-  // // updateData(); // Initial call to start the loop
-  // // setInterval(updateData, 5 * 60 * 1000); // Makes updateData happen every five minutes
+  updateData(); // Initial call to start the loop
+  setInterval(updateData, 5 * 60 * 1000); // Makes updateData happen every five minutes
 
-  // app.get("/beeascout", async (req: Request, res: Response) => {
-  //   await updateData();
-  //   const bbbCollection = db.collection("bbb");
-  //   const data = await bbbCollection.find().toArray();
-  //   if (data) {
-  //     res.json({ success: true, data });
-  //   } else {
-  //     res.status(500).json({ success: false, message: "Failed to fetch data" });
-  //   }
-  // });
+  app.get("/beeascout", async (req: Request, res: Response) => {
+    await updateData();
+    const bbbCollection = db.collection("bbb");
+    const data = await bbbCollection.find().toArray();
+    if (data) {
+      res.json({ success: true, data });
+    } else {
+      res.status(500).json({ success: false, message: "Failed to fetch data" });
+    }
+  });
 }
