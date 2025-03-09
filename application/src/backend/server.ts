@@ -8,7 +8,6 @@ import cors from "cors";
 import * as matches from "./matches.js";
 import * as tba from "./tba.js";
 import * as notes from "./notes.js";
-import * as sheets from "./sheets.js";
 
 const app = express();
 const hostname = "0.0.0.0";
@@ -50,7 +49,6 @@ MongoClient.connect(mongoURI)
     matches.applyRoutes(app, db, dirName);
     tba.applyRoutes(app, dirName);
     notes.applyRoutes(app, db);
-    sheets.applyRoutes(app, db, dirName);
   })
   .catch((error) => console.error(`Cannot connect: \n${error}`))
   .then(() => {});
