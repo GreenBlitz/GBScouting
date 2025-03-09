@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 
 const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
-  const getClimb = () => {
+  try {const getClimb = () => {
     const success = bbbMatch["E_ClimbSuccess"] === "TRUE";
     const climb = bbbMatch["E_Climb"];
 
@@ -91,7 +91,10 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
       coralGroundCollected: bbbMatch["G_CoralFloorCollect"] === "TRUE",
       coralFeederCollected: false, //they don't collect this data
     },
-  };
+  };}
+  catch {
+    return null;}
+  
 };
 
 export function applyRoutes(app: Express, db: Db, dirName: string) {
