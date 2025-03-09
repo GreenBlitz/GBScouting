@@ -162,10 +162,11 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     return data;
   };
 
-  updateData(); // Initial call to start the loop
-  setInterval(updateData, 5 * 60 * 1000); // Makes updateData happen every five minutes
+  // updateData(); // Initial call to start the loop
+  // setInterval(updateData, 5 * 60 * 1000); // Makes updateData happen every five minutes
 
   app.get("/beeascout", async (req: Request, res: Response) => {
+    await updateData();
     const bbbCollection = db.collection("bbb");
     const data = await bbbCollection.find().toArray();
     if (data) {
