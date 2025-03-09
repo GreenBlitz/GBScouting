@@ -93,7 +93,8 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
     },
   };}
   catch {
-    return null;}
+    return null;
+  }
   
 };
 
@@ -153,7 +154,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
 
   const updateData = async () => {
     const range = "RawData";
-    const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
+    const data = formatData(await getSheetData(range)).map(bbbMatchToMatch).filter((match) => match !== null);
 
     const bbbCollection = db.collection("bbb");
 
