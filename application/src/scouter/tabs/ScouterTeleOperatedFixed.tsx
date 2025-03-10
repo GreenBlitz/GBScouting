@@ -2,14 +2,17 @@ import React from "react";
 import ScouterInputs from "../ScouterInputs";
 import { Outlet } from "react-router-dom";
 import ScouterTeleoperated from "./ScouterTeleoperated";
+import { blue } from "@mui/material/colors";
 
 const ScouterTeleoperatedFixed: React.FC = () => {
   return <>
     <ScouterTeleoperated />
-    {ScouterInputs.create([
+    <div className="defens" style={ {backgroundColor: "#242424"} }>
+        {ScouterInputs.create([
             ScouterInputs.defense,
             ScouterInputs.defensiveEvasion,
           ])}
+    </div>
   </>
 };
 
