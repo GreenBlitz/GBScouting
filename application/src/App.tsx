@@ -30,6 +30,7 @@ import TestLinear from "./strategy/team-tab/sections/TestLinear";
 import Leaderboard from "./components/Leaderboard";
 import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
 import ScouterStats from "./strategy/ScouterStats";
+import ScouterTeleoperatedFixed from "./scouter/tabs/ScouterTeleOperatedFixed";
 
 function getHiddenImage(path: string) {
   return (
@@ -128,7 +129,7 @@ const App: React.FC = () => {
               <Route path="matches" element={<MatchList />} />
               <Route path="scouting" element={<ScouterTab />}>
                 <Route path="prematch" element={<ScouterPreMatch />} />
-                <Route path="teleoperated" element={<ScouterTeleoperated />}>
+                <Route path="teleoperated" element={<ScouterTeleoperatedFixed />}>
                   <Route path="pick" element={<ScouterTelePick />} />
                 </Route>
                 <Route path="autonomous" element={<ScouterAutonomous />}>
