@@ -38,13 +38,13 @@ export default class ScouterInputs {
   });
   static readonly defense = new CheckboxedSliderInput({
     route: "defense",
-    name: "Defended",
+    name: "Defending Other Robots",
     min: 1,
     max: 5,
   });
   static readonly defensiveEvasion = new CheckboxedSliderInput({
     route: "defensiveEvasion",
-    name: "Defense Evasion",
+    name: "Escapes Defence",
     min: 1,
     max: 5,
   });
