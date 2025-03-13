@@ -24,6 +24,16 @@ export default class ScouterInputs {
     doesRemain: true,
     isLockable: true,
   });
+  static readonly startingPoint = new DropdownInput({
+    route: "startingPoint",
+    name: "Starting Point",
+    options: ["Close", "Middle", "Far"]
+  });
+  static readonly allianceColor = new CheckboxInput({
+    route: "allianceColor",
+    name: "Alliance Color"
+    
+  });
   static readonly qual = new NumberInput({
     route: "qual",
     name: "Qual",
