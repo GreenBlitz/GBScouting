@@ -7,6 +7,8 @@ const ScouterPreMatch: React.FC = () => {
       {ScouterInputs.create([
         ScouterInputs.scouterName,
         ScouterInputs.qual,
+        ScouterInputs.startingPosition,
+        ScouterInputs.allianceColor,
         ScouterInputs.teamNumber,
         ScouterInputs.noShow,
       ])}

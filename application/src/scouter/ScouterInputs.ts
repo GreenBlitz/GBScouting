@@ -28,6 +28,16 @@ export default class ScouterInputs {
     route: "qual",
     name: "Qual",
   });
+  static readonly startingPosition = new DropdownInput({
+    route: "startingPosition",
+    name: "Starting Position",
+    options: ["Close to Scouter", "Middle", "Far From Scouter"]
+  });
+  static readonly allianceColor = new DropdownInput({
+    route: "allianceColor",
+    name: "Alliance Color",
+    options: ["Blue", "Red"]
+  });
   static readonly teamNumber = new NumberInput({
     route: "teamNumber",
     name: "Team Number",
