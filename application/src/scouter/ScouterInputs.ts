@@ -6,7 +6,6 @@ import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckBoxedSliderInput";
 import ReefPickInput from "./input-types/reef-levels/ReefPickInput";
 import CollectionInput from "./input-types/CollectionInput";
-import AllianceColorInput from "./input-types/AllianceColorInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -30,7 +29,7 @@ export default class ScouterInputs {
     name: "Starting Point",
     options: ["Close", "Middle", "Far"]
   });
-  static readonly allianceColor = new AllianceColorInput({
+  static readonly allianceColor = new DropdownInput({
     route: "allianceColor",
     name: "Alliance Color",
     options: ["Blue", "Red"]
