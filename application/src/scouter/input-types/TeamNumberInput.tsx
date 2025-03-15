@@ -5,12 +5,6 @@ interface TwoOptions<T, P extends T[]> {
     options1: P;
     options2: P;
 }
-interface TwoOptionAndTeamNumber<T> {
-    option1: T;
-    option2: T;
-    teamNumber: number;
-}
-
 class TeamNumberInput<
   Option extends string,
   Options extends Option[]
