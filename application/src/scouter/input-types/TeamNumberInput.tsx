@@ -1,6 +1,5 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
-import React from "react";
 
 interface TwoOptions<T, P extends T[]> {
     options1: P;
@@ -37,9 +36,9 @@ class TeamNumberInput<
                         this.storage.set({
                             ...storedTwoOptionAndNumber,
                             option1: event.target.value as Option,
-                            teamNumber: 
                         });
                     }
+                    console.log(this.storage.get())
                 }}
                 className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
@@ -56,20 +55,20 @@ class TeamNumberInput<
                 name={this.storage.name}
                 id={this.storage.name}
                 required={this.props.required}
-                defaultValue={this.getValue()?.option1 ?? ""}
+                defaultValue={this.getValue()?.option2 ?? ""}
                 onChange={(event) => {
                     const storedTwoOptionAndNumber = this.storage.get();
                     if (storedTwoOptionAndNumber) {
                         this.storage.set({
                             ...storedTwoOptionAndNumber,
-                            option1: event.target.value as Option,
-                            teamNumber: 
+                            option2: event.target.value as Option,
                         });
                     }
+                    console.log(this.storage.get())
                 }}
                 className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
-                {this.props.twoOptions.options1.map((item, index) => (
+                {this.props.twoOptions.options2.map((item, index) => (
                     <option value={item} key={index} className="bg-dark-bg text-dark-text">
                     {item}
                     </option>
@@ -87,7 +86,7 @@ class TeamNumberInput<
         return {
             option1: props.twoOptions.options1[0] ?? ("" as Option),
             option2: props.twoOptions.options2[0] ?? ("" as Option),
-            teamNumber: 0, // Default value for team number
+            teamNumber: 4590, // Default value for team number
         };
     }
 }
