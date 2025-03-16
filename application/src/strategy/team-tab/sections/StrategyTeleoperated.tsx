@@ -236,54 +236,45 @@ const StrategyTeleoperated: React.FC = () => {
         </div>
 
         <div className="section">
-          <LineChart
-            dataSets={Object.assign(
-              {},
-              ...Object.entries(reefColorsMiss).map(([key, value]) => {
-                return {
-                  [key]: {
-                    color: value,
-                    data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-                      "levels",
-                      key,
-                      "miss",
-                    ]),
-                  },
-                };
-              })
-            )}
-          />
-        </div>
-      </div>
-      <br />
-      <div className="mb-10">
-        <h1 className="text-xl mb-5">Algea + Defense</h1>
-        <div className="section">
-          <LineChart
-            dataSets={{
-              Score: {
-                color: "#172db8",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "netScore"
-                ),
-              },
-              Miss: {
-                color: "#b81616",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "netMiss"
-                ),
-              },
-              Processor: {
-                color: "#8fb4ff",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "processor"
-                ),
-              },
-            }}
-          />
+        <LineChart
+  dataSets={{
+    ...Object.fromEntries(
+      Object.entries(reefColorsMiss).map(([key, value]) => [
+        key,
+        {
+          color: value,
+          data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+            "levels",
+            key,
+            "miss",
+          ]),
+        },
+      ])
+    ),
+    Score: {
+      color: "#172db8",
+      data: teamData.getAlgeaDataAsLine(
+        matchFieldNames.teleReefPick,
+        "netScore"
+      ),
+    },
+    Miss: {
+      color: "#b81616",
+      data: teamData.getAlgeaDataAsLine(
+        matchFieldNames.teleReefPick,
+        "netMiss"
+      ),
+    },
+    Processor: {
+      color: "#8fb4ff",
+      data: teamData.getAlgeaDataAsLine(
+        matchFieldNames.teleReefPick,
+        "processor"
+      ),
+    },
+  }}
+/>
+
         </div>
 
         <div className="section">
