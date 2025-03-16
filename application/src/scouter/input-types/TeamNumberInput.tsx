@@ -1,5 +1,6 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
+import { fetchAllAwaitingMatches } from "../../utils/Fetches";
 
 interface TwoOptions<T, P extends T[]> {
     options1: P;
@@ -14,7 +15,7 @@ interface TwoOptionAndTeamNumber<T extends string> {
 
 class TeamNumberInput<Option extends string, Options extends Option[]> extends ScouterInput<TwoOptionAndTeamNumber<Option>,{ twoOptions: TwoOptions<Option, Options> }> {
     create(): React.JSX.Element {
-        // console.log("is Storage defined?", this.storage)
+        console.log(fetchAllAwaitingMatches())
         return <TeamNumberInput {...this.props}/>;
     }
 
