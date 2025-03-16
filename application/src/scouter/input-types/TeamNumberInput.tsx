@@ -8,6 +8,7 @@ interface TwoOptions<T, P extends T[]> {
 interface TwoOptionAndTeamNumber<T extends string> {
     option1: T;
     option2: T;
+    qualNumber: number
     teamNumber: number;
 }
 
@@ -19,7 +20,28 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
 
     renderInput(): React.ReactNode {
         return (
-            <div>
+        <div>
+            <input
+            type="number"
+            id={this.storage.name}
+            name={this.storage.name}
+            required={this.props.required}
+            defaultValue={this.getValue()?.teamNumber ?? (9999)}
+            onChange={(event) => {
+                let storedTwoOptionAndNumber = this.storage.get();
+                    console.log(storedTwoOptionAndNumber)
+                    if (storedTwoOptionAndNumber) {
+                        this.storage.set({
+                            option1: storedTwoOptionAndNumber.option1,
+                            option2: storedTwoOptionAndNumber.option2,
+                            teamNumber: 4590,
+                            qualNumber: event.target.value as unknown as number
+                        });
+                    }
+                    console.log(this.storage.get())
+            }}
+            className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
                 <select
                 name={this.storage.name}
                 id={this.storage.name}
@@ -32,7 +54,8 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                         this.storage.set({
                             option1: event.target.value as Option,
                             option2: storedTwoOptionAndNumber.option2,
-                            teamNumber: 4590
+                            teamNumber: 4590,
+                            qualNumber: storedTwoOptionAndNumber.qualNumber
                         });
                     }
                     console.log(this.storage.get())
@@ -60,7 +83,8 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                         this.storage.set({
                             option1: storedTwoOptionAndNumber.option1,
                             option2: event.target.value as Option as Option,
-                            teamNumber: 4590
+                            teamNumber: 4590,
+                            qualNumber: storedTwoOptionAndNumber.qualNumber
                         });
                     }
                     console.log(this.storage.get())
@@ -86,6 +110,7 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
             option1: props.twoOptions.options1[0] ?? ("" as Option),
             option2: props.twoOptions.options2[0] ?? ("" as Option),
             teamNumber: 4590, // Default value for team number
+            qualNumber: 9999
         };
     }
 }
