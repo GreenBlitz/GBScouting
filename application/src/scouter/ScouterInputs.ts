@@ -34,7 +34,7 @@ export default class ScouterInputs {
     name: "Team Number",
     twoOptions:{
       options1: ["Close", "Middle", "Far"],
-      options2: ["Blue", "Red"]
+      options2: ["Blue", "Red"],
     }
   });
   static readonly noShow = new CheckboxInput({

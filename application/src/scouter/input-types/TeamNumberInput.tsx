@@ -5,21 +5,16 @@ interface TwoOptions<T, P extends T[]> {
     options1: P;
     options2: P;
 }
-interface TwoOptionAndTeamNumber<T> {
+interface TwoOptionAndTeamNumber<T extends string> {
     option1: T;
     option2: T;
     teamNumber: number;
 }
 
-class TeamNumberInput<
-  Option extends string,
-  Options extends Option[]
-> extends ScouterInput<
-  TwoOptionAndTeamNumber<Option>,
-  { twoOptions: TwoOptions<Option, Options> }
-> {
+class TeamNumberInput<Option extends string, Options extends Option[]> extends ScouterInput<TwoOptionAndTeamNumber<Option>,{ twoOptions: TwoOptions<Option, Options> }> {
     create(): React.JSX.Element {
-        return <TeamNumberInput {...this.props}/>; // Prevent infinite recursion
+        // console.log("is Storage defined?", this.storage)
+        return <TeamNumberInput {...this.props}/>;
     }
 
     renderInput(): React.ReactNode {
@@ -29,13 +24,15 @@ class TeamNumberInput<
                 name={this.storage.name}
                 id={this.storage.name}
                 required={this.props.required}
-                defaultValue={this.getValue()?.option1 ?? ""}
+                value={this.getValue()?.option1 ?? "Ran 1"}
                 onChange={(event) => {
-                    const storedTwoOptionAndNumber = this.storage.get();
+                    let storedTwoOptionAndNumber = this.storage.get();
+                    console.log(storedTwoOptionAndNumber)
                     if (storedTwoOptionAndNumber) {
                         this.storage.set({
-                            ...storedTwoOptionAndNumber,
                             option1: event.target.value as Option,
+                            option2: storedTwoOptionAndNumber.option2,
+                            teamNumber: 4590
                         });
                     }
                     console.log(this.storage.get())
@@ -55,13 +52,15 @@ class TeamNumberInput<
                 name={this.storage.name}
                 id={this.storage.name}
                 required={this.props.required}
-                defaultValue={this.getValue()?.option2 ?? ""}
+                value={this.getValue()?.option2 ?? "Ran 2"}
                 onChange={(event) => {
-                    const storedTwoOptionAndNumber = this.storage.get();
+                    let storedTwoOptionAndNumber = this.storage.get();
+                    console.log(storedTwoOptionAndNumber?.option1, storedTwoOptionAndNumber?.option2, storedTwoOptionAndNumber?.teamNumber)
                     if (storedTwoOptionAndNumber) {
                         this.storage.set({
-                            ...storedTwoOptionAndNumber,
-                            option2: event.target.value as Option,
+                            option1: storedTwoOptionAndNumber.option1,
+                            option2: event.target.value as Option as Option,
+                            teamNumber: 4590
                         });
                     }
                     console.log(this.storage.get())
