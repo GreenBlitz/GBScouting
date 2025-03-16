@@ -26,10 +26,9 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
             id={this.storage.name}
             name={this.storage.name}
             required={this.props.required}
-            defaultValue={this.getValue()?.teamNumber ?? (9999)}
+            defaultValue={this.getValue()?.qualNumber ?? (9999)}
             onChange={(event) => {
                 let storedTwoOptionAndNumber = this.storage.get();
-                    console.log(storedTwoOptionAndNumber)
                     if (storedTwoOptionAndNumber) {
                         this.storage.set({
                             option1: storedTwoOptionAndNumber.option1,
@@ -49,7 +48,6 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                 value={this.getValue()?.option1 ?? "Ran 1"}
                 onChange={(event) => {
                     let storedTwoOptionAndNumber = this.storage.get();
-                    console.log(storedTwoOptionAndNumber)
                     if (storedTwoOptionAndNumber) {
                         this.storage.set({
                             option1: event.target.value as Option,
@@ -78,7 +76,6 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                 value={this.getValue()?.option2 ?? "Ran 2"}
                 onChange={(event) => {
                     let storedTwoOptionAndNumber = this.storage.get();
-                    console.log(storedTwoOptionAndNumber?.option1, storedTwoOptionAndNumber?.option2, storedTwoOptionAndNumber?.teamNumber)
                     if (storedTwoOptionAndNumber) {
                         this.storage.set({
                             option1: storedTwoOptionAndNumber.option1,
