@@ -150,6 +150,7 @@ export async function fetchMatchResults(matchNumber: string) {
 }
 
 export async function postNotes(notes: Record<number, string>, qual: number) {
+  await alert("Started Sending Notes for qual: " + qual);
   return await fetchData(
     `notes/${qual.toString()}`,
     "POST",
