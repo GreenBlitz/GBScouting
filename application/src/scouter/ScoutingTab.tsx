@@ -127,9 +127,9 @@ export default function ScoutingTab() {
 
   const frontColor =
     sectionHandler.getIndex() === 1
-      ? "bg-[#3bd952]"
+      ? "bg-[#038c78]"
       : sectionHandler.getIndex() === 2
-      ? "bg-[#ede73e]"
+      ? "bg-[#263163]"
       : "bg-dark-card";
 
   const location = useLocation();
