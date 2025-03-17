@@ -89,7 +89,7 @@ const ComparisonSpesificTeam: React.FC = () => {
   useEffect(() => {
     async function updateTeams() {
       setTeams(
-        Object.values(await fetchAllTeamMatches()).map(
+        Object.values(await fetchMatchesForTeams(checkedList)).map(
           (teamMatches) => new TeamData(useRecent(teamMatches, recency))
         )
       );
