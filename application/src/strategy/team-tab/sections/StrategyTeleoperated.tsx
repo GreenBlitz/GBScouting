@@ -214,7 +214,7 @@ const StrategyTeleoperated: React.FC = () => {
 
       <br />
       <div className="mb-10">
-        <h1 className="text-xl mb-5">Coral</h1>
+        <h1 className="text-xl mb-5">Coral + Algae</h1>
         <div className="section">
           <LineChart
               dataSets={{
@@ -279,35 +279,7 @@ const StrategyTeleoperated: React.FC = () => {
       </div>
       <br />
       <div className="mb-10">
-        <h1 className="text-xl mb-5">Algea + Defense</h1>
-        <div className="section">
-          <LineChart
-            dataSets={{
-              Score: {
-                color: "#172db8",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "netScore"
-                ),
-              },
-              Miss: {
-                color: "#b81616",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "netMiss"
-                ),
-              },
-              Processor: {
-                color: "#8fb4ff",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "processor"
-                ),
-              },
-            }}
-          />
-        </div>
-
+        <h1 className="text-xl mb-5">Defense</h1>
         <div className="section">
           <LineChart
             dataSets={{
