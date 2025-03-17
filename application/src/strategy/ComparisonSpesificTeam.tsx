@@ -1,148 +1,125 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-  useOutletContext,
-} from "react-router-dom";
 import { TeamData } from "../TeamData";
-import { GridItems } from "./general-tab/GeneralTab";
-import { matchFieldNames } from "../utils/Match";
-import RadarComponent from "./charts/RadarChart";
-import CollectionChart from "./charts/CollectionChart";
-import LineChart from "./charts/LineChart";
-import CoralChart from "./charts/CoralChart";
-import BarChart from "./charts/BarChart"
+import BoxChart from "./charts/BoxChart";
+import { Match } from "../utils/Match";
+import { fetchAllTeamMatches } from "../utils/Fetches";
+import { useRecent } from "../components/TeamPicker";
 
-export const reefColorsScore = {
-  L1: "#e5ffc9",
-  L2: "#a1d994",
-  L3: "#5eb25e",
-  L4: "#1a8c29",
-};
+interface FieldOption {
+  name: string;
+  getData: (match: Match) => number | undefined;
+}
 
-export const reefColorsMiss = {
-  L1: "#ffb78e",
-  L2: "#f58a6b",
-  L3: "#eb5e48",
-  L4: "#e13125",
-};
+const fieldOptions: FieldOption[] = [
+  {
+    name: "Score",
+    getData: TeamData.matchScore,
+  },
+  {
+    name: "Objects",
+    getData: TeamData.matchObjects,
+  },
+  {
+    name: "L1",
+    getData: (match) =>
+      match.teleReefPick.levels.L1.score + match.autoReefPick.levels.L1.score,
+  },
+  {
+    name: "L2",
+    getData: (match) =>
+      match.teleReefPick.levels.L2.score + match.autoReefPick.levels.L2.score,
+  },
+  {
+    name: "L3",
+    getData: (match) =>
+      match.teleReefPick.levels.L3.score + match.autoReefPick.levels.L3.score,
+  },
+  {
+    name: "L4",
+    getData: (match) =>
+      match.teleReefPick.levels.L4.score + match.autoReefPick.levels.L4.score,
+  },
+  {
+    name: "Net",
+    getData: (match) =>
+      match.teleReefPick.algea.netScore + match.autoReefPick.algea.netScore,
+  },
 
-const climbColorMap = {
-  Park: "#006989",
-  "Off Barge": "#E94F37",
-  "Shallow Cage": "#F9DC5C",
-  "Deep Cage": "#44BBA4",
-  "Tried Deep": "#ED7117",
-};
+  {
+    name: "Processor",
+    getData: (match) =>
+      match.teleReefPick.algea.processor + match.autoReefPick.algea.processor,
+  },
 
-type ClimbKeys = keyof typeof climbColorMap;
+  { name: "Team Number", getData: (match) => match.teamNumber },
+  { name: "Qual", getData: (match) => match.qual },
+];
 
-const ComparisonSpesificTeams: React.FC = () => {
-  const { teamData, teamTable } = useOutletContext<{
-    teamData: TeamData;
-    teamTable: GridItems[];
-  }>();
+const ComparisonSpesificTeam: React.FC = () => {
+  const [teams, setTeams] = useState<TeamData[]>([]);
+  const [recency, setRecency] = useState<number>(0);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    async function updateTeams() {
+      setTeams(
+        Object.values(await fetchAllTeamMatches()).map(
+          (teamMatches) => new TeamData(useRecent(teamMatches, recency))
+        )
+      );
+    }
+    updateTeams();
+  });
 
-  const evasion = useMemo(
-    () => teamData.getAverage(matchFieldNames.defensiveEvasion),
-    [teamData]
-  );
-  const defense = useMemo(
-    () => teamData.getAverage(matchFieldNames.defense),
-    [teamData]
-  );
+  const [field, setField] = useState<string>(fieldOptions[0].name);
 
-  const getMax = (field: keyof GridItems) => {
-    return teamTable.reduce(
-      (accumulator, team) => Math.max(accumulator, team[field]),
-      0
-    );
+  const getBoxData = (team: TeamData | undefined) => {
+    if (!team) {
+      return {};
+    }
+    const chosenOption =
+      fieldOptions.find((option) => option.name === field) || fieldOptions[0];
+    return {
+      [team.getTeamNumber() || 0]: team.getAsBox(chosenOption.getData) || [],
+    };
   };
 
-  const location = useLocation();
-  useEffect(() => {
-    const isAlready = location.pathname.includes("linear");
-    if (teamData.matches.length === 0) {
-      navigate("/strategy/team/teleoperated");
-    } else if (!isAlready) {
-      navigate("/strategy/team/teleoperated/linear");
-    } else {
-      navigate("/strategy/team/teleoperated/histogram");
-    }
-  }, [teamData]);
+  const teamsData = useMemo(() => {
+    return teams.map((team) => getBoxData(team)) || [];
+  }, [teams, field]);
 
   return (
     <>
-      <div className="mb-10">
-        <h1 className="text-xl mb-5">Coral + Algae</h1>
-        <div className="section">
-          <BarChart 
-              dataSets={{
-              ...Object.fromEntries(
-                Object.entries(reefColorsScore).map(([key, value]) => [
-                  key,
-              {
-              color: value,
-              data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-                "levels",
-                key,
-                "miss",
-              ]),
-            },
-          ])
-        ),
-        NetScore: {
-          color: "#172db8",
-          data: teamData.getAlgeaDataAsLine(
-            matchFieldNames.teleReefPick,
-            "netScore"
-          ),
-        },
-        Processor: {
-          color: "#8fb4ff",
-          data: teamData.getAlgeaDataAsLine(
-            matchFieldNames.teleReefPick,
-            "processor"
-          ),
-        },
-      }}
-      />
-        </div>
+      <div className="flex flex-col items-center">
+        <br />
 
-        <div className="section">
-          <BarChart
-             dataSets={{
-            ...Object.fromEntries(
-              Object.entries(reefColorsMiss).map(([key, value]) => [
-                key,
-            {
-            color: value,
-            data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-              "levels",
-              key,
-              "miss",
-            ]),
-          },
-        ])
-      ),
-      NetMiss: {
-        color: "#b81616",
-        data: teamData.getAlgeaDataAsLine(
-          matchFieldNames.teleReefPick,
-          "netMiss"
-        ),
-      },
-    }}
-  />
-
+        <select
+          className="my-5"
+          onChange={(event) => setField(event.currentTarget.value)}
+        >
+          {fieldOptions.map((option) => (
+            <option>{option.name}</option>
+          ))}
+        </select>
+        <label htmlFor="recency">Recency</label>
+        <input
+          type="number"
+          id="recency"
+          name="recency"
+          onChange={(event) => setRecency(parseInt(event.target.value))}
+          min={1}
+        />
+        <div className="w-96 ">
+          <BoxChart
+            data={Object.assign({}, ...teamsData)}
+            xName={"Team"}
+            yName={field}
+            title="Comparison"
+            subtitle="Between FRC Teams"
+          />
         </div>
       </div>
-      <br />
     </>
   );
 };
 
-export default ComparisonSpesificTeams;
+export default ComparisonSpesificTeam;
