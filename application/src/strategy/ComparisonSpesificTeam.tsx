@@ -12,6 +12,7 @@ import RadarComponent from "./charts/RadarChart";
 import CollectionChart from "./charts/CollectionChart";
 import LineChart from "./charts/LineChart";
 import CoralChart from "./charts/CoralChart";
+import BarChart from "./charts/BarChart"
 
 export const reefColorsScore = {
   L1: "#e5ffc9",
@@ -78,7 +79,7 @@ const ComparisonSpesificTeams: React.FC = () => {
       <div className="mb-10">
         <h1 className="text-xl mb-5">Coral + Algae</h1>
         <div className="section">
-          <LineChart
+          <BarChart 
               dataSets={{
               ...Object.fromEntries(
                 Object.entries(reefColorsScore).map(([key, value]) => [
@@ -112,7 +113,7 @@ const ComparisonSpesificTeams: React.FC = () => {
         </div>
 
         <div className="section">
-          <LineChart
+          <BarChart
              dataSets={{
             ...Object.fromEntries(
               Object.entries(reefColorsMiss).map(([key, value]) => [
