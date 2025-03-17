@@ -231,7 +231,7 @@ const StrategyTeleoperated: React.FC = () => {
             },
           ])
         ),
-        Score: {
+        NetScore: {
           color: "#172db8",
           data: teamData.getAlgeaDataAsLine(
             matchFieldNames.teleReefPick,
