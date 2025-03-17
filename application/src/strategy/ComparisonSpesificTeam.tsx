@@ -90,6 +90,7 @@ const ComparisonSpesificTeam: React.FC = () => {
     async function updateTeams() {
       // Directly fetch the array of matches for the teams
       const fetchedMatches = await fetchMatchesForTeams(checkedList);
+      console.log("fetches matches: ",fetchedMatches)
       
       // Map through the fetched matches and process them
       setTeams(
@@ -101,8 +102,11 @@ const ComparisonSpesificTeam: React.FC = () => {
           return new TeamData(recentMatches);
         })
       );
+      setTeamData(teams.map((team) => getBoxData(team)) || [])
     }
     updateTeams();
+    console.log("D")
+    console.log("team data", teamsData)
   }, [checkedList, recency]); // Add dependencies to re-run effect when these values change
   
 
@@ -119,9 +123,9 @@ const ComparisonSpesificTeam: React.FC = () => {
     };
   };
 
-  const teamsData = useMemo(() => {
+  const [teamsData, setTeamData] = useState(useMemo(() => {
     return teams.map((team) => getBoxData(team)) || [];
-  }, [teams, field]);
+  }, [teams, field]))
 
   return (
     <>

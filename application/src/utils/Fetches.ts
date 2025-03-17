@@ -79,7 +79,7 @@ export async function fetchMatchesForTeams(teamNumbers: number[]): Promise<Match
   const allMatches = await fetchMatchesByCriteria();
   const filteredMatches: Match[] = [];
 
-  allMatches.forEach((match) => {
+  allMatches.forEach((match) => { 
     if (teamNumbers.includes(match.teamNumber)) {
       filteredMatches.push(match); 
     }
