@@ -65,6 +65,20 @@ export async function fetchAllTeamMatches(): Promise<Record<number, Match[]>> {
   return matches;
 }
 
+export async function fetchMatchesForTeams(teamNumbers: number[]): Promise<Match[]> {
+  const allMatches = await fetchMatchesByCriteria();
+  const filteredMatches: Match[] = [];
+
+  allMatches.forEach((match) => {
+    if (teamNumbers.includes(match.teamNumber)) {
+      filteredMatches.push(match); 
+    }
+  });
+
+  return filteredMatches;
+}
+
+
 export async function postMatch(match: Match) {
   return await fetchData("Match", "POST", JSON.stringify(match));
 }

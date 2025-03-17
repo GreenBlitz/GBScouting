@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { TeamData } from "../TeamData";
 import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
-import { fetchAllTeamMatches } from "../utils/Fetches";
+import { fetchAllTeamMatches, fetchMatchesForTeams } from "../utils/Fetches";
 import { useRecent } from "../components/TeamPicker";
 import { Checkbox } from "@mui/material";
 
