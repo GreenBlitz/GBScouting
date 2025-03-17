@@ -60,7 +60,7 @@ const fieldOptions: FieldOption[] = [
 const teamNumbers = [
   {id: "1", value: 1937},
   {id: "2", value: 4590},
-  {id:"3", value: 1937}
+  {id:"3", value: 1690}
 ]
 
 const ComparisonSpesificTeam: React.FC = () => {
@@ -80,9 +80,11 @@ const ComparisonSpesificTeam: React.FC = () => {
       const filteredList = checkedList.filter((item)=> item!==value)
       setCheckedList(filteredList)
     }
-    console.log(checkedList)
   }
 
+  useEffect(() => {
+    console.log(checkedList);
+  }, [checkedList]); // Logs only when checkedList updates
 
   useEffect(() => {
     async function updateTeams() {
