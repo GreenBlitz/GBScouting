@@ -67,7 +67,6 @@ const ComparisonTab: React.FC = () => {
         )
       );
     }
-
     updateTeams();
   });
 
