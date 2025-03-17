@@ -66,7 +66,7 @@ const teamNumbers = [
 const ComparisonSpesificTeam: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);
   const [recency, setRecency] = useState<number>(0);
-  const [checkedList, setCheckedList] = useState([])
+  const [checkedList, setCheckedList] = useState<number[]>([])
 
   const handleSelect = (event) =>{
     const value = event.target.value
@@ -80,6 +80,7 @@ const ComparisonSpesificTeam: React.FC = () => {
       const filteredList = checkedList.filter((item)=> item!==value)
       setCheckedList(filteredList)
     }
+    console.log(checkedList)
   }
 
 
