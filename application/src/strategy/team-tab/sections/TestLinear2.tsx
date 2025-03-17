@@ -3,7 +3,7 @@ import { TeamData } from "../../../TeamData";
 import React from "react";
 import { matchFieldNames } from "../../../utils/Match";
 import LinearHistogramChart from "../../charts/LinearHistogramChart";
-constt climbColorMap = {
+const climbColorMap = {
   Park: "#006989",
   "Off Barge": "#E94F37",
   "Shallow Cage": "#F9DC5C",
