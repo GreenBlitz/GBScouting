@@ -88,14 +88,23 @@ const ComparisonSpesificTeam: React.FC = () => {
 
   useEffect(() => {
     async function updateTeams() {
+      // Directly fetch the array of matches for the teams
+      const fetchedMatches = await fetchMatchesForTeams(checkedList);
+      
+      // Map through the fetched matches and process them
       setTeams(
-        Object.values(await fetchMatchesForTeams(checkedList)).map(
-          (teamMatches) => new TeamData(useRecent(teamMatches, recency))
-        )
+        fetchedMatches.map((teamMatches) => {
+          // Ensure teamMatches is wrapped in an array if it's not already an array
+          const recentMatches = useRecent(Array.isArray(teamMatches) ? teamMatches : [teamMatches], recency);
+          
+          // Pass the correctly wrapped array to TeamData
+          return new TeamData(recentMatches);
+        })
       );
     }
     updateTeams();
-  });
+  }, [checkedList, recency]); // Add dependencies to re-run effect when these values change
+  
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 
