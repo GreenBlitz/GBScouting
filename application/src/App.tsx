@@ -150,7 +150,7 @@ const App: React.FC = () => {
               </Route>
               <Route path="notes" element={<NoteTab />} />
               <Route path="general" element={<GeneralTab />} />
-              <Route path="compare" element={<ComparisonSpesificTeams />} />
+              <Route path="compare" element={<ComparisonTab />} />
               <Route path="scouter-stats" element={<ScouterStats />} />
             </Route>
           </Routes>
