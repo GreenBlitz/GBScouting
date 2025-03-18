@@ -141,9 +141,9 @@ const SpesificTeamComp: React.FC = () => {
           />
         </div>
       </div>
-      <div className="teams" style={{display: "grid", gap: "0.3em", gridTemplateColumns: "repeat(5, 1fr)", gridTemplateRows: "repeat(5, 1fr)",}}>
+      <div className="teams" style={{display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gridTemplateRows: "repeat(5, 1fr)",}}>
         {teamNumbers.map((item) => (
-          <label key={item.id} style={{ display: "flex", alignItems: "center", gap: "0.5em" }}>
+          <label className="containerComp" key={item.id} style={{ display: "flex", alignItems: "center", gap: "0.5em" }}>
             <input
               type="checkbox"
               name="team number"
@@ -155,6 +155,7 @@ const SpesificTeamComp: React.FC = () => {
                 height: "1.2em",
               }}
             />
+            <span className="checkmarkComp"></span>
           {item.id}</label>
         ))}
         </div>
