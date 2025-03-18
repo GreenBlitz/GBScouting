@@ -141,17 +141,19 @@ const SpesificTeamComp: React.FC = () => {
           />
         </div>
       </div>
-
-      {/* ✅ Improved Checkbox Handling */}
       <div className="teams" style={{display: "grid", gap: "0.3em", gridTemplateColumns: "repeat(5, 1fr)", gridTemplateRows: "repeat(5, 1fr)",}}>
         {teamNumbers.map((item) => (
-          <label key={item.id}>
+          <label key={item.id} style={{ display: "flex", alignItems: "center", gap: "0.5em" }}>
             <input
               type="checkbox"
               name="team number"
               id={item.id}
               value={item.value}
               onChange={handleSelect}
+              style={{
+                width: "1.2em",
+                height: "1.2em",
+              }}
             />
           {item.id}</label>
         ))}
