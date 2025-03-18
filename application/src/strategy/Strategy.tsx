@@ -51,6 +51,14 @@ const Strategy: React.FC = () => {
             Scouter Stats
           </Link>
         </li>
+        <li>
+          <Link
+            to="/strategy/ability"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Abilities
+          </Link>
+        </li>
       </ul>
     </nav>
   );

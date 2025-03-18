@@ -218,10 +218,15 @@ export class TeamData {
     );
   }
 
-  getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
+  getAccuracy(
+    percentField: keyof Match,
+    compareField: keyof Match,
+    innerPercentFields?: string[],
+    innerCompareFields?: string[]
+  ): Percent {
     const averages = [
-      this.getAverage(percentField),
-      this.getAverage(compareField),
+      this.getAverage(percentField, innerPercentFields),
+      this.getAverage(compareField, innerCompareFields),
     ];
     return Percent.fromList(averages)[0];
   }
@@ -465,6 +470,44 @@ export class TeamData {
         };
         return getValue() + accumulator;
       }, 0) / this.matches.length
+    );
+  }
+
+  getClimbPercentage(climb: string): Percent {
+    return Percent.fromRatio(
+      this.matches.filter((match) => match.climb === climb).length,
+      this.matches.length
+    );
+  }
+
+  getProcessorPercentage() {
+    return Percent.fromRatio(
+      this.matches.filter(
+        (match) =>
+          match.teleReefPick.algea.processor > 0 ||
+          match.autoReefPick.algea.processor > 0
+      ).length,
+      this.matches.length
+    );
+  }
+
+  getReefPickPercentage(innerFields: string[]) {
+    return Percent.fromRatio(
+      this.matches.filter((match) => {
+        return (
+          innerFields.reduce(
+            (accumulator, innerField) => accumulator[innerField],
+            match.teleReefPick
+          ) ||
+          0 > 0 ||
+          innerFields.reduce(
+            (accumulator, innerField) => accumulator[innerField],
+            match.autoReefPick
+          ) ||
+          0 > 0
+        );
+      }).length,
+      this.matches.length
     );
   }
 }
