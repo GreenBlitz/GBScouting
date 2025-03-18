@@ -68,7 +68,6 @@ const SpesificTeamComp: React.FC = () => {
   const [checkedList, setCheckedList] = useState<number[]>([]);
   console.log(teamNumbers)
 
-  // ✅ Improved checkbox handler to ensure numbers are stored correctly
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     const isChecked = event.target.checked;
@@ -78,11 +77,10 @@ const SpesificTeamComp: React.FC = () => {
     );
   };
 
-  // ✅ Fetch data when checkedList or recency changes
   useEffect(() => {
     async function updateParticularTeams() {
       if (checkedList.length === 0) {
-        setTeams([]); // Reset teams if no teams are selected
+        setTeams([]);
         return;
       }
 
@@ -95,7 +93,7 @@ const SpesificTeamComp: React.FC = () => {
     }
 
     updateParticularTeams();
-  }, [checkedList, recency]); // ✅ Now properly updates when checkedList changes
+  }, [checkedList, recency]);
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 
@@ -115,7 +113,6 @@ const SpesificTeamComp: React.FC = () => {
       <div className="flex flex-col items-center">
         <br />
 
-        {/* ✅ Added missing key prop for <option> elements */}
         <select className="my-5" onChange={(event) => setField(event.currentTarget.value)}>
           {fieldOptions.map((option) => (
             <option key={option.name}>{option.name}</option>
