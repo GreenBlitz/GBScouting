@@ -4,7 +4,7 @@ import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
 import { fetchAllTeamMatches, fetchPaticularTeamMatches } from "../utils/Fetches";
 import { useRecent } from "../components/TeamPicker";
-import { FRCTeamsAsAnArray } from "../utils/Utils";
+import { FRCTeamArray } from "../utils/Utils";
 
 interface FieldOption {
   name: string;
@@ -60,7 +60,7 @@ const fieldOptions: FieldOption[] = [
   },
 ];
 
-const teamNumbers = FRCTeamsAsAnArray
+const teamNumbers = FRCTeamArray
 
 const SpesificTeamComp: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);

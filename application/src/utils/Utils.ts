@@ -94,9 +94,8 @@ export const FRCTeamList: Record<number, string> = {
   10695: "Galileo",
 };
 
-export const FRCTeamsAsAnArray = ()=>{
-  return Object.entries(FRCTeamList).map((key, value)=> ({
-    id: key,
-    value: Number(key)
-  }))
-}
+export const FRCTeamArray = Object.entries(FRCTeamList).map(([key, value]) => ({
+  id: key,      // Keep the ID as a string
+  value: Number(key), // Convert the key back to a number if needed
+}));
+
