@@ -68,7 +68,6 @@ const SpesificTeamComp: React.FC = () => {
   const [checkedList, setCheckedList] = useState<number[]>([]);
   console.log(teamNumbers)
 
-
   // ✅ Improved checkbox handler to ensure numbers are stored correctly
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
@@ -144,7 +143,7 @@ const SpesificTeamComp: React.FC = () => {
       </div>
 
       {/* ✅ Improved Checkbox Handling */}
-      <div className="teams">
+      <div className="teams" style={{display: "grid", gap: "0.3em", gridTemplateColumns: "repeat(5, 1fr)", gridTemplateRows: "repeat(5, 1fr)",}}>
         {teamNumbers.map((item) => (
           <label key={item.id}>
             <input
@@ -156,7 +155,7 @@ const SpesificTeamComp: React.FC = () => {
             />
           {item.id}</label>
         ))}
-      </div>
+        </div>
     </>
   );
 };
