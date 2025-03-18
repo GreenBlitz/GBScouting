@@ -66,6 +66,8 @@ const SpesificTeamComp: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);
   const [recency, setRecency] = useState<number>(0);
   const [checkedList, setCheckedList] = useState<number[]>([]);
+  console.log(teamNumbers)
+
 
   // ✅ Improved checkbox handler to ensure numbers are stored correctly
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,8 +154,7 @@ const SpesificTeamComp: React.FC = () => {
               value={item.value}
               onChange={handleSelect}
             />
-            Team {item.value}
-          </label>
+          {item.id}</label>
         ))}
       </div>
     </>
