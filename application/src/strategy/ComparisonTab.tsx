@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { TeamData } from "../TeamData";
 import BoxChart from "./charts/BoxChart";
 import { Match } from "../utils/Match";
-import { fetchAllTeamMatches } from "../utils/Fetches";
+import { fetchAllTeamMatches, fetchPaticularTeamMatches } from "../utils/Fetches";
 import { useRecent } from "../components/TeamPicker";
 
 interface FieldOption {
@@ -63,21 +63,50 @@ const fieldOptions: FieldOption[] = [
   },
 ];
 
+const teamNumbers = [
+  {id: "1", value: 1937},
+  {id: "2", value: 4590},
+]
+
 const ComparisonTab: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);
   const [recency, setRecency] = useState<number>(0);
+  const[checkedList, setCheckedList] = useState([]);
+
+  const handleSelect = (event) =>{
+    const value = event.target.value
+    const isChecked = event.target.checked
+
+    if(isChecked){
+      const addedList = [...checkedList, value]
+      setCheckedList(addedList)
+    }
+    else{
+      const filteredList = checkedList.filter((item)=> item!==value)
+      setCheckedList(filteredList)
+    }
+  }
 
   useEffect(() => {
-    async function updateTeams() {
-      setTeams(
-        Object.values(await fetchAllTeamMatches()).map(
+    async function updateParticularTeams() {
+      console.log(
+        setTeams(Object.values(await fetchPaticularTeamMatches(checkedList)).map(
           (teamMatches) => new TeamData(useRecent(teamMatches, recency))
-        )
-      );
+        )));
     }
-
-    updateTeams();
+    updateParticularTeams();
   });
+
+  // useEffect(() => {
+  //   async function updateTeams() {
+  //     setTeams(
+  //       Object.values(await fetchAllTeamMatches()).map(
+  //         (teamMatches) => new TeamData(useRecent(teamMatches, recency))
+  //       )
+  //     );
+  //   }
+  //   updateTeams();
+  // });
 
   const [field, setField] = useState<string>(fieldOptions[0].name);
 
@@ -126,6 +155,19 @@ const ComparisonTab: React.FC = () => {
             subtitle="Between FRC Teams"
           />
         </div>
+      </div>
+      <div className="teams">
+        {teamNumbers.map((item)=>{
+          return(
+            <input 
+            type="checkbox"
+            name="team number"
+            id={item.id}
+            value={item.value}
+            onChange={handleSelect} 
+            />
+          )
+        })}
       </div>
     </>
   );
