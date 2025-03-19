@@ -1,6 +1,6 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
-import { fetchAllAwaitingMatches } from "../../utils/Fetches";
+import { fetchAllAwaitingMatches, fetchAllTeamMatches } from "../../utils/Fetches";
 
 interface TwoOptions<T, P extends T[]> {
     options1: P;
@@ -11,6 +11,26 @@ interface TwoOptionAndTeamNumber<T extends string> {
     option2: T;
     qualNumber: number
     teamNumber: number;
+}
+const allMatches = fetchAllTeamMatches()
+
+const getTeamNumberByCretria = <Option extends string>(qualNumber: number, option1: Option, option2: Option) => {
+    switch (option1) {
+        case "Close":
+            return option2==="Blue" ? allMatches[qualNumber-1].blueAlliance[0] : 
+            allMatches[qualNumber-1].redAlliance[0]
+            break;
+        case "Middle":
+            return option2==="Blue" ? allMatches[qualNumber-1].blueAlliance[1] : 
+            allMatches[qualNumber-1].redAlliance[1]
+            break;
+        case "Far":
+        return option2==="Blue" ? allMatches[qualNumber-1].blueAlliance[2] : 
+        allMatches[qualNumber-1].redAlliance[2]
+        break;
+        default:
+            return 4590;
+    }
 }
 
 class TeamNumberInput<Option extends string, Options extends Option[]> extends ScouterInput<TwoOptionAndTeamNumber<Option>,{ twoOptions: TwoOptions<Option, Options> }> {
@@ -31,11 +51,19 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
             onChange={(event) => {
                 let storedTwoOptionAndNumber = this.storage.get();
                     if (storedTwoOptionAndNumber) {
-                        this.storage.set({
+                        storedTwoOptionAndNumber = {
                             option1: storedTwoOptionAndNumber.option1,
                             option2: storedTwoOptionAndNumber.option2,
-                            teamNumber: 4590,
-                            qualNumber: event.target.value as unknown as number
+                            qualNumber: event.target.value as unknown as number,
+                            teamNumber: 4590
+                        }
+                        this.storage.set({
+                            ...storedTwoOptionAndNumber,
+                            teamNumber: getTeamNumberByCretria(
+                                storedTwoOptionAndNumber.qualNumber, 
+                                storedTwoOptionAndNumber.option1,
+                                storedTwoOptionAndNumber.option2
+                            )
                         });
                     }
                     console.log(this.storage.get())
@@ -50,11 +78,19 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                 onChange={(event) => {
                     let storedTwoOptionAndNumber = this.storage.get();
                     if (storedTwoOptionAndNumber) {
-                        this.storage.set({
+                        storedTwoOptionAndNumber = {
                             option1: event.target.value as Option,
                             option2: storedTwoOptionAndNumber.option2,
-                            teamNumber: 4590,
-                            qualNumber: storedTwoOptionAndNumber.qualNumber
+                            qualNumber: storedTwoOptionAndNumber.qualNumber,
+                            teamNumber: 4590
+                        }
+                        this.storage.set({
+                            ...storedTwoOptionAndNumber,
+                            teamNumber: getTeamNumberByCretria(
+                                storedTwoOptionAndNumber.qualNumber, 
+                                storedTwoOptionAndNumber.option1,
+                                storedTwoOptionAndNumber.option2
+                            )                          
                         });
                     }
                     console.log(this.storage.get())
@@ -78,11 +114,19 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                 onChange={(event) => {
                     let storedTwoOptionAndNumber = this.storage.get();
                     if (storedTwoOptionAndNumber) {
-                        this.storage.set({
+                        storedTwoOptionAndNumber = {
                             option1: storedTwoOptionAndNumber.option1,
                             option2: event.target.value as Option as Option,
-                            teamNumber: 4590,
-                            qualNumber: storedTwoOptionAndNumber.qualNumber
+                            qualNumber: storedTwoOptionAndNumber.qualNumber,
+                            teamNumber: 4590
+                        }
+                        this.storage.set({
+                            ...storedTwoOptionAndNumber,
+                            teamNumber: getTeamNumberByCretria(
+                                storedTwoOptionAndNumber.qualNumber, 
+                                storedTwoOptionAndNumber.option1,
+                                storedTwoOptionAndNumber.option2
+                            )
                         });
                     }
                     console.log(this.storage.get())
