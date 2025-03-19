@@ -51,7 +51,7 @@ const fieldOptions: FieldOption[] = [
       match.teleReefPick.algea.processor + match.autoReefPick.algea.processor,
   },
 
-  { name: "Team Number", getData: (match) => match.teamNumber },
+  { name: "Team Number", getData: (match) => match.teamNumber.teamNumber },
   { name: "Qual", getData: (match) => match.qual },
 ];
 
@@ -80,7 +80,7 @@ const ComparisonTab: React.FC = () => {
     const chosenOption =
       fieldOptions.find((option) => option.name === field) || fieldOptions[0];
     return {
-      [team.getTeamNumber() || 0]: team.getAsBox(chosenOption.getData) || [],
+      [Number(team.getTeamNumber()) || 0]: team.getAsBox(chosenOption.getData) || [],
     };
   };
 

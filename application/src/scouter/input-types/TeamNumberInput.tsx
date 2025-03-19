@@ -1,6 +1,7 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { fetchAllAwaitingMatches, fetchAllTeamMatches } from "../../utils/Fetches";
+import { Match } from "../../utils/Match";
 
 interface TwoOptions<T, P extends T[]> {
     options1: P;
@@ -12,26 +13,30 @@ interface TwoOptionAndTeamNumber<T extends string> {
     qualNumber: number
     teamNumber: number;
 }
-const allMatches = fetchAllTeamMatches()
+const allMatches = await fetchAllAwaitingMatches();
+console.log(allMatches); 
 
-const getTeamNumberByCretria = <Option extends string>(qualNumber: number, option1: Option, option2: Option) => {
+const getTeamNumberByCretria = async <Option extends string>(qualNumber: number, option1: Option, option2: Option) => {
+    const allMatches = await fetchAllAwaitingMatches();  // Fetch all matches inside the function to ensure it's up-to-date
+    if (!allMatches || !allMatches[qualNumber - 1]) {
+        console.error('Match data is unavailable');
+        return 4590;  // Return default value in case of failure
+    }
+
+    const match = allMatches[qualNumber - 1];
+
     switch (option1) {
         case "Close":
-            return option2==="Blue" ? allMatches[qualNumber-1].blueAlliance[0] : 
-            allMatches[qualNumber-1].redAlliance[0]
-            break;
+            return option2 === "Blue" ? match.blueAlliance[0] : match.redAlliance[0];
         case "Middle":
-            return option2==="Blue" ? allMatches[qualNumber-1].blueAlliance[1] : 
-            allMatches[qualNumber-1].redAlliance[1]
-            break;
+            return option2 === "Blue" ? match.blueAlliance[1] : match.redAlliance[1];
         case "Far":
-        return option2==="Blue" ? allMatches[qualNumber-1].blueAlliance[2] : 
-        allMatches[qualNumber-1].redAlliance[2]
-        break;
+            return option2 === "Blue" ? match.blueAlliance[2] : match.redAlliance[2];
         default:
             return 4590;
     }
 }
+
 
 class TeamNumberInput<Option extends string, Options extends Option[]> extends ScouterInput<TwoOptionAndTeamNumber<Option>,{ twoOptions: TwoOptions<Option, Options> }> {
     create(): React.JSX.Element {

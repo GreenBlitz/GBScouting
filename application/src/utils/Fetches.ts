@@ -60,7 +60,7 @@ export async function fetchMatchesByCriteria(
 export async function fetchAllTeamMatches(): Promise<Record<number, Match[]>> {
   const matches: Record<number, Match[]> = {};
   (await fetchMatchesByCriteria()).forEach((match) => {
-    matches[match.teamNumber] = [...(matches[match.teamNumber] || []), match];
+    matches[match.teamNumber.teamNumber] = [...(matches[match.teamNumber.teamNumber] || []), match];
   });
   return matches;
 }
