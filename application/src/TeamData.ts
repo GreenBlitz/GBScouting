@@ -91,7 +91,7 @@ export class TeamData {
     if (!this.matches[0]) {
       return 0;
     }
-    return this.matches[0].teamNumber;
+    return this.matches[0].teamNumber.teamNumber;
   }
 
   getAsLine(
