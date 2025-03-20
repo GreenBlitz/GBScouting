@@ -128,24 +128,21 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                     onChange={async (event) => {
                         let storedTwoOptionAndNumber = this.storage.get();
                         if (storedTwoOptionAndNumber) {
-                            storedTwoOptionAndNumber = {
-                                option1: storedTwoOptionAndNumber.option1,
-                                option2: event.target.value as Option,
-                                qualNumber: storedTwoOptionAndNumber.qualNumber,
-                                teamNumber: 4590, // Temporary value before update
+                            const newStoredValue = { 
+                                ...storedTwoOptionAndNumber, 
+                                option2: event.target.value as Option, 
+                                teamNumber: 4590 
                             };
-
-                            // Await the resolved team number
+                    
+                            this.storage.set(newStoredValue);
+                    
                             const updatedTeamNumber = await getTeamNumberByCretria(
-                                storedTwoOptionAndNumber.qualNumber,
-                                storedTwoOptionAndNumber.option1,
-                                storedTwoOptionAndNumber.option2
+                                newStoredValue.qualNumber,
+                                newStoredValue.option1,
+                                newStoredValue.option2
                             );
-
-                            this.storage.set({
-                                ...storedTwoOptionAndNumber,
-                                teamNumber: updatedTeamNumber, // Set the resolved team number
-                            });
+                            this.storage.set({ ...newStoredValue, teamNumber: updatedTeamNumber });
+                            this.forceUpdate();  
                         }
                         console.log(this.storage.get());
                     }}
