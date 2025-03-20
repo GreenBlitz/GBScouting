@@ -49,6 +49,8 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
     renderInput(): React.ReactNode {
         return (
             <div>
+                <div>
+                    <h3>Qual Number</h3>
                 <input
                     type="number"
                     id={this.storage.name}
@@ -80,7 +82,10 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                     }}
                     className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
+                </div>
                 
+                <div>
+                    <h3>Starting Position</h3>
                 <select
                     name={this.storage.name}
                     id={this.storage.name}
@@ -118,7 +123,10 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                         </option>
                     ))}
                 </select>
+                </div>
 
+                <div>
+                    <h3>Alliance Color</h3>
                 <select
                     name={this.storage.name}
                     id={this.storage.name}
@@ -153,6 +161,7 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                         </option>
                     ))}
                 </select>
+                </div>
             </div>
         );
     }
