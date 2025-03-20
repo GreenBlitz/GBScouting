@@ -31,7 +31,7 @@ export default class ScouterInputs {
   });
   static readonly teamNumber = new TeamNumberInput({
     route: "teamNumber",
-    name: "Team Number",
+    name: "",
     twoOptions:{
       options1: ["Close", "Middle", "Far"],
       options2: ["Blue", "Red"],
