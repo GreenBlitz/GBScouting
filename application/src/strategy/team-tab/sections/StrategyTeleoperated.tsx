@@ -76,6 +76,134 @@ const StrategyTeleoperated: React.FC = () => {
 
   return (
     <>
+      <div className="mb-10">
+        <h1 className="text-xl mb-5">Coral + Algae</h1>
+        <div className="section">
+          <LineChart
+            dataSets={{
+              ...Object.fromEntries(
+                Object.entries(reefColorsScore).map(([key, value]) => [
+                  key,
+                  {
+                    color: value,
+                    data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+                      "levels",
+                      key,
+                      "miss",
+                    ]),
+                  },
+                ])
+              ),
+              Net: {
+                color: "#172db8",
+                data: teamData.getAlgeaDataAsLine(
+                  matchFieldNames.teleReefPick,
+                  "netScore"
+                ),
+              },
+              Processor: {
+                color: "#8fb4ff",
+                data: teamData.getAlgeaDataAsLine(
+                  matchFieldNames.teleReefPick,
+                  "processor"
+                ),
+              },
+            }}
+          />
+        </div>
+
+        <div className="section">
+          <LineChart
+            dataSets={{
+              ...Object.fromEntries(
+                Object.entries(reefColorsMiss).map(([key, value]) => [
+                  key,
+                  {
+                    color: value,
+                    data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+                      "levels",
+                      key,
+                      "miss",
+                    ]),
+                  },
+                ])
+              ),
+              Net: {
+                color: "#b81616",
+                data: teamData.getAlgeaDataAsLine(
+                  matchFieldNames.teleReefPick,
+                  "netMiss"
+                ),
+              },
+            }}
+          />
+        </div>
+      </div>
+      <br />
+      <h1 className="text-2xl">Average Score: {teamData.getAverageScore()}</h1>
+      <h1 className="text-2xl">
+        Average Auto Score: {teamData.getAverageAutoScore()}
+      </h1>
+      <div className="h-20" />
+      <div className="rower">
+        <CollectionChart collection={teamData.getCollections()} />
+      </div>
+      <div className="section">
+        <Outlet context={{ teamData }} />
+      </div>
+      <div className="h-20" />
+      <div className="mb-10">
+        <h1 className="text-xl mb-5">Overall</h1>
+        <div className="section">
+          <LineChart
+            dataSets={{
+              "Total Score": { color: "red", data: teamData.getScores() },
+            }}
+          />
+        </div>
+        <div className="section">
+          <LineChart
+            dataSets={{
+              Objects: {
+                color: "cyan",
+                data: teamData.getTeleopObjectsAsLine(),
+              },
+            }}
+          />
+        </div>
+      </div>
+
+      <br />
+      <div>
+        <h1>Comments</h1>
+        {teamData?.getComments().map((comment) => (
+          <h3 style={{ border: "solid" }}>
+            {"Qual #" + comment.qual + ": " + comment.body}
+          </h3>
+        ))}
+      </div>
+      <br />
+      <div className="mb-10">
+        <h1 className="text-xl mb-5">Defense</h1>
+        <div className="section">
+          <LineChart
+            dataSets={{
+              Defense: {
+                color: "purple",
+                data: teamData.getAsLine(matchFieldNames.defense),
+              },
+
+              Evasion: {
+                color: "pink",
+                data: teamData.getAsLine(matchFieldNames.defensiveEvasion),
+              },
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="h-32" />
+
       <div className="section">
         <RadarComponent
           inputs={[
@@ -177,134 +305,6 @@ const StrategyTeleoperated: React.FC = () => {
           size={300}
           substeps={5}
         />
-      </div>
-      <br />
-      <h1 className="text-2xl">Average Score: {teamData.getAverageScore()}</h1>
-      <h1 className="text-2xl">
-        Average Auto Score: {teamData.getAverageAutoScore()}
-      </h1>
-      <div className="h-20" />
-      <div className="rower">
-        <CollectionChart collection={teamData.getCollections()} />
-      </div>
-      <div className="section">
-        <Outlet context={{ teamData }} />
-      </div>
-      <div className="h-20" />
-      <div className="mb-10">
-        <h1 className="text-xl mb-5">Overall</h1>
-        <div className="section">
-          <LineChart
-            dataSets={{
-              "Total Score": { color: "red", data: teamData.getScores() },
-            }}
-          />
-        </div>
-        <div className="section">
-          <LineChart
-            dataSets={{
-              Objects: {
-                color: "cyan",
-                data: teamData.getTeleopObjectsAsLine(),
-              },
-            }}
-          />
-        </div>
-      </div>
-
-      <br />
-      <div className="mb-10">
-        <h1 className="text-xl mb-5">Coral + Algae</h1>
-        <div className="section">
-          <LineChart
-              dataSets={{
-              ...Object.fromEntries(
-                Object.entries(reefColorsScore).map(([key, value]) => [
-                  key,
-              {
-              color: value,
-              data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-                "levels",
-                key,
-                "miss",
-              ]),
-            },
-          ])
-        ),
-        NetScore: {
-          color: "#172db8",
-          data: teamData.getAlgeaDataAsLine(
-            matchFieldNames.teleReefPick,
-            "netScore"
-          ),
-        },
-        Processor: {
-          color: "#8fb4ff",
-          data: teamData.getAlgeaDataAsLine(
-            matchFieldNames.teleReefPick,
-            "processor"
-          ),
-        },
-      }}
-      />
-        </div>
-
-        <div className="section">
-          <LineChart
-             dataSets={{
-            ...Object.fromEntries(
-              Object.entries(reefColorsMiss).map(([key, value]) => [
-                key,
-            {
-            color: value,
-            data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-              "levels",
-              key,
-              "miss",
-            ]),
-          },
-        ])
-      ),
-      NetMiss: {
-        color: "#b81616",
-        data: teamData.getAlgeaDataAsLine(
-          matchFieldNames.teleReefPick,
-          "netMiss"
-        ),
-      },
-    }}
-  />
-
-        </div>
-      </div>
-      <br />
-      <div className="mb-10">
-        <h1 className="text-xl mb-5">Defense</h1>
-        <div className="section">
-          <LineChart
-            dataSets={{
-              Defense: {
-                color: "purple",
-                data: teamData.getAsLine(matchFieldNames.defense),
-              },
-
-              Evasion: {
-                color: "pink",
-                data: teamData.getAsLine(matchFieldNames.defensiveEvasion),
-              },
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="h-32" />
-      <div>
-        <h1>Comments</h1>
-        {teamData?.getComments().map((comment) => (
-          <h3 style={{ border: "solid" }}>
-            {"Qual #" + comment.qual + ": " + comment.body}
-          </h3>
-        ))}
       </div>
       <div className="h-48" />
 
