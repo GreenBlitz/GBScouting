@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
@@ -62,8 +62,21 @@ export default function ScoutingTab() {
     return !!FRCTeamList[teamNumber];
   };
 
-  const teamNumber = ScouterInputs.teamNumber.getValue();
-  const teamColor = isValid(teamNumber.teamNumber) ? "text-yellow-300" : "text-red-500";
+  const [teamNumber, setTeamNumber] = useState(ScouterInputs.teamNumber.getValue().teamNumber);
+
+  // Dynamically update teamNumber when ScouterInputs.teamNumber changes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentTeamNumber = ScouterInputs.teamNumber.getValue().teamNumber;
+      if (currentTeamNumber !== teamNumber) {
+        setTeamNumber(currentTeamNumber);
+      }
+    }, 100); // Adjust interval time as needed (e.g., 100ms)
+
+    return () => clearInterval(interval); // Cleanup interval when component unmounts
+  }, [teamNumber]); // The effect depends on teamNumber
+
+  const teamColor = isValid(teamNumber) ? "text-yellow-300" : "text-red-500";
 
   const sectionElement = (
     <div className="space-y-6">
@@ -79,8 +92,8 @@ export default function ScoutingTab() {
           className={`text-2xl ${teamColor} mr-5 mt-2`}
           style={{ fontFamily: "Franklin Gothic Black" }}
         >
-          {teamNumber.teamNumber !== 0 &&
-            (isValid(teamNumber.teamNumber) ? teamNumber.teamNumber : "Invalid Team")}
+          {teamNumber !== 0 &&
+            (isValid(teamNumber) ? teamNumber : "Invalid Team")}
         </h3>
       </div>
       <PageTransition>
