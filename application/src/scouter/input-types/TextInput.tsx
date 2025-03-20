@@ -19,6 +19,7 @@ class TextInput extends ScouterInput<
     return (
       <>
         <input
+          style={{width:"80%"}}
           type="text"
           id={this.storage.name}
           name={this.storage.name}

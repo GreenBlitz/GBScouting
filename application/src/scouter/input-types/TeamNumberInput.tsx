@@ -48,7 +48,8 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
 
     renderInput(): React.ReactNode {
         return (
-            <div>
+            <div style={{width:"80%"}}>
+                
                 <div>
                     <h3>Qual Number</h3>
                 <input
