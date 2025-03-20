@@ -77,7 +77,6 @@ const StrategyTeleoperated: React.FC = () => {
   return (
     <>
       <div className="mb-10">
-        <h1 className="text-xl mb-5">Coral + Algae</h1>
         <div className="section">
           <LineChart
             dataSets={{
@@ -138,6 +137,11 @@ const StrategyTeleoperated: React.FC = () => {
             }}
           />
         </div>
+      </div>
+
+      <div className="flex flex-col items-center">
+        <h1 className="text-2xl">Total Corals</h1>
+        <CoralChart corals={teamData.getTeleopCorals()} />
       </div>
       <br />
       <h1 className="text-2xl">Average Score: {teamData.getAverageScore()}</h1>
@@ -305,12 +309,6 @@ const StrategyTeleoperated: React.FC = () => {
           size={300}
           substeps={5}
         />
-      </div>
-      <div className="h-48" />
-
-      <div className="flex flex-col items-center">
-        <h1 className="text-2xl">Total Corals</h1>
-        <CoralChart corals={teamData.getTeleopCorals()} />
       </div>
     </>
   );
