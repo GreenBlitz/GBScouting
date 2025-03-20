@@ -19,10 +19,10 @@ const allMatches = await fetchAllAwaitingMatches();
 console.log(allMatches); 
 
 const getTeamNumberByCretria = async <Option extends string>(qualNumber: number, option1: Option, option2: Option) => {
-    const allMatches = await fetchAllAwaitingMatches();  // Fetch all matches inside the function to ensure it's up-to-date
+    const allMatches = await fetchAllAwaitingMatches();
     if (!allMatches || !allMatches[qualNumber - 1]) {
         console.error('Match data is unavailable');
-        return 4590;  // Return default value in case of failure
+        return 4590;  
     }
 
     const match = allMatches[qualNumber - 1];
@@ -65,7 +65,6 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                                 teamNumber: 4590, 
                             };
 
-                            // Await the resolved team number
                             const updatedTeamNumber = await getTeamNumberByCretria(
                                 storedTwoOptionAndNumber.qualNumber,
                                 storedTwoOptionAndNumber.option1,
