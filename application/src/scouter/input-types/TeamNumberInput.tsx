@@ -62,7 +62,7 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                                 option1: storedTwoOptionAndNumber.option1,
                                 option2: storedTwoOptionAndNumber.option2,
                                 qualNumber: event.target.value as unknown as number,
-                                teamNumber: 4590, // Temporary value before update
+                                teamNumber: 4590, 
                             };
 
                             // Await the resolved team number
@@ -74,7 +74,7 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
 
                             this.storage.set({
                                 ...storedTwoOptionAndNumber,
-                                teamNumber: updatedTeamNumber, // Set the resolved team number
+                                teamNumber: updatedTeamNumber, 
                             });
                         }
                         console.log(this.storage.get());
@@ -94,10 +94,9 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                                 option1: event.target.value as Option,
                                 option2: storedTwoOptionAndNumber.option2,
                                 qualNumber: storedTwoOptionAndNumber.qualNumber,
-                                teamNumber: 4590, // Temporary value before update
+                                teamNumber: 4590, 
                             };
 
-                            // Await the resolved team number
                             const updatedTeamNumber = await getTeamNumberByCretria(
                                 storedTwoOptionAndNumber.qualNumber,
                                 storedTwoOptionAndNumber.option1,
@@ -106,7 +105,7 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
 
                             this.storage.set({
                                 ...storedTwoOptionAndNumber,
-                                teamNumber: updatedTeamNumber, // Set the resolved team number
+                                teamNumber: updatedTeamNumber,
                             });
                         }
                         console.log(this.storage.get());
@@ -166,7 +165,7 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
         return {
             option1: props.twoOptions.options1[0] ?? ("" as Option),
             option2: props.twoOptions.options2[0] ?? ("" as Option),
-            teamNumber: 4590, // Default value for team number
+            teamNumber: 9999, 
             qualNumber: 9999
         };
     }
