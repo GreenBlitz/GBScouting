@@ -13,26 +13,28 @@ import { useRecent } from "../../components/TeamPicker";
 interface Abilities {
   Team: number;
   Deep: number;
+  "Algea Collected": number;
+  "Algea Dropped": number;
+  "Algea Ground": number;
+  "Coral Feeder": number;
+  "Coral Ground": number;
   Net: number;
   Processor: number;
-  L1: number;
-  L2: number;
-  L3: number;
-  L4: number;
 }
 
 function processTeamData(teamNumber: number, data: TeamData): Abilities {
   return {
     Team: teamNumber,
-    Deep: data
-      .getClimbPercentage("Deep Cage").value
-      + data.getClimbPercentage("Shallow Cage").value,
+    Deep:
+      data.getClimbPercentage("Deep Cage").value +
+      data.getClimbPercentage("Shallow Cage").value,
+    "Algea Collected": data.getCollectionPercentage("algeaReefCollected").value,
+    "Algea Dropped": data.getCollectionPercentage("algeaReefDropped").value,
+    "Algea Ground": data.getCollectionPercentage("algeaGroundCollected").value,
+    "Coral Feeder": data.getCollectionPercentage("coralFeederCollected").value,
+    "Coral Ground": data.getCollectionPercentage("coralGroundCollected").value,
     Net: data.getReefPickPercentage(["algea", "netScore"]).value,
     Processor: data.getReefPickPercentage(["algea", "processor"]).value,
-    L4: data.getReefPickPercentage(["levels", "L4", "score"]).value,
-    L3: data.getReefPickPercentage(["levels", "L3", "score"]).value,
-    L2: data.getReefPickPercentage(["levels", "L2", "score"]).value,
-    L1: data.getReefPickPercentage(["levels", "L1", "score"]).value,
   };
 }
 
@@ -60,36 +62,28 @@ function getCellClassName(
   }
 
   const getBGColor = () => {
-    if (field === "L4") {
-      return `bg-purple-${getStrength(
-        [10, 30, 50, 70, 90],
-        numberedValue
-      )}`;
+    if (field === "Algea Collected") {
+      return `bg-purple-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
     }
 
-    if (field === "L3") {
-      return `bg-yellow-${getStrength(
-        [10, 30, 50, 70, 90],
-        numberedValue
-      )}`;
+    if (field === "Coral Ground") {
+        return `bg-purple-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      }
+
+    if (field === "Coral Feeder") {
+      return `bg-yellow-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
     }
 
-    if (field === "L2") {
+    if (field === "Algea Ground") {
       return `bg-red-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
     }
 
-    if (field === "L1") {
-      return `bg-green-${getStrength(
-        [10, 30, 50, 70, 90],
-        numberedValue
-      )}`;
+    if (field === "Algea Dropped") {
+      return `bg-green-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
     }
 
     if (field === "Net") {
-      return `bg-green-${getStrength(
-        [10, 30, 50, 70, 90],
-        numberedValue
-      )}`;
+      return `bg-green-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
     }
 
     if (field === "Processor") {
@@ -97,10 +91,7 @@ function getCellClassName(
     }
 
     if (field === "Deep") {
-      return `bg-green-${getStrength(
-        [10, 30, 50, 70, 90],
-        numberedValue
-      )}`;
+      return `bg-green-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
     }
 
     return "text-white";

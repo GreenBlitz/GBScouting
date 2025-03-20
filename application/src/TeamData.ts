@@ -510,4 +510,12 @@ export class TeamData {
       this.matches.length
     );
   }
+
+  getCollectionPercentage(collection: keyof Collection) {
+    return Percent.fromRatio(
+      this.matches.filter((match) => match.endgameCollection[collection])
+        .length,
+      this.matches.length
+    );
+  }
 }
