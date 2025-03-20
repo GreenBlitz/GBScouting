@@ -107,6 +107,7 @@ class TeamNumberInput<Option extends string, Options extends Option[]> extends S
                                 teamNumber: updatedTeamNumber,
                             });
                         }
+                        this.forceUpdate();  // <---- Force component to re-render
                         console.log(this.storage.get());
                     }}
                     className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
