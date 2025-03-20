@@ -63,18 +63,16 @@ export default function ScoutingTab() {
   };
 
   const [teamNumber, setTeamNumber] = useState(ScouterInputs.teamNumber.getValue().teamNumber);
-
-  // Dynamically update teamNumber when ScouterInputs.teamNumber changes
   useEffect(() => {
     const interval = setInterval(() => {
       const currentTeamNumber = ScouterInputs.teamNumber.getValue().teamNumber;
       if (currentTeamNumber !== teamNumber) {
         setTeamNumber(currentTeamNumber);
       }
-    }, 100); // Adjust interval time as needed (e.g., 100ms)
+    }, 100); 
 
-    return () => clearInterval(interval); // Cleanup interval when component unmounts
-  }, [teamNumber]); // The effect depends on teamNumber
+    return () => clearInterval(interval);
+  }, [teamNumber]);
 
   const teamColor = isValid(teamNumber) ? "text-yellow-300" : "text-red-500";
 
