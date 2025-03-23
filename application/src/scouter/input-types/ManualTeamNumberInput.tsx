@@ -139,6 +139,7 @@ class ManualTeamNumberInput<
                             this.handleSelectionChange("option1", event.target.value)
                         }
                         className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        disabled={!this.state.isDisabled}
                     >
                         {this.props.twoOptions.options1.map((item, index) => (
                             <option value={item} key={index} className="bg-dark-bg text-dark-text">
@@ -158,6 +159,7 @@ class ManualTeamNumberInput<
                             this.handleSelectionChange("option2", event.target.value)
                         }
                         className="w-full p-2 bg-dark-bg text-dark-text border border-dark-border rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        disabled={!this.state.isDisabled}
                     >
                         {this.props.twoOptions.options2.map((item, index) => (
                             <option value={item} key={index} className="bg-dark-bg text-dark-text">
