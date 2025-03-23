@@ -63,15 +63,6 @@ const StrategyAutonomous: React.FC = () => {
         <h1 className="text-2xl">Total Corals</h1>
         <CoralChart corals={corals} />
       </div>
-      <br />
-      <br />
-      <h1 className="text-4xl underline">All Autos</h1>
-      {autos?.map((auto, index) => (
-        <div className="mb-20 mt-5" key={index}>
-          <h1 className="text-xl">Qual {auto.qual}</h1>
-          <AutoChart auto={auto} />
-        </div>
-      ))}
     </>
   );
 };
