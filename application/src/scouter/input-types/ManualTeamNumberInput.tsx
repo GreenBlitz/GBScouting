@@ -61,7 +61,7 @@ class ManualTeamNumberInput<
     constructor(props: any) {
         super(props);
         this.state = {
-            isDisabled: false,
+            isDisabled: true,
             manualTeamNumber: this.getValue()?.teamNumber ?? 9999,
         };
     }
