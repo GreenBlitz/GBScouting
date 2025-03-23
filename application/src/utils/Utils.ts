@@ -61,7 +61,7 @@ export const FRCTeamList: Record<number, string> = {
   5990: "TRIGON",
   6104: "Desert Eagles in memory of Yehonatan Maimon",
   6738: "Excalibur",
-  6969: "Amirimon",
+  6969: "AmiRimon",
   7039: "❌⭕",
   7067: "Team Streak",
   7112: "EverGreen",
