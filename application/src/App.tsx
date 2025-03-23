@@ -31,6 +31,7 @@ import Leaderboard from "./components/Leaderboard";
 import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
 import ScouterStats from "./strategy/ScouterStats";
 import ScouterTeleoperated from "./scouter/tabs/ScouterTeleOperated";
+import AbilityTab from "./strategy/ability-tab/AbilityTab";
 
 function getHiddenImage(path: string) {
   return (
@@ -147,6 +148,7 @@ const App: React.FC = () => {
                 </Route>
                 <Route path="autonomous" element={<StrategyAutonomous />} />
               </Route>
+              <Route path="ability" element={<AbilityTab />} />
               <Route path="notes" element={<NoteTab />} />
               <Route path="general" element={<GeneralTab />} />
               <Route path="compare" element={<ComparisonTab />} />
