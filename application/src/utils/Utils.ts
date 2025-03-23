@@ -9,7 +9,14 @@ export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
 }
 
 export function sortMatches(matches: Match[]) {
-  return matches.sort((match1, match2) => match1.qual - match2.qual);
+  return matches.sort((match1, match2) => {
+    if (match1.qual > 100 && match2.qual < 100) {
+      return -1;
+    } else if (match1.qual < 100 && match2.qual > 100) {
+      return 1;
+    }
+    return match1.qual - match2.qual;
+  });
 }
 
 export function getDistance(p1: Point, p2: Point) {

@@ -15,7 +15,7 @@ import {
 
 export interface Comment {
   body: string;
-  qual: number;
+  qual: string;
 }
 
 export class TeamData {
@@ -87,6 +87,13 @@ export class TeamData {
     return sum;
   }
 
+  static stringedQual(qual: number) {
+    if (qual > 100) {
+      return "P" + (qual - 100).toString();
+    }
+    return "Q" + qual.toString();
+  }
+
   getTeamNumber() {
     if (!this.matches[0]) {
       return 0;
@@ -102,7 +109,7 @@ export class TeamData {
       {},
       ...Object.values(this.matches).map((match) => {
         if (!match[field] || match[field] === "undefined") {
-          return { [match.qual]: null };
+          return { [TeamData.stringedQual(match.qual)]: null };
         }
         const value = innerFields
           ? innerFields.reduce(
@@ -113,7 +120,7 @@ export class TeamData {
         if (typeof value !== "number") {
           throw new Error("Invalid field: " + field + " " + innerFields);
         }
-        return { [match.qual.toString()]: value };
+        return { [TeamData.stringedQual(match.qual)]: value };
       })
     );
   }
@@ -129,7 +136,8 @@ export class TeamData {
           return;
         }
         return {
-          [match.qual.toString()]: (match[reefPick] as PickValues).algea[field],
+          [TeamData.stringedQual(match.qual)]: (match[reefPick] as PickValues)
+            .algea[field],
         };
       })
     );
@@ -138,7 +146,7 @@ export class TeamData {
   getComments(): Comment[] {
     return this.matches
       .map((match) => {
-        return { body: match.comment, qual: match.qual };
+        return { body: match.comment, qual: TeamData.stringedQual(match.qual) };
       })
       .filter((comment) => comment.body !== "")
       .concat(this.notes);
@@ -160,7 +168,7 @@ export class TeamData {
       {},
       ...Object.values(this.matches).map((match) => {
         return {
-          [match.qual.toString()]:
+          [TeamData.stringedQual(match.qual)]:
             match.teleReefPick.levels.L1.score +
             match.teleReefPick.levels.L2.score +
             match.teleReefPick.levels.L3.score +
@@ -176,7 +184,9 @@ export class TeamData {
     return Object.assign(
       {},
       ...this.matches.map((match) => {
-        return { [match.qual]: TeamData.matchScore(match) };
+        return {
+          [TeamData.stringedQual(match.qual)]: TeamData.matchScore(match),
+        };
       })
     );
   }
