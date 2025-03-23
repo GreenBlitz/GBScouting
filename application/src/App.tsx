@@ -31,7 +31,6 @@ import Leaderboard from "./components/Leaderboard";
 import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
 import ScouterStats from "./strategy/ScouterStats";
 import ScouterTeleoperated from "./scouter/tabs/ScouterTeleOperated";
-import SpesificTeamComp from "./strategy/SpesificTeamComp";
 
 function getHiddenImage(path: string) {
   return (
@@ -150,7 +149,7 @@ const App: React.FC = () => {
               </Route>
               <Route path="notes" element={<NoteTab />} />
               <Route path="general" element={<GeneralTab />} />
-              <Route path="compare" element={<SpesificTeamComp />} />
+              <Route path="compare" element={<ComparisonTab />} />
               <Route path="scouter-stats" element={<ScouterStats />} />
             </Route>
           </Routes>
