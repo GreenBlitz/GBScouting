@@ -21,7 +21,7 @@ const Strategy: React.FC = () => {
           {[...loadedHiddenImages]}
 
           <Link
-            to="/strategy/team/autonomous"
+            to="/strategy/team/teleoperated/linear"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Team Data

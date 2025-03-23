@@ -13,7 +13,6 @@ const TeamTab: React.FC = () => {
 
   const [teamTable, setTeamTable] = useState<GridItems[]>([]);
 
-
   //bruh this is kinda deep
   useEffect(() => {
     async function getGridItems(teamNumber: number) {
@@ -51,7 +50,7 @@ const TeamTab: React.FC = () => {
             <Link to="/strategy/team/autonomous">Autonomous</Link>
           </li>
           <li>
-            <Link to="/strategy/team/teleoperated">Teleoperated</Link>
+            <Link to="/strategy/team/teleoperated/linear">Teleoperated</Link>
           </li>
         </ul>
       </nav>
