@@ -74,6 +74,22 @@ const StrategyTeleoperated: React.FC = () => {
     }
   }, [teamData]);
 
+  console.log(
+    Object.fromEntries(
+      Object.entries(reefColorsScore).map(([key, value]) => [
+        key,
+        {
+          color: value,
+          data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+            "levels",
+            key,
+            "miss",
+          ]),
+        },
+      ])
+    )
+  );
+
   return (
     <>
       <div className="mb-10">
@@ -88,7 +104,7 @@ const StrategyTeleoperated: React.FC = () => {
                     data: teamData.getAsLine(matchFieldNames.teleReefPick, [
                       "levels",
                       key,
-                      "miss",
+                      "score",
                     ]),
                   },
                 ])

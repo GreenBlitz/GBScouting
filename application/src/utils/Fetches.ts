@@ -69,6 +69,10 @@ export async function postMatch(match: Match) {
   return await fetchData("Match", "POST", JSON.stringify(match));
 }
 
+export async function fetchTeams(teams: number[]): Promise<Record<number, Match[]>> {
+  return await fetchData("Teams", "POST", JSON.stringify({ teams }));
+}
+
 export async function fetchQualificationResults() {
   try {
     const response = await fetchData(`TBA/rankings`);

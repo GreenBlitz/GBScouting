@@ -3,7 +3,7 @@ import TableChart from "../charts/TableChart";
 import { FRCTeamList } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
 import React from "react";
-import { fetchMatchesByCriteria } from "../../utils/Fetches";
+import { fetchMatchesByCriteria, fetchTeams } from "../../utils/Fetches";
 import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 import "./GeneralTable.css";
 import { matchFieldNames } from "../../utils/Match";
@@ -195,28 +195,18 @@ const GeneralTab: React.FC = () => {
 
   //bruh this is kinda deep
   useEffect(() => {
-    async function getGridItems(teamNumber: number) {
-      return processTeamData(
-        teamNumber,
-        new TeamData(
-          useRecent(
-            mergeSimilarMatches(
-              await fetchMatchesByCriteria(
-                matchFieldNames.teamNumber,
-                teamNumber.toString()
-              )
-            ),
-            recency
-          )
+    async function getGridItems() {
+      return Object.entries(
+        await fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
+      ).map(([team, matches]) =>
+        processTeamData(
+          parseInt(team),
+          new TeamData(useRecent(mergeSimilarMatches(matches), recency))
         )
       );
     }
     async function updateTeamTable() {
-      setTeamTable(
-        await Promise.all(
-          Object.keys(FRCTeamList).map((key) => getGridItems(parseInt(key)))
-        )
-      );
+      setTeamTable(await getGridItems());
     }
     updateTeamTable();
   }, [recency]);

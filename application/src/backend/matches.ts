@@ -126,6 +126,40 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
   });
 
+  app.post("/Teams", async (req, res) => {
+    if (!db) {
+      return res.status(500).send("Database not connected");
+    }
+
+    const teamNumbers: number[] = req.body.teams;
+    if (!Array.isArray(teamNumbers) || teamNumbers.some(isNaN)) {
+      return res.status(400).send("Invalid team numbers array");
+    }
+
+    const matchCollection = db.collection("matches");
+    const bbbCollection = db.collection("bbb");
+
+    try {
+      const matches = (
+        await matchCollection
+          .find({ teamNumber: { $in: teamNumbers } })
+          .toArray()
+      ).concat(
+        await bbbCollection.find({ teamNumber: { $in: teamNumbers } }).toArray()
+      );
+      const teamMatchesRecord = teamNumbers.reduce((acc, teamNumber) => {
+        acc[teamNumber] = matches.filter(
+          (match) => match.teamNumber === teamNumber
+        );
+        return acc;
+      }, {} as Record<number, typeof matches>);
+
+      res.status(200).json(teamMatchesRecord);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
   app.get("/ScouterNames", async (req, res) => {
     if (!db) {
       return res.status(500).send("Database not connected");
