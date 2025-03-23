@@ -165,7 +165,7 @@ class ManualTeamNumberInput<Option extends string, Options extends Option[]> ext
                 </div>
 
                 <div>
-                    <h3>TeamNumber</h3>
+                    <h3>Team Number</h3>
                     <input
                     type="number"
                     id={this.storage.name}
