@@ -7,41 +7,8 @@ interface CollectionProps {
   collection: NumberedCollection;
 }
 const CollectionChart: React.FC<CollectionProps> = ({ collection }) => {
-  const algeaScoring = (
-    <div className="flex flex-col items-center">
-      <div className="rower">
-        <button
-          className={`${
-            collection.algeaReefCollected ? "button-green" : "button-red"
-          } big-button ml-0 text-xl`}
-        >
-          <h2 className="absolute mb-16 text-2xl font-extrabold">Collected</h2>
-          <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
-          {collection.algeaReefCollected}
-        </button>
-        <button
-          className={`${
-            collection.algeaReefDropped ? "button-green" : "button-red"
-          } big-button ml-0 text-xl`}
-        >
-          <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
-          <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
-          {collection.algeaReefDropped}
-        </button>
-      </div>
-      <button
-        className={`${
-          collection.algeaGroundCollected ? "button-green" : "button-red"
-        } big-button ml-0 text-xl`}
-      >
-        <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
-        <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
-        {collection.algeaGroundCollected}
-      </button>
-    </div>
-  );
 
-  const coralScoring = (
+  return (
     <div className="rower mt-6">
       <button
         className={`${
@@ -61,13 +28,33 @@ const CollectionChart: React.FC<CollectionProps> = ({ collection }) => {
         <img className="mt-5" src={CoralSVG} width={80} alt="Coral Icon" />
         {collection.coralGroundCollected}
       </button>
-    </div>
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center">
-      {algeaScoring}
-      {coralScoring}
+      <button
+        className={`${
+          collection.algeaGroundCollected ? "button-green" : "button-red"
+        } big-button ml-0 text-xl`}
+      >
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Ground</h2>
+        <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
+        {collection.algeaGroundCollected}
+      </button>
+      <button
+        className={`${
+          collection.algeaReefCollected ? "button-green" : "button-red"
+        } big-button ml-0 text-xl`}
+      >
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Collected</h2>
+        <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
+        {collection.algeaReefCollected}
+      </button>
+      <button
+        className={`${
+          collection.algeaReefDropped ? "button-green" : "button-red"
+        } big-button ml-0 text-xl`}
+      >
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
+        <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
+        {collection.algeaReefDropped}
+      </button>
     </div>
   );
 };
