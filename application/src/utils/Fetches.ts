@@ -18,7 +18,7 @@ export async function fetchData(
   body?: string,
   authorization: string = ""
 ) {
-  return await fetch(`http://${getServerHostname()}/${field}`, {
+  return await fetch(`https://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
@@ -65,11 +65,13 @@ export async function fetchAllTeamMatches(): Promise<Record<number, Match[]>> {
   return matches;
 }
 
-export async function fetchPaticularTeamMatches(teams: number[]): Promise<Record<number, Match[]>> {
+export async function fetchPaticularTeamMatches(
+  teams: number[]
+): Promise<Record<number, Match[]>> {
   const matches: Record<number, Match[]> = {};
   (await fetchMatchesByCriteria()).forEach((match) => {
-    if(teams.includes(match.teamNumber))
-    matches[match.teamNumber] = [...(matches[match.teamNumber] || []), match];
+    if (teams.includes(match.teamNumber))
+      matches[match.teamNumber] = [...(matches[match.teamNumber] || []), match];
   });
   return matches;
 }
@@ -78,7 +80,9 @@ export async function postMatch(match: Match) {
   return await fetchData("Match", "POST", JSON.stringify(match));
 }
 
-export async function fetchTeams(teams: number[]): Promise<Record<number, Match[]>> {
+export async function fetchTeams(
+  teams: number[]
+): Promise<Record<number, Match[]>> {
   return await fetchData("Teams", "POST", JSON.stringify({ teams }));
 }
 

@@ -13,6 +13,7 @@ import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
 import LinearHistogramChart from "../../charts/LinearHistogramChart";
 import { GridItems } from "../../general-tab/GeneralTab";
+import BarChart from "../../charts/BarChart";
 
 export const reefColorsScore = {
   L1: "#e5ffc9",
@@ -73,12 +74,12 @@ const StrategyTeleoperated: React.FC = () => {
       navigate("/strategy/team/teleoperated/histogram");
     }
   }, [teamData]);
-  
+
   return (
     <>
       <div className="mb-10">
         <div className="section">
-          <LineChart
+          <BarChart
             dataSets={{
               ...Object.fromEntries(
                 Object.entries(reefColorsScore).map(([key, value]) => [
@@ -108,6 +109,7 @@ const StrategyTeleoperated: React.FC = () => {
                 ),
               },
             }}
+            isStacked={true}
           />
         </div>
 

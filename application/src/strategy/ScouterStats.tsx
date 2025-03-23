@@ -72,7 +72,7 @@ const ScouterStats: React.FC = () => {
       <h2 className="mt-10">Scouter Scouting</h2>
       <PieChart width={500} pieData={pieData} />
       <h2 className="mt-10">Quals Followed</h2>
-      <BarChart dataSets={barData} />
+      <BarChart isStacked={true} dataSets={barData} />
     </div>
   );
 };
