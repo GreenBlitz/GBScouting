@@ -50,6 +50,10 @@ export default class FolderStorage {
   with(prefix: string): FolderStorage {
     return new FolderStorage(this, prefix);
   }
+
+  asStorageBacked<T>(name: string): StorageBacked<T> {
+    return new StorageBacked<T>(name, this);
+  }
 }
 
 export const localFolder = new FolderStorage(localStorage);

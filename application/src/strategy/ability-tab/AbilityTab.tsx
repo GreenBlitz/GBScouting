@@ -1,12 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import TableChart from "../charts/TableChart";
 import { FRCTeamList } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
 import React from "react";
-import { fetchMatchesByCriteria } from "../../utils/Fetches";
+import { fetchTeams } from "../../utils/Fetches";
 import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 import "../general-tab/GeneralTable.css";
-import { matchFieldNames } from "../../utils/Match";
 import { mergeSimilarMatches } from "../../components/TeamPicker";
 import { useRecent } from "../../components/TeamPicker";
 
@@ -67,8 +66,8 @@ function getCellClassName(
     }
 
     if (field === "Coral Ground") {
-        return `bg-purple-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
-      }
+      return `bg-purple-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+    }
 
     if (field === "Coral Feeder") {
       return `bg-yellow-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
@@ -105,28 +104,18 @@ const AbilityTab: React.FC = () => {
 
   //bruh this is kinda deep
   useEffect(() => {
-    async function getGridItems(teamNumber: number) {
-      return processTeamData(
-        teamNumber,
-        new TeamData(
-          useRecent(
-            mergeSimilarMatches(
-              await fetchMatchesByCriteria(
-                matchFieldNames.teamNumber,
-                teamNumber.toString()
-              )
-            ),
-            recency
-          )
+    async function getGridItems() {
+      return Object.entries(
+        await fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
+      ).map(([team, matches]) =>
+        processTeamData(
+          parseInt(team),
+          new TeamData(useRecent(mergeSimilarMatches(matches), recency))
         )
       );
     }
     async function updateTeamTable() {
-      setTeamTable(
-        await Promise.all(
-          Object.keys(FRCTeamList).map((key) => getGridItems(parseInt(key)))
-        )
-      );
+      setTeamTable(await getGridItems());
     }
     updateTeamTable();
   }, [recency]);

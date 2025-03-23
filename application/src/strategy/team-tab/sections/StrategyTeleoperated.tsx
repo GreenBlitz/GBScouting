@@ -73,7 +73,7 @@ const StrategyTeleoperated: React.FC = () => {
       navigate("/strategy/team/teleoperated/histogram");
     }
   }, [teamData]);
-
+  
   return (
     <>
       <div className="mb-10">
@@ -88,7 +88,7 @@ const StrategyTeleoperated: React.FC = () => {
                     data: teamData.getAsLine(matchFieldNames.teleReefPick, [
                       "levels",
                       key,
-                      "miss",
+                      "score",
                     ]),
                   },
                 ])
