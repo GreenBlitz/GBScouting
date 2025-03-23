@@ -30,7 +30,7 @@ const getTeamNumberByCriteria = async <Option extends string>(
     const allMatches = await fetchAllAwaitingMatches();
     if (!allMatches || !allMatches[qualNumber - 1]) {
         console.error("Match data is unavailable");
-        return 4590;
+        return -1;
     }
 
     const match = allMatches[qualNumber - 1];
@@ -43,7 +43,7 @@ const getTeamNumberByCriteria = async <Option extends string>(
         case "Far":
             return option2 === "Blue" ? match.blueAlliance[2] : match.redAlliance[2];
         default:
-            return 4590;
+            return -1;
     }
 };
 
@@ -94,7 +94,7 @@ class ManualTeamNumberInput<
             storedTwoOptionAndNumber = {
                 ...storedTwoOptionAndNumber,
                 [field]: value,
-                teamNumber: 4590,
+                teamNumber: -1,
             };
 
             const updatedTeamNumber = await getTeamNumberByCriteria(
