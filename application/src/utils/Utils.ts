@@ -71,3 +71,9 @@ export const FRCTeamList: Record<number, string> = {
   9738: "Ionic Bond",
   9740: "CANBus in memory of Roney Tal",
 };
+
+export const FRCTeamArray = Object.entries(FRCTeamList).map(([key, value]) => ({
+  id: `${key} ${value}`,  // Combine the key (ID) and value (team name)
+  value: Number(key),     // Keep the numeric value for ID
+}));
+
