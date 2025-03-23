@@ -106,7 +106,11 @@ export class StorageBacked<T> {
   }
 
   subItem<U>(route: string): StorageBacked<U> {
-    return new StorageBacked<U>(this.name + route, this.storage);
+    return new StorageBacked<U>(route, this.asFolder());
+  }
+
+  asFolder(): FolderStorage {
+    return new FolderStorage(this.storage, this.name);
   }
 }
 
