@@ -6,13 +6,15 @@ services:
       context: application
     environment:
       PRODUCTION: "TRUE"
+    expose:
+      - 443
     ports:
+      - 443:443
       - 5173:5173
       - 4590:4590
-    stdin_open: true
     volumes:
-      - ./application:/usr/src/app
-      - /usr/src/app/node_modules
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    stdin_open: true
     restart: always
     networks:
       - express-mongo
@@ -31,7 +33,6 @@ services:
       driver: "none"
 
 networks:
-  react-express:
   express-mongo:
 
 volumes:
