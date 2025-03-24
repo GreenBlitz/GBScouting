@@ -30,7 +30,7 @@ import TestLinear from "./strategy/team-tab/sections/TestLinear";
 import Leaderboard from "./components/Leaderboard";
 import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
 import ScouterStats from "./strategy/ScouterStats";
-import ScouterTeleoperated from "./scouter/tabs/ScouterTeleOperated";
+import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
 import AbilityTab from "./strategy/ability-tab/AbilityTab";
 
 function getHiddenImage(path: string) {
