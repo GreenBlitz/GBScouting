@@ -68,8 +68,8 @@ export async function fetchAllTeamMatches(): Promise<Record<number, Match[]>> {
 export async function fetchPaticularTeamMatches(teams: number[]): Promise<Record<number, Match[]>> {
   const matches: Record<number, Match[]> = {};
   (await fetchMatchesByCriteria()).forEach((match) => {
-    if(teams.includes(match.teamNumber))
-    matches[match.teamNumber] = [...(matches[match.teamNumber] || []), match];
+    if(teams.includes(match.teamNumber.teamNumber))
+    matches[match.teamNumber.teamNumber] = [...(matches[match.teamNumber.teamNumber] || []), match];
   });
   return matches;
 }
