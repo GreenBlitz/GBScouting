@@ -1,5 +1,6 @@
 import { authorizationStorage } from "./FolderStorage";
 import { Match } from "./Match";
+import { Notes } from "./SeasonUI";
 
 export const getServerHostname = () => {
   return location.host;
@@ -172,7 +173,7 @@ export async function fetchMatchResults(matchNumber: string) {
   }
 }
 
-export async function postNotes(notes: Record<number, string>, qual: number) {
+export async function postNotes(notes: Record<number, Notes>, qual: number) {
   await alert("Started Sending Notes for qual: " + qual);
   return await fetchData(
     `notes/${qual.toString()}`,

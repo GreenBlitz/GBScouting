@@ -5,6 +5,46 @@ import {
   postNotes,
 } from "../utils/Fetches";
 import { StorageBacked } from "../utils/FolderStorage";
+import { Notes } from "../utils/SeasonUI";
+
+const defaultNotes: Notes = {
+  defense: "",
+  evasion: "",
+  net: "",
+  coral: "",
+  climb: "",
+  faults: "",
+};
+
+const TeamElement: React.FC<{
+  team: number;
+  currentTeamNotes: Notes;
+  setTeamNotes: (content: Notes) => void;
+}> = ({ team, currentTeamNotes, setTeamNotes }) => (
+  <div className="mx-2 my-5">
+    <h1 className="text-2xl">{team}</h1>
+    <div className="rower">
+      {Object.keys(defaultNotes).map((noteType) => (
+        <div key={noteType}>
+          <h2 className="text-xl">{noteType}</h2>
+          <input
+            type="text"
+            ref={(input) => {
+              if (input) input.value = currentTeamNotes[noteType] || "";
+            }}
+            className="bg-dark-card"
+            onChange={(event) =>
+              setTeamNotes({
+                ...currentTeamNotes,
+                [noteType]: event.currentTarget.value,
+              })
+            }
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 const NoteTab: React.FC = () => {
   const allMatches = useMemo(
@@ -22,8 +62,6 @@ const NoteTab: React.FC = () => {
     if (allMatches.exists()) {
       return;
     }
-    console.log("ss");
-
     async function updateMatchResults() {
       const matchResults = await fetchAllAwaitingMatches();
       if (matchResults) allMatches.set(matchResults);
@@ -38,7 +76,7 @@ const NoteTab: React.FC = () => {
     if (matches) setMatchResults(matches[qual - 1]);
   }, [qual]);
 
-  const [notes, setNotes] = useState<Record<number, string>>();
+  const [notes, setNotes] = useState<Record<number, Notes>>({});
   useEffect(
     () =>
       setNotes(
@@ -47,7 +85,7 @@ const NoteTab: React.FC = () => {
           ...(matchResults?.redAlliance
             .concat(matchResults.blueAlliance || [])
             .map((value) => {
-              return { [value]: "" };
+              return { [value]: defaultNotes };
             }) || [])
         )
       ),
@@ -58,22 +96,15 @@ const NoteTab: React.FC = () => {
 
   const getTeamElement = (team: number) => {
     return (
-      <div className="mx-2 my-5">
-        <h1 className="text-2xl">{team}</h1>
-        <textarea
-          ref={(input) => {
-            if (input) input.value = notes ? notes[team] || "" : "";
-          }}
-          className="h-24 bg-dark-card"
-          onChange={(event) => {
-            if (notes) notes[team] = event.currentTarget.value;
-            setNotes(notes);
-          }}
-        />
-      </div>
+      <TeamElement
+        team={team}
+        currentTeamNotes={notes[team] || defaultNotes}
+        setTeamNotes={(message: Notes) =>
+          setNotes({ ...notes, [team]: message })
+        }
+      />
     );
   };
-
   const teamElement = useMemo(() => team && getTeamElement(team), [team]);
 
   return (
@@ -121,4 +152,5 @@ const NoteTab: React.FC = () => {
     </>
   );
 };
+
 export default NoteTab;
