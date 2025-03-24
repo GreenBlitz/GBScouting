@@ -4,7 +4,6 @@ import { google } from "googleapis";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
-import { Match } from "../utils/Match";
 
 const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
   const getClimb = () => {
@@ -20,7 +19,7 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
 
     return "Park";
   };
-  const x: Match = {
+  return  {
     scouterName: bbbMatch["D_ScouterName"],
     qual: parseInt(bbbMatch["D_MatchNumber"]),
     teamNumber: {
