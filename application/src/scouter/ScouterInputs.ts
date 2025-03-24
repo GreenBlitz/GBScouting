@@ -33,10 +33,11 @@ export default class ScouterInputs {
   static readonly teamNumber = new ManualTeamNumberInput({
     route: "teamNumber",
     name: "",
-    twoOptions:{
+    twoOptions: {
       options1: ["Close", "Middle", "Far"],
       options2: ["Blue", "Red"],
-    }
+    },
+    doesRemain: true,
   });
   static readonly noShow = new CheckboxInput({
     route: "noShow",

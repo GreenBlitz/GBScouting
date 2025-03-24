@@ -6,6 +6,7 @@ import {
 } from "../utils/Fetches";
 import { StorageBacked } from "../utils/FolderStorage";
 import { Notes } from "../utils/SeasonUI";
+import { rangeArr } from "../utils/Utils";
 
 const defaultNotes: Notes = {
   defense: "",
@@ -20,31 +21,32 @@ const TeamElement: React.FC<{
   team: number;
   currentTeamNotes: Notes;
   setTeamNotes: (content: Notes) => void;
-}> = ({ team, currentTeamNotes, setTeamNotes }) => (
-  <div className="mx-2 my-5">
-    <h1 className="text-2xl">{team}</h1>
-    <div className="rower">
-      {Object.keys(defaultNotes).map((noteType) => (
-        <div key={noteType}>
-          <h2 className="text-xl">{noteType}</h2>
-          <input
-            type="text"
-            ref={(input) => {
-              if (input) input.value = currentTeamNotes[noteType] || "";
-            }}
-            className="bg-dark-card"
-            onChange={(event) =>
-              setTeamNotes({
-                ...currentTeamNotes,
-                [noteType]: event.currentTarget.value,
-              })
-            }
-          />
-        </div>
-      ))}
+}> = ({ team, currentTeamNotes, setTeamNotes }) => {
+  return (
+    <div className="mx-2">
+      <div className="rower">
+        {Object.keys(defaultNotes).map((noteType) => (
+          <div key={noteType}>
+            <h2 className="text-xl">{noteType}</h2>
+            <input
+              type="text"
+              ref={(input) => {
+                if (input) input.value = currentTeamNotes[noteType] || "";
+              }}
+              className="bg-dark-card"
+              onChange={(event) =>
+                setTeamNotes({
+                  ...currentTeamNotes,
+                  [noteType]: event.currentTarget.value,
+                })
+              }
+            />
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const NoteTab: React.FC = () => {
   const allMatches = useMemo(
@@ -56,15 +58,16 @@ const NoteTab: React.FC = () => {
 
   const [matchResults, setMatchResults] = useState<MatchTeams | null>(null);
 
-  const [team, setTeam] = useState<number | null>(null);
+  const [isManual, setIsManual] = useState<boolean>(false);
+
+  async function updateMatchResults() {
+    const matchResults = await fetchAllAwaitingMatches();
+    if (matchResults) allMatches.set(matchResults);
+  }
 
   useEffect(() => {
     if (allMatches.exists()) {
       return;
-    }
-    async function updateMatchResults() {
-      const matchResults = await fetchAllAwaitingMatches();
-      if (matchResults) allMatches.set(matchResults);
     }
     updateMatchResults()
       .then(() => alert("Successfuly pulled matches."))
@@ -77,6 +80,7 @@ const NoteTab: React.FC = () => {
   }, [qual]);
 
   const [notes, setNotes] = useState<Record<number, Notes>>({});
+
   useEffect(
     () =>
       setNotes(
@@ -92,20 +96,48 @@ const NoteTab: React.FC = () => {
     [matchResults?.redAlliance]
   );
 
-  console.log(notes);
-
   const getTeamElement = (team: number) => {
     return (
-      <TeamElement
-        team={team}
-        currentTeamNotes={notes[team] || defaultNotes}
-        setTeamNotes={(message: Notes) =>
-          setNotes({ ...notes, [team]: message })
-        }
-      />
+      <>
+        <h1 className="text-2xl">{team}</h1>
+        <TeamElement
+          team={team}
+          currentTeamNotes={notes[team] || defaultNotes}
+          setTeamNotes={(message: Notes) =>
+            setNotes({ ...notes, [team]: message })
+          }
+        />
+      </>
     );
   };
-  const teamElement = useMemo(() => team && getTeamElement(team), [team]);
+
+  const [manualTeams, setManualTeams] = useState<number[]>(rangeArr(0, 6));
+
+  const manualElements = useMemo(() => {
+    return manualTeams.map((team, index) => (
+      <div className="my-5" key={index}>
+        <h3 className="text-xl">{team}</h3>
+        <input
+          type="number"
+          ref={(input) => {
+            if (input) input.value = manualTeams[index] + "";
+          }}
+          onChange={(event) => {
+            const copiedTeams = [...manualTeams];
+            copiedTeams[index] = parseInt(event.currentTarget.value);
+            setManualTeams(copiedTeams);
+          }}
+        />
+        <TeamElement
+          team={team}
+          currentTeamNotes={notes[team] || defaultNotes}
+          setTeamNotes={(message: Notes) =>
+            setNotes({ ...notes, [team]: message })
+          }
+        />
+      </div>
+    ));
+  }, [manualTeams]);
 
   return (
     <>
@@ -119,22 +151,39 @@ const NoteTab: React.FC = () => {
         />
       </div>
 
-      <div className="rower mt-10">
-        <h1>Team Number</h1>
-        <input
-          type="number"
-          onChange={(event) => setTeam(parseInt(event.target.value))}
-        />
-      </div>
-      {teamElement}
+      <div className="rower mx-auto">
+        <button
+          className="big-button button-green"
+          onClick={() => setIsManual(!isManual)}
+        >
+          Toggle Manual
+        </button>
 
-      <div className="mt-10 bg-blue-900">
-        {matchResults?.blueAlliance.map(getTeamElement)}
+        <button
+          className="big-button button-green"
+          onClick={() =>
+            updateMatchResults()
+              .then(() => alert("Successfuly pulled matches."))
+              .catch(() => alert("Could not pull matches"))
+          }
+        >
+          Download Matches
+        </button>
       </div>
 
-      <div className="mt-10 bg-red-900">
-        {matchResults?.redAlliance.map(getTeamElement)}
-      </div>
+      {isManual ? (
+        manualElements
+      ) : (
+        <>
+          <div className="mt-10 bg-blue-900">
+            {matchResults?.blueAlliance.map(getTeamElement)}
+          </div>
+
+          <div className="mt-10 bg-red-900">
+            {matchResults?.redAlliance.map(getTeamElement)}
+          </div>
+        </>
+      )}
 
       <button
         className="bg-green-800 px-12 py-6"
