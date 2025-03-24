@@ -422,13 +422,11 @@ const CLIMB_POSSIBLE_VALUES = [
   "Park",
   "Shallow Cage",
   "Deep Cage",
-  "Tried Deep"
+  "Tried Deep",
 ];
-
 
 const QUAL_BIT_COUNT = 9;
 const DEFENSE_RATING_BIT_COUNT = 3;
-
 
 function serdeReefLevel(): Serde<Level> {
   const scoreMissSerder = serdeUnsignedInt(7);
@@ -531,10 +529,26 @@ function serdeReefPick(): Serde<PickValues> {
   };
 }
 
+function serdeTeamNumber(): Serde<{ teamNumber: number }> {
+  const serdePrev = serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT);
+  function serializer(serializedData: BitArray, value: { teamNumber: number }) {
+    serdePrev.serializer(serializedData, value.teamNumber + "");
+  }
+  function deserializer(serializedData: BitArray) {
+    return {
+      teamNumber: Number(serdePrev.deserializer(serializedData)),
+    };
+  }
+  return {
+    serializer,
+    deserializer,
+  };
+}
+
 // the previous use of functions for this that are better written with serdeRecordFieldsBuilder is not reccomended, use it instead of being like yoni  :)
 
 export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
-  ["teamNumber", serdeStringifiedNum(TEAM_NUMBER_BIT_COUNT)],
+  ["teamNumber", serdeTeamNumber()],
   ["teleReefPick", serdeReefPick()],
   ["autoReefPick", serdeReefPick()],
   ["endgameCollection", serdeCollectedObjects()],

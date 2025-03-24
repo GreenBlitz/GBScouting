@@ -118,6 +118,11 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       const items = (await matchCollection.find().toArray())
         .concat(await bbbCollection.find().toArray())
         .filter((item) => {
+          if (req.params.type === "teamNumber") {
+            return (
+              item["teamNumber"]["teamNumber"].toString() === req.params.value
+            );
+          }
           return item[req.params.type].toString() === req.params.value;
         });
       res.status(200).json(items);
@@ -140,16 +145,12 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     const bbbCollection = db.collection("bbb");
 
     try {
-      const matches = (
-        await matchCollection
-          .find({ teamNumber: { $in: teamNumbers } })
-          .toArray()
-      ).concat(
-        await bbbCollection.find({ teamNumber: { $in: teamNumbers } }).toArray()
-      );
+      const matches = (await matchCollection.find().toArray())
+        .concat(await bbbCollection.find().toArray())
+        .filter((match) => teamNumbers.includes(match.teamNumber.teamNumber));
       const teamMatchesRecord = teamNumbers.reduce((acc, teamNumber) => {
         acc[teamNumber] = matches.filter(
-          (match) => match.teamNumber === teamNumber
+          (match) => match.teamNumber.teamNumber === teamNumber
         );
         return acc;
       }, {} as Record<number, typeof matches>);
