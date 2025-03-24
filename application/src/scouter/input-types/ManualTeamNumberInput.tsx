@@ -92,7 +92,7 @@ class ManualTeamNumberInput<
     field: "qualNumber" | "option1" | "option2",
     value: string | number
   ) => {
-    let storedTwoOptionAndNumber = this.storage.get();
+    let storedTwoOptionAndNumber = this.getValue();
     this.qualStorage.set(storedTwoOptionAndNumber.qualNumber);
     if (storedTwoOptionAndNumber) {
       storedTwoOptionAndNumber = {
