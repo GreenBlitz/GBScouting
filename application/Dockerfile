@@ -4,7 +4,7 @@ WORKDIR /app
 
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-COPY node_modules package.json .
+COPY node_modules package.json ./
 RUN npm install
 
 COPY . .
