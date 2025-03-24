@@ -5,6 +5,7 @@ import Percent from "./utils/Percent";
 import {
   Auto,
   Collection as Collection,
+  Notes,
   NumberedCollection,
   UsedAlgea,
 } from "./utils/SeasonUI";
@@ -18,13 +19,22 @@ export interface Comment {
   qual: string;
 }
 
+interface UsedNotes {
+  qual: number;
+  body: Notes;
+}
+
 export class TeamData {
   public readonly matches: Match[];
-  private readonly notes: Comment[];
+  public readonly notes: UsedNotes[];
 
-  constructor(matches: Match[], notes?: Comment[]) {
+  constructor(matches: Match[], notes?: UsedNotes[]) {
     this.matches = [...matches];
-    this.notes = notes || [];
+    this.notes = (notes || [])
+      .filter((note) => this.matches.find((match) => match.qual === note.qual))
+      .sort((note1, note2) => note1.qual - note2.qual);
+
+    console.log(this.notes);
   }
 
   static random(teamNumber: number) {
@@ -148,8 +158,7 @@ export class TeamData {
       .map((match) => {
         return { body: match.comment, qual: TeamData.stringedQual(match.qual) };
       })
-      .filter((comment) => comment.body !== "")
-      .concat(this.notes);
+      .filter((comment) => comment.body !== "");
   }
 
   getAverageScore() {
