@@ -6,7 +6,6 @@ services:
       context: application
     environment:
       PRODUCTION: "TRUE"
-      NODE_OPTIONS: "--max_old_space_size=4096"
     expose:
       - 443
     ports:
@@ -14,9 +13,6 @@ services:
       - 5173:5173
       - 4590:4590
     stdin_open: true
-    #volumes:
-      #- ./application:/usr/src/app
-      #- /usr/src/app/node_modules
     restart: always
     networks:
       - express-mongo
