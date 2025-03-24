@@ -1,14 +1,11 @@
 FROM node:22-alpine3.19
 
 WORKDIR /app
+COPY . .
 
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-COPY node_modules package.json ./
 RUN npm install
-
-COPY . .
-
 RUN npm run build
 
 EXPOSE 443
