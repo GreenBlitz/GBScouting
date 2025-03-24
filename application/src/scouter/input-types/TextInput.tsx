@@ -18,6 +18,7 @@ class TextInput extends ScouterInput<
   renderInput(): React.ReactNode {
     return (
       <>
+      <div style={{display:"flex", flexDirection:"row", width:"80%"}}>
         <input
           type="text"
           id={this.storage.name}
@@ -46,6 +47,7 @@ class TextInput extends ScouterInput<
               <FaUnlock />
             </button>
           ))}
+          </div>
       </>
     );
   }

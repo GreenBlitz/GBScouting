@@ -23,3 +23,12 @@ export interface UsedAlgea {
   netMiss: number;
   processor: number;
 }
+
+export interface Notes {
+  defense: string;
+  evasion: string;
+  net: string;
+  coral: string;
+  climb: string;
+  faults: string;
+}

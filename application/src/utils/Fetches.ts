@@ -1,5 +1,6 @@
 import { authorizationStorage } from "./FolderStorage";
 import { Match } from "./Match";
+import { Notes } from "./SeasonUI";
 
 export const getServerHostname = () => {
   return location.host;
@@ -60,7 +61,10 @@ export async function fetchMatchesByCriteria(
 export async function fetchAllTeamMatches(): Promise<Record<number, Match[]>> {
   const matches: Record<number, Match[]> = {};
   (await fetchMatchesByCriteria()).forEach((match) => {
-    matches[match.teamNumber] = [...(matches[match.teamNumber] || []), match];
+    matches[match.teamNumber.teamNumber] = [
+      ...(matches[match.teamNumber.teamNumber] || []),
+      match,
+    ];
   });
   return matches;
 }
@@ -70,8 +74,11 @@ export async function fetchPaticularTeamMatches(
 ): Promise<Record<number, Match[]>> {
   const matches: Record<number, Match[]> = {};
   (await fetchMatchesByCriteria()).forEach((match) => {
-    if (teams.includes(match.teamNumber))
-      matches[match.teamNumber] = [...(matches[match.teamNumber] || []), match];
+    if (teams.includes(match.teamNumber.teamNumber))
+      matches[match.teamNumber.teamNumber] = [
+        ...(matches[match.teamNumber.teamNumber] || []),
+        match,
+      ];
   });
   return matches;
 }
@@ -166,7 +173,7 @@ export async function fetchMatchResults(matchNumber: string) {
   }
 }
 
-export async function postNotes(notes: Record<number, string>, qual: number) {
+export async function postNotes(notes: Record<number, Notes>, qual: number) {
   await alert("Started Sending Notes for qual: " + qual);
   return await fetchData(
     `notes/${qual.toString()}`,

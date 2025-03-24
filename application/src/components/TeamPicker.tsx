@@ -14,7 +14,7 @@ export function mergeSimilarMatches(matches: Match[]) {
   return matches.reduce((acc, current) => {
     const otherMatch = acc.findIndex(
       (item) =>
-        item.qual === current.qual && item.teamNumber === current.teamNumber
+        item.qual === current.qual && item.teamNumber.teamNumber === current.teamNumber.teamNumber
     );
     if (otherMatch === -1) {
       return acc.concat([current]);
@@ -46,7 +46,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
     if (!matches[0]) {
       return undefined;
     }
-    return await fetchNotes(matches[0].teamNumber);
+    return await fetchNotes(matches[0].teamNumber.teamNumber);
   };
 
   useEffect(() => {

@@ -6,6 +6,8 @@ import CheckboxInput from "./input-types/CheckboxInput";
 import CheckboxedSliderInput from "./input-types/CheckBoxedSliderInput";
 import ReefPickInput from "./input-types/reef-levels/ReefPickInput";
 import CollectionInput from "./input-types/CollectionInput";
+import TeamNumberInput from "./input-types/TeamNumberInput";
+import ManualTeamNumberInput from "./input-types/ManualTeamNumberInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -28,9 +30,14 @@ export default class ScouterInputs {
     route: "qual",
     name: "Qual",
   });
-  static readonly teamNumber = new NumberInput({
+  static readonly teamNumber = new ManualTeamNumberInput({
     route: "teamNumber",
-    name: "Team Number",
+    name: "",
+    twoOptions: {
+      options1: ["Close", "Middle", "Far"],
+      options2: ["Blue", "Red"],
+    },
+    doesRemain: true,
   });
   static readonly noShow = new CheckboxInput({
     route: "noShow",

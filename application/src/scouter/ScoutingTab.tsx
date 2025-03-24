@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { renderScouterNavBar } from "../App";
 import { inputFolder } from "../utils/FolderStorage";
 import CancelConfirmation from "../components/CancelConfirmation";
@@ -62,7 +62,18 @@ export default function ScoutingTab() {
     return !!FRCTeamList[teamNumber];
   };
 
-  const teamNumber = ScouterInputs.teamNumber.getValue();
+  const [teamNumber, setTeamNumber] = useState(ScouterInputs.teamNumber.getValue().teamNumber);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentTeamNumber = ScouterInputs.teamNumber.getValue().teamNumber;
+      if (currentTeamNumber !== teamNumber) {
+        setTeamNumber(currentTeamNumber);
+      }
+    }, 100); 
+
+    return () => clearInterval(interval);
+  }, [teamNumber]);
+
   const teamColor = isValid(teamNumber) ? "text-yellow-300" : "text-red-500";
 
   const sectionElement = (

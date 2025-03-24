@@ -101,6 +101,7 @@ class CollectionInput extends ScouterInput<
 
     return (
       <div className="flex flex-col items-center">
+        <h2 className="text-xl">Did The Robot Do:</h2>
         <div className="rower">
           {algeaGroundButton}
           {algeaCollectedButton}

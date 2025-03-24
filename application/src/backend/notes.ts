@@ -8,16 +8,27 @@ export function applyRoutes(app: Express, db: Db) {
       return res.status(500).send("Database not connected");
     }
     const notesCollection = db.collection("notes");
-    const notesData: Record<string, string> = req.body;
 
-    const notes = {
+    const newNotes = {
       qual: req.params.qual,
-      body: notesData,
+      body: req.body,
     };
 
     try {
-      notesCollection.deleteMany();
-      const result = await notesCollection.insertOne(notes);
+      const notes = await notesCollection.find().toArray();
+      const stringedNotes = JSON.stringify(newNotes);
+      const similarMatch = notes.find((value) => {
+        const { _id, ...unIdDValue } = value;
+        const jsoned = JSON.stringify(unIdDValue);
+        return stringedNotes === jsoned;
+      });
+
+      if (similarMatch) {
+        res.status(401).send("Notes Already In Database");
+        return;
+      }
+
+      const result = await notesCollection.insertOne(newNotes);
 
       res.status(201).json(result);
     } catch (error) {
@@ -45,6 +56,7 @@ export function applyRoutes(app: Express, db: Db) {
           };
         })
         .filter((item) => item);
+      console.log(items);
       res.status(200).json(items);
     } catch (error) {
       res.status(500).send(error);

@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     hmr: !process.env.PRODUCTION,
+    allowedHosts: [
+      "greenblitz.org"
+    ],
   },
 });

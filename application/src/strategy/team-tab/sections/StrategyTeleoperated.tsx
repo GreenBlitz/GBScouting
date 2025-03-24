@@ -11,10 +11,10 @@ import LineChart from "../../charts/LineChart";
 import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
-import LinearHistogramChart from "../../charts/LinearHistogramChart";
 import { GridItems } from "../../general-tab/GeneralTab";
 import BarChart from "../../charts/BarChart";
 import { localFolder, StorageBacked } from "../../../utils/FolderStorage";
+import Collapsible from "react-collapsible";
 
 export const reefColorsScore = {
   L1: "#e5ffc9",
@@ -159,6 +159,23 @@ const StrategyTeleoperated: React.FC = () => {
           Switch
         </button>
       </div>
+
+      {teamData.notes  && (
+        <Collapsible
+          trigger="Super Scouting"
+          openedClassName="border-2"
+          className="border-2"
+        >
+          <div>
+            <h2 className="my-1">Net: {teamData.notes.net}</h2>
+            <h2 className="my-1">Climb: {teamData.notes.climb}</h2>
+            <h2 className="my-1">Defense: {teamData.notes.defense}</h2>
+            <h2 className="my-1">Evasion: {teamData.notes.evasion}</h2>
+            <h2 className="my-1">Coral: {teamData.notes.coral}</h2>
+            <h2 className="my-1">Faults: {teamData.notes.faults}</h2>
+          </div>
+        </Collapsible>
+      )}
 
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Total Corals</h1>
