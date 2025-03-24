@@ -139,18 +139,20 @@ const StrategyTeleoperated: React.FC = () => {
         </div>
       </div>
 
-      {teamData.notes.length > 0 && (
-        <Collapsible trigger="Super Scouting">
-          {teamData.notes.map((note, index) => (
-            <React.Fragment key={index}>
-              <h2>Net: {note.body.net}</h2>
-              <h2>Climb: {note.body.climb}</h2>
-              <h2>Defense: {note.body.defense}</h2>
-              <h2>Evasion: {note.body.evasion}</h2>
-              <h2>Coral: {note.body.coral}</h2>
-              <h2>Faults: {note.body.faults}</h2>
-            </React.Fragment>
-          ))}
+      {teamData.notes  && (
+        <Collapsible
+          trigger="Super Scouting"
+          openedClassName="border-2"
+          className="border-2"
+        >
+          <div>
+            <h2 className="my-1">Net: {teamData.notes.net}</h2>
+            <h2 className="my-1">Climb: {teamData.notes.climb}</h2>
+            <h2 className="my-1">Defense: {teamData.notes.defense}</h2>
+            <h2 className="my-1">Evasion: {teamData.notes.evasion}</h2>
+            <h2 className="my-1">Coral: {teamData.notes.coral}</h2>
+            <h2 className="my-1">Faults: {teamData.notes.faults}</h2>
+          </div>
         </Collapsible>
       )}
 
