@@ -19,14 +19,14 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
 
     return "Park";
   };
-  return  {
+  return {
     scouterName: bbbMatch["D_ScouterName"],
     qual: parseInt(bbbMatch["D_MatchNumber"]),
     teamNumber: {
       teamNumber: parseInt(bbbMatch["D_TeamNumber"].slice(0, 6).trim()),
       option1: "",
       option2: "",
-      qualNumber: 0
+      qualNumber: parseInt(bbbMatch["D_MatchNumber"]),
     },
     noShow: bbbMatch["D_Played"] === "FALSE",
     defense:
