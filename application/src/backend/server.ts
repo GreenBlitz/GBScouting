@@ -13,15 +13,15 @@ import * as sheets from "./sheets.js";
 const app = express();
 const hostname = "0.0.0.0";
 
-const dirName = process.env.PRODUCTION ? "/app" : "";
 const port = process.env.PRODUCTION ? 443 : 4590;
+const dirName = process.env.PRODUCTION ? "/app" : "";
 
 // SSL options for HTTPS
 let sslOptions;
 try {
   sslOptions = {
-    key: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/privkey.pem"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/fullchain.pem"),
+    key: fs.readFileSync(path.resolve(dirName, "privkey.pem")),
+    cert: fs.readFileSync(path.resolve(dirName, "fullchain.pem")),
   };
 } catch (exception) {
   console.log(exception);
