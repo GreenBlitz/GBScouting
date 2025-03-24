@@ -12,6 +12,8 @@ services:
       - 443:443
       - 5173:5173
       - 4590:4590
+    volumes:
+      - /etc/letsencrypt/live/greenblitz.org/:/app/ssl/
     stdin_open: true
     restart: always
     networks:
