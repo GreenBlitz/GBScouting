@@ -3,8 +3,7 @@ import { TeamData } from "../../TeamData";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import TeamPicker, { mergeSimilarMatches } from "../../components/TeamPicker";
-import { fetchMatchesByCriteria } from "../../utils/Fetches";
-import { matchFieldNames } from "../../utils/Match";
+import {  fetchTeams } from "../../utils/Fetches";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { FRCTeamList } from "../../utils/Utils";
 
@@ -13,28 +12,20 @@ const TeamTab: React.FC = () => {
 
   const [teamTable, setTeamTable] = useState<GridItems[]>([]);
 
-
   //bruh this is kinda deep
   useEffect(() => {
-    async function getGridItems(teamNumber: number) {
-      return processTeamData(
-        teamNumber,
-        new TeamData(
-          mergeSimilarMatches(
-            await fetchMatchesByCriteria(
-              matchFieldNames.teamNumber,
-              teamNumber.toString()
-            )
-          )
+    async function getGridItems() {
+      return Object.entries(
+        await fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
+      ).map(([team, matches]) =>
+        processTeamData(
+          parseInt(team),
+          new TeamData(mergeSimilarMatches(matches))
         )
       );
     }
     async function updateTeamTable() {
-      setTeamTable(
-        await Promise.all(
-          Object.keys(FRCTeamList).map((key) => getGridItems(parseInt(key)))
-        )
-      );
+      setTeamTable(await getGridItems());
     }
     updateTeamTable();
   }, []);
@@ -51,7 +42,7 @@ const TeamTab: React.FC = () => {
             <Link to="/strategy/team/autonomous">Autonomous</Link>
           </li>
           <li>
-            <Link to="/strategy/team/teleoperated">Teleoperated</Link>
+            <Link to="/strategy/team/teleoperated/linear">Teleoperated</Link>
           </li>
         </ul>
       </nav>

@@ -9,7 +9,18 @@ export default class Percent {
     this.complement = Percent.PERCENTAGE_BASE - value;
   }
 
+  and(other: Percent): Percent {
+    return new Percent(this.value * other.value);
+  }
+
+  or(other: Percent): Percent {
+    return new Percent(this.value + other.value - this.and(other).value);
+  }
+
   static fromRatio(numerator: number, denominator: number): Percent {
+    if (denominator === 0) {
+      return new Percent(0);
+    }
     return new Percent((numerator * this.PERCENTAGE_BASE) / denominator);
   }
 

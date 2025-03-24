@@ -8,9 +8,9 @@ import ScanningTab from "./scouter/scanner/ScanningTab";
 import GeneralTab from "./strategy/general-tab/GeneralTab";
 import TeamTab from "./strategy/team-tab/TeamTab";
 import ScouterPreMatch from "./scouter/tabs/ScouterPreMatch";
-import ScouterTeleoperated, {
+import ScouterPartialTeleoperated, {
   ScouterTelePick,
-} from "./scouter/tabs/ScouterTeleoperated";
+} from "./scouter/tabs/ScouterPartialTeleoperated";
 import ScouterPostMatch from "./scouter/tabs/ScouterPostMatch";
 import StrategyTeleoperated from "./strategy/team-tab/sections/StrategyTeleoperated";
 import StrategyAutonomous from "./strategy/team-tab/sections/StrategyAutonomous";
@@ -30,6 +30,8 @@ import TestLinear from "./strategy/team-tab/sections/TestLinear";
 import Leaderboard from "./components/Leaderboard";
 import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
 import ScouterStats from "./strategy/ScouterStats";
+import ScouterTeleoperated from "./scouter/tabs/ScouterTeleOperated";
+import AbilityTab from "./strategy/ability-tab/AbilityTab";
 
 function getHiddenImage(path: string) {
   return (
@@ -146,6 +148,7 @@ const App: React.FC = () => {
                 </Route>
                 <Route path="autonomous" element={<StrategyAutonomous />} />
               </Route>
+              <Route path="ability" element={<AbilityTab />} />
               <Route path="notes" element={<NoteTab />} />
               <Route path="general" element={<GeneralTab />} />
               <Route path="compare" element={<ComparisonTab />} />

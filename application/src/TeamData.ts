@@ -15,7 +15,7 @@ import {
 
 export interface Comment {
   body: string;
-  qual: number;
+  qual: string;
 }
 
 export class TeamData {
@@ -87,6 +87,13 @@ export class TeamData {
     return sum;
   }
 
+  static stringedQual(qual: number) {
+    if (qual > 100) {
+      return "P" + (qual - 100).toString();
+    }
+    return "Q" + qual.toString();
+  }
+
   getTeamNumber() {
     if (!this.matches[0]) {
       return 0;
@@ -102,7 +109,7 @@ export class TeamData {
       {},
       ...Object.values(this.matches).map((match) => {
         if (!match[field] || match[field] === "undefined") {
-          return { [match.qual]: null };
+          return { [TeamData.stringedQual(match.qual)]: null };
         }
         const value = innerFields
           ? innerFields.reduce(
@@ -113,7 +120,7 @@ export class TeamData {
         if (typeof value !== "number") {
           throw new Error("Invalid field: " + field + " " + innerFields);
         }
-        return { [match.qual.toString()]: value };
+        return { [TeamData.stringedQual(match.qual)]: value };
       })
     );
   }
@@ -129,7 +136,8 @@ export class TeamData {
           return;
         }
         return {
-          [match.qual.toString()]: (match[reefPick] as PickValues).algea[field],
+          [TeamData.stringedQual(match.qual)]: (match[reefPick] as PickValues)
+            .algea[field],
         };
       })
     );
@@ -138,7 +146,7 @@ export class TeamData {
   getComments(): Comment[] {
     return this.matches
       .map((match) => {
-        return { body: match.comment, qual: match.qual };
+        return { body: match.comment, qual: TeamData.stringedQual(match.qual) };
       })
       .filter((comment) => comment.body !== "")
       .concat(this.notes);
@@ -160,7 +168,7 @@ export class TeamData {
       {},
       ...Object.values(this.matches).map((match) => {
         return {
-          [match.qual.toString()]:
+          [TeamData.stringedQual(match.qual)]:
             match.teleReefPick.levels.L1.score +
             match.teleReefPick.levels.L2.score +
             match.teleReefPick.levels.L3.score +
@@ -176,7 +184,9 @@ export class TeamData {
     return Object.assign(
       {},
       ...this.matches.map((match) => {
-        return { [match.qual]: TeamData.matchScore(match) };
+        return {
+          [TeamData.stringedQual(match.qual)]: TeamData.matchScore(match),
+        };
       })
     );
   }
@@ -218,10 +228,15 @@ export class TeamData {
     );
   }
 
-  getAccuracy(percentField: keyof Match, compareField: keyof Match): Percent {
+  getAccuracy(
+    percentField: keyof Match,
+    compareField: keyof Match,
+    innerPercentFields?: string[],
+    innerCompareFields?: string[]
+  ): Percent {
     const averages = [
-      this.getAverage(percentField),
-      this.getAverage(compareField),
+      this.getAverage(percentField, innerPercentFields),
+      this.getAverage(compareField, innerCompareFields),
     ];
     return Percent.fromList(averages)[0];
   }
@@ -465,6 +480,52 @@ export class TeamData {
         };
         return getValue() + accumulator;
       }, 0) / this.matches.length
+    );
+  }
+
+  getClimbPercentage(climb: string): Percent {
+    return Percent.fromRatio(
+      this.matches.filter((match) => match.climb === climb).length,
+      this.matches.length
+    );
+  }
+
+  getProcessorPercentage() {
+    return Percent.fromRatio(
+      this.matches.filter(
+        (match) =>
+          match.teleReefPick.algea.processor > 0 ||
+          match.autoReefPick.algea.processor > 0
+      ).length,
+      this.matches.length
+    );
+  }
+
+  getReefPickPercentage(innerFields: string[]) {
+    return Percent.fromRatio(
+      this.matches.filter((match) => {
+        return (
+          innerFields.reduce(
+            (accumulator, innerField) => accumulator[innerField],
+            match.teleReefPick
+          ) ||
+          0 > 0 ||
+          innerFields.reduce(
+            (accumulator, innerField) => accumulator[innerField],
+            match.autoReefPick
+          ) ||
+          0 > 0
+        );
+      }).length,
+      this.matches.length
+    );
+  }
+
+  getCollectionPercentage(collection: keyof Collection) {
+    return Percent.fromRatio(
+      this.matches.filter((match) => match.endgameCollection[collection])
+        .length,
+      this.matches.length
     );
   }
 }

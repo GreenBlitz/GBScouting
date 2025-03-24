@@ -9,8 +9,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import React, { useEffect, useState } from "react";
+import { FRCTeamList } from "../../utils/Utils";
 
-const paginationModel = { page: 0, pageSize: 5 };
+const paginationModel = { page: 0, pageSize: Object.keys(FRCTeamList).length };
 
 const darkTheme = createTheme({
   palette: {
@@ -82,7 +83,7 @@ const TableChart: React.FC<TableChartProps> = ({
         rows={rows}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10, 67]}
+        pageSizeOptions={[5, 10, Object.keys(FRCTeamList).length]}
         sx={{
           border: 2,
         }}

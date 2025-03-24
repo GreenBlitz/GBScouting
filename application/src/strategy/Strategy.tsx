@@ -21,7 +21,7 @@ const Strategy: React.FC = () => {
           {[...loadedHiddenImages]}
 
           <Link
-            to="/strategy/team/autonomous"
+            to="/strategy/team/teleoperated/linear"
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Team Data
@@ -49,6 +49,14 @@ const Strategy: React.FC = () => {
             className="text-dark-text hover:text-primary-400 transition-colors"
           >
             Scouter Stats
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/strategy/ability"
+            className="text-dark-text hover:text-primary-400 transition-colors"
+          >
+            Abilities
           </Link>
         </li>
       </ul>
