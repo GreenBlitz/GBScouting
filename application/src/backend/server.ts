@@ -12,16 +12,16 @@ import * as sheets from "./sheets.js";
 
 const app = express();
 const hostname = "0.0.0.0";
-const port = 4590;
 
 const dirName = process.env.PRODUCTION ? "/app" : "";
+const port = process.env.PRODUCTION ? 443 : 4590;
 
 // SSL options for HTTPS
 let sslOptions;
 try {
   sslOptions = {
-    key: fs.readFileSync(path.resolve(dirName, "ssl-key.pem")), // Path to the key file
-    cert: fs.readFileSync(path.resolve(dirName, "ssl.pem")), // Path to the certificate file
+    key: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/fullchain.pem"),
   };
 } catch (exception) {
   console.log(exception);
