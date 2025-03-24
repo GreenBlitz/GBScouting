@@ -20,8 +20,8 @@ const dirName = process.env.PRODUCTION ? "/app" : "";
 let sslOptions;
 try {
   sslOptions = {
-    key: fs.readFileSync(path.resolve(dirName, "ssl/privkey.pem")),
-    cert: fs.readFileSync(path.resolve(dirName, "ssl/fullchain.pem")),
+    key: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/privkey.pem"),
   };
 } catch (exception) {
   console.log(exception);
