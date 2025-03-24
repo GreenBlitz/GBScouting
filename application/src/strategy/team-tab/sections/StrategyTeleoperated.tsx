@@ -12,6 +12,8 @@ import { matchFieldNames } from "../../../utils/Match";
 import RadarComponent from "../../charts/RadarChart";
 import CollectionChart from "../../charts/CollectionChart";
 import { GridItems } from "../../general-tab/GeneralTab";
+import BarChart from "../../charts/BarChart";
+import { localFolder, StorageBacked } from "../../../utils/FolderStorage";
 import Collapsible from "react-collapsible";
 
 export const reefColorsScore = {
@@ -28,15 +30,10 @@ export const reefColorsMiss = {
   L4: "#e13125",
 };
 
-const climbColorMap = {
-  Park: "#006989",
-  "Off Barge": "#E94F37",
-  "Shallow Cage": "#F9DC5C",
-  "Deep Cage": "#44BBA4",
-  "Tried Deep": "#ED7117",
-};
-
-type ClimbKeys = keyof typeof climbColorMap;
+const isLineChartStorage = new StorageBacked<boolean>(
+  "strategy/isBarChart",
+  localFolder
+);
 
 const StrategyTeleoperated: React.FC = () => {
   const { teamData, teamTable } = useOutletContext<{
@@ -74,69 +71,93 @@ const StrategyTeleoperated: React.FC = () => {
     }
   }, [teamData]);
 
+  const scoringDataSet = useMemo(() => {
+    return {
+      ...Object.fromEntries(
+        Object.entries(reefColorsScore).map(([key, value]) => [
+          key,
+          {
+            color: value,
+            data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+              "levels",
+              key,
+              "score",
+            ]),
+          },
+        ])
+      ),
+      Net: {
+        color: "#172db8",
+        data: teamData.getAlgeaDataAsLine(
+          matchFieldNames.teleReefPick,
+          "netScore"
+        ),
+      },
+      Processor: {
+        color: "#8fb4ff",
+        data: teamData.getAlgeaDataAsLine(
+          matchFieldNames.teleReefPick,
+          "processor"
+        ),
+      },
+    };
+  }, [teamData]);
+
+  const missDataSet = useMemo(() => {
+    return {
+      ...Object.fromEntries(
+        Object.entries(reefColorsMiss).map(([key, value]) => [
+          key,
+          {
+            color: value,
+            data: teamData.getAsLine(matchFieldNames.teleReefPick, [
+              "levels",
+              key,
+              "miss",
+            ]),
+          },
+        ])
+      ),
+      Net: {
+        color: "#b81616",
+        data: teamData.getAlgeaDataAsLine(
+          matchFieldNames.teleReefPick,
+          "netMiss"
+        ),
+      },
+    };
+  }, [teamData]);
+
+  const [isLineChart, setIsLineChart] = useState(isLineChartStorage.get());
+
   return (
     <>
       <div className="mb-10">
         <div className="section">
-          <LineChart
-            dataSets={{
-              ...Object.fromEntries(
-                Object.entries(reefColorsScore).map(([key, value]) => [
-                  key,
-                  {
-                    color: value,
-                    data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-                      "levels",
-                      key,
-                      "score",
-                    ]),
-                  },
-                ])
-              ),
-              Net: {
-                color: "#172db8",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "netScore"
-                ),
-              },
-              Processor: {
-                color: "#8fb4ff",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "processor"
-                ),
-              },
-            }}
-          />
+          {isLineChart ? (
+            <LineChart dataSets={scoringDataSet} />
+          ) : (
+            <BarChart dataSets={scoringDataSet} isStacked={true} />
+          )}
         </div>
 
         <div className="section">
-          <LineChart
-            dataSets={{
-              ...Object.fromEntries(
-                Object.entries(reefColorsMiss).map(([key, value]) => [
-                  key,
-                  {
-                    color: value,
-                    data: teamData.getAsLine(matchFieldNames.teleReefPick, [
-                      "levels",
-                      key,
-                      "miss",
-                    ]),
-                  },
-                ])
-              ),
-              Net: {
-                color: "#b81616",
-                data: teamData.getAlgeaDataAsLine(
-                  matchFieldNames.teleReefPick,
-                  "netMiss"
-                ),
-              },
-            }}
-          />
+          {isLineChart ? (
+            <LineChart dataSets={missDataSet} />
+          ) : (
+            <BarChart dataSets={missDataSet} isStacked={true} />
+          )}
         </div>
+
+        <button
+          className="big-button button-green mx-auto h-9"
+          onClick={() => {
+            isLineChartStorage.set(!isLineChartStorage.get());
+            setIsLineChart(!isLineChart);
+          }}
+        >
+          Switch
+        </button>
       </div>
 
       {teamData.notes  && (

@@ -7,8 +7,12 @@ Chart.register(CategoryScale, LinearScale, BarElement);
 
 interface BarChartProps {
   dataSets: Record<string | number, DataSet>;
+  isStacked?: boolean;
 }
-const BarChart: React.FC<BarChartProps> = ({ dataSets }: BarChartProps) => {
+const BarChart: React.FC<BarChartProps> = ({
+  dataSets,
+  isStacked,
+}: BarChartProps) => {
   const labels = new Set<string>();
   Object.values(dataSets)
     .flatMap((dataSet) => Object.keys(dataSet.data))
@@ -22,14 +26,27 @@ const BarChart: React.FC<BarChartProps> = ({ dataSets }: BarChartProps) => {
         backgroundColor: Object.values(dataSetValue.data).map(() =>
           dataSetValue.color.toString()
         ),
+        borderWidth: 3,
         data: Object.values(dataSetValue.data),
       };
     }),
   };
 
   return (
-    <div style={{ width: "100%", maxWidth: "600px" }}>
-      <Bar data={data} />
+    <div style={{ width: "600px" }}>
+      <Bar
+        data={data}
+        options={{
+          scales: {
+            x: {
+              stacked: isStacked,
+            },
+            y: {
+              stacked: isStacked,
+            },
+          },
+        }}
+      />
     </div>
   );
 };
