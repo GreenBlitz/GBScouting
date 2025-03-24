@@ -21,7 +21,7 @@ let sslOptions;
 try {
   sslOptions = {
     key: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/privkey.pem"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/greenblitz.org/fullchain.pem"),
   };
 } catch (exception) {
   console.log(exception);
