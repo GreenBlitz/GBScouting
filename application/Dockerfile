@@ -4,5 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN npm i
+RUN npx tsc -b tsconfig.json
+EXPOSE 443
 
-CMD ["npm", "run", "full", "--", "--host"]
+CMD ["node", "compiled/server.js", "--host"]
