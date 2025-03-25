@@ -154,17 +154,22 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
   };
 
   const updateData = async () => {
-    const range = "RawData";
-    const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
+    try {
+      const range = "RawData";
+      const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
 
-    const bbbCollection = db.collection("bbb");
+      const bbbCollection = db.collection("bbb");
 
-    await bbbCollection
-      .deleteMany({})
-      .then(() => bbbCollection.insertMany(data));
+      await bbbCollection
+        .deleteMany({})
+        .then(() => bbbCollection.insertMany(data));
 
-    console.log("Updated Bumblebee Data");
-    return data;
+      console.log("Updated Bumblebee Data");
+      return data;
+    } catch {
+      console.log("Failed to update Bumblebee Data");
+      return [];
+    }
   };
 
   updateData(); // Initial call to start the loop

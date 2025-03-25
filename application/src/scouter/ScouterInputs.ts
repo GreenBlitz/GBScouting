@@ -29,6 +29,7 @@ export default class ScouterInputs {
   static readonly qual = new NumberInput({
     route: "qual",
     name: "Qual",
+    doesRemain: true,
   });
   static readonly teamNumber = new ManualTeamNumberInput({
     route: "teamNumber",

@@ -19,7 +19,7 @@ export async function fetchData(
   body?: string,
   authorization: string = ""
 ) {
-  return await fetch(`https://${getServerHostname()}/${field}`, {
+  return await fetch(`http://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
