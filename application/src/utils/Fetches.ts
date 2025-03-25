@@ -1,6 +1,6 @@
 import { authorizationStorage } from "./FolderStorage";
 import { Match } from "./Match";
-import { Notes } from "./SeasonUI";
+import { DCMPMatches, Notes } from "./SeasonUI";
 
 export const getServerHostname = () => {
   return location.host;
@@ -19,7 +19,7 @@ export async function fetchData(
   body?: string,
   authorization: string = ""
 ) {
-  return await fetch(`https://${getServerHostname()}/${field}`, {
+  return await fetch(`http://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
@@ -122,23 +122,24 @@ export interface MatchTeams {
 
 export async function fetchAllAwaitingMatches() {
   try {
-    const response = await fetchData(`TBA/matches`);
-    if (!response) throw new Error("No data received");
+    // const response = await fetchData(`TBA/matches`);
+    // if (!response) throw new Error("No data received");
 
-    const getTeamNumber = (team: string) => parseInt(team.slice(3));
-    const getQual = (match: any) => parseInt((match.key as string).slice(12));
+    // const getTeamNumber = (team: string) => parseInt(team.slice(3));
+    // const getQual = (match: any) => parseInt((match.key as string).slice(12));
 
-    // Extract qualification rankings from the API response
-    const qualificationResults: MatchTeams[] = (response as any[])
-      .filter((match) => match.comp_level === "qm")
-      .sort((match1, match2) => getQual(match1) - getQual(match2))
-      .map((match) => ({
-        blueAlliance: match.alliances.blue.team_keys.map(getTeamNumber),
-        redAlliance: match.alliances.red.team_keys.map(getTeamNumber),
-      }));
+    // // Extract qualification rankings from the API response
+    // const qualificationResults: MatchTeams[] = (response as any[])
+    //   .filter((match) => match.comp_level === "qm")
+    //   .sort((match1, match2) => getQual(match1) - getQual(match2))
+    //   .map((match) => ({
+    //     blueAlliance: match.alliances.blue.team_keys.map(getTeamNumber),
+    //     redAlliance: match.alliances.red.team_keys.map(getTeamNumber),
+    //   }));
 
-    console.log(qualificationResults);
+    // console.log(qualificationResults);
 
+    const qualificationResults: MatchTeams[] = [...DCMPMatches];
     return qualificationResults;
   } catch (error) {
     console.error("Error fetching qualification results:", error);

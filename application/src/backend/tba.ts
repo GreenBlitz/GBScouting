@@ -3,7 +3,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 
-const currentDistrict = "2025isde3";
+const currentDistrict = "2025iscmp";
 
 export function applyRoutes(app: Express, dirName: string) {
   // Define routes
