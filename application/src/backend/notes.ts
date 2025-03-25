@@ -56,7 +56,6 @@ export function applyRoutes(app: Express, db: Db) {
           };
         })
         .filter((item) => item);
-      console.log(items);
       res.status(200).json(items);
     } catch (error) {
       res.status(500).send(error);

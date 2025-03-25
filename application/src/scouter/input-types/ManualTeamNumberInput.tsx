@@ -93,13 +93,13 @@ class ManualTeamNumberInput<
     value: string | number
   ) => {
     let storedTwoOptionAndNumber = this.getValue();
-    this.qualStorage.set(storedTwoOptionAndNumber.qualNumber);
     if (storedTwoOptionAndNumber) {
       storedTwoOptionAndNumber = {
         ...storedTwoOptionAndNumber,
         [field]: value,
         teamNumber: -1,
       };
+      this.qualStorage.set(storedTwoOptionAndNumber.qualNumber);
 
       const updatedTeamNumber = await getTeamNumberByCriteria(
         storedTwoOptionAndNumber.qualNumber,
@@ -121,7 +121,7 @@ class ManualTeamNumberInput<
       <div style={{ width: "80%" }}>
         {/* Qual Number Input */}
         <div>
-          <h3>Qual Number</h3>
+          <h3>Qual</h3>
           <input
             type="number"
             required={this.props.required}
@@ -138,7 +138,7 @@ class ManualTeamNumberInput<
 
         {/* Starting Position Select */}
         <div>
-          <h3>Starting Position</h3>
+          <h3>Driver Station</h3>
           <select
             required={this.props.required}
             value={this.getValue()?.option1 ?? ""}
@@ -162,7 +162,7 @@ class ManualTeamNumberInput<
 
         {/* Alliance Color Select */}
         <div>
-          <h3>Alliance Color</h3>
+          <h3>Alliance</h3>
           <select
             required={this.props.required}
             value={this.getValue()?.option2 ?? ""}
@@ -186,7 +186,7 @@ class ManualTeamNumberInput<
 
         {/* Team Number Input */}
         <div>
-          <h3>Team Number</h3>
+          <h3>Team</h3>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <input
               type="number"

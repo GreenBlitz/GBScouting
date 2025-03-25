@@ -23,6 +23,7 @@ interface UsedNotes {
   qual: string;
   body: Notes;
 }
+
 const defaultNotes: Notes = {
   defense: "",
   evasion: "",
@@ -31,12 +32,14 @@ const defaultNotes: Notes = {
   climb: "",
   faults: "",
 };
+
 export class TeamData {
   public readonly matches: Match[];
   public readonly notes: Notes;
 
   constructor(matches: Match[], notes?: UsedNotes[]) {
     this.matches = [...matches];
+
     this.notes = (notes || [])
       .filter((note) =>
         this.matches.some((match) => match.qual === parseInt(note.qual))
