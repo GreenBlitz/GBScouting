@@ -1,10 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { TeamData } from "../TeamData";
 import BoxChart from "./charts/BoxChart";
-import { Match } from "../utils/Match";
-import { fetchAllTeamMatches, fetchPaticularTeamMatches } from "../utils/Fetches";
+import { Match, matchFieldNames } from "../utils/Match";
+import {
+  fetchAllTeamMatches,
+  fetchPaticularTeamMatches,
+} from "../utils/Fetches";
 import { useRecent } from "../components/TeamPicker";
 import { FRCTeamArray } from "../utils/Utils";
+import MultiRadarChart from "./charts/MultiRadarChart";
 
 interface FieldOption {
   name: string;
@@ -55,20 +59,21 @@ const fieldOptions: FieldOption[] = [
   { name: "Qual", getData: (match) => match.qual },
 ];
 
-const teamNumbers = FRCTeamArray
+const teamNumbers = FRCTeamArray;
 
 const ComparisonTab: React.FC = () => {
   const [teams, setTeams] = useState<TeamData[]>([]);
   const [recency, setRecency] = useState<number>(0);
   const [checkedList, setCheckedList] = useState<number[]>([]);
-  console.log(teamNumbers)
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     const isChecked = event.target.checked;
 
     setCheckedList((prevList) =>
-      isChecked ? [...prevList, value] : prevList.filter((item) => item !== value)
+      isChecked
+        ? [...prevList, value]
+        : prevList.filter((item) => item !== value)
     );
   };
 
@@ -97,18 +102,25 @@ const ComparisonTab: React.FC = () => {
     const chosenOption =
       fieldOptions.find((option) => option.name === field) || fieldOptions[0];
     return {
-      [Number(team.getTeamNumber()) || 0]: team.getAsBox(chosenOption.getData) || [],
+      [Number(team.getTeamNumber()) || 0]:
+        team.getAsBox(chosenOption.getData) || [],
     };
   };
 
-  const teamsData = useMemo(() => teams.map((team) => getBoxData(team)) || [], [teams, field]);
+  const teamsData = useMemo(
+    () => teams.map((team) => getBoxData(team)) || [],
+    [teams, field]
+  );
 
   return (
     <>
       <div className="flex flex-col items-center">
         <br />
 
-        <select className="my-5" onChange={(event) => setField(event.currentTarget.value)}>
+        <select
+          className="my-5"
+          onChange={(event) => setField(event.currentTarget.value)}
+        >
           {fieldOptions.map((option) => (
             <option key={option.name}>{option.name}</option>
           ))}
@@ -131,11 +143,70 @@ const ComparisonTab: React.FC = () => {
             title="Comparison"
             subtitle="Between FRC Teams"
           />
+          <MultiRadarChart
+            dataSets={Object.assign(
+              {},
+              ...teams.map((team) => ({
+                [team.getTeamNumber()]: {
+                  L4: {
+                    value: team.getAverage(matchFieldNames.teleReefPick, [
+                      "levels",
+                      "L4",
+                      "score",
+                    ]),
+                    max: 12,
+                  },
+                  L3: {
+                    value: team.getAverage(matchFieldNames.teleReefPick, [
+                      "levels",
+                      "L3",
+                      "score",
+                    ]),
+                    max: 12,
+                  },
+                  L2: {
+                    value: team.getAverage(matchFieldNames.teleReefPick, [
+                      "levels",
+                      "L2",
+                      "score",
+                    ]),
+                    max: 12,
+                  },
+                  Net: {
+                    value: team.getAverageReefPickData(
+                      matchFieldNames.teleReefPick,
+                      "netScore"
+                    ),
+                    max: 9,
+                  },
+
+                  evasion: {
+                    value: team.getAverage(matchFieldNames.defensiveEvasion),
+                    max: 5,
+                  },
+
+                  value: { value: team.getAverageAutoScore(), max: 35 },
+                },
+              }))
+            )}
+          />
         </div>
       </div>
-      <div className="teams" style={{display: "grid", gap: "0.55em", gridTemplateColumns: "repeat(5, 1fr)", gridTemplateRows: "repeat(5, 1fr)",}}>
+      <div
+        className="teams"
+        style={{
+          display: "grid",
+          gap: "0.55em",
+          gridTemplateColumns: "repeat(5, 1fr)",
+          gridTemplateRows: "repeat(5, 1fr)",
+        }}
+      >
         {teamNumbers.map((item) => (
-          <label className="containerComp" key={item.id} style={{ display: "flex", alignItems: "center", gap: "0.3em" }}>
+          <label
+            className="containerComp"
+            key={item.id}
+            style={{ display: "flex", alignItems: "center", gap: "0.3em" }}
+          >
             <input
               type="checkbox"
               name="team number"
@@ -148,9 +219,10 @@ const ComparisonTab: React.FC = () => {
               }}
             />
             <span className="checkmarkComp"></span>
-          {item.id}</label>
+            {item.id}
+          </label>
         ))}
-        </div>
+      </div>
     </>
   );
 };
