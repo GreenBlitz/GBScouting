@@ -19,7 +19,7 @@ export async function fetchData(
   body?: string,
   authorization: string = ""
 ) {
-  return await fetch(`http://${getServerHostname()}/${field}`, {
+  return await fetch(`https://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
@@ -31,7 +31,7 @@ export async function fetchData(
     if (!response.ok) {
       throw new Error(
         "Network response was not ok: " +
-          response.statusText +
+          response.statusText.toString() +
           ", " +
           response.body
       );
