@@ -64,7 +64,7 @@ class ManualTeamNumberInput<
     super(props);
     this.state = {
       isDisabled: true,
-      manualTeamNumber: this.getValue()?.teamNumber ?? 9999,
+      manualTeamNumber: this.getValue()?.teamNumber ?? 0,
     };
     this.qualStorage = new StorageBackedInput("qual");
   }
@@ -97,7 +97,7 @@ class ManualTeamNumberInput<
       storedTwoOptionAndNumber = {
         ...storedTwoOptionAndNumber,
         [field]: value,
-        teamNumber: -1,
+        teamNumber: 0,
       };
       this.qualStorage.set(storedTwoOptionAndNumber.qualNumber);
 
@@ -125,7 +125,7 @@ class ManualTeamNumberInput<
           <input
             type="number"
             required={this.props.required}
-            defaultValue={this.getValue()?.qualNumber ?? 9999}
+            defaultValue={this.getValue()?.qualNumber ?? 0}
             onChange={(event) =>
               this.handleSelectionChange(
                 "qualNumber",
@@ -221,8 +221,8 @@ class ManualTeamNumberInput<
     return {
       option1: props.twoOptions.options1[0] ?? ("" as Option),
       option2: props.twoOptions.options2[0] ?? ("" as Option),
-      qualNumber: 9999,
-      teamNumber: 9999,
+      qualNumber: 0,
+      teamNumber: 0,
     };
   }
 }

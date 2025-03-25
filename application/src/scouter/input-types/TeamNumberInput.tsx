@@ -194,8 +194,8 @@ class TeamNumberInput<
     return {
       option1: props.twoOptions.options1[0] ?? ("" as Option),
       option2: props.twoOptions.options2[0] ?? ("" as Option),
-      teamNumber: 9999,
-      qualNumber: 9999,
+      teamNumber: 0,
+      qualNumber: 0,
     };
   }
 }
