@@ -30,7 +30,7 @@ export const reefColorsMiss = {
   L4: "#e13125",
 };
 
-const isLineChartStorage = new StorageBacked<boolean>(
+export const isLineChartStorage = new StorageBacked<boolean>(
   "strategy/isBarChart",
   localFolder
 );
