@@ -39,7 +39,6 @@ export class TeamData {
 
   constructor(matches: Match[], notes?: UsedNotes[]) {
     this.matches = [...matches];
-    console.log(notes);
 
     this.notes = (notes || [])
       .filter((note) =>
