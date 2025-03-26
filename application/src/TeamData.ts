@@ -565,24 +565,25 @@ export class TeamData {
   }
 
   getAverageMiddleAuto(): number {
-    if (this.matches.length === 0) {
+    const middleMatches = this.matches.filter(
+      (match) => match.gameSide === "middle"
+    );
+
+    if (middleMatches.length === 0) {
       return 0;
     }
-
     return (
-      this.matches
-        .filter((match) => match.gameSide === "middle")
-        .reduce(
-          (accumulator, match) =>
-            accumulator +
-            match.autoReefPick.algea.netScore +
-            match.autoReefPick.algea.processor +
-            match.autoReefPick.levels.L1.score +
-            match.autoReefPick.levels.L2.score +
-            match.autoReefPick.levels.L3.score +
-            match.autoReefPick.levels.L4.score,
-          0
-        ) / this.matches.length
+      middleMatches.reduce(
+        (accumulator, match) =>
+          accumulator +
+          match.autoReefPick.algea.netScore +
+          match.autoReefPick.algea.processor +
+          match.autoReefPick.levels.L1.score +
+          match.autoReefPick.levels.L2.score +
+          match.autoReefPick.levels.L3.score +
+          match.autoReefPick.levels.L4.score,
+        0
+      ) / middleMatches.length
     );
   }
 
