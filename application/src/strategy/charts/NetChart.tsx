@@ -65,9 +65,12 @@ const NetChart: React.FC<CoralChartProps> = ({ algaes }) => {
           ),
         ]);
       }
+      console.log(netElements)
+      const net0 = netElements[0]
+      console.log(net0)
     }, [netElements]);
   
-    return <>{netElements}</>;
+    return <>{netElements[0]}</>;
     
 };
 
