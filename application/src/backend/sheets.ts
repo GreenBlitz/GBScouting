@@ -158,6 +158,8 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       const range = "RawData";
       const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
 
+      console.log(data)
+
       const bbbCollection = db.collection("bbb");
 
       await bbbCollection
