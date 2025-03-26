@@ -13,10 +13,11 @@ interface CoralChartProps {
 
 //😭😭😭 bruh what is this???? stupidest code i wrote. no way this going through CR
 const NetChart: React.FC<CoralChartProps> = ({ algaes }) => {
-    const [scorePercentage, setStoragePercentage] = useState<Percent>(Percent.fromRatio(
-      algaes.netScore,
-      algaes.netMiss+algaes.netScore
-    ));
+  const [netElements, setNet] = useState<React.JSX.Element[]>([]);
+
+
+  function createCoralElement(netX: any, p0: string){
+    const scorePercentage = Percent.fromRatio(algaes.netScore,algaes.netMiss+algaes.netScore);
 
     if (isNaN(scorePercentage.value)) {
       return <></>;
@@ -47,6 +48,27 @@ const NetChart: React.FC<CoralChartProps> = ({ algaes }) => {
         </div>
       </>
     );
+  } 
+  useEffect(() => {
+      setNet([]);
+    }, [algaes]);
+  
+    useEffect(() => {
+      const coralLevels = Object.values(algaes).reverse();
+      if (netElements.length < coralLevels.length) {
+        const netX = coralLevels[netElements.length];
+        setNet([
+          ...netElements,
+          createCoralElement(
+            netX,
+            Object.keys(algaes).reverse()[netElements.length]
+          ),
+        ]);
+      }
+    }, [netElements]);
+  
+    return <>{netElements}</>;
+    
 };
 
 export default NetChart;
