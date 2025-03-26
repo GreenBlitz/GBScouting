@@ -153,12 +153,11 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     return recordValues;
   };
 
+
   const updateData = async () => {
     try {
       const range = "RawData";
       const data = formatData(await getSheetData(range)).map(bbbMatchToMatch);
-
-      console.log(data)
 
       const bbbCollection = db.collection("bbb");
 
@@ -173,6 +172,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       return [];
     }
   };
+
 
   updateData(); // Initial call to start the loop
   setInterval(updateData, 5 * 60 * 1000); // Makes updateData happen every five minutes
