@@ -24,169 +24,128 @@ export const matchFieldNames = Object.keys(ScouterInputs).reduce(
   {} as Record<keyof Match, keyof Match>
 );
 
-export const mergeMatches: (match1: Match, match2: Match) => Match = (
-  match1: Match,
-  match2: Match
-) => {
-  const avg = (n1: number, n2: number) => (n1 + n2) / 2;
+export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
+  const avg = (numbers: number[]) =>
+    numbers.reduce((accumulator, value) => accumulator + value, 0) /
+    numbers.length;
+
+  const avgFields = (fields: string[]) =>
+    avg(
+      matches
+        .map((match) =>
+          fields.reduce(
+            (accumulator, innerField) => accumulator[innerField],
+            match
+          )
+        )
+        .map((match) => match as unknown as number)
+    );
 
   const mergeUndefinedNumbers = (
-    n1: number | "undefined" | undefined,
-    n2: number | "undefined" | undefined
+    numbers: (number | "undefined" | undefined)[],
+    
   ) => {
-    if (typeof n1 === "number" && typeof n2 === "number") {
-      return avg(n1, n2);
+    const filteredOnes = numbers.filter((number) => typeof number === "number");
+    if (filteredOnes.length === 0) {
+      return undefined;
     }
-    if (typeof n1 === "number") {
-      return n1;
-    }
-    return typeof n2 === "number" ? n2 : undefined;
+    return avg(filteredOnes);
   };
 
+  const mergeUndefinedFields = (fields: string[]) => 
+    mergeUndefinedNumbers(
+      matches
+        .map((match) =>
+          fields.reduce(
+            (accumulator, innerField) => accumulator[innerField],
+            match
+          )
+        )
+        .map((match) => match as unknown as (number | undefined | "undefined"))
+    );
+
+  const mergeBooleans = (booleans: boolean[]) =>
+    booleans.reduce((accumulator, value) => accumulator || value, false);
+  const mergeBooleanFields = (fields: string[]) =>
+    mergeBooleans(
+      matches
+        .map((match) =>
+          fields.reduce(
+            (accumulator, innerField) => accumulator[innerField],
+            match
+          )
+        )
+        .map((match) => match as unknown as boolean)
+    );
+
   return {
-    scouterName: match1.scouterName + " & " + match2.scouterName,
-    qual: match1.qual,
-    teamNumber: match1.teamNumber,
-    noShow: match1.noShow,
-    defense: mergeUndefinedNumbers(match1.defense, match2.defense),
-    defensiveEvasion: mergeUndefinedNumbers(
-      match1.defensiveEvasion,
-      match2.defensiveEvasion
+    scouterName: matches[0].scouterName,
+    qual: matches[0].qual,
+    teamNumber: matches[0].teamNumber,
+    noShow: matches[0].noShow,
+    defense: mergeUndefinedFields(["defense"]),
+    defensiveEvasion: mergeUndefinedFields(["defensiveEvasion"]),
+    climb: matches[0].climb,
+    comment: matches.reduce(
+      (accumulator, match) => accumulator + ", " + match.comment,
+      ""
     ),
-    climb: match1.climb,
-    comment: match1.comment + ",   " + match2.comment,
     teleReefPick: {
       algea: {
-        netScore: avg(
-          match1.teleReefPick.algea.netScore,
-          match2.teleReefPick.algea.netScore
-        ),
-        netMiss: avg(
-          match1.teleReefPick.algea.netMiss,
-          match2.teleReefPick.algea.netMiss
-        ),
-        processor: avg(
-          match1.teleReefPick.algea.processor,
-          match2.teleReefPick.algea.processor
-        ),
+        netScore: avgFields(["teleReefPick", "algea", "netScore"]),
+        netMiss: avgFields(["teleReefPick", "algea", "netMiss"]),
+        processor: avgFields(["teleReefPick", "algea", "processor"]),
       },
       levels: {
         L1: {
-          score: avg(
-            match1.teleReefPick.levels.L1.score,
-            match1.teleReefPick.levels.L1.score
-          ),
-          miss: avg(
-            match1.teleReefPick.levels.L1.miss,
-            match1.teleReefPick.levels.L1.miss
-          ),
+          score: avgFields(["teleReefPick", "levels", "L1", "score"]),
+          miss: avgFields(["teleReefPick", "levels", "L1", "miss"]),
         },
         L2: {
-          score: avg(
-            match1.teleReefPick.levels.L2.score,
-            match1.teleReefPick.levels.L2.score
-          ),
-          miss: avg(
-            match1.teleReefPick.levels.L2.miss,
-            match1.teleReefPick.levels.L2.miss
-          ),
+          score: avgFields(["teleReefPick", "levels", "L2", "score"]),
+          miss: avgFields(["teleReefPick", "levels", "L2", "miss"]),
         },
         L3: {
-          score: avg(
-            match1.teleReefPick.levels.L3.score,
-            match1.teleReefPick.levels.L3.score
-          ),
-          miss: avg(
-            match1.teleReefPick.levels.L3.miss,
-            match1.teleReefPick.levels.L3.miss
-          ),
+          score: avgFields(["teleReefPick", "levels", "L3", "score"]),
+          miss: avgFields(["teleReefPick", "levels", "L3", "miss"]),
         },
         L4: {
-          score: avg(
-            match1.teleReefPick.levels.L4.score,
-            match1.teleReefPick.levels.L4.score
-          ),
-          miss: avg(
-            match1.teleReefPick.levels.L4.miss,
-            match1.teleReefPick.levels.L4.miss
-          ),
+          score: avgFields(["teleReefPick", "levels", "L4", "score"]),
+          miss: avgFields(["teleReefPick", "levels", "L4", "miss"]),
         },
       },
     },
     autoReefPick: {
       algea: {
-        netScore: avg(
-          match1.autoReefPick.algea.netScore,
-          match2.autoReefPick.algea.netScore
-        ),
-        netMiss: avg(
-          match1.autoReefPick.algea.netMiss,
-          match2.autoReefPick.algea.netMiss
-        ),
-        processor: avg(
-          match1.autoReefPick.algea.processor,
-          match2.autoReefPick.algea.processor
-        ),
+        netScore: avgFields(["autoReefPick", "algea", "netScore"]),
+        netMiss: avgFields(["autoReefPick", "algea", "netMiss"]),
+        processor: avgFields(["autoReefPick", "algea", "processor"]),
       },
       levels: {
         L1: {
-          score: avg(
-            match1.autoReefPick.levels.L1.score,
-            match1.autoReefPick.levels.L1.score
-          ),
-          miss: avg(
-            match1.autoReefPick.levels.L1.miss,
-            match1.autoReefPick.levels.L1.miss
-          ),
+          score: avgFields(["autoReefPick", "levels", "L1", "score"]),
+          miss: avgFields(["autoReefPick", "levels", "L1", "miss"]),
         },
         L2: {
-          score: avg(
-            match1.autoReefPick.levels.L2.score,
-            match1.autoReefPick.levels.L2.score
-          ),
-          miss: avg(
-            match1.autoReefPick.levels.L2.miss,
-            match1.autoReefPick.levels.L2.miss
-          ),
+          score: avgFields(["autoReefPick", "levels", "L2", "score"]),
+          miss: avgFields(["autoReefPick", "levels", "L2", "miss"]),
         },
         L3: {
-          score: avg(
-            match1.autoReefPick.levels.L3.score,
-            match1.autoReefPick.levels.L3.score
-          ),
-          miss: avg(
-            match1.autoReefPick.levels.L3.miss,
-            match1.autoReefPick.levels.L3.miss
-          ),
+          score: avgFields(["autoReefPick", "levels", "L3", "score"]),
+          miss: avgFields(["autoReefPick", "levels", "L3", "miss"]),
         },
         L4: {
-          score: avg(
-            match1.autoReefPick.levels.L4.score,
-            match1.autoReefPick.levels.L4.score
-          ),
-          miss: avg(
-            match1.autoReefPick.levels.L4.miss,
-            match1.autoReefPick.levels.L4.miss
-          ),
+          score: avgFields(["autoReefPick", "levels", "L4", "score"]),
+          miss: avgFields(["autoReefPick", "levels", "L4", "miss"]),
         },
       },
     },
     endgameCollection: {
-      algeaReefCollected:
-        match1.endgameCollection.algeaReefCollected ||
-        match2.endgameCollection.algeaReefCollected,
-      algeaReefDropped:
-        match1.endgameCollection.algeaReefDropped ||
-        match2.endgameCollection.algeaReefDropped,
-      algeaGroundCollected:
-        match1.endgameCollection.algeaGroundCollected ||
-        match2.endgameCollection.algeaGroundCollected,
-      coralGroundCollected:
-        match1.endgameCollection.coralGroundCollected ||
-        match2.endgameCollection.coralGroundCollected,
-      coralFeederCollected:
-        match1.endgameCollection.coralFeederCollected ||
-        match2.endgameCollection.coralFeederCollected,
+      algeaReefCollected: mergeBooleanFields(["endgameCollection", "algeaReefCollected"]),
+      algeaReefDropped: mergeBooleanFields(["endgameCollection", "algeaReefDropped"]),
+      algeaGroundCollected: mergeBooleanFields(["endgameCollection", "algeaGroundCollected"]),
+      coralGroundCollected: mergeBooleanFields(["endgameCollection", "coralGround"]),
+      coralFeederCollected: mergeBooleanFields(["endgameCollection", "coralFeederCollected"]),
     },
   };
 };

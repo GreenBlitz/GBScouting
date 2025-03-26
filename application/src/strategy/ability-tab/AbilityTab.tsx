@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TableChart from "../charts/TableChart";
 import { FRCTeamList } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
@@ -9,17 +9,20 @@ import "../general-tab/GeneralTable.css";
 import { mergeSimilarMatches } from "../../components/TeamPicker";
 import { useRecent } from "../../components/TeamPicker";
 
-interface Abilities {
-  Team: number;
-  Deep: number;
-  "Algea Collected": number;
-  "Algea Dropped": number;
-  "Algea Ground": number;
-  "Coral Feeder": number;
-  "Coral Ground": number;
-  Net: number;
-  Processor: number;
+interface AbstractAbilities<T> {
+  Team: T;
+  Deep: T;
+  "Algea Collected": T;
+  "Algea Dropped": T;
+  "Algea Ground": T;
+  "Coral Feeder": T;
+  "Coral Ground": T;
+  Net: T;
+  Processor: T;
 }
+
+type Abilities = AbstractAbilities<number>;
+type AbilitiesFilter = AbstractAbilities<boolean>;
 
 function processTeamData(teamNumber: number, data: TeamData): Abilities {
   return {
@@ -62,35 +65,59 @@ function getCellClassName(
 
   const getBGColor = () => {
     if (field === "Algea Collected") {
-      return `bg-purple-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-purple-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     if (field === "Coral Ground") {
-      return `bg-purple-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-purple-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     if (field === "Coral Feeder") {
-      return `bg-yellow-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-yellow-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     if (field === "Algea Ground") {
-      return `bg-red-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-red-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     if (field === "Algea Dropped") {
-      return `bg-green-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-green-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     if (field === "Net") {
-      return `bg-green-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-green-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     if (field === "Processor") {
-      return `bg-red-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-red-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     if (field === "Deep") {
-      return `bg-green-${getStrength([10, 30, 50, 70, 90], numberedValue)}`;
+      return `bg-green-${getStrength(
+        [10, 10, 10, 10, 10, 10, 100],
+        numberedValue
+      )}`;
     }
 
     return "text-white";
@@ -120,6 +147,24 @@ const AbilityTab: React.FC = () => {
     updateTeamTable();
   }, [recency]);
 
+  const [filters, setFilters] = useState<AbilitiesFilter>({
+    Team: false,
+    Deep: false,
+    "Algea Collected": false,
+    "Algea Dropped": false,
+    "Algea Ground": false,
+    "Coral Feeder": false,
+    "Coral Ground": false,
+    Net: false,
+    Processor: false,
+  });
+
+  const filteredTeamTable = useMemo(() => {
+    return teamTable.filter((team) =>
+      Object.entries(filters).every(([key, value]) => !value || team[key] > 10)
+    );
+  }, [teamTable, filters]);
+
   return (
     <>
       <label htmlFor="recency">Recency</label>
@@ -130,10 +175,31 @@ const AbilityTab: React.FC = () => {
         onChange={(event) => setRecency(parseInt(event.target.value))}
         min={1}
       />
+      <ul className="rower">
+        {Object.keys(teamTable[0] || {})
+          .filter((field) => field !== "Team")
+          .map((field) => (
+            <li className="mx-5 text-xl" key={field}>
+              <label>
+                {field}
+                <input
+                  className="w-4 h-4"
+                  type="checkbox"
+                  onChange={(event) => {
+                    setFilters((prevFilters) => ({
+                      ...prevFilters,
+                      [field]: event.target.checked,
+                    }));
+                  }}
+                />
+              </label>
+            </li>
+          ))}
+      </ul>
 
       <div className="section">
         <TableChart
-          tableData={teamTable}
+          tableData={filteredTeamTable}
           idName={"Team"}
           height={540}
           widthOfItem={130}

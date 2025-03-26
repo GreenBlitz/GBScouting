@@ -11,19 +11,20 @@ interface TeamPickerProps {
 }
 
 export function mergeSimilarMatches(matches: Match[]) {
-  return matches.reduce((acc, current) => {
-    const otherMatch = acc.findIndex(
-      (item) =>
-        item.qual === current.qual && item.teamNumber.teamNumber === current.teamNumber.teamNumber
-    );
-    if (otherMatch === -1) {
-      return acc.concat([current]);
+  const sortedOnes = {};
+  matches.forEach((match) => {
+    if (sortedOnes[match.qual.toString() + match.teamNumber.teamNumber]) {
+      sortedOnes[match.qual.toString() + match.teamNumber.teamNumber].push(
+        match
+      );
+      return;
     }
+    sortedOnes[match.qual.toString() + match.teamNumber.teamNumber] = [match];
+  });
 
-    acc[otherMatch] = mergeMatches(current, acc[otherMatch]);
-
-    return acc;
-  }, [] as Match[]);
+  return Object.values(sortedOnes).map((matches) =>
+    mergeMatches(matches as Match[])
+  );
 }
 
 export function useRecent(matches: Match[], recency: number): Match[] {
@@ -50,7 +51,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
   };
 
   useEffect(() => {
-    const recentMatches = useRecent(matches,recency);
+    const recentMatches = useRecent(matches, recency);
     async function updateTeamData() {
       setTeamData(new TeamData(recentMatches, await getNotes(recentMatches)));
     }

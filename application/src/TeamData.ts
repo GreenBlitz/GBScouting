@@ -24,18 +24,9 @@ interface UsedNotes {
   body: Notes;
 }
 
-const defaultNotes: Notes = {
-  defense: "",
-  evasion: "",
-  net: "",
-  coral: "",
-  climb: "",
-  faults: "",
-};
-
 export class TeamData {
   public readonly matches: Match[];
-  public readonly notes: Notes;
+  public readonly notes: UsedNotes[];
 
   constructor(matches: Match[], notes?: UsedNotes[]) {
     this.matches = [...matches];
@@ -44,16 +35,9 @@ export class TeamData {
       .filter((note) =>
         this.matches.some((match) => match.qual === parseInt(note.qual))
       )
-      .sort((note1, note2) => parseInt(note1.qual) - parseInt(note2.qual))
-      .reduce(
-        (accumulator, note) => {
-          Object.entries(note.body).forEach(([key, value]) => {
-            if (value !== "") accumulator[key] += ",  " + value;
-          });
-          return accumulator;
-        },
-        { ...defaultNotes }
-      );
+      .sort((note1, note2) => parseInt(note1.qual) - parseInt(note2.qual));
+
+    
   }
 
   static random(teamNumber: number) {
