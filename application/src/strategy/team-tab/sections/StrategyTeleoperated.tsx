@@ -15,6 +15,7 @@ import { GridItems } from "../../general-tab/GeneralTab";
 import BarChart from "../../charts/BarChart";
 import { localFolder, StorageBacked } from "../../../utils/FolderStorage";
 import Collapsible from "react-collapsible";
+import NetChart from "../../charts/NetChart";
 
 export const reefColorsScore = {
   L1: "#e5ffc9",
@@ -198,6 +199,10 @@ const StrategyTeleoperated: React.FC = () => {
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Total Corals</h1>
         <CoralChart corals={teamData.getTeleopCorals()} />
+      </div>
+      <div className="flex flex-col items-center">
+        <h1 className="text-2xl">Net stats</h1>
+        <NetChart algaes={teamData.getTeleopNet()} />
       </div>
       <br />
       <h1 className="text-2xl">Average Score: {teamData.getAverageScore()}</h1>
