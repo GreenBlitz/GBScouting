@@ -166,15 +166,31 @@ const StrategyTeleoperated: React.FC = () => {
           openedClassName="border-2"
           className="border-2"
         >
-          <div>
-            <h2 className="my-1">Net: {teamData.notes.net}</h2>
-            <h2 className="my-1">Climb: {teamData.notes.climb}</h2>
-            <h2 className="my-1">Defense: {teamData.notes.defense}</h2>
-            <h2 className="my-1">Evasion: {teamData.notes.evasion}</h2>
-            <h2 className="my-1">Coral: {teamData.notes.coral}</h2>
-            <h2 className="my-1">Driving: {teamData.notes.driving}</h2>
-            <h2 className="my-1">Overall: {teamData.notes.overall}</h2>
-          </div>
+          {teamData.notes.map((notes) => (
+            <div>
+              {notes.body.climb !== "" && (
+                <h2 className="my-1">Climb: {notes.body.climb}</h2>
+              )}
+              {notes.body.net !== "" && (
+                <h2 className="my-1">Algae: {notes.body.net}</h2>
+              )}
+              {notes.body.defense !== "" && (
+                <h2 className="my-1">Defense: {notes.body.defense}</h2>
+              )}
+              {notes.body.evasion !== "" && (
+                <h2 className="my-1">Evasion: {notes.body.evasion}</h2>
+              )}
+              {notes.body.driving !== "" && (
+                <h2 className="my-1">Driving: {notes.body.driving}</h2>
+              )}
+              {notes.body.coral !== "" && (
+                <h2 className="my-1">Coral: {notes.body.coral}</h2>
+              )}
+              {notes.body.overall !== "" && (
+                <h2 className="my-1">Overall: {notes.body.overall}</h2>
+              )}
+            </div>
+          ))}
         </Collapsible>
       )}
 

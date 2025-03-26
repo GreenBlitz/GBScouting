@@ -21,7 +21,7 @@ const defaultNotes: Notes = {
 const names = {
   defense: "Defense",
   evasion: "Evasion",
-  net: "Net",
+  net: "Algae",
   coral: "Coral",
   climb: "Climb",
   overall: "Overall",
