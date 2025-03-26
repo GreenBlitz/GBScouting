@@ -416,12 +416,31 @@ export class TeamData {
     );
   }
 
+  getAverageNet(field: keyof Match): UsedAlgea {
+    return this.matches.reduce(
+      (accumulator, match) => {
+        const matchLevel: UsedAlgea = (match[field] as PickValues)?.algea ?? { netScore: 0, netMiss: 0, processor: 0 };
+  
+        return {
+          netScore: accumulator.netScore + matchLevel.netScore,
+          netMiss: accumulator.netMiss + matchLevel.netMiss,
+          processor: accumulator.processor + matchLevel.processor
+        };
+      },
+      { netScore: 0, netMiss: 0, processor: 0 } as UsedAlgea // Initial accumulator value
+    );
+  }
+  
+
   getAutoCorals() {
     return this.getAverageCorals("autoReefPick");
   }
 
   getTeleopCorals() {
     return this.getAverageCorals("teleReefPick");
+  }
+  getTeleopNet(){
+    return this.getAverageNet("teleReefPick");
   }
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {

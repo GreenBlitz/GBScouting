@@ -5,19 +5,20 @@ import {
   Level,
   Levels,
 } from "../../scouter/input-types/reef-levels/ReefPickInput";
+import { UsedAlgea } from "../../utils/SeasonUI";
 
 interface CoralChartProps {
-  corals: Levels;
+  algaes: UsedAlgea;
 }
 
 //😭😭😭 bruh what is this???? stupidest code i wrote. no way this going through CR
-const NetChart: React.FC<CoralChartProps> = ({ corals }) => {
+const NetChart: React.FC<CoralChartProps> = ({ algaes }) => {
   const [netElements, setNet] = useState<React.JSX.Element[]>([]);
 
-  function createCoralElement(coralLevel: Level, levelName: string) {
+  function createCoralElement() {
     const scorePercentage: Percent = Percent.fromRatio(
-      coralLevel.score,
-      coralLevel.miss + coralLevel.score
+      algaes.netScore,
+      algaes.netMiss+algaes.netScore
     );
 
     if (isNaN(scorePercentage.value)) {
@@ -30,8 +31,8 @@ const NetChart: React.FC<CoralChartProps> = ({ corals }) => {
           <h2 className="mr-2.5 text-xl mb-0">{"Net"}</h2>
           <div>
             <div className="flex flex-row justify-center pt-5">
-              <h3 className="mr-2.5 mb-0">Score: {coralLevel.score}</h3>
-              <h3 className="mr-2.5 mb-0">Miss: {coralLevel.miss}</h3>
+              <h3 className="mr-2.5 mb-0">Score: {algaes.netScore}</h3>
+              <h3 className="mr-2.5 mb-0">Miss: {algaes.netMiss}</h3>
             </div>
             <PercentageBarChart
               width={300}
@@ -54,18 +55,15 @@ const NetChart: React.FC<CoralChartProps> = ({ corals }) => {
 
   useEffect(() => {
     setNet([]);
-  }, [corals]);
+  }, [algaes]);
 
   useEffect(() => {
-    const coralLevels = Object.values(corals).reverse();
+    const coralLevels = Object.values(algaes).reverse();
     if (netElements.length < coralLevels.length) {
       const coralLevel = coralLevels[netElements.length];
       setNet([
         ...netElements,
-        createCoralElement(
-          coralLevel,
-          Object.keys(corals).reverse()[netElements.length]
-        ),
+        createCoralElement(),
       ]);
     }
   }, [netElements]);
