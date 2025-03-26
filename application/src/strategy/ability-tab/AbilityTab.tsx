@@ -37,6 +37,7 @@ function processTeamData(teamNumber: number, data: TeamData): Abilities {
     "Coral Ground": data.getCollectionPercentage("coralGroundCollected").value,
     Net: data.getReefPickPercentage(["algea", "netScore"]).value,
     Processor: data.getReefPickPercentage(["algea", "processor"]).value,
+    
   };
 }
 

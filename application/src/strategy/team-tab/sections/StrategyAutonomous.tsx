@@ -99,6 +99,7 @@ const StrategyAutonomous: React.FC = () => {
           <BarChart dataSets={missDataSet} isStacked={true} />
         )}
       </div>
+      <h1>Started At Middle On: {teamData.getMiddleQuals().toString()}</h1>
       <div className="h-48" />
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Total Corals</h1>

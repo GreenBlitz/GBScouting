@@ -36,8 +36,6 @@ export class TeamData {
         this.matches.some((match) => match.qual === parseInt(note.qual))
       )
       .sort((note1, note2) => parseInt(note1.qual) - parseInt(note2.qual));
-
-    
   }
 
   static random(teamNumber: number) {
@@ -403,18 +401,21 @@ export class TeamData {
   getAverageNet(field: keyof Match): UsedAlgea {
     return this.matches.reduce(
       (accumulator, match) => {
-        const matchLevel: UsedAlgea = (match[field] as PickValues)?.algea ?? { netScore: 0, netMiss: 0, processor: 0 };
-  
+        const matchLevel: UsedAlgea = (match[field] as PickValues)?.algea ?? {
+          netScore: 0,
+          netMiss: 0,
+          processor: 0,
+        };
+
         return {
           netScore: accumulator.netScore + matchLevel.netScore,
           netMiss: accumulator.netMiss + matchLevel.netMiss,
-          processor: accumulator.processor + matchLevel.processor
+          processor: accumulator.processor + matchLevel.processor,
         };
       },
       { netScore: 0, netMiss: 0, processor: 0 } as UsedAlgea // Initial accumulator value
     );
   }
-  
 
   getAutoCorals() {
     return this.getAverageCorals("autoReefPick");
@@ -423,13 +424,12 @@ export class TeamData {
   getTeleopCorals() {
     return this.getAverageCorals("teleReefPick");
   }
-  getAutopNet(){
+  getAutopNet() {
     return this.getAverageNet("autoReefPick");
   }
-  getTeleopNet(){
+  getTeleopNet() {
     return this.getAverageNet("teleReefPick");
   }
-
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {
     const values: { value: number; sectionName: Options }[] = [];
@@ -562,5 +562,33 @@ export class TeamData {
         .length,
       this.matches.length
     );
+  }
+
+  getAverageMiddleAuto(): number {
+    if (this.matches.length === 0) {
+      return 0;
+    }
+
+    return (
+      this.matches
+        .filter((match) => match.gameSide === "middle")
+        .reduce(
+          (accumulator, match) =>
+            accumulator +
+            match.autoReefPick.algea.netScore +
+            match.autoReefPick.algea.processor +
+            match.autoReefPick.levels.L1.score +
+            match.autoReefPick.levels.L2.score +
+            match.autoReefPick.levels.L3.score +
+            match.autoReefPick.levels.L4.score,
+          0
+        ) / this.matches.length
+    );
+  }
+
+  getMiddleQuals() {
+    return this.matches
+      .filter((match) => match.gameSide === "middle")
+      .map((match) => TeamData.stringedQual(match.qual));
   }
 }
