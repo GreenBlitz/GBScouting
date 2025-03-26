@@ -1,3 +1,4 @@
+import { SideSafe } from "../scouter/input-types/SideInput";
 import ScouterInput from "../scouter/ScouterInput";
 import ScouterInputs from "../scouter/ScouterInputs";
 
@@ -42,8 +43,7 @@ export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
     );
 
   const mergeUndefinedNumbers = (
-    numbers: (number | "undefined" | undefined)[],
-    
+    numbers: (number | "undefined" | undefined)[]
   ) => {
     const filteredOnes = numbers.filter((number) => typeof number === "number");
     if (filteredOnes.length === 0) {
@@ -52,7 +52,7 @@ export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
     return avg(filteredOnes);
   };
 
-  const mergeUndefinedFields = (fields: string[]) => 
+  const mergeUndefinedFields = (fields: string[]) =>
     mergeUndefinedNumbers(
       matches
         .map((match) =>
@@ -61,7 +61,7 @@ export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
             match
           )
         )
-        .map((match) => match as unknown as (number | undefined | "undefined"))
+        .map((match) => match as unknown as number | undefined | "undefined")
     );
 
   const mergeBooleans = (booleans: boolean[]) =>
@@ -78,6 +78,15 @@ export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
         .map((match) => match as unknown as boolean)
     );
 
+  const mergeSides = (sideSafes: SideSafe[]) => {
+    const filteredOnes = sideSafes.filter((sideSafe) => sideSafe !== undefined);
+    if (filteredOnes.length === 0) {
+      return undefined;
+    } else {
+      return filteredOnes[0];
+    }
+  };
+
   return {
     scouterName: matches[0].scouterName,
     qual: matches[0].qual,
@@ -90,6 +99,7 @@ export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
       (accumulator, match) => accumulator + ", " + match.comment,
       ""
     ),
+    gameSide: mergeSides(matches.map((match) => match.gameSide)),
     teleReefPick: {
       algea: {
         netScore: avgFields(["teleReefPick", "algea", "netScore"]),
@@ -141,11 +151,26 @@ export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
       },
     },
     endgameCollection: {
-      algeaReefCollected: mergeBooleanFields(["endgameCollection", "algeaReefCollected"]),
-      algeaReefDropped: mergeBooleanFields(["endgameCollection", "algeaReefDropped"]),
-      algeaGroundCollected: mergeBooleanFields(["endgameCollection", "algeaGroundCollected"]),
-      coralGroundCollected: mergeBooleanFields(["endgameCollection", "coralGround"]),
-      coralFeederCollected: mergeBooleanFields(["endgameCollection", "coralFeederCollected"]),
+      algeaReefCollected: mergeBooleanFields([
+        "endgameCollection",
+        "algeaReefCollected",
+      ]),
+      algeaReefDropped: mergeBooleanFields([
+        "endgameCollection",
+        "algeaReefDropped",
+      ]),
+      algeaGroundCollected: mergeBooleanFields([
+        "endgameCollection",
+        "algeaGroundCollected",
+      ]),
+      coralGroundCollected: mergeBooleanFields([
+        "endgameCollection",
+        "coralGround",
+      ]),
+      coralFeederCollected: mergeBooleanFields([
+        "endgameCollection",
+        "coralFeederCollected",
+      ]),
     },
   };
 };

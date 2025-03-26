@@ -19,6 +19,19 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
 
     return "Park";
   };
+
+  const getGameSide = () => {
+    const isBlue = bbbMatch["D_ScouterID"].startsWith("B");
+    const side = bbbMatch["A_StartingPosition"];
+    if (side === "Left") {
+      return isBlue ? "close" : "far";
+    }
+    if (side === "Right") {
+      return isBlue ? "far" : "close";
+    }
+    return "middle";
+  };
+
   return {
     scouterName: bbbMatch["D_ScouterName"],
     qual: parseInt(bbbMatch["D_MatchNumber"]),
@@ -89,6 +102,7 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
         },
       },
     },
+    gameSide: getGameSide(),
     endgameCollection: {
       algeaReefCollected: bbbMatch["G_AlgaeInReef"] === "Direct",
       algeaReefDropped: bbbMatch["G_AlgaeInReef"] === "Drop",
@@ -153,7 +167,6 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     return recordValues;
   };
 
-
   const updateData = async () => {
     try {
       const range = "RawData";
@@ -172,7 +185,6 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       return [];
     }
   };
-
 
   updateData(); // Initial call to start the loop
   setInterval(updateData, 5 * 60 * 1000); // Makes updateData happen every five minutes

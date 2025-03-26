@@ -8,6 +8,7 @@ import ReefPickInput from "./input-types/reef-levels/ReefPickInput";
 import CollectionInput from "./input-types/CollectionInput";
 import TeamNumberInput from "./input-types/TeamNumberInput";
 import ManualTeamNumberInput from "./input-types/ManualTeamNumberInput";
+import SideInput from "./input-types/SideInput";
 
 export default class ScouterInputs {
   static create(inputs: ScouterInput<any, any, any>[]): React.JSX.Element[] {
@@ -82,5 +83,9 @@ export default class ScouterInputs {
 
   static readonly endgameCollection = new CollectionInput({
     route: "collection",
+  });
+
+  static readonly gameSide = new SideInput({
+    route: "gameSide",
   });
 }
