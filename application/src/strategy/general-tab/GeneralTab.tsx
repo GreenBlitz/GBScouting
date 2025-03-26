@@ -25,6 +25,7 @@ export interface GridItems {
   Defense: number;
   Evasion: number;
   Climb: number;
+  "Middle Auto": number;
 }
 
 interface PickArea {
@@ -102,6 +103,7 @@ export function processTeamData(teamNumber: number, data: TeamData): GridItems {
     Defense: data.getAverage(matchFieldNames.defense),
     Evasion: data.getAverage(matchFieldNames.defensiveEvasion),
     Climb: data.getAverageClimb(),
+    "Middle Auto": data.getAverageMiddleAuto(),
   };
 }
 
@@ -182,6 +184,10 @@ function getCellClassName(
 
     if (field === "Climb") {
       return `bg-green-${getStrength([1, 3, 6, 9, 12], numberedValue)}`;
+    }
+
+    if (field === "Middle Auto") {
+      return `bg-yellow-${getStrength([0.5, 1, 1.5, 2, 2.5], numberedValue)}`;
     }
 
     return "text-white";
