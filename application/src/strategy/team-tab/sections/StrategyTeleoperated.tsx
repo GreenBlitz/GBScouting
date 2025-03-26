@@ -160,14 +160,15 @@ const StrategyTeleoperated: React.FC = () => {
         </button>
       </div>
 
-      {teamData.notes && (
+      {teamData.notes.length > 0 && (
         <Collapsible
           trigger="Super Scouting"
-          openedClassName="border-2"
-          className="border-2"
+          openedClassName="border-2 py-2"
+          className="border-2 py-2"
         >
           {teamData.notes.map((notes) => (
-            <div>
+            <div className="my-5">
+              <h1 className="text-xl">Qual {notes.qual}</h1>
               {notes.body.climb !== "" && (
                 <h2 className="my-1">Climb: {notes.body.climb}</h2>
               )}

@@ -37,20 +37,7 @@ export class TeamData {
       )
       .sort((note1, note2) => parseInt(note1.qual) - parseInt(note2.qual));
 
-    this.notes = [
-      {
-        qual: "1",
-        body: {
-          defense: "",
-          evasion: "bro did not move there",
-          net: "",
-          coral: "",
-          climb: "",
-          driving: "Ye bro thats nice driving",
-          overall: "kinda mid",
-        },
-      },
-    ];
+    
   }
 
   static random(teamNumber: number) {
