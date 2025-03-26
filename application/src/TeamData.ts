@@ -439,9 +439,13 @@ export class TeamData {
   getTeleopCorals() {
     return this.getAverageCorals("teleReefPick");
   }
+  getAutopNet(){
+    return this.getAverageNet("autoReefPick");
+  }
   getTeleopNet(){
     return this.getAverageNet("teleReefPick");
   }
+
 
   getAsLinearHistogram<Options extends string>(field: keyof Match) {
     const values: { value: number; sectionName: Options }[] = [];

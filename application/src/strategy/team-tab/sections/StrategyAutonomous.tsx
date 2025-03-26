@@ -12,6 +12,7 @@ import {
   reefColorsScore,
 } from "./StrategyTeleoperated";
 import BarChart from "../../charts/BarChart";
+import NetChart from "../../charts/NetChart";
 
 const StrategyAutonomous: React.FC = () => {
   const { teamData } = useOutletContext<{ teamData: TeamData }>();
@@ -102,6 +103,10 @@ const StrategyAutonomous: React.FC = () => {
       <div className="flex flex-col items-center">
         <h1 className="text-2xl">Total Corals</h1>
         <CoralChart corals={corals} />
+      </div>
+      <div className="flex flex-col items-center">
+        <h1 className="text-2xl">Net stats</h1>
+        <NetChart algaes={teamData.getAutopNet()} />
       </div>
     </>
   );
