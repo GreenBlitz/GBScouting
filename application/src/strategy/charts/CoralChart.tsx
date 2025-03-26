@@ -63,12 +63,12 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
     }
     const coralLevels = Object.values(corals).reverse();
     if (coralElements.length <= coralLevels.length) {
-      const coralLevel = coralLevels[coralElements.length];
+      const coralLevel = coralLevels[coralElements.length - 1];
       setCorals([
         ...coralElements,
         createCoralElement(
           coralLevel,
-          Object.keys(corals).reverse()[coralElements.length]
+          Object.keys(corals).reverse()[coralElements.length - 1]
         ),
       ]);
     }
