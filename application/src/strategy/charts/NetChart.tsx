@@ -13,15 +13,14 @@ interface CoralChartProps {
 
 //😭😭😭 bruh what is this???? stupidest code i wrote. no way this going through CR
 const NetChart: React.FC<CoralChartProps> = ({ algaes }) => {
-    const scorePercentage: Percent = Percent.fromRatio(
+    const [scorePercentage, setStoragePercentage] = useState<Percent>(Percent.fromRatio(
       algaes.netScore,
       algaes.netMiss+algaes.netScore
-    );
+    ));
 
     if (isNaN(scorePercentage.value)) {
       return <></>;
-    }
-
+    } 
     return (
       <>
         <div key={"Net"} className="flex flex-row items-center">
