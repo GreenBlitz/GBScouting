@@ -30,7 +30,8 @@ const defaultNotes: Notes = {
   net: "",
   coral: "",
   climb: "",
-  faults: "",
+  overall: "",
+  driving: ""
 };
 
 export class TeamData {

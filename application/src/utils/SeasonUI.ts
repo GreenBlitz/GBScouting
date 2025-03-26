@@ -31,7 +31,8 @@ export interface Notes {
   net: string;
   coral: string;
   climb: string;
-  faults: string;
+  driving: string;
+  overall: string;
 }
 
 export const DCMPMatches: MatchTeams[] = [

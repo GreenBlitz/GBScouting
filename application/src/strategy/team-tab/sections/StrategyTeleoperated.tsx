@@ -160,7 +160,7 @@ const StrategyTeleoperated: React.FC = () => {
         </button>
       </div>
 
-      {teamData.notes  && (
+      {teamData.notes && (
         <Collapsible
           trigger="Super Scouting"
           openedClassName="border-2"
@@ -172,7 +172,8 @@ const StrategyTeleoperated: React.FC = () => {
             <h2 className="my-1">Defense: {teamData.notes.defense}</h2>
             <h2 className="my-1">Evasion: {teamData.notes.evasion}</h2>
             <h2 className="my-1">Coral: {teamData.notes.coral}</h2>
-            <h2 className="my-1">Faults: {teamData.notes.faults}</h2>
+            <h2 className="my-1">Driving: {teamData.notes.driving}</h2>
+            <h2 className="my-1">Overall: {teamData.notes.overall}</h2>
           </div>
         </Collapsible>
       )}

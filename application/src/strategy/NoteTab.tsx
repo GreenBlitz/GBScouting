@@ -14,7 +14,18 @@ const defaultNotes: Notes = {
   net: "",
   coral: "",
   climb: "",
-  faults: "",
+  driving: "",
+  overall: "",
+};
+
+const names = {
+  defense: "Defense",
+  evasion: "Evasion",
+  net: "Net",
+  coral: "Coral",
+  climb: "Climb",
+  overall: "Overall",
+  driving: "Driving",
 };
 
 const TeamElement: React.FC<{
@@ -24,10 +35,10 @@ const TeamElement: React.FC<{
 }> = ({ team, currentTeamNotes, setTeamNotes }) => {
   return (
     <div className="mx-2">
-      <div className="rower">
+      <div className="">
         {Object.keys(defaultNotes).map((noteType) => (
-          <div key={noteType}>
-            <h2 className="text-xl">{noteType}</h2>
+          <div className="rower my-1" key={noteType}>
+            <h2 className="text-xl w-20">{names[noteType]}</h2>
             <input
               type="text"
               ref={(input) => {
