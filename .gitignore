@@ -7,7 +7,6 @@ application/yarn-error.log*
 application/pnpm-debug.log*
 application/lerna-debug.log*
 
-
 application/node_modules
 application/*.local
 application/compiled
@@ -28,3 +27,6 @@ application/package-lock.json
 ssl-key.pem
 ssl.pem
 TBAkey.txt
+get-token.txt
+sheets-key.json
+sheets-id.txt

@@ -1,4 +1,3 @@
-
 export default class FolderStorage {
   private prefix: string;
   public readonly parent: Storage | FolderStorage;
@@ -51,12 +50,18 @@ export default class FolderStorage {
   with(prefix: string): FolderStorage {
     return new FolderStorage(this, prefix);
   }
+
+  asStorageBacked<T>(name: string): StorageBacked<T> {
+    return new StorageBacked<T>(name, this);
+  }
 }
 
 export const localFolder = new FolderStorage(localStorage);
 export const sessionFolder = new FolderStorage(sessionStorage);
 
 export const inputFolder = localFolder.with("inputs/");
+
+
 
 export class StorageBacked<T> {
   public readonly name: string;
@@ -97,7 +102,19 @@ export class StorageBacked<T> {
   }
 
   exists(): boolean {
-    return !!inputFolder.getItem(this.name);
+    return !!this.storage.getItem(this.name);
+  }
+
+  with(route: string): StorageBacked<T> {
+    return this.subItem<T>(route);
+  }
+
+  subItem<U>(route: string): StorageBacked<U> {
+    return new StorageBacked<U>(route, this.asFolder());
+  }
+
+  asFolder(): FolderStorage {
+    return new FolderStorage(this.storage, this.name);
   }
 }
 
@@ -106,3 +123,6 @@ export class StorageBackedInput<T> extends StorageBacked<T> {
     super(name, inputFolder);
   }
 }
+
+
+export const authorizationStorage: StorageBacked<string> = new StorageBacked("strategy/auth",localFolder);

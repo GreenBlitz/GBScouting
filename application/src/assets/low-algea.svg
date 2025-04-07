@@ -1,0 +1,16 @@
+<svg width="66" height="65" viewBox="0 0 66 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M33.0371 63.0533C50.1197 63.0533 63.9679 49.3748 63.9679 32.5014C63.9679 15.628 50.1197 1.94949 33.0371 1.94949C15.9546 1.94949 2.10645 15.628 2.10645 32.5014C2.10645 49.3748 15.9546 63.0533 33.0371 63.0533Z" fill="white" stroke="#2BB673" stroke-width="2.5" stroke-miterlimit="10"/>
+<path d="M33.0371 63.0533C50.1197 63.0533 63.9679 49.3748 63.9679 32.5014C63.9679 15.628 50.1197 1.94949 33.0371 1.94949C15.9546 1.94949 2.10645 15.628 2.10645 32.5014C2.10645 49.3748 15.9546 63.0533 33.0371 63.0533Z" fill="url(#paint0_radial_10_233)"/>
+<defs>
+<radialGradient id="paint0_radial_10_233" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(33.0372 32.5014) scale(30.7602 30.7222)">
+<stop offset="0.2" stop-color="#68C6B5"/>
+<stop offset="0.3" stop-color="#58C0B6"/>
+<stop offset="0.5" stop-color="#31B2BA"/>
+<stop offset="0.6" stop-color="#00A1BF"/>
+<stop offset="0.7" stop-color="#00A0BD"/>
+<stop offset="0.8" stop-color="#008F9E"/>
+<stop offset="0.9" stop-color="#00858B"/>
+<stop offset="1" stop-color="#008285"/>
+</radialGradient>
+</defs>
+</svg>

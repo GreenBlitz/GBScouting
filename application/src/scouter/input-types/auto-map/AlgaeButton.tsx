@@ -1,11 +1,11 @@
-import React, {  useState } from "react";
-import {
-  ValuesToBePassed,
-} from "./AutonomousMapInput";
+import React, { useState } from "react";
+import { ValuesToBePassed } from "./AutonomousMapInput";
+import algeaSVG from "../../../assets/Algea.svg";
+
 const AlgaeButton: React.FC<ValuesToBePassed> = (props) => {
   let allSushis = props.storage.get();
   const defineAlgae = () => {
-    return allSushis?.[props.sushiToBeChanged].HasHarvested;
+    return allSushis?.[props.sushiToBeChanged].algea;
   };
 
   const defineAlgaeText = () => {
@@ -31,7 +31,7 @@ const AlgaeButton: React.FC<ValuesToBePassed> = (props) => {
   };
   const changeSushiValue = (valueToChange: boolean) => {
     if (allSushis) {
-      allSushis[props.sushiToBeChanged].HasHarvested = valueToChange;
+      allSushis[props.sushiToBeChanged].algea = valueToChange;
       setStorage();
     }
   };
@@ -53,8 +53,12 @@ const AlgaeButton: React.FC<ValuesToBePassed> = (props) => {
     }
   };
   const algaeButton = (
-    <button style={{ backgroundColor: color }} onClick={handleChange}>
-      {text}
+    <button
+      style={{ backgroundColor: color }}
+      onClick={handleChange}
+      className="algae-button"
+    >
+      <img src={algeaSVG} width={40} height={40} alt="Algea Icon" />
     </button>
   );
   return <>{algaeButton}</>;

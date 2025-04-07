@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import {
-  ValuesToBePassed,
-} from "./AutonomousMapInput";
+import { ValuesToBePassed } from "./AutonomousMapInput";
+import coralSVG from "../../../assets/Coral.svg";
+
 const AlgaeButton: React.FC<ValuesToBePassed> = (props) => {
   let allSushis = props.storage.get();
   const defineCoral = () => {
-    return allSushis?.[props.sushiToBeChanged].HasSeeded;
+    return allSushis?.[props.sushiToBeChanged].coral;
   };
 
   const defineCoralText = () => {
@@ -31,7 +31,7 @@ const AlgaeButton: React.FC<ValuesToBePassed> = (props) => {
   };
   const changeSushiValue = (valueToChange: boolean) => {
     if (allSushis) {
-      allSushis[props.sushiToBeChanged].HasSeeded = valueToChange;
+      allSushis[props.sushiToBeChanged].coral = valueToChange;
       setStorage();
     }
   };
@@ -54,7 +54,7 @@ const AlgaeButton: React.FC<ValuesToBePassed> = (props) => {
   };
   const algaeButton = (
     <button style={{ backgroundColor: color }} onClick={handleChange}>
-      {text}
+      <img src={coralSVG} width={40} height={40} alt="Coral Icon" />
     </button>
   );
   return <>{algaeButton}</>;

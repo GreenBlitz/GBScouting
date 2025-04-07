@@ -1,3 +1,4 @@
+import { Point } from "chart.js";
 import { Color } from "./Color";
 import { Match } from "./Match";
 
@@ -8,7 +9,18 @@ export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
 }
 
 export function sortMatches(matches: Match[]) {
-  return matches.sort((match1, match2) => match1.qual - match2.qual);
+  return matches.sort((match1, match2) => {
+    if (match1.qual > 100 && match2.qual < 100) {
+      return -1;
+    } else if (match1.qual < 100 && match2.qual > 100) {
+      return 1;
+    }
+    return match1.qual - match2.qual;
+  });
+}
+
+export function getDistance(p1: Point, p2: Point) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 }
 
 export interface DataSet {
@@ -16,87 +28,56 @@ export interface DataSet {
   data: Record<string, number>;
 }
 
-export const FRCTeamList = [
-  "1574\tMisCar",
-  "1576\tVoltrix",
-  "1577\tSteampunk",
-  "1580\tThe Blue Monkeys",
-  "1657\tHamosad",
-  "1690\tOrbit",
-  "1937\tElysium",
-  "1942\tCinderella Tel-Nof",
-  "1943\tNeat Team",
-  "1954\tElectroBunny",
-  "2096\tRoboActive",
-  "2212\tThe Spikes",
-  "2230\tGeneral Angels",
-  "2231\tOnyxTronix",
-  "2630\tThunderbolts",
-  "2679\tAtlantis",
-  "3034\tGalileo",
-  "3065\tJatt High School",
-  "3075\tHa-Dream Team",
-  "3083\tArtemis",
-  "3211\tThe Y Team",
-  "3316\tD-Bug",
-  "3339\tBumbleB",
-  "3388\tFlash in memory of Margarita Gusak",
-  "3835\tVulcan",
-  "4319\tLadies FIRST",
-  "4320\tThe Joker",
-  "4338\tFalcons",
-  "4416\tSkynet",
-  "4586\tPRIMO",
-  "4590\tGreenBlitz",
-  "4661\tCypher",
-  "4744\tNinjas",
-  "5135\tBlack Unicorns",
-  "5291\tEmperius",
-  "5554\tThe Poros Robotics",
-  "5614\tTeam Sycamore",
-  "5635\tDemacia",
-  "5654\tPhoenix",
-  "5715\tDRC",
-  "5747\tAthena",
-  "5928\tMetalBoost",
-  "5951\tMakers Assemble",
-  "5987\tGalaxia in memory of David Zohar",
-  "5990\tTRIGON",
-  "6049\tPegasus",
-  "6104\tDesert Eagles",
-  "6168\talzahrawi",
-  "6230\tTeam Koi",
-  "6738\tExcalibur",
-  "6740\tG3 - Glue Gun & Glitter",
-  "6741\tSpace monkeys",
-  "7039\t❌⭕",
-  "7067\tTeam Streak",
-  "7112\tEverGreen",
-  "7177\tAmal tayibe",
-  "7554\tGreen Rockets",
-  "7845\t8BIT",
-  "8175\tPiece of Mind",
-  "8223\tMariners",
-  "8843\tAmal Space and Aviation Maale Adumim",
-  "9303\tPO®️TAL to GOATland",
-  "9304\tlegend's",
-  "9738\tIonic Bond",
-  "9739\tFirefly",
-  "9740\tCAN://Bus",
-  "9741\tSTORM",
-  "9985\tOff-Season Demo Team 9986",
-  "9986\tOff-Season Demo Team 9986",
-  "9987\tOff-Season Demo Team 9986",
-  "9988\tOff-Season Demo Team 9986",
-  "9989\tOff-Season Demo Team 9986",
-  "9990\tOff-Season Demo Team 9986",
-  "9991\tOff-Season Demo Team 9986",
-  "9992\tOff-Season Demo Team 9986",
-  "9993\tOff-Season Demo Team 9986",
-  "9994\tOff-Season Demo Team 9986",
-  "9995\tOff-Season Demo Team 9986",
-  "9996\tOff-Season Demo Team 9986",
-  "9997\tOff-Season Demo Team 9986",
-  "9998\tOff-Season Demo Team 9986",
-  "9999\tOff-Season Demo Team 9986",
-];
+export const FRCTeamList: Record<number, string> = {
+  1574: "MisCar",
+  1576: "Voltrix",
+  1577: "Steampunk",
+  1690: "Orbit",
+  1937: "Elysium",
+  1942: "Cinderella Tel-Nof",
+  2096: "RoboActive",
+  2230: "General Angels",
+  2231: "OnyxTronix",
+  2630: "Thunderbolts",
+  3065: "Jatt High School",
+  3075: "Ha-Dream Team",
+  3083: "Artemis",
+  3211: "The Y Team",
+  3316: "D-Bug",
+  3339: "BumbleB",
+  3388: "Flash in memory of Margarita Gusak",
+  4320: "The Joker",
+  4338: "Falcons",
+  4416: "Skynet",
+  4586: "PRIMO",
+  4590: "GreenBlitz",
+  4661: "Cypher",
+  4744: "Ninjas",
+  5135: "Black Unicorns",
+  5554: "The Poros Robotics",
+  5614: "Team Sycamore",
+  5635: "Demacia",
+  5654: "Phoenix",
+  5715: "DRC",
+  5928: "MetalBoost",
+  5951: "Makers Assemble",
+  5987: "Galaxia in memory of David Zohar",
+  5990: "TRIGON",
+  6104: "Desert Eagles in memory of Yehonatan Maimon",
+  6738: "Excalibur",
+  6740: "G3 - Glue Gun & Glitter",
+  7039: "❌⭕",
+  7067: "Team Streak",
+  7112: "EverGreen",
+  7845: "8BIT",
+  8175: "Piece of Mind",
+  8223: "Mariners",
+  9738: "Ionic Bond",
+  9740: "CANBus in memory of Roney Tal",
+};
+
+export const FRCTeamArray = Object.entries(FRCTeamList).map(([key, value]) => ({
+  id: `${key} ${value}`,  // Combine the key (ID) and value (team name)
+  value: Number(key),     // Keep the numeric value for ID
+}));
+
