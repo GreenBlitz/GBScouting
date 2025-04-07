@@ -4,7 +4,7 @@ import { Collection } from "../../utils/SeasonUI";
 import CoralSVG from "../../assets/low-coral.svg";
 import AlgeaSVG from "../../assets/low-algea.svg";
 import ScouterInput, { InputProps } from "../ScouterInput";
-import { StorageBacked } from "../../utils/FolderStorage";
+import { StorageBacked } from "../../../../vite-project/src/utils/FolderStorage";
 
 type CollectionAction = keyof Collection;
 

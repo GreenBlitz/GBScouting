@@ -1,5 +1,5 @@
 import React from "react";
-import { StorageBackedInput } from "../utils/FolderStorage";
+import { StorageBackedInput } from "../../../vite-project/src/utils/FolderStorage";
 
 export interface InputProps<T> {
   route: string;

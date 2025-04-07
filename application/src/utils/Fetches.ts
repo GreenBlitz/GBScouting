@@ -1,4 +1,4 @@
-import { authorizationStorage } from "./FolderStorage";
+import { authorizationStorage } from "../../../vite-project/src/utils/FolderStorage";
 import { Match } from "./Match";
 import { DCMPMatches, Notes } from "./SeasonUI";
 

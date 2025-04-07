@@ -1,7 +1,7 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../../ScouterInput";
 import "./reefScore.css";
-import { StorageBacked } from "../../../utils/FolderStorage";
+import { StorageBacked } from "../../../../../vite-project/src/utils/FolderStorage";
 import { Collection, UsedAlgea } from "../../../utils/SeasonUI";
 
 export interface PickValues {

@@ -1,4 +1,9 @@
-import { rangeArr } from "./Utils";
+
+export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
+  return Array.from({ length: rangeEnd - rangeStart }).map(
+    (_, i) => i + rangeStart
+  );
+}
 
 export class BitArray {
   boolArr: boolean[];

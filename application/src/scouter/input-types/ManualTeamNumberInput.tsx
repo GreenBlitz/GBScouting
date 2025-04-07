@@ -1,7 +1,10 @@
 import React from "react";
 import ScouterInput, { InputProps } from "../ScouterInput";
 import { fetchAllAwaitingMatches } from "../../utils/Fetches";
-import { localFolder, StorageBackedInput } from "../../utils/FolderStorage";
+import {
+  localFolder,
+  StorageBackedInput,
+} from "../../../../vite-project/src/utils/FolderStorage";
 
 // Interfaces for the component's data structure
 interface TwoOptions<T, P extends T[]> {

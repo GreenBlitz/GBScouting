@@ -2,12 +2,6 @@ import { Point } from "chart.js";
 import { Color } from "./Color";
 import { Match } from "./Match";
 
-export function rangeArr(rangeStart: number, rangeEnd: number): number[] {
-  return Array.from({ length: rangeEnd - rangeStart }).map(
-    (_, i) => i + rangeStart
-  );
-}
-
 export function sortMatches(matches: Match[]) {
   return matches.sort((match1, match2) => {
     if (match1.qual > 100 && match2.qual < 100) {
