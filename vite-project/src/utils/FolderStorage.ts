@@ -32,7 +32,7 @@ export default class FolderStorage {
   keys(): string[] {
     const isParentFolder = this.parent.keys !== undefined;
     const parentKeys = isParentFolder
-      ? this.parent.keys()
+      ? (this.parent as FolderStorage).keys() 
       : Object.keys(this.parent);
     return parentKeys
       .filter((key) => key.startsWith(this.prefix))
@@ -58,10 +58,6 @@ export default class FolderStorage {
 
 export const localFolder = new FolderStorage(localStorage);
 export const sessionFolder = new FolderStorage(sessionStorage);
-
-export const inputFolder = localFolder.with("inputs/");
-
-
 
 export class StorageBacked<T> {
   public readonly name: string;
@@ -117,12 +113,3 @@ export class StorageBacked<T> {
     return new FolderStorage(this.storage, this.name);
   }
 }
-
-export class StorageBackedInput<T> extends StorageBacked<T> {
-  constructor(name: string) {
-    super(name, inputFolder);
-  }
-}
-
-
-export const authorizationStorage: StorageBacked<string> = new StorageBacked("strategy/auth",localFolder);

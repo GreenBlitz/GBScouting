@@ -4,9 +4,11 @@ export default class Percent {
   public readonly value: number;
   public readonly complement: number;
 
-  constructor(value: number) {
+  constructor(value: number);
+  constructor(value: number, base: number);
+  constructor(value: number, base: number = Percent.PERCENTAGE_BASE) {
     this.value = value;
-    this.complement = Percent.PERCENTAGE_BASE - value;
+    this.complement = base - value;
   }
 
   and(other: Percent): Percent {
@@ -37,5 +39,17 @@ export default class Percent {
         return { [key]: percentList[index] };
       })
     );
+  }
+
+  static iteratorFunction<T>(
+    toList: (enumerable: T) => number[],
+    fromList: (percents: Percent[]) => T
+  ) {
+    return (enumerable: T): T => {
+      const list = toList(enumerable);
+      const sum = list.reduce((accumulator, value) => accumulator + value);
+      const percents = list.map((value) => this.fromRatio(value, sum));
+      return fromList(percents);
+    };
   }
 }
