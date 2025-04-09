@@ -1,18 +1,7 @@
-import { useState, useEffect } from "react";
-import BaseScouterInput from "./BaseScouterInput";
+import { BaseScouterInput, useInputStorage } from "./BaseScouterInput";
 
-
-const TextScouterInput: BaseScouterInput<string> = ({
-  storage,
-  defaultValue,
-}) => {
-  const [value, setValue] = useState<string>(
-    storage.get() ?? defaultValue ?? ""
-  );
-
-  useEffect(() => {
-    storage.set(value);
-  }, [value, storage]);
+const TextScouterInput: BaseScouterInput<string> = ({ defaultValue, name }) => {
+  const [value, setValue] = useInputStorage(name, defaultValue || "");
 
   return (
     <input
@@ -22,3 +11,5 @@ const TextScouterInput: BaseScouterInput<string> = ({
     />
   );
 };
+
+export default TextScouterInput;
