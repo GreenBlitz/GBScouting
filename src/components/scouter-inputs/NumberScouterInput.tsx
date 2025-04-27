@@ -1,6 +1,12 @@
-import { BaseScouterInput, useInputStorage } from "./BaseScouterInput";
+import {
+  ScouterInputProps,
+  useInputStorage,
+} from "./BaseScouterInput";
 
-const NumberScouterInput: BaseScouterInput<number> = ({ defaultValue, name }) => {
+const NumberScouterInput: React.FC<ScouterInputProps<number>> = ({
+  defaultValue,
+  name,
+}) => {
   const [value, setValue] = useInputStorage(name, defaultValue || 0);
 
   return (

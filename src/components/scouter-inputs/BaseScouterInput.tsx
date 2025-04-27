@@ -10,14 +10,12 @@ class StorageBackedInput<T> extends StorageBacked<T> {
   }
 }
 
-export type ScouterInputElement = React.ReactElement<
-  BaseScouterInputProps<any>
->;
+export type ScouterInputElement = React.ReactElement<ScouterInputProps<any>>;
 
-export interface BaseScouterInputProps<T> {
+export type ScouterInputProps<T, Props = {}> = {
   name: string;
   defaultValue?: T;
-}
+} & Props;
 
 export const useInputStorage = <T,>(
   name: string,
@@ -32,11 +30,3 @@ export const useInputStorage = <T,>(
   };
   return [value, setStorageValue];
 };
-
-export type BaseScouterInput<T, Props = {}> = React.FC<
-  BaseScouterInputProps<T> & Props
->;
-export abstract class BaseClassScouterInput<
-  T,
-  Props = {}
-> extends React.Component<BaseScouterInputProps<T> & Props> {}

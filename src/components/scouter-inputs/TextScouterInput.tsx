@@ -1,6 +1,6 @@
-import { BaseScouterInput, useInputStorage } from "./BaseScouterInput";
+import {  ScouterInputProps, useInputStorage } from "./BaseScouterInput";
 
-const TextScouterInput: BaseScouterInput<string> = ({ defaultValue, name }) => {
+const TextScouterInput: React.FC<ScouterInputProps<string>> = ({ defaultValue, name }) => {
   const [value, setValue] = useInputStorage(name, defaultValue || "");
 
   return (
