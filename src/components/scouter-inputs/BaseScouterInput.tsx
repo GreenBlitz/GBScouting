@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { localFolder, StorageBacked } from "../../utils/FolderStorage";
 import React from "react";
+import ScoutForm from "../../types/ScoutForm";
 
 const inputStorage = localFolder.with("inputs/");
 
@@ -13,7 +14,7 @@ class StorageBackedInput<T> extends StorageBacked<T> {
 export type ScouterInputElement = React.ReactElement<ScouterInputProps<any>>;
 
 export type ScouterInputProps<T, Props = {}> = {
-  name: string;
+  name: keyof ScoutForm;
   defaultValue?: T;
 } & Props;
 

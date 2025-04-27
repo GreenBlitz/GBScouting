@@ -4,7 +4,7 @@ const DropdownScouterInput = <Options extends string>({
   defaultValue,
   name,
   dropdownOptions,
-}: ScouterInputProps<Options, { dropdownOptions: Options[] }>) => {
+}: ScouterInputProps<Options, { dropdownOptions: readonly Options[]}>) => {
   const [value, setValue] = useInputStorage(name, defaultValue || "");
 
   return (

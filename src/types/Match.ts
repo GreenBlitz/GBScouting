@@ -1,7 +1,4 @@
-interface Match {
 
-}
+export const matchTypes = ["practice", "qual", "playoff"] as const;
+export type MatchType = typeof matchTypes[number];
 
-export type MatchType = "practice" | "qual" | "playoff";
-
-export default Match;
