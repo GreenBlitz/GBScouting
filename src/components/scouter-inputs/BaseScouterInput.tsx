@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { localFolder, StorageBacked } from "../../utils/FolderStorage";
+import React from "react";
 
 const inputStorage = localFolder.with("inputs/");
 
@@ -32,4 +33,10 @@ export const useInputStorage = <T,>(
   return [value, setStorageValue];
 };
 
-export type BaseScouterInput<T,Props = {}> = React.FC<BaseScouterInputProps<T> & Props>;
+export type BaseScouterInput<T, Props = {}> = React.FC<
+  BaseScouterInputProps<T> & Props
+>;
+export abstract class BaseClassScouterInput<
+  T,
+  Props = {}
+> extends React.Component<BaseScouterInputProps<T> & Props> {}

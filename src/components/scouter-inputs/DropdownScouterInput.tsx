@@ -1,17 +1,33 @@
-import { BaseScouterInput, useInputStorage } from "./BaseScouterInput";
+import { BaseClassScouterInput, BaseScouterInput, useInputStorage } from "./BaseScouterInput";
 
 
-const DropdownScouterInput = <Options,>({ defaultValue, name }) => {
-  const [value, setValue] = useInputStorage(name, defaultValue || 0);
+const CreateDropdown = <Options extends string>() => {
+  const Dropdown: BaseScouterInput<Options, { dropdownOptions: Options[] }> = ({
+    defaultValue,
+    name,
+    dropdownOptions,
+  }) => {
+    const [value, setValue] = useInputStorage(name, defaultValue || "");
 
-  return (
-    <input
-      type="number"
-      value={value}
-      onChange={(e) => setValue(parseInt(e.target.value))}
-    />
-  );
+    return (
+      <select value={value} onChange={(e) => setValue(e.target.value)}>
+        {dropdownOptions.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    );
+  };
+  return Dropdown;
 };
 
-const actual: BaseScouterInput<string> = DropdownScouterInput;
+
+class DropdownScouterInput<Options extends string> extends BaseClassScouterInput<Options, { dropdownOptions: Options[] }> {
+    render() {
+        const Dropdown = CreateDropdown<Options>();
+        return <Dropdown {...this.props} />;
+    }
+}
+
 export default DropdownScouterInput;
