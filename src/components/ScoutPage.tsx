@@ -13,6 +13,7 @@ const ScoutPage: React.FC = () => {
         <TextScouterInput name="scouterName" />
         <NumberScouterInput name="matchNumber" defaultValue={0} />
         <DropdownScouterInput name="matchType" dropdownOptions={matchTypes}  />
+        <NumberScouterInput name="teamNumber" defaultValue={0} />
       </ScouterTab>
     </div>
   );
