@@ -32,4 +32,4 @@ export const useInputStorage = <T,>(
   return [value, setStorageValue];
 };
 
-export type BaseScouterInput<T> = React.FC<BaseScouterInputProps<T>>;
+export type BaseScouterInput<T,Props = {}> = React.FC<BaseScouterInputProps<T> & Props>;
