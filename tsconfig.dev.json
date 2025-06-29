@@ -10,5 +10,5 @@
     "rootDir": ".",
     "types": ["node"]
   },
-  "include": ["backend/**/*.ts"]
+  "include": ["src/backend/**/*.ts"]
 }
