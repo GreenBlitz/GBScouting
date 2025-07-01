@@ -46,6 +46,11 @@ const fiveMinutes = 60 * 5 * oneSecond;
 
 updateAllItemsISA();
 setInterval(updateAllItemsISA, fiveMinutes);
+
 const router = Router();
+
+router.get("/",(req, res) => {
+  
+})
 
 export default router;
