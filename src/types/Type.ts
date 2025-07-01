@@ -1,8 +1,13 @@
 export function getType(obj: any): string {
-  const objectType = typeof obj;
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
   if (Array.isArray(obj)) {
     return getArrayType(obj);
   }
+
+  const objectType = typeof obj;
+
   if (objectType !== "object") {
     return objectType;
   }
