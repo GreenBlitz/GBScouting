@@ -1,25 +1,29 @@
-export function getType<T extends {}>(obj: T) {
-  return Object.entries(obj).reduce((acc, [key, value]) => {
-    acc += `${key} : `;
+export function getType(obj: any): string {
+  const objectType = typeof obj;
+  if (Array.isArray(obj)) {
+    return getArrayType(obj);
+  }
+  if (objectType !== "object") {
+    return objectType;
+  }
+  return getObjectType(obj);
+}
 
+function getObjectType<T extends {}>(obj: T): string {
+  const nestedObjects = Object.entries(obj).reduce(
+    (acc, [key, value]) => `${acc}\n${key} :  ${getType(value)},`,
+    ""
+  );
 
-    if (Array.isArray(value)) {
-      if (value.length === 0) {
-        acc += "[]";
-      } else if (typeof value[0] === "object") {
-        acc += `${getType(value[0])}[]`;
-      } else {
-        acc += `${typeof value[0]}[]`;
-      }
-    }
-    
-    else if (typeof value === "object" && value) {
-      acc += `{\n${getType(value)}}`;
-    } 
-    else {
-      acc += typeof value;
-    }
-    acc += ",\n";
-    return acc;
-  }, "");
+  return `{\n${nestedObjects}\n}`;
+}
+
+function getArrayType(arr: any[]): string {
+  if (arr.length === 0) {
+    return "[]";
+  }
+  return `(${arr
+    .map(getType)
+    .filter((value, index, arr) => arr.indexOf(value) === index)
+    .reduce((acc, prev) => `${acc} | ${prev}`)})[]`;
 }
