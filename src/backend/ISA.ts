@@ -26,17 +26,26 @@ function getAllItemsISA(): Promise<ISAScoutForm[]> {
 
 function updateAllItemsISA() {
   return PromisedDatabase.then((db) =>
-    getAllItemsISA().then((items) => {
+    getAllItemsISA().then(async (items) => {
       if (items.length === 0) {
         return;
       }
       const isaData = db.collection("isa/data");
+      const existingData = await isaData.find().toArray();
+      if (existingData.length === items.length) {
+        return;
+      }
       isaData.deleteMany();
       isaData.insertMany(items);
     })
   );
 }
 
+const oneSecond = 1000;
+const fiveMinutes = 60 * 5 * oneSecond;
+
+updateAllItemsISA();
+setInterval(updateAllItemsISA, fiveMinutes);
 const router = Router();
 
 export default router;
