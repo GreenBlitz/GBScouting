@@ -1,4 +1,4 @@
-import { AutoCoralBranch, GBScoutForm } from "../types/GBScoutForm";
+import { AutoCoralBranch, GBScoutForm } from "../types/GBScoutForm.js";
 
 export class GBForm {
   public readonly scoutForm: Readonly<GBScoutForm>;
