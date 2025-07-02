@@ -1,7 +1,7 @@
 import { GBScoutForm } from "../types/GBScoutForm";
 import ISAScoutForm from "../types/ISAScoutForm";
 
-export function ISAtoGB(ISAForm: ISAScoutForm): GBScoutForm {
+function ISAtoGB(ISAForm: ISAScoutForm): GBScoutForm {
   return {
     deviceInfo: {
       teamNumber: ISAForm.deviceTeamNumber,
@@ -133,3 +133,4 @@ export function ISAtoGB(ISAForm: ISAScoutForm): GBScoutForm {
     },
   };
 }
+export default ISAtoGB;
