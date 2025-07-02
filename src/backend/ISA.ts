@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Router } from "express";
-import PromisedDatabase from "./DB.js";
+import { PromisedFormsCollection } from "./DB.js";
 import ISAScoutForm from "../types/ISAScoutForm.js";
 import dotenv from "dotenv";
+import { ISAtoGB } from "./ISAtoGB.js";
 
 dotenv.config();
 
@@ -24,19 +24,18 @@ function getAllItemsISA(): Promise<ISAScoutForm[]> {
     .then((response) => response.data);
 }
 
-function updateAllItemsISA() {
-  return PromisedDatabase.then((db) =>
+function updateAllItems() {
+  return PromisedFormsCollection.then((collection) =>
     getAllItemsISA().then(async (items) => {
       if (items.length === 0) {
         return;
       }
-      const isaData = db.collection("isa/data");
-      const existingData = await isaData.find().toArray();
+      const existingData = await collection.find().toArray();
       if (existingData.length === items.length) {
         return;
       }
-      isaData.deleteMany();
-      isaData.insertMany(items);
+      collection.deleteMany();
+      collection.insertMany(items.map(ISAtoGB));
     })
   );
 }
@@ -44,13 +43,9 @@ function updateAllItemsISA() {
 const oneSecond = 1000;
 const fiveMinutes = 60 * 5 * oneSecond;
 
-updateAllItemsISA();
-setInterval(updateAllItemsISA, fiveMinutes);
+export function startConstantlyUpdatingISA() {
+  console.log("Started Updating DB for ISA");
 
-const router = Router();
-
-router.get("/",(req, res) => {
-  
-})
-
-export default router;
+  updateAllItems();
+  setInterval(updateAllItems, fiveMinutes);
+}

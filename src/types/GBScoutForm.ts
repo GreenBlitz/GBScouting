@@ -4,7 +4,7 @@ export interface GBScoutForm {
   generalRobotInfo: GeneralInfo;
   eventInfo: EventInfo;
   goodAt: GoodAt;
-  autoCoral: Auto;
+  auto: Auto;
   teleop: Teleop;
 }
 
@@ -47,17 +47,17 @@ interface Auto {
 }
 
 interface GoodAt {
-  goodAtCoralL1: number;
-  goodAtCoralL2: number;
-  goodAtCoralL3: number;
-  goodAtCoralL4: number;
-  goodAtAlgaeNet: number;
-  goodAtAlgaeProcessor: number;
-  goodAtClimb: number;
-  goodAtDefense: number;
-  goodAtWorkingWithAlliance: number;
-  goodAtDriving: number;
-  goodAtAuto: number;
+  coralL1: boolean;
+  coralL2: boolean;
+  coralL3: boolean;
+  coralL4: boolean;
+  algaeNet: boolean;
+  algaeProcessor: boolean;
+  climb: boolean;
+  defense: boolean;
+  workingWithAlliance: boolean;
+  driving: boolean;
+  auto: boolean;
 }
 
 interface Teleop {
@@ -67,17 +67,15 @@ interface Teleop {
   L4: number;
   Processor: number;
   Net: number;
-  Park: boolean;
+  AttemptedPark: boolean;
   AttemptedShallow: boolean;
   AttemptedDeep: boolean;
-  SuccessfulShallow: boolean;
-  SuccessfulDeep: boolean;
 }
 
 interface PreMatch {
   flag: string;
   noShow: boolean;
-  startingLocation: "A" | "B" | "C"
+  startingLocation: "A" | "B" | "C";
   died: boolean;
   matchNumber: number;
   teamNumber: number;
