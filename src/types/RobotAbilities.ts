@@ -1,4 +1,4 @@
-import { GBFormUtils } from "../utils/GBFormUtils.js";
+import { GBForm } from "../utils/GBForm.js";
 import { GBScoutForm } from "./GBScoutForm.js";
 
 export interface RobotAbilities {
@@ -34,16 +34,16 @@ export const defaultRobotAbilities: RobotAbilities = {
 type RawRobotAbilities = Record<keyof RobotAbilities, number>;
 
 export const getRobotAbilities = (robotForm: GBScoutForm) => {
-  const formUtil = new GBFormUtils(robotForm);
+  const form = new GBForm(robotForm);
   const abilitiesRaw: RawRobotAbilities = {
-    L1: formUtil.getL1(),
-    L2: formUtil.getBranchLevel("L2"),
-    L3: formUtil.getBranchLevel("L3"),
-    L4: formUtil.getBranchLevel("L4"),
-    net: formUtil.getNet(),
-    processor: formUtil.getProcessor(),
-    algeaReef: Number(robotForm.generalRobotInfo.removedAlgaeFromReef),
-    defense: Number(robotForm.generalRobotInfo.playedDefense),
+    L1: form.getL1(),
+    L2: form.getBranchLevel("L2"),
+    L3: form.getBranchLevel("L3"),
+    L4: form.getBranchLevel("L4"),
+    net: form.getNet(),
+    processor: form.getProcessor(),
+    algeaReef: Number(form.scoutForm.generalRobotInfo.removedAlgaeFromReef),
+    defense: Number(form.scoutForm.generalRobotInfo.playedDefense),
     deepCage: 0,
   };
 
