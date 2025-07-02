@@ -116,8 +116,8 @@ function ISAtoGB(ISAForm: ISAScoutForm): GBScoutForm {
         IJ: ISAForm.autoCoralIJL1,
         KL: ISAForm.autoCoralKLL1,
       },
-      autoProcessor: ISAForm.autoProcessor,
-      autoNet: ISAForm.autoNet,
+      processor: ISAForm.autoProcessor,
+      net: ISAForm.autoNet,
       leave: Boolean(ISAForm.autoCrossedRSL),
     },
     teleop: {
@@ -125,11 +125,11 @@ function ISAtoGB(ISAForm: ISAScoutForm): GBScoutForm {
       L2: ISAForm.teleopL2,
       L3: ISAForm.teleopL3,
       L4: ISAForm.teleopL4,
-      Processor: ISAForm.teleopProcessor,
-      Net: ISAForm.teleopNet,
-      AttemptedPark: Boolean(ISAForm.teleopPark),
-      AttemptedShallow: Boolean(ISAForm.teleopAttemptedShallow),
-      AttemptedDeep: Boolean(ISAForm.teleopAttemptedDeep),
+      processor: ISAForm.teleopProcessor,
+      net: ISAForm.teleopNet,
+      attemptedPark: Boolean(ISAForm.teleopPark),
+      attemptedShallow: Boolean(ISAForm.teleopAttemptedShallow),
+      attemptedDeep: Boolean(ISAForm.teleopAttemptedDeep),
     },
   };
 }
