@@ -27,7 +27,6 @@ type RawRobotAbilities = Record<keyof RobotAbilities, number>;
 export const addRobotAbilities = (
   baseAbilities: RobotAbilities,
   form: GBScoutForm,
-  deepCage?: boolean
 ): RobotAbilities => {
   const abilitiesRaw: RawRobotAbilities = {
     L1: formUtils.getL1(form),
@@ -38,7 +37,7 @@ export const addRobotAbilities = (
     processor: formUtils.getProcessor(form),
     algeaReef: Number(form.generalRobotInfo.removedAlgaeFromReef),
     defense: Number(form.generalRobotInfo.playedDefense),
-    deepCage: Number(deepCage),
+    deepCage: 0,
   };
 
   const getAsAbility = (amount: number): RobotAbility => ({
