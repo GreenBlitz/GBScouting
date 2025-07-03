@@ -4,7 +4,6 @@ import {
   addRobotAbilities,
   defaultRobotAbilities,
 } from "../types/RobotAbilities.js";
-import { GBForm } from "../utils/GBForm.js";
 
 const router = Router();
 
@@ -16,7 +15,7 @@ router.get("/abilities/:team", (req, res) => {
   )
     .then((forms) =>
       forms.reduce(
-        (acc, form) => addRobotAbilities(acc, new GBForm(form)),
+        (acc, form) => addRobotAbilities(acc, form),
         defaultRobotAbilities
       )
     )

@@ -1,5 +1,6 @@
-import { GBForm } from "../utils/GBForm.js";
+import { GBScoutForm } from "./GBScoutForm.js";
 import { InsureBasis } from "./TypeUtils.js";
+import * as formUtils from "../utils/GBFormUtils.js";
 
 const defaultAbility = { succeeded: 0, failed: 0 };
 type Ability = typeof defaultAbility;
@@ -25,17 +26,17 @@ type RawRobotAbilities = Record<keyof RobotAbilities, number>;
 
 export const addRobotAbilities = (
   baseAbilities: RobotAbilities,
-  form: GBForm
+  form: GBScoutForm
 ) => {
   const abilitiesRaw: RawRobotAbilities = {
-    L1: form.getL1(),
-    L2: form.getBranchLevel("L2"),
-    L3: form.getBranchLevel("L3"),
-    L4: form.getBranchLevel("L4"),
-    net: form.getNet(),
-    processor: form.getProcessor(),
-    algeaReef: Number(form.scoutForm.generalRobotInfo.removedAlgaeFromReef),
-    defense: Number(form.scoutForm.generalRobotInfo.playedDefense),
+    L1: formUtils.getL1(form),
+    L2: formUtils.getBranchLevel(form,"L2"),
+    L3: formUtils.getBranchLevel(form,"L3"),
+    L4: formUtils.getBranchLevel(form,"L4"),
+    net: formUtils.getNet(form),
+    processor: formUtils.getProcessor(form),
+    algeaReef: Number(form.generalRobotInfo.removedAlgaeFromReef),
+    defense: Number(form.generalRobotInfo.playedDefense),
     deepCage: 0,
   };
 
