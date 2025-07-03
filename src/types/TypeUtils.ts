@@ -1,1 +1,1 @@
-export type InsureBasis<T extends Y, Y = any> = T;
+export type Constrained<T extends Constraint, Constraint = any> = T;
