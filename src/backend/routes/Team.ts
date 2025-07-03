@@ -8,18 +8,18 @@ import {
 const router = Router();
 
 router.get("/abilities/:team", (req, res) => {
-  PromisedFormsCollection.then((collection) =>
+  const teamForms = PromisedFormsCollection.then((collection) =>
     collection
       .find({ "preMatch.teamNumber": parseInt(req.params.team) })
       .toArray()
-  )
-    .then((forms) =>
-      forms.reduce(
-        (acc, form) => addRobotAbilities(acc, form),
-        defaultRobotAbilities
-      )
+  );
+  const robotAbilities = teamForms.then((forms) =>
+    forms.reduce(
+      (acc, form) => addRobotAbilities(acc, form),
+      defaultRobotAbilities
     )
-    .then((items) => res.status(200).json(items));
+  );
+  robotAbilities.then((items) => res.status(200).json(items));
 });
 
 export default router;

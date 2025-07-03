@@ -17,7 +17,7 @@ export const defaultRobotAbilities = {
   deepCage: { ...defaultAbility },
 };
 
-type RobotAbilities = InsureBasis<
+export type RobotAbilities = InsureBasis<
   typeof defaultRobotAbilities,
   Record<string, Ability>
 >;
