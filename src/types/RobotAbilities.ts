@@ -1,5 +1,5 @@
 import { GBScoutForm } from "./GBScoutForm.js";
-import { Constrained } from "./TypeUtils.js";
+import { Constrained } from "./UtilTypes.js";
 import * as formUtils from "../utils/GBFormUtils.js";
 
 const defaultAbility = { succeeded: 0, failed: 0 };
