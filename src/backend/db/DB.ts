@@ -7,9 +7,9 @@ const PromisedDatabase: Promise<Db> = MongoClient.connect(mongoURI).then(
   (client) => client.db("GBScouting")
 );
 
-function collectionize<T extends {}>(name: string): Promise<Collection<T>> {
+function getCollection<T extends {}>(name: string): Promise<Collection<T>> {
   return PromisedDatabase.then((db) => db.collection<T>(name));
 }
 
 export const PromisedFormsCollection =
-  collectionize<GBScoutForm>("data/scoutForms");
+  getCollection<GBScoutForm>("data/scoutForms");
