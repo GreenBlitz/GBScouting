@@ -87,8 +87,46 @@ interface AllianceData {
   dq_team_keys: [];
   score: number;
   surrogate_team_keys: [];
-  team_keys: string[];
+  team_keys: TeamKey[];
 }
 
 type EndgameRobot = "None" | "Parked" | "DeepCage" | "ShallowCage";
 type YesNo = "Yes" | "No";
+type TeamKey = `frc${number}`;
+type DirtyTeamKey = number | TeamKey;
+type Alliance = keyof Alliancize<any>;
+
+const getKey = (team: DirtyTeamKey): TeamKey =>
+  typeof team === "number" ? `frc${team}` : team;
+
+export const isTeamInAlliance = (
+  match: TBAMatch,
+  team: DirtyTeamKey,
+  alliance: Alliance
+) => {
+  const teamKey: TeamKey = getKey(team);
+  return match.alliances[alliance].team_keys.includes(teamKey);
+};
+
+export const isTeamInGame = (match: TBAMatch, team: DirtyTeamKey) =>
+  isTeamInAlliance(match, team, "blue") || isTeamInAlliance(match, team, "red");
+
+export const didTeamClimb = (match: TBAMatch, team: DirtyTeamKey) => {
+  const isBlue = isTeamInAlliance(match, team, "blue");
+  const alliance: Alliance = isBlue ? "blue" : "red";
+  const robotNumber =
+    match.alliances[alliance].team_keys.findIndex((other) => other === team) +
+    1;
+  const allianceBreakdown = match.score_breakdown[alliance];
+
+  const yesNoClimb: YesNo =
+    robotNumber === 1
+      ? allianceBreakdown.autoLineRobot1
+      : robotNumber === 2
+      ? allianceBreakdown.autoLineRobot2
+      : robotNumber === 3
+      ? allianceBreakdown.autoLineRobot3
+      : "No";
+
+  return yesNoClimb === "Yes";
+};
