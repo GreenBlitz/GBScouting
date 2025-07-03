@@ -2,7 +2,7 @@ import axios from "axios";
 import { PromisedFormsCollection } from "./DB.js";
 import ISAScoutForm from "../../types/ISAScoutForm.js";
 import dotenv from "dotenv";
-import ISAtoGB from "../../types/ISAtoGB.js";
+import ISAtoGB from "../../utils/ISAtoGB.js";
 
 dotenv.config();
 

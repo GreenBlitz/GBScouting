@@ -1,5 +1,6 @@
-import { GBForm } from "../utils/GBForm.js";
-import { InsureBasis } from "./TypeUtils.js";
+import { GBScoutForm } from "./GBScoutForm.js";
+import { Constrained } from "./UtilTypes.js";
+import * as formUtils from "../utils/GBFormUtils.js";
 
 const defaultAbility = { succeeded: 0, failed: 0 };
 type Ability = typeof defaultAbility;
@@ -16,7 +17,7 @@ export const defaultRobotAbilities = {
   deepCage: { ...defaultAbility },
 };
 
-type RobotAbilities = InsureBasis<
+export type RobotAbilities = Constrained<
   typeof defaultRobotAbilities,
   Record<string, Ability>
 >;
@@ -25,42 +26,38 @@ type RawRobotAbilities = Record<keyof RobotAbilities, number>;
 
 export const addRobotAbilities = (
   baseAbilities: RobotAbilities,
-  form: GBForm
-) => {
+  form: GBScoutForm
+): RobotAbilities => {
   const abilitiesRaw: RawRobotAbilities = {
-    L1: form.getL1(),
-    L2: form.getBranchLevel("L2"),
-    L3: form.getBranchLevel("L3"),
-    L4: form.getBranchLevel("L4"),
-    net: form.getNet(),
-    processor: form.getProcessor(),
-    algeaReef: Number(form.scoutForm.generalRobotInfo.removedAlgaeFromReef),
-    defense: Number(form.scoutForm.generalRobotInfo.playedDefense),
+    L1: formUtils.getL1(form),
+    L2: formUtils.getBranchLevel(form, "L2"),
+    L3: formUtils.getBranchLevel(form, "L3"),
+    L4: formUtils.getBranchLevel(form, "L4"),
+    net: formUtils.getNet(form),
+    processor: formUtils.getProcessor(form),
+    algeaReef: Number(form.generalRobotInfo.removedAlgaeFromReef),
+    defense: Number(form.generalRobotInfo.playedDefense),
     deepCage: 0,
   };
 
-  function getAsAbility(amount: number): Ability {
-    return {
-      succeeded: Math.sign(amount),
-      failed: 1 - Math.sign(amount),
-    };
-  }
+  const getAsAbility = (amount: number): Ability => ({
+    succeeded: Math.sign(amount),
+    failed: 1 - Math.sign(amount),
+  });
 
-  function addAbilities(ability1: Ability, ability2: Ability): Ability {
-    return {
-      succeeded: ability1.succeeded + ability2.succeeded,
-      failed: ability1.failed + ability2.failed,
-    };
-  }
+  const addAbilities = (ability1: Ability, ability2: Ability): Ability => ({
+    succeeded: ability1.succeeded + ability2.succeeded,
+    failed: ability1.failed + ability2.failed,
+  });
 
-  const newAbilties = Object.entries(abilitiesRaw)
-    .map(([key, value]) => ({
-      [key]: addAbilities(
+  const newAbilties: Record<string, Ability> = {};
+  Object.entries(abilitiesRaw).forEach(
+    ([key, value]) =>
+      (newAbilties[key] = addAbilities(
         getAsAbility(value),
         baseAbilities[key as keyof RobotAbilities]
-      ),
-    }))
-    .reduce((acc, item) => ({ ...acc, ...item }), {});
+      ))
+  );
 
-  return newAbilties as unknown as RobotAbilities;
+  return newAbilties as RobotAbilities;
 };
