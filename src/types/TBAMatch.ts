@@ -115,18 +115,19 @@ export const didTeamClimb = (match: TBAMatch, team: DirtyTeamKey) => {
   const isBlue = isTeamInAlliance(match, team, "blue");
   const alliance: Alliance = isBlue ? "blue" : "red";
   const robotNumber =
-    match.alliances[alliance].team_keys.findIndex((other) => other === team) +
-    1;
+    match.alliances[alliance].team_keys.findIndex(
+      (other) => other === getKey(team)
+    ) + 1;
   const allianceBreakdown = match.score_breakdown[alliance];
 
-  const yesNoClimb: YesNo =
+  const climb =
     robotNumber === 1
-      ? allianceBreakdown.autoLineRobot1
+      ? allianceBreakdown.endGameRobot1
       : robotNumber === 2
-      ? allianceBreakdown.autoLineRobot2
+      ? allianceBreakdown.endGameRobot2
       : robotNumber === 3
-      ? allianceBreakdown.autoLineRobot3
-      : "No";
+      ? allianceBreakdown.endGameRobot3
+      : "None";
 
-  return yesNoClimb === "Yes";
+  return climb === "DeepCage";
 };
