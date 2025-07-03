@@ -8,7 +8,7 @@ import { GBForm } from "../utils/GBForm.js";
 
 const router = Router();
 
-router.get("/abilities/:team", async (req, res) => {
+router.get("/abilities/:team", (req, res) => {
   PromisedFormsCollection.then((collection) =>
     collection
       .find({ "preMatch.teamNumber": parseInt(req.params.team) })

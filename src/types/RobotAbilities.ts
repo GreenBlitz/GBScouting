@@ -39,28 +39,24 @@ export const addRobotAbilities = (
     deepCage: 0,
   };
 
-  function getAsAbility(amount: number): Ability {
-    return {
-      succeeded: Math.sign(amount),
-      failed: 1 - Math.sign(amount),
-    };
-  }
+  const getAsAbility = (amount: number): Ability => ({
+    succeeded: Math.sign(amount),
+    failed: 1 - Math.sign(amount),
+  });
 
-  function addAbilities(ability1: Ability, ability2: Ability): Ability {
-    return {
-      succeeded: ability1.succeeded + ability2.succeeded,
-      failed: ability1.failed + ability2.failed,
-    };
-  }
+  const addAbilities = (ability1: Ability, ability2: Ability): Ability => ({
+    succeeded: ability1.succeeded + ability2.succeeded,
+    failed: ability1.failed + ability2.failed,
+  });
 
-  const newAbilties = Object.entries(abilitiesRaw)
-    .map(([key, value]) => ({
-      [key]: addAbilities(
+  const newAbilties: Record<string, Ability> = {};
+  Object.entries(abilitiesRaw).forEach(
+    ([key, value]) =>
+      (newAbilties[key] = addAbilities(
         getAsAbility(value),
         baseAbilities[key as keyof RobotAbilities]
-      ),
-    }))
-    .reduce((acc, item) => ({ ...acc, ...item }), {});
+      ))
+  );
 
-  return newAbilties as unknown as RobotAbilities;
+  return newAbilties as RobotAbilities;
 };
