@@ -1,6 +1,6 @@
 export interface TBAMatch {
   actual_time: number;
-  alliances: Alliancize<AllianceData>
+  alliances: Alliancize<AllianceData>;
   comp_level: string;
   event_key: string;
   key: string;
@@ -48,9 +48,9 @@ interface AllianceBreakdown {
   autoBonusAchieved: boolean;
   autoCoralCount: number;
   autoCoralPoints: number;
-  autoLineRobot1: string;
-  autoLineRobot2: string;
-  autoLineRobot3: string;
+  autoLineRobot1: YesNo;
+  autoLineRobot2: YesNo;
+  autoLineRobot3: YesNo;
   autoMobilityPoints: number;
   autoPoints: number;
   autoReef: Reef;
@@ -58,9 +58,9 @@ interface AllianceBreakdown {
   coopertitionCriteriaMet: boolean;
   coralBonusAchieved: boolean;
   endGameBargePoints: number;
-  endGameRobot1: string;
-  endGameRobot2: string;
-  endGameRobot3: string;
+  endGameRobot1: EndgameRobot;
+  endGameRobot2: EndgameRobot;
+  endGameRobot3: EndgameRobot;
   foulCount: number;
   foulPoints: number;
   g206Penalty: boolean;
@@ -89,3 +89,6 @@ interface AllianceData {
   surrogate_team_keys: [];
   team_keys: string[];
 }
+
+type EndgameRobot = "None" | "Parked" | "DeepCage" | "ShallowCage";
+type YesNo = "Yes" | "No";
