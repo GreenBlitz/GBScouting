@@ -27,7 +27,7 @@ type RawRobotAbilities = Record<keyof RobotAbilities, number>;
 export const addRobotAbilities = (
   baseAbilities: RobotAbilities,
   form: GBScoutForm
-) => {
+): RobotAbilities => {
   const abilitiesRaw: RawRobotAbilities = {
     L1: formUtils.getL1(form),
     L2: formUtils.getBranchLevel(form,"L2"),
