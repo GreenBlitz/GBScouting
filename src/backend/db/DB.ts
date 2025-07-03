@@ -1,5 +1,5 @@
 import { Collection, Db, MongoClient } from "mongodb";
-import { GBScoutForm } from "../types/GBScoutForm";
+import { GBScoutForm } from "../../types/GBScoutForm";
 
 const mongoURI = "mongodb://0.0.0.0:27017/GBScouting";
 

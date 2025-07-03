@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { PromisedFormsCollection } from "./DB.js";
+import { PromisedFormsCollection } from "../db/DB.js";
 import {
   addRobotAbilities,
   defaultRobotAbilities,
-} from "../types/RobotAbilities.js";
+} from "../../types/RobotAbilities.js";
 
 const router = Router();
 
