@@ -24,7 +24,7 @@ function getAllItemsISA(): Promise<ISAScoutForm[]> {
     .then((response) => response.data);
 }
 
-function updateAllItems() {
+export function updateAllISAItems() {
   return PromisedFormsCollection.then((collection) =>
     getAllItemsISA().then(async (items) => {
       if (items.length === 0) {
@@ -38,14 +38,4 @@ function updateAllItems() {
       collection.insertMany(items.map(ISAtoGB));
     })
   );
-}
-
-const oneSecond = 1000;
-const fiveMinutes = 60 * 5 * oneSecond;
-
-export function startConstantlyUpdatingISA() {
-  console.log("Started Updating DB for ISA");
-
-  updateAllItems();
-  setInterval(updateAllItems, fiveMinutes);
 }
