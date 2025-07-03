@@ -1,6 +1,6 @@
 import { Collection, Db, MongoClient } from "mongodb";
-import { GBScoutForm } from "../../types/GBScoutForm";
-import { TBAMatch } from "../../types/TBAMatch";
+import { GBScoutForm } from "../../types/GBScoutForm.js";
+import { TBAMatch } from "../../types/TBAMatch.js";
 
 const mongoURI = "mongodb://0.0.0.0:27017/GBScouting";
 
