@@ -1,9 +1,8 @@
 import { Router } from "express";
 import { PromisedFormsCollection } from "./DB.js";
 import {
+  addRobotAbilities,
   defaultRobotAbilities,
-  getRobotAbilities,
-  mergeRobotAbilities,
 } from "../types/RobotAbilities.js";
 
 const router = Router();
@@ -16,7 +15,7 @@ router.get("/abilities/:team", async (req, res) => {
   )
     .then((forms) =>
       forms.reduce(
-        (acc, form) => mergeRobotAbilities(acc, getRobotAbilities(form)),
+        (acc, form) => addRobotAbilities(acc, form),
         defaultRobotAbilities
       )
     )

@@ -1,25 +1,11 @@
 import { GBForm } from "../utils/GBForm.js";
 import { GBScoutForm } from "./GBScoutForm.js";
+import { InsureBasis } from "./TypeUtils.js";
 
-export interface RobotAbilities {
-  L1: Ability;
-  L2: Ability;
-  L3: Ability;
-  L4: Ability;
-  net: Ability;
-  processor: Ability;
-  algeaReef: Ability;
-  defense: Ability;
-  deepCage: Ability;
-}
+const defaultAbility = { succeeded: 0, failed: 0 };
+type Ability = typeof defaultAbility;
 
-interface Ability {
-  succeeded: number;
-  failed: number;
-}
-
-const defaultAbility: Ability = { succeeded: 0, failed: 0 };
-export const defaultRobotAbilities: RobotAbilities = {
+export const defaultRobotAbilities = {
   L1: { ...defaultAbility },
   L2: { ...defaultAbility },
   L3: { ...defaultAbility },
@@ -31,9 +17,17 @@ export const defaultRobotAbilities: RobotAbilities = {
   deepCage: { ...defaultAbility },
 };
 
+type RobotAbilities = InsureBasis<
+  typeof defaultRobotAbilities,
+  Record<string, Ability>
+>;
+
 type RawRobotAbilities = Record<keyof RobotAbilities, number>;
 
-export const getRobotAbilities = (robotForm: GBScoutForm) => {
+export const addRobotAbilities = (
+  baseAbilities: RobotAbilities,
+  robotForm: GBScoutForm
+) => {
   const form = new GBForm(robotForm);
   const abilitiesRaw: RawRobotAbilities = {
     L1: form.getL1(),
@@ -54,28 +48,21 @@ export const getRobotAbilities = (robotForm: GBScoutForm) => {
     };
   }
 
-  const abilities = Object.entries(abilitiesRaw)
-    .map(([key, value]) => ({ [key]: getAsAbility(value) }))
+  function addAbilities(ability1: Ability, ability2: Ability): Ability {
+    return {
+      succeeded: ability1.succeeded + ability2.succeeded,
+      failed: ability1.failed + ability2.failed,
+    };
+  }
+
+  const newAbilties = Object.entries(abilitiesRaw)
+    .map(([key, value]) => ({
+      [key]: addAbilities(
+        getAsAbility(value),
+        baseAbilities[key as keyof RobotAbilities]
+      ),
+    }))
     .reduce((acc, item) => ({ ...acc, ...item }), {});
 
-  return abilities as unknown as RobotAbilities;
-};
-
-export const mergeRobotAbilities = (
-  abilities1: RobotAbilities,
-  abilities2: RobotAbilities
-) => {
-  const abilities = Object.keys(abilities1)
-    .map((key) => {
-      const actualKey = key as keyof RobotAbilities;
-      const ability: Ability = {
-        succeeded:
-          abilities1[actualKey].succeeded + abilities2[actualKey].succeeded,
-        failed: abilities1[actualKey].failed + abilities2[actualKey].failed,
-      };
-      return { [actualKey]: ability };
-    })
-    .reduce((acc, item) => ({ ...acc, ...item }), {});
-
-  return abilities as unknown as RobotAbilities;
+  return newAbilties as unknown as RobotAbilities;
 };
