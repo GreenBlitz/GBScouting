@@ -1,5 +1,4 @@
 import { GBForm } from "../utils/GBForm.js";
-import { GBScoutForm } from "./GBScoutForm.js";
 import { InsureBasis } from "./TypeUtils.js";
 
 const defaultAbility = { succeeded: 0, failed: 0 };
@@ -26,9 +25,8 @@ type RawRobotAbilities = Record<keyof RobotAbilities, number>;
 
 export const addRobotAbilities = (
   baseAbilities: RobotAbilities,
-  robotForm: GBScoutForm
+  form: GBForm
 ) => {
-  const form = new GBForm(robotForm);
   const abilitiesRaw: RawRobotAbilities = {
     L1: form.getL1(),
     L2: form.getBranchLevel("L2"),
