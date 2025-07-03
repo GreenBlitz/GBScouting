@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { PromisedFormsCollection } from "./DB.js";
+import { PromisedFormsCollection } from "../db/DB.js";
 import {
   addRobotAbilities,
   defaultRobotAbilities,
-} from "../types/RobotAbilities.js";
-import { GBForm } from "../utils/GBForm.js";
+} from "../../types/RobotAbilities.js";
+import { GBForm } from "../../utils/GBForm.js";
 
 const router = Router();
 

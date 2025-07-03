@@ -1,5 +1,5 @@
-import { GBScoutForm } from "../types/GBScoutForm";
-import ISAScoutForm from "../types/ISAScoutForm";
+import { GBScoutForm } from "./GBScoutForm";
+import ISAScoutForm from "./ISAScoutForm";
 
 function ISAtoGB(ISAForm: ISAScoutForm): GBScoutForm {
   return {

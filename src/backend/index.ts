@@ -1,7 +1,7 @@
 import express from "express";
 import ViteExpress from "vite-express";
-import { startConstantlyUpdatingISA } from "./ISA.js";
-import team from "./Team.js";
+import { startConstantlyUpdatingISA } from "./db/ISA.js";
+import team from "./routes/Team.js";
 
 const app = express();
 
