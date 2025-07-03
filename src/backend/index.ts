@@ -1,6 +1,7 @@
 import express from "express";
 import ViteExpress from "vite-express";
-import { startConstantlyUpdatingISA } from "./ISA";
+import { startConstantlyUpdatingISA } from "./db/ISA.js";
+import team from "./routes/Team.js";
 
 const app = express();
 
@@ -9,3 +10,5 @@ ViteExpress.listen(app, 5173, () =>
 );
 
 startConstantlyUpdatingISA();
+
+app.use("/api/team", team);

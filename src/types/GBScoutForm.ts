@@ -8,7 +8,7 @@ export interface GBScoutForm {
   teleop: Teleop;
 }
 
-interface AutoCoralBranch {
+export interface AutoCoralBranch {
   L2: boolean;
   L3: boolean;
   L4: boolean;
@@ -41,8 +41,8 @@ interface AutoCoralL1 {
 interface Auto {
   branches: AutoCoralBranches;
   L1: AutoCoralL1;
-  autoProcessor: number;
-  autoNet: number;
+  processor: number;
+  net: number;
   leave: boolean;
 }
 
@@ -65,11 +65,11 @@ interface Teleop {
   L2: number;
   L3: number;
   L4: number;
-  Processor: number;
-  Net: number;
-  AttemptedPark: boolean;
-  AttemptedShallow: boolean;
-  AttemptedDeep: boolean;
+  processor: number;
+  net: number;
+  attemptedPark: boolean;
+  attemptedShallow: boolean;
+  attemptedDeep: boolean;
 }
 
 interface PreMatch {
