@@ -1,5 +1,6 @@
 import { Collection, Db, MongoClient } from "mongodb";
 import { GBScoutForm } from "../../types/GBScoutForm";
+import { TBAMatch } from "../../types/TBAMatch";
 
 const mongoURI = "mongodb://0.0.0.0:27017/GBScouting";
 
@@ -14,6 +15,6 @@ function collectionize<T extends {}>(name: string): Promise<Collection<T>> {
 export const PromisedFormsCollection =
   collectionize<GBScoutForm>("data/scoutForms");
 
-export const PromisedTBACollection = collectionize("data/tbaMatches");
+export const PromisedTBACollection = collectionize<TBAMatch>("data/tbaMatches");
 
 export default PromisedDatabase;

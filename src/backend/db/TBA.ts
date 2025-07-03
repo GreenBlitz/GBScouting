@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import axios from "axios";
 import { PromisedTBACollection } from "./DB.js";
-import { getType } from "../../utils/Type.js";
 
 dotenv.config();
 
@@ -29,7 +28,7 @@ export function updateAllTBAMatches() {
         return;
       }
       const existingData = await collection.find().toArray();
-      
+
       if (existingData.length === items.length) {
         return;
       }
