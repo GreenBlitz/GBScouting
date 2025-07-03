@@ -114,9 +114,10 @@ export const isTeamInGame = (match: TBAMatch, team: DirtyTeamKey) =>
 export const didTeamClimb = (match: TBAMatch, team: DirtyTeamKey) => {
   const isBlue = isTeamInAlliance(match, team, "blue");
   const alliance: Alliance = isBlue ? "blue" : "red";
+  const teamKey = getKey(team);
   const robotNumber =
     match.alliances[alliance].team_keys.findIndex(
-      (other) => other === getKey(team)
+      (other) => other === teamKey
     ) + 1;
   const allianceBreakdown = match.score_breakdown[alliance];
 
