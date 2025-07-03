@@ -25,8 +25,8 @@ function getAllItemsISA(): Promise<ISAScoutForm[]> {
 }
 
 export function updateAllISAItems() {
-  return PromisedFormsCollection.then((collection) =>
-    getAllItemsISA().then(async (items) => {
+  return Promise.all([PromisedFormsCollection, getAllItemsISA()]).then(
+    async ([collection, items]) => {
       if (items.length === 0) {
         return;
       }
@@ -36,6 +36,6 @@ export function updateAllISAItems() {
       }
       collection.deleteMany();
       collection.insertMany(items.map(ISAtoGB));
-    })
+    }
   );
 }

@@ -22,8 +22,8 @@ function getAllMatchesTBA() {
 }
 
 export function updateAllTBAMatches() {
-  return PromisedTBACollection.then((collection) =>
-    getAllMatchesTBA().then(async (items) => {
+  return Promise.all([PromisedTBACollection, getAllMatchesTBA()]).then(
+    async ([collection, items]) => {
       if (items.length === 0) {
         return;
       }
@@ -34,6 +34,6 @@ export function updateAllTBAMatches() {
       }
       collection.deleteMany();
       collection.insertMany(items);
-    })
+    }
   );
 }

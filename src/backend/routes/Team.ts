@@ -42,10 +42,9 @@ router.get("/abilities/:team", (req, res) => {
       defaultRobotAbility
     )
   );
-  robotAbilitiesWithoutClimb.then((abilities) =>
-    climbAbility.then((climb) =>
+  Promise.all([robotAbilitiesWithoutClimb, climbAbility]).then(
+    ([abilities, climb]) =>
       res.status(200).json({ ...abilities, deepCage: climb } as RobotAbilities)
-    )
   );
 });
 

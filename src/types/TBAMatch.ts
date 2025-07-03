@@ -111,7 +111,7 @@ export const isTeamInAlliance = (
 export const isTeamInGame = (match: TBAMatch, team: DirtyTeamKey) =>
   isTeamInAlliance(match, team, "blue") || isTeamInAlliance(match, team, "red");
 
-export const didTeamClimb = (match: TBAMatch, team: DirtyTeamKey) => {
+export const didTeamClimb = (match: TBAMatch, team: DirtyTeamKey, specifiedClimb: EndgameRobot = "DeepCage") => {
   const isBlue = isTeamInAlliance(match, team, "blue");
   const alliance: Alliance = isBlue ? "blue" : "red";
   const teamKey = getKey(team);
@@ -128,7 +128,7 @@ export const didTeamClimb = (match: TBAMatch, team: DirtyTeamKey) => {
       ? allianceBreakdown.endGameRobot2
       : robotNumber === 3
       ? allianceBreakdown.endGameRobot3
-      : "None";
+      : "";
 
-  return climb === "DeepCage";
+  return climb === specifiedClimb;
 };
