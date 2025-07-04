@@ -24,9 +24,9 @@ function getAllItemsISA(): Promise<ISAScoutForm[]> {
     .then((response) => response.data);
 }
 
-function updateAllItems() {
-  return PromisedFormsCollection.then((collection) =>
-    getAllItemsISA().then(async (items) => {
+export function updateAllISAItems() {
+  return Promise.all([PromisedFormsCollection, getAllItemsISA()]).then(
+    async ([collection, items]) => {
       if (items.length === 0) {
         return;
       }
@@ -36,16 +36,6 @@ function updateAllItems() {
       }
       collection.deleteMany();
       collection.insertMany(items.map(ISAtoGB));
-    })
+    }
   );
-}
-
-const oneSecond = 1000;
-const fiveMinutes = 60 * 5 * oneSecond;
-
-export function startConstantlyUpdatingISA() {
-  console.log("Started Updating DB for ISA");
-
-  updateAllItems();
-  setInterval(updateAllItems, fiveMinutes);
 }
