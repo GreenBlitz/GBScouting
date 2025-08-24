@@ -10,7 +10,7 @@ import { Collection, UsedAlgea } from "./SeasonUI";
 // TODO add signed support!
 function serdeUnsignedInt(bitCount: number): Serde<number> {
   function serializer(serialiedData: BitArray, num: number) {
-    let arr = new BitArray();
+    const arr = new BitArray();
 
     for (let i = 0; i < bitCount; i++) {
       arr.insertBool(num % 2 === 1);

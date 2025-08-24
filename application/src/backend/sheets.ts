@@ -133,7 +133,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
       .toString()
       .trim();
   } catch (exception) {
-    console.log(exception);
+    console.warn(exception);
   }
 
   console.log("SpreadSheet ID: " + spreadsheetId);

@@ -3,7 +3,26 @@ import { Db } from "mongodb";
 import fs from "fs";
 import path from "path";
 
-export function applyRoutes(app: Express, db: Db, dirName: string) {
+const dataFolder = "src/data/matches";
+export async function applyRoutes(app: Express, db: Db, dirName: string) {
+  const presavedData = fs
+    .readdirSync(path.resolve(dirName, dataFolder))
+    .filter((file) => file.endsWith(".json"))
+    .flatMap((file) => {
+      const filePath = path.resolve(dirName, dataFolder, file);
+      return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    });
+
+  if (presavedData.length > 0 && db) {
+    const matchCollection = db.collection("matches");
+    await matchCollection.deleteMany({});
+    await matchCollection.insertMany(presavedData);
+    console.log(
+      `Inserted ${presavedData.length} presaved matches into the database.`
+    );
+  } else {
+    console.log("No presaved match data found or database not connected.");
+  }
   // Define routes
   app.post("/Match", async (req: Request, res: Response) => {
     if (!db) {
@@ -129,6 +148,18 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     } catch (error) {
       res.status(500).send(error);
     }
+  });
+
+  app.post("/Matches", async (req, res) => {
+    if (!db) {
+      return res.status(500).send("Database not connected");
+    }
+
+    const matches = req.body;
+    const matchCollection = db.collection("matches");
+
+    await matchCollection.insertMany(matches);
+    res.status(201).json({ success: true, insertedCount: matches.length });
   });
 
   app.post("/Teams", async (req, res) => {
