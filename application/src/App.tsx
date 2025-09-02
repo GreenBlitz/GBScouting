@@ -32,6 +32,7 @@ import TestLinear2 from "./strategy/team-tab/sections/TestLinear2";
 import ScouterStats from "./strategy/ScouterStats";
 import ScouterTeleoperated from "./scouter/tabs/ScouterTeleoperated";
 import AbilityTab from "./strategy/ability-tab/AbilityTab";
+import Tinder from "./strategy/tinder/Tinder";
 
 function getHiddenImage(path: string) {
   return (
@@ -153,6 +154,7 @@ const App: React.FC = () => {
               <Route path="general" element={<GeneralTab />} />
               <Route path="compare" element={<ComparisonTab />} />
               <Route path="scouter-stats" element={<ScouterStats />} />
+              <Route path="tinder" element={<Tinder />} />
             </Route>
           </Routes>
         </PageTransition>
