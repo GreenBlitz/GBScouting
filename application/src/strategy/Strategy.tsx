@@ -4,60 +4,47 @@ import { authorizationStorage } from "../utils/FolderStorage";
 import PasswordUpdater from "../components/PasswordUpdater";
 import { loadedHiddenImages } from "../App";
 
+interface NavItemProps {
+  name: string;
+  path: string;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ name, path }) => {
+  return (
+    <li>
+      <Link
+        to={path}
+        className="text-dark-text hover:text-primary-400 transition-colors"
+      >
+        {name}
+      </Link>
+    </li>
+  );
+};
+
 const Strategy: React.FC = () => {
   const setReload = useState(false)[1];
   const navBar = (
     <nav className="bg-dark-card shadow-lg ">
       <ul className="flex items-center justify-center space-x-6 py-4">
         <li>
-          <Link
-            to="/strategy/compare"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Comparison
-          </Link>
+          <NavItem path="/strategy/compare" name="Comparison" />
         </li>
         <li>
           {[...loadedHiddenImages]}
-
-          <Link
-            to="/strategy/team/teleoperated/linear"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Team Data
-          </Link>
+          <NavItem path="/strategy/team/teleoperated/linear" name="Team Data" />
         </li>
         <li>
-          <Link
-            to="/strategy/general"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            General
-          </Link>
+          <NavItem path="/strategy/general" name="General" />
         </li>
         <li>
-          <Link
-            to="/strategy/notes"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Notes
-          </Link>
+          <NavItem path="/strategy/notes" name="Notes" />
         </li>
         <li>
-          <Link
-            to="/strategy/scouter-stats"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Scouter Stats
-          </Link>
+          <NavItem path="/strategy/scouter-stats" name="Scouter Stats" />
         </li>
         <li>
-          <Link
-            to="/strategy/ability"
-            className="text-dark-text hover:text-primary-400 transition-colors"
-          >
-            Abilities
-          </Link>
+          <NavItem path="/strategy/ability" name="Abilities" />
         </li>
       </ul>
     </nav>
