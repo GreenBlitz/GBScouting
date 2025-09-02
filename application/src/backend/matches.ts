@@ -181,7 +181,8 @@ export async function applyRoutes(app: Express, db: Db, dirName: string) {
         .filter((match) => teamNumbers.includes(match.teamNumber.teamNumber));
       const teamMatchesRecord = teamNumbers.reduce((acc, teamNumber) => {
         acc[teamNumber] = matches.filter(
-          (match) => match.teamNumber.teamNumber === teamNumber
+          (match) =>
+            match.teamNumber.teamNumber === teamNumber
         );
         return acc;
       }, {} as Record<number, typeof matches>);

@@ -3,7 +3,10 @@
     "_id": "67beba246ce910b1b1aa6b62",
     "scouterName": "Yotam Cohen",
     "qual": 0,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -71,7 +74,10 @@
     "_id": "67beba2d6ce910b1b1aa6b63",
     "scouterName": "Noam",
     "qual": 0,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -139,7 +145,10 @@
     "_id": "67beba2e6ce910b1b1aa6b64",
     "scouterName": "Alon",
     "qual": 0,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -207,7 +216,10 @@
     "_id": "67beba306ce910b1b1aa6b65",
     "scouterName": "itamar",
     "qual": 0,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -275,7 +287,10 @@
     "_id": "67beba316ce910b1b1aa6b66",
     "scouterName": "Ran",
     "qual": 0,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -343,7 +358,10 @@
     "_id": "67beba366ce910b1b1aa6b67",
     "scouterName": "Matan",
     "qual": 0,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -411,7 +429,10 @@
     "_id": "67beba416ce910b1b1aa6b68",
     "scouterName": "Ohad",
     "qual": 0,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -479,7 +500,10 @@
     "_id": "67beba476ce910b1b1aa6b69",
     "scouterName": "Daniel",
     "qual": 0,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -547,7 +571,10 @@
     "_id": "67beba8e6ce910b1b1aa6b6c",
     "scouterName": "Shahar Perets",
     "qual": 0,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -615,7 +642,10 @@
     "_id": "67bebda56ce910b1b1aa6b6d",
     "scouterName": "Alon",
     "qual": 0,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -683,7 +713,10 @@
     "_id": "67bebdb16ce910b1b1aa6b6e",
     "scouterName": "Ran",
     "qual": 0,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -751,7 +784,10 @@
     "_id": "67bebdb56ce910b1b1aa6b70",
     "scouterName": "Noam",
     "qual": 0,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -819,7 +855,10 @@
     "_id": "67bebdc26ce910b1b1aa6b71",
     "scouterName": "Matan",
     "qual": 0,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -887,7 +926,10 @@
     "_id": "67bebdce6ce910b1b1aa6b72",
     "scouterName": "Yotam Cohen",
     "qual": 0,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -955,7 +997,10 @@
     "_id": "67bebde76ce910b1b1aa6b73",
     "scouterName": "Itai almog",
     "qual": 0,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1023,7 +1068,10 @@
     "_id": "67bebded6ce910b1b1aa6b74",
     "scouterName": "אלינה",
     "qual": 0,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1091,7 +1139,10 @@
     "_id": "67bebdf06ce910b1b1aa6b75",
     "scouterName": "Itai almog",
     "qual": 0,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -1159,7 +1210,10 @@
     "_id": "67bebdf46ce910b1b1aa6b77",
     "scouterName": "",
     "qual": 0,
-    "teamNumber": 0,
+    "teamNumber": {
+      "teamNumber": 0
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1227,7 +1281,10 @@
     "_id": "67bebdfe6ce910b1b1aa6b81",
     "scouterName": "Ohad",
     "qual": 0,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -1295,7 +1352,10 @@
     "_id": "67bebe056ce910b1b1aa6b82",
     "scouterName": "itamar",
     "qual": 0,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1363,7 +1423,10 @@
     "_id": "67bebe0d6ce910b1b1aa6b83",
     "scouterName": "Daniel",
     "qual": 0,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1431,7 +1494,10 @@
     "_id": "67bebe116ce910b1b1aa6b85",
     "scouterName": "Maya",
     "qual": 0,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1499,7 +1565,10 @@
     "_id": "67bebe146ce910b1b1aa6b86",
     "scouterName": "Emily",
     "qual": 0,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1567,7 +1636,10 @@
     "_id": "67bec1216ce910b1b1aa6b9c",
     "scouterName": "Ohad",
     "qual": 0,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1635,7 +1707,10 @@
     "_id": "67bec1226ce910b1b1aa6b9d",
     "scouterName": "Tomer",
     "qual": 0,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1703,7 +1778,10 @@
     "_id": "67bec1236ce910b1b1aa6b9e",
     "scouterName": "Tomer",
     "qual": 0,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1771,7 +1849,10 @@
     "_id": "67bec12a6ce910b1b1aa6b9f",
     "scouterName": "Matan",
     "qual": 0,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1839,7 +1920,10 @@
     "_id": "67bec12a6ce910b1b1aa6bab",
     "scouterName": "Dana",
     "qual": 0,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1907,7 +1991,10 @@
     "_id": "67bec12f6ce910b1b1aa6bad",
     "scouterName": "Daniel",
     "qual": 0,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -1975,7 +2062,10 @@
     "_id": "67bec1326ce910b1b1aa6bae",
     "scouterName": "Ran",
     "qual": 0,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2043,7 +2133,10 @@
     "_id": "67bec1346ce910b1b1aa6baf",
     "scouterName": "Yotam Cohen",
     "qual": 0,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2111,7 +2204,10 @@
     "_id": "67bec14c6ce910b1b1aa6bb0",
     "scouterName": "אלינה",
     "qual": 0,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2179,7 +2275,10 @@
     "_id": "67bec1576ce910b1b1aa6bb1",
     "scouterName": "Maya",
     "qual": 0,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2247,7 +2346,10 @@
     "_id": "67bec1886ce910b1b1aa6bb3",
     "scouterName": "itamar",
     "qual": 0,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2315,7 +2417,10 @@
     "_id": "67bec3eb6ce910b1b1aa6bb4",
     "scouterName": "Ran",
     "qual": 0,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2383,7 +2488,10 @@
     "_id": "67bec3f06ce910b1b1aa6bb5",
     "scouterName": "Itai almog",
     "qual": 0,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2451,7 +2559,10 @@
     "_id": "67bec3f06ce910b1b1aa6bb6",
     "scouterName": "Itai almog",
     "qual": 0,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2519,7 +2630,10 @@
     "_id": "67bec3f26ce910b1b1aa6bb7",
     "scouterName": "Daniel",
     "qual": 0,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2587,7 +2701,10 @@
     "_id": "67bec3f56ce910b1b1aa6bb8",
     "scouterName": "Ohad",
     "qual": 0,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2655,7 +2772,10 @@
     "_id": "67bec3f66ce910b1b1aa6bb9",
     "scouterName": "Yotam Cohen",
     "qual": 0,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2723,7 +2843,10 @@
     "_id": "67bec3f76ce910b1b1aa6bba",
     "scouterName": "Dana",
     "qual": 0,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2791,7 +2914,10 @@
     "_id": "67bec4006ce910b1b1aa6bbb",
     "scouterName": "Matan",
     "qual": 0,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2859,7 +2985,10 @@
     "_id": "67bec40a6ce910b1b1aa6bbe",
     "scouterName": "Noam",
     "qual": 4320,
-    "teamNumber": 0,
+    "teamNumber": {
+      "teamNumber": 0
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2927,7 +3056,10 @@
     "_id": "67bec40a6ce910b1b1aa6bbf",
     "scouterName": "Noam",
     "qual": 0,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -2995,7 +3127,10 @@
     "_id": "67bec4136ce910b1b1aa6bc1",
     "scouterName": "itamar",
     "qual": 0,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3063,7 +3198,10 @@
     "_id": "67bec4166ce910b1b1aa6bc2",
     "scouterName": "Emily",
     "qual": 0,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3131,7 +3269,10 @@
     "_id": "67bec41b6ce910b1b1aa6bc3",
     "scouterName": "Emily",
     "qual": 0,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3199,7 +3340,10 @@
     "_id": "67bec44a6ce910b1b1aa6bc4",
     "scouterName": "Maya",
     "qual": 0,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -3267,7 +3411,10 @@
     "_id": "67bec4546ce910b1b1aa6bc5",
     "scouterName": "Tomer",
     "qual": 0,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3335,7 +3482,10 @@
     "_id": "67bec63b6ce910b1b1aa6bc6",
     "scouterName": "Yotam Cohen",
     "qual": 0,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3403,7 +3553,10 @@
     "_id": "67bec63c6ce910b1b1aa6bc7",
     "scouterName": "Ran",
     "qual": 0,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3471,7 +3624,10 @@
     "_id": "67bec63d6ce910b1b1aa6bc8",
     "scouterName": "Ohad",
     "qual": 0,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3539,7 +3695,10 @@
     "_id": "67bec6426ce910b1b1aa6bca",
     "scouterName": "Maya",
     "qual": 0,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3607,7 +3766,10 @@
     "_id": "67bec6426ce910b1b1aa6bcb",
     "scouterName": "Dana",
     "qual": 0,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3675,7 +3837,10 @@
     "_id": "67bec6486ce910b1b1aa6bcc",
     "scouterName": "Itai almog",
     "qual": 0,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3743,7 +3908,10 @@
     "_id": "67bec64d6ce910b1b1aa6bcd",
     "scouterName": "Shahar Perets",
     "qual": 0,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3811,7 +3979,10 @@
     "_id": "67bec64e6ce910b1b1aa6bce",
     "scouterName": "Adam",
     "qual": 0,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3879,7 +4050,10 @@
     "_id": "67bec64f6ce910b1b1aa6bcf",
     "scouterName": "Shahar Perets",
     "qual": 0,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -3947,7 +4121,10 @@
     "_id": "67bec64f6ce910b1b1aa6bd0",
     "scouterName": "Shahar Perets",
     "qual": 0,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4015,7 +4192,10 @@
     "_id": "67bec64f6ce910b1b1aa6bd1",
     "scouterName": "Adam",
     "qual": 0,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4083,7 +4263,10 @@
     "_id": "67bec64f6ce910b1b1aa6bd2",
     "scouterName": "Shahar Perets",
     "qual": 0,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4151,7 +4334,10 @@
     "_id": "67bec6506ce910b1b1aa6bd3",
     "scouterName": "itamar",
     "qual": 0,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4219,7 +4405,10 @@
     "_id": "67bec6526ce910b1b1aa6bd4",
     "scouterName": "Adam",
     "qual": 0,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4287,7 +4476,10 @@
     "_id": "67bec6616ce910b1b1aa6bd8",
     "scouterName": "Emily",
     "qual": 0,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4355,7 +4547,10 @@
     "_id": "67bec6636ce910b1b1aa6bd9",
     "scouterName": "Daniel",
     "qual": 0,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4423,7 +4618,10 @@
     "_id": "67bec6666ce910b1b1aa6bda",
     "scouterName": "Matan",
     "qual": 0,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4491,7 +4689,10 @@
     "_id": "67bec66a6ce910b1b1aa6bdb",
     "scouterName": "Tomer",
     "qual": 0,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4559,7 +4760,10 @@
     "_id": "67bec69d6ce910b1b1aa6bdc",
     "scouterName": "Noam",
     "qual": 0,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4627,7 +4831,10 @@
     "_id": "67bec8626ce910b1b1aa6bde",
     "scouterName": "Ran",
     "qual": 0,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4695,7 +4902,10 @@
     "_id": "67bec8666ce910b1b1aa6bdf",
     "scouterName": "Matan",
     "qual": 0,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4763,7 +4973,10 @@
     "_id": "67bec86c6ce910b1b1aa6be0",
     "scouterName": "Emily",
     "qual": 0,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4831,7 +5044,10 @@
     "_id": "67bec8706ce910b1b1aa6be1",
     "scouterName": "Tomer",
     "qual": 0,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4899,7 +5115,10 @@
     "_id": "67bec8756ce910b1b1aa6be2",
     "scouterName": "Dana",
     "qual": 0,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -4967,7 +5186,10 @@
     "_id": "67bec87f6ce910b1b1aa6be3",
     "scouterName": "itamar",
     "qual": 0,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5035,7 +5257,10 @@
     "_id": "67bec8896ce910b1b1aa6be4",
     "scouterName": "Daniel",
     "qual": 0,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5103,7 +5328,10 @@
     "_id": "67bec88c6ce910b1b1aa6be6",
     "scouterName": "Yotam Cohen",
     "qual": 0,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5171,7 +5399,10 @@
     "_id": "67bec8906ce910b1b1aa6be8",
     "scouterName": "Adam",
     "qual": 0,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5239,7 +5470,10 @@
     "_id": "67bec8e46ce910b1b1aa6beb",
     "scouterName": "Ohad",
     "qual": 0,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5307,7 +5541,10 @@
     "_id": "67bec8fb6ce910b1b1aa6bec",
     "scouterName": "Maya",
     "qual": 0,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5375,7 +5612,10 @@
     "_id": "67beccfa6ce910b1b1aa6bef",
     "scouterName": "Noam",
     "qual": 0,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5443,7 +5683,10 @@
     "_id": "67bece2e6ce910b1b1aa6bf1",
     "scouterName": "Noa",
     "qual": 0,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5511,7 +5754,10 @@
     "_id": "67bece306ce910b1b1aa6bf2",
     "scouterName": "Noa",
     "qual": 0,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5579,7 +5825,10 @@
     "_id": "67bece416ce910b1b1aa6bf4",
     "scouterName": "Noa",
     "qual": 0,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5647,7 +5896,10 @@
     "_id": "67bece4b6ce910b1b1aa6bf6",
     "scouterName": "Noa",
     "qual": 0,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5715,7 +5967,10 @@
     "_id": "67bed2fc6ce910b1b1aa6bf9",
     "scouterName": "Ohad",
     "qual": 1,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5783,7 +6038,10 @@
     "_id": "67bed3106ce910b1b1aa6bfa",
     "scouterName": "Alon",
     "qual": 1,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -5851,7 +6109,10 @@
     "_id": "67bed3116ce910b1b1aa6bfe",
     "scouterName": "Noam",
     "qual": 1,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -5919,7 +6180,10 @@
     "_id": "67bed3186ce910b1b1aa6c00",
     "scouterName": "Matan",
     "qual": 1,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -5987,7 +6251,10 @@
     "_id": "67bed3296ce910b1b1aa6c01",
     "scouterName": "Daniel",
     "qual": 1,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -6055,7 +6322,10 @@
     "_id": "67bed3b06ce910b1b1aa6c06",
     "scouterName": "Shahar Perets",
     "qual": 1,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6123,7 +6393,10 @@
     "_id": "67bed4eb6ce910b1b1aa6c09",
     "scouterName": "Alon",
     "qual": 2,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6191,7 +6464,10 @@
     "_id": "67bed4ff6ce910b1b1aa6c0a",
     "scouterName": "Noam",
     "qual": 2,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6259,7 +6535,10 @@
     "_id": "67bed5006ce910b1b1aa6c0b",
     "scouterName": "Matan",
     "qual": 2,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6327,7 +6606,10 @@
     "_id": "67bed5206ce910b1b1aa6c0d",
     "scouterName": "Daniel",
     "qual": 2,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6395,7 +6677,10 @@
     "_id": "67bed5226ce910b1b1aa6c0e",
     "scouterName": "Ohad",
     "qual": 2,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -6463,7 +6748,10 @@
     "_id": "67bed6c66ce910b1b1aa6c11",
     "scouterName": "Daniel",
     "qual": 3,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6531,7 +6819,10 @@
     "_id": "67bed6ce6ce910b1b1aa6c12",
     "scouterName": "Matan",
     "qual": 3,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6599,7 +6890,10 @@
     "_id": "67bed6d06ce910b1b1aa6c13",
     "scouterName": "Alon",
     "qual": 3,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6667,7 +6961,10 @@
     "_id": "67bed6ee6ce910b1b1aa6c19",
     "scouterName": "Ohad",
     "qual": 3,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6735,7 +7032,10 @@
     "_id": "67bed7f16ce910b1b1aa6c4c",
     "scouterName": "Noam",
     "qual": 0,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6803,7 +7103,10 @@
     "_id": "67bed86d6ce910b1b1aa6c50",
     "scouterName": "Shahar Perets",
     "qual": 3,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6871,7 +7174,10 @@
     "_id": "67bed86f6ce910b1b1aa6c51",
     "scouterName": "Shahar Perets",
     "qual": 2,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -6939,7 +7245,10 @@
     "_id": "67bedb5d6ce910b1b1aa6c72",
     "scouterName": "Ohad",
     "qual": 4,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7007,7 +7316,10 @@
     "_id": "67bedb676ce910b1b1aa6c73",
     "scouterName": "Noam",
     "qual": 4,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7075,7 +7387,10 @@
     "_id": "67bedb696ce910b1b1aa6c74",
     "scouterName": "Matan",
     "qual": 4,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7143,7 +7458,10 @@
     "_id": "67bedc076ce910b1b1aa6c75",
     "scouterName": "Daniel",
     "qual": 4,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7211,7 +7529,10 @@
     "_id": "67bedc0f6ce910b1b1aa6c76",
     "scouterName": "Alon",
     "qual": 4,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7279,7 +7600,10 @@
     "_id": "67bede0e6ce910b1b1aa6c7e",
     "scouterName": "Matan",
     "qual": 5,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7347,7 +7671,10 @@
     "_id": "67bede206ce910b1b1aa6c7f",
     "scouterName": "Ohad",
     "qual": 5,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7415,7 +7742,10 @@
     "_id": "67bede236ce910b1b1aa6c80",
     "scouterName": "Daniel",
     "qual": 5,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7483,7 +7813,10 @@
     "_id": "67bede296ce910b1b1aa6c83",
     "scouterName": "Noam",
     "qual": 5,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7551,7 +7884,10 @@
     "_id": "67bede616ce910b1b1aa6c89",
     "scouterName": "Shahar Perets",
     "qual": 4,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7619,7 +7955,10 @@
     "_id": "67bede626ce910b1b1aa6c8a",
     "scouterName": "Shahar Perets",
     "qual": 5,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7687,7 +8026,10 @@
     "_id": "67bedec66ce910b1b1aa6c8b",
     "scouterName": "Alon",
     "qual": 5,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -7755,7 +8097,10 @@
     "_id": "67bee0206ce910b1b1aa6c8c",
     "scouterName": "Daniel",
     "qual": 6,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7823,7 +8168,10 @@
     "_id": "67bee0296ce910b1b1aa6c90",
     "scouterName": "Ohad",
     "qual": 6,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -7891,7 +8239,10 @@
     "_id": "67bee0446ce910b1b1aa6c91",
     "scouterName": "Matan",
     "qual": 6,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 1,
@@ -7959,7 +8310,10 @@
     "_id": "67bee06f6ce910b1b1aa6c93",
     "scouterName": "Alon",
     "qual": 6,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8027,7 +8381,10 @@
     "_id": "67bee2956ce910b1b1aa6c9a",
     "scouterName": "Matan",
     "qual": 7,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8095,7 +8452,10 @@
     "_id": "67bee29a6ce910b1b1aa6c9b",
     "scouterName": "Daniel",
     "qual": 7,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8163,7 +8523,10 @@
     "_id": "67bee3c76ce910b1b1aa6cb4",
     "scouterName": "Noam",
     "qual": 7,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8231,7 +8594,10 @@
     "_id": "67bee3c86ce910b1b1aa6cb6",
     "scouterName": "Noam",
     "qual": 6,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8299,7 +8665,10 @@
     "_id": "67bee4f96ce910b1b1aa6cd2",
     "scouterName": "Matan",
     "qual": 8,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8367,7 +8736,10 @@
     "_id": "67bee50a6ce910b1b1aa6cd3",
     "scouterName": "Daniel",
     "qual": 8,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8435,7 +8807,10 @@
     "_id": "67bee5286ce910b1b1aa6cd5",
     "scouterName": "Shahar Perets",
     "qual": 6,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -8501,7 +8876,10 @@
     "_id": "67bee5286ce910b1b1aa6cd6",
     "scouterName": "Shahar Perets",
     "qual": 7,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -8569,7 +8947,10 @@
     "_id": "67bee5286ce910b1b1aa6cd7",
     "scouterName": "Shahar Perets",
     "qual": 8,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8637,7 +9018,10 @@
     "_id": "67bee7516ce910b1b1aa6cd8",
     "scouterName": "Daniel",
     "qual": 9,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8705,7 +9089,10 @@
     "_id": "67bee7516ce910b1b1aa6cd9",
     "scouterName": "Matan",
     "qual": 9,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -8773,7 +9160,10 @@
     "_id": "67bee9056ce910b1b1aa6cdc",
     "scouterName": "Noam",
     "qual": 9,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8841,7 +9231,10 @@
     "_id": "67bee9916ce910b1b1aa6cdd",
     "scouterName": "Matan",
     "qual": 10,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8909,7 +9302,10 @@
     "_id": "67bee9a76ce910b1b1aa6cdf",
     "scouterName": "Daniel",
     "qual": 10,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -8977,7 +9373,10 @@
     "_id": "67bee9e86ce910b1b1aa6ce1",
     "scouterName": "Shahar Perets",
     "qual": 9,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -9045,7 +9444,10 @@
     "_id": "67bee9ff6ce910b1b1aa6ce2",
     "scouterName": "Shahar Perets",
     "qual": 10,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9113,7 +9515,10 @@
     "_id": "67beeb026ce910b1b1aa6ce4",
     "scouterName": "Alon",
     "qual": 7,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9181,7 +9586,10 @@
     "_id": "67beeb2a6ce910b1b1aa6d05",
     "scouterName": "Ohad",
     "qual": 7,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9249,7 +9657,10 @@
     "_id": "67beeb2e6ce910b1b1aa6d06",
     "scouterName": "Ohad",
     "qual": 8,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9317,7 +9728,10 @@
     "_id": "67beeb2e6ce910b1b1aa6d07",
     "scouterName": "Ohad",
     "qual": 10,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9385,7 +9799,10 @@
     "_id": "67beeb2f6ce910b1b1aa6d08",
     "scouterName": "Ohad",
     "qual": 9,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9453,7 +9870,10 @@
     "_id": "67beeb9a6ce910b1b1aa6d09",
     "scouterName": "Alon",
     "qual": 8,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9521,7 +9941,10 @@
     "_id": "67beeba66ce910b1b1aa6d0d",
     "scouterName": "Ran",
     "qual": 11,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9589,7 +10012,10 @@
     "_id": "67beebba6ce910b1b1aa6d31",
     "scouterName": "Maya",
     "qual": 11,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9657,7 +10083,10 @@
     "_id": "67beebe36ce910b1b1aa6d7b",
     "scouterName": "אלינה",
     "qual": 11,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9725,7 +10154,10 @@
     "_id": "67beec2d6ce910b1b1aa6d7c",
     "scouterName": "itamar",
     "qual": 11,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9793,7 +10225,10 @@
     "_id": "67beec9f6ce910b1b1aa6d7e",
     "scouterName": "Yotam Cohen",
     "qual": 11,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9861,7 +10296,10 @@
     "_id": "67beed9c6ce910b1b1aa6d82",
     "scouterName": "Ran",
     "qual": 12,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -9929,7 +10367,10 @@
     "_id": "67beeda26ce910b1b1aa6d83",
     "scouterName": "אלינה",
     "qual": 12,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -9997,7 +10438,10 @@
     "_id": "67beedc46ce910b1b1aa6d84",
     "scouterName": "Alon",
     "qual": 9,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -10065,7 +10509,10 @@
     "_id": "67beeddd6ce910b1b1aa6d85",
     "scouterName": "Maya",
     "qual": 12,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 1,
@@ -10133,7 +10580,10 @@
     "_id": "67beede16ce910b1b1aa6d86",
     "scouterName": "Yotam Cohen",
     "qual": 12,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -10201,7 +10651,10 @@
     "_id": "67beedfb6ce910b1b1aa6d87",
     "scouterName": "Alon",
     "qual": 10,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -10269,7 +10722,10 @@
     "_id": "67beee5f6ce910b1b1aa6d8a",
     "scouterName": "Noam",
     "qual": 8,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -10337,7 +10793,10 @@
     "_id": "67beee606ce910b1b1aa6d8c",
     "scouterName": "Noam",
     "qual": 10,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -10405,7 +10864,10 @@
     "_id": "67beefe96ce910b1b1aa6d8d",
     "scouterName": "Ran",
     "qual": 13,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": 4,
@@ -10473,7 +10935,10 @@
     "_id": "67beeff66ce910b1b1aa6d8e",
     "scouterName": "אלינה",
     "qual": 13,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -10541,7 +11006,10 @@
     "_id": "67beeff86ce910b1b1aa6d8f",
     "scouterName": "Emily",
     "qual": 12,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -10609,7 +11077,10 @@
     "_id": "67beeff96ce910b1b1aa6d90",
     "scouterName": "Maya",
     "qual": 13,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -10677,7 +11148,10 @@
     "_id": "67beeffc6ce910b1b1aa6d91",
     "scouterName": "Emily",
     "qual": 11,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -10745,7 +11219,10 @@
     "_id": "67bef0076ce910b1b1aa6d92",
     "scouterName": "Emily",
     "qual": 13,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -10813,7 +11290,10 @@
     "_id": "67bef0186ce910b1b1aa6d93",
     "scouterName": "Yotam Cohen",
     "qual": 13,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -10881,7 +11361,10 @@
     "_id": "67bef1456ce910b1b1aa6d95",
     "scouterName": "Yotam Cohen",
     "qual": 13,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -10947,7 +11430,10 @@
     "_id": "67bef1ba6ce910b1b1aa6d96",
     "scouterName": "Ran",
     "qual": 14,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11015,7 +11501,10 @@
     "_id": "67bef1cd6ce910b1b1aa6d97",
     "scouterName": "Maya",
     "qual": 14,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11083,7 +11572,10 @@
     "_id": "67bef1ce6ce910b1b1aa6d98",
     "scouterName": "אלינה",
     "qual": 14,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11151,7 +11643,10 @@
     "_id": "67bef1f56ce910b1b1aa6d99",
     "scouterName": "Emily",
     "qual": 14,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11219,7 +11714,10 @@
     "_id": "67bef2da6ce910b1b1aa6d9a",
     "scouterName": "itamar",
     "qual": 13,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -11287,7 +11785,10 @@
     "_id": "67bef2da6ce910b1b1aa6d9b",
     "scouterName": "itamar",
     "qual": 12,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11355,7 +11856,10 @@
     "_id": "67bef2da6ce910b1b1aa6d9c",
     "scouterName": "itamar",
     "qual": 14,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11423,7 +11927,10 @@
     "_id": "67befdf46ce910b1b1aa6d9d",
     "scouterName": "itamar",
     "qual": 15,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11491,7 +11998,10 @@
     "_id": "67befe106ce910b1b1aa6d9f",
     "scouterName": "Maya",
     "qual": 15,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11559,7 +12069,10 @@
     "_id": "67befe516ce910b1b1aa6da0",
     "scouterName": "אלינה",
     "qual": 15,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11627,7 +12140,10 @@
     "_id": "67befeae6ce910b1b1aa6da1",
     "scouterName": "Yotam Cohen",
     "qual": 15,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11695,7 +12211,10 @@
     "_id": "67bf005f6ce910b1b1aa6da3",
     "scouterName": "Ran",
     "qual": 16,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11763,7 +12282,10 @@
     "_id": "67bf00756ce910b1b1aa6da4",
     "scouterName": "Yotam Cohen",
     "qual": 16,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11831,7 +12353,10 @@
     "_id": "67bf007b6ce910b1b1aa6da5",
     "scouterName": "itamar",
     "qual": 16,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -11899,7 +12424,10 @@
     "_id": "67bf009e6ce910b1b1aa6da6",
     "scouterName": "Maya",
     "qual": 16,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -11967,7 +12495,10 @@
     "_id": "67bf00e26ce910b1b1aa6da7",
     "scouterName": "אלינה",
     "qual": 16,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12033,7 +12564,10 @@
   },
   {
     "_id": "67bf010a6ce910b1b1aa6da9",
-    "teamNumber": "5554",
+    "teamNumber": {
+      "teamNumber": "5554"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 3,
@@ -12101,7 +12635,10 @@
   },
   {
     "_id": "67bf011a6ce910b1b1aa6daa",
-    "teamNumber": "4590",
+    "teamNumber": {
+      "teamNumber": "4590"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -12171,7 +12708,10 @@
     "_id": "67bf013e6ce910b1b1aa6dac",
     "scouterName": "Emily",
     "qual": 15,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12239,7 +12779,10 @@
     "_id": "67bf02216ce910b1b1aa6dad",
     "scouterName": "Ran",
     "qual": 17,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -12305,7 +12848,10 @@
     "_id": "67bf02226ce910b1b1aa6dae",
     "scouterName": "Ran",
     "qual": 17,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12373,7 +12919,10 @@
     "_id": "67bf02256ce910b1b1aa6daf",
     "scouterName": "אלינה",
     "qual": 17,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12441,7 +12990,10 @@
     "_id": "67bf022c6ce910b1b1aa6db0",
     "scouterName": "itamar",
     "qual": 17,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12509,7 +13061,10 @@
     "_id": "67bf02326ce910b1b1aa6db1",
     "scouterName": "Maya",
     "qual": 17,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12577,7 +13132,10 @@
     "_id": "67bf02336ce910b1b1aa6db2",
     "scouterName": "Yotam Cohen",
     "qual": 17,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12645,7 +13203,10 @@
     "_id": "67bf026d6ce910b1b1aa6db3",
     "scouterName": "Emily",
     "qual": 17,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12713,7 +13274,10 @@
     "_id": "67bf04a96ce910b1b1aa6db4",
     "scouterName": "אלינה",
     "qual": 18,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -12781,7 +13345,10 @@
     "_id": "67bf04af6ce910b1b1aa6db5",
     "scouterName": "itamar",
     "qual": 18,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12849,7 +13416,10 @@
     "_id": "67bf04be6ce910b1b1aa6db6",
     "scouterName": "Maya",
     "qual": 18,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -12917,7 +13487,10 @@
     "_id": "67bf04c56ce910b1b1aa6db7",
     "scouterName": "Ran",
     "qual": 18,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -12985,7 +13558,10 @@
     "_id": "67bf05256ce910b1b1aa6db9",
     "scouterName": "Yotam Cohen",
     "qual": 18,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13053,7 +13629,10 @@
     "_id": "67bf06876ce910b1b1aa6dba",
     "scouterName": "Emily",
     "qual": 19,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13121,7 +13700,10 @@
     "_id": "67bf06886ce910b1b1aa6dbb",
     "scouterName": "Yotam Cohen",
     "qual": 19,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13189,7 +13771,10 @@
     "_id": "67bf06886ce910b1b1aa6dbc",
     "scouterName": "Emily",
     "qual": 18,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13257,7 +13842,10 @@
     "_id": "67bf06896ce910b1b1aa6dbd",
     "scouterName": "אלינה",
     "qual": 19,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13325,7 +13913,10 @@
     "_id": "67bf069c6ce910b1b1aa6dbe",
     "scouterName": "Maya",
     "qual": 19,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13393,7 +13984,10 @@
     "_id": "67bf06a06ce910b1b1aa6dbf",
     "scouterName": "Ran",
     "qual": 19,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": 4,
@@ -13461,7 +14055,10 @@
     "_id": "67bf06c16ce910b1b1aa6dc1",
     "scouterName": "itamar",
     "qual": 19,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13529,7 +14126,10 @@
     "_id": "67bf09496ce910b1b1aa6dc2",
     "scouterName": "itamar",
     "qual": 20,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -13595,7 +14195,10 @@
     "_id": "67bf09bd6ce910b1b1aa6dc3",
     "scouterName": "Yotam Cohen",
     "qual": 20,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13663,7 +14266,10 @@
     "_id": "67bf09c56ce910b1b1aa6dc4",
     "scouterName": "Maya",
     "qual": 20,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13731,7 +14337,10 @@
     "_id": "67bf09d36ce910b1b1aa6dc6",
     "scouterName": "Ran",
     "qual": 20,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": 2,
@@ -13799,7 +14408,10 @@
     "_id": "67bf0a296ce910b1b1aa6dc9",
     "scouterName": "Emily",
     "qual": 20,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -13865,7 +14477,10 @@
   },
   {
     "_id": "67bf0b396ce910b1b1aa6dca",
-    "teamNumber": "9740",
+    "teamNumber": {
+      "teamNumber": "9740"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -13935,7 +14550,10 @@
     "_id": "67bf0c606ce910b1b1aa6dcd",
     "scouterName": "Dana",
     "qual": 21,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14003,7 +14621,10 @@
     "_id": "67bf0c6f6ce910b1b1aa6dce",
     "scouterName": "Noa",
     "qual": 21,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14071,7 +14692,10 @@
     "_id": "67bf0ca76ce910b1b1aa6dd1",
     "scouterName": "Tomer",
     "qual": 21,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -14139,7 +14763,10 @@
     "_id": "67bf0d906ce910b1b1aa6df1",
     "scouterName": "Adam",
     "qual": 21,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14207,7 +14834,10 @@
     "_id": "67bf0dbc6ce910b1b1aa6df2",
     "scouterName": "Shahar Perets",
     "qual": 21,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14275,7 +14905,10 @@
     "_id": "67bf0f3c6ce910b1b1aa6df8",
     "scouterName": "Noa",
     "qual": 22,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14343,7 +14976,10 @@
     "_id": "67bf0f3f6ce910b1b1aa6df9",
     "scouterName": "Shahar Perets",
     "qual": 22,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14411,7 +15047,10 @@
     "_id": "67bf0f496ce910b1b1aa6dfb",
     "scouterName": "Tomer",
     "qual": 22,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -14479,7 +15118,10 @@
     "_id": "67bf0f6c6ce910b1b1aa6dfc",
     "scouterName": "Itai almog",
     "qual": 0,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14547,7 +15189,10 @@
     "_id": "67bf0f6c6ce910b1b1aa6dfd",
     "scouterName": "Itai almog",
     "qual": 21,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14615,7 +15260,10 @@
     "_id": "67bf0f6d6ce910b1b1aa6dfe",
     "scouterName": "Itai almog",
     "qual": 22,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14683,7 +15331,10 @@
     "_id": "67bf11716ce910b1b1aa6dff",
     "scouterName": "Noa",
     "qual": 23,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14751,7 +15402,10 @@
     "_id": "67bf11776ce910b1b1aa6e00",
     "scouterName": "Adam",
     "qual": 23,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": 5,
     "defensiveEvasion": "undefined",
@@ -14819,7 +15473,10 @@
     "_id": "67bf117c6ce910b1b1aa6e01",
     "scouterName": "Adam",
     "qual": 22,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14887,7 +15544,10 @@
     "_id": "67bf119f6ce910b1b1aa6e02",
     "scouterName": "Itai almog",
     "qual": 23,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -14955,7 +15615,10 @@
     "_id": "67bf11f76ce910b1b1aa6e03",
     "scouterName": "Tomer",
     "qual": 23,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15023,7 +15686,10 @@
     "_id": "67bf123f6ce910b1b1aa6e04",
     "scouterName": "Shahar Perets",
     "qual": 23,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": 4,
@@ -15091,7 +15757,10 @@
     "_id": "67bf12506ce910b1b1aa6e07",
     "scouterName": "Dana",
     "qual": 22,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15159,7 +15828,10 @@
     "_id": "67bf125a6ce910b1b1aa6e09",
     "scouterName": "Dana",
     "qual": 22,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15227,7 +15899,10 @@
     "_id": "67bf13556ce910b1b1aa6e0b",
     "scouterName": "Adam",
     "qual": 24,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15295,7 +15970,10 @@
     "_id": "67bf13676ce910b1b1aa6e0c",
     "scouterName": "Noa",
     "qual": 24,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -15363,7 +16041,10 @@
     "_id": "67bf13876ce910b1b1aa6e0d",
     "scouterName": "Tomer",
     "qual": 24,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15431,7 +16112,10 @@
     "_id": "67bf142e6ce910b1b1aa6e0e",
     "scouterName": "Shahar Perets",
     "qual": 24,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15499,7 +16183,10 @@
     "_id": "67bf15826ce910b1b1aa6e10",
     "scouterName": "Adam",
     "qual": 25,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15567,7 +16254,10 @@
     "_id": "67bf159e6ce910b1b1aa6e11",
     "scouterName": "Dana",
     "qual": 23,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15635,7 +16325,10 @@
     "_id": "67bf159e6ce910b1b1aa6e12",
     "scouterName": "Dana",
     "qual": 25,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15703,7 +16396,10 @@
     "_id": "67bf16a66ce910b1b1aa6e13",
     "scouterName": "Noa",
     "qual": 25,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -15771,7 +16467,10 @@
     "_id": "67bf186a6ce910b1b1aa6e14",
     "scouterName": "Itai almog",
     "qual": 26,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -15837,7 +16536,10 @@
     "_id": "67bf186d6ce910b1b1aa6e15",
     "scouterName": "Itai almog",
     "qual": 24,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15905,7 +16607,10 @@
     "_id": "67bf18706ce910b1b1aa6e16",
     "scouterName": "Itai almog",
     "qual": 25,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -15973,7 +16678,10 @@
     "_id": "67bf18756ce910b1b1aa6e17",
     "scouterName": "Adam",
     "qual": 26,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16041,7 +16749,10 @@
     "_id": "67bf18826ce910b1b1aa6e18",
     "scouterName": "Noa",
     "qual": 26,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16109,7 +16820,10 @@
     "_id": "67bf18956ce910b1b1aa6e19",
     "scouterName": "Shahar Perets",
     "qual": 25,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16177,7 +16891,10 @@
     "_id": "67bf18a46ce910b1b1aa6e1a",
     "scouterName": "Shahar Perets",
     "qual": 26,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16245,7 +16962,10 @@
     "_id": "67bf18d76ce910b1b1aa6e28",
     "scouterName": "Tomer",
     "qual": 26,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16313,7 +17033,10 @@
     "_id": "67bf1a456ce910b1b1aa6e29",
     "scouterName": "Tomer",
     "qual": 27,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -16381,7 +17104,10 @@
     "_id": "67bf1a646ce910b1b1aa6e2a",
     "scouterName": "Noa",
     "qual": 27,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16449,7 +17175,10 @@
     "_id": "67bf1a756ce910b1b1aa6e2f",
     "scouterName": "Dana",
     "qual": 27,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16517,7 +17246,10 @@
     "_id": "67bf1a7f6ce910b1b1aa6e31",
     "scouterName": "Adam",
     "qual": 27,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16585,7 +17317,10 @@
     "_id": "67bf1a886ce910b1b1aa6e33",
     "scouterName": "Shahar Perets",
     "qual": 27,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16653,7 +17388,10 @@
     "_id": "67bf1ab76ce910b1b1aa6e3b",
     "scouterName": "Itai almog",
     "qual": 27,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16721,7 +17459,10 @@
     "_id": "67bf1af86ce910b1b1aa6e3d",
     "scouterName": "Dana",
     "qual": 26,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16789,7 +17530,10 @@
     "_id": "67bf1bb26ce910b1b1aa6e41",
     "scouterName": "Shahar Perets",
     "qual": 28,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -16855,7 +17599,10 @@
     "_id": "67bf1c116ce910b1b1aa6e42",
     "scouterName": "Dana",
     "qual": 28,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16923,7 +17670,10 @@
     "_id": "67bf1c2f6ce910b1b1aa6e43",
     "scouterName": "Tomer",
     "qual": 28,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -16991,7 +17741,10 @@
     "_id": "67bf1c366ce910b1b1aa6e44",
     "scouterName": "Noa",
     "qual": 28,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -17059,7 +17812,10 @@
     "_id": "67bf1c426ce910b1b1aa6e45",
     "scouterName": "Adam",
     "qual": 28,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17127,7 +17883,10 @@
     "_id": "67bf1c576ce910b1b1aa6e47",
     "scouterName": "Itai almog",
     "qual": 28,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17195,7 +17954,10 @@
     "_id": "67bf1eb26ce910b1b1aa6e49",
     "scouterName": "Adam",
     "qual": 29,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -17261,7 +18023,10 @@
     "_id": "67bf1f2f6ce910b1b1aa6e4a",
     "scouterName": "Shahar Perets",
     "qual": 29,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17329,7 +18094,10 @@
     "_id": "67bf1f316ce910b1b1aa6e4b",
     "scouterName": "Noa",
     "qual": 29,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17397,7 +18165,10 @@
     "_id": "67bf1f646ce910b1b1aa6e4e",
     "scouterName": "Tomer",
     "qual": 29,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17465,7 +18236,10 @@
     "_id": "67bf1f7d6ce910b1b1aa6e50",
     "scouterName": "Itai almog",
     "qual": 29,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17533,7 +18307,10 @@
     "_id": "67bf21956ce910b1b1aa6e52",
     "scouterName": "Itai almog",
     "qual": 30,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17601,7 +18378,10 @@
     "_id": "67bf219b6ce910b1b1aa6e53",
     "scouterName": "Tomer",
     "qual": 30,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17669,7 +18449,10 @@
     "_id": "67bf21a46ce910b1b1aa6e54",
     "scouterName": "Adam",
     "qual": 30,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17737,7 +18520,10 @@
     "_id": "67bf21ab6ce910b1b1aa6e55",
     "scouterName": "Dana",
     "qual": 1580,
-    "teamNumber": 0,
+    "teamNumber": {
+      "teamNumber": 0
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17805,7 +18591,10 @@
     "_id": "67bf21ab6ce910b1b1aa6e56",
     "scouterName": "Dana",
     "qual": 30,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -17873,7 +18662,10 @@
     "_id": "67bf21c56ce910b1b1aa6e57",
     "scouterName": "Noa",
     "qual": 30,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -17941,7 +18733,10 @@
     "_id": "67bf21d16ce910b1b1aa6e58",
     "scouterName": "Shahar Perets",
     "qual": 30,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18009,7 +18804,10 @@
     "_id": "67bf23b36ce910b1b1aa6e62",
     "scouterName": "Noam",
     "qual": 31,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18077,7 +18875,10 @@
     "_id": "67bf23b46ce910b1b1aa6e65",
     "scouterName": "Alon",
     "qual": 31,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -18145,7 +18946,10 @@
     "_id": "67bf23bc6ce910b1b1aa6e67",
     "scouterName": "Matan",
     "qual": 31,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18213,7 +19017,10 @@
     "_id": "67bf23e36ce910b1b1aa6e6c",
     "scouterName": "Leehe",
     "qual": 31,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18281,7 +19088,10 @@
     "_id": "67bf24016ce910b1b1aa6e6f",
     "scouterName": "Ohad",
     "qual": 31,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18349,7 +19159,10 @@
     "_id": "67bf25a86ce910b1b1aa6e70",
     "scouterName": "Leehe",
     "qual": 32,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18417,7 +19230,10 @@
     "_id": "67bf25e56ce910b1b1aa6e71",
     "scouterName": "Matan",
     "qual": 32,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18485,7 +19301,10 @@
     "_id": "67bf26216ce910b1b1aa6e7d",
     "scouterName": "Alon",
     "qual": 32,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -18553,7 +19372,10 @@
     "_id": "67bf26236ce910b1b1aa6e7e",
     "scouterName": "Ohad",
     "qual": 32,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -18621,7 +19443,10 @@
     "_id": "67bf28256ce910b1b1aa6fe6",
     "scouterName": "Ohad",
     "qual": 33,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18689,7 +19514,10 @@
     "_id": "67bf28506ce910b1b1aa6fe7",
     "scouterName": "Leehe",
     "qual": 33,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18757,7 +19585,10 @@
     "_id": "67bf28546ce910b1b1aa6fe8",
     "scouterName": "Daniel",
     "qual": 33,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18825,7 +19656,10 @@
     "_id": "67bf28b76ce910b1b1aa6fe9",
     "scouterName": "Matan",
     "qual": 33,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18893,7 +19727,10 @@
     "_id": "67bf2a726ce910b1b1aa6fec",
     "scouterName": "Ohad",
     "qual": 34,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -18961,7 +19798,10 @@
     "_id": "67bf2a7a6ce910b1b1aa6fed",
     "scouterName": "Noam",
     "qual": 32,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19029,7 +19869,10 @@
     "_id": "67bf2a7a6ce910b1b1aa6fee",
     "scouterName": "Noam",
     "qual": 34,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19097,7 +19940,10 @@
     "_id": "67bf2aa76ce910b1b1aa6fef",
     "scouterName": "Daniel",
     "qual": 34,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19163,7 +20009,10 @@
   },
   {
     "_id": "67bf2ac66ce910b1b1aa6ff1",
-    "teamNumber": "2212",
+    "teamNumber": {
+      "teamNumber": "2212"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -19233,7 +20082,10 @@
     "_id": "67bf2ad96ce910b1b1aa6ff2",
     "scouterName": "Matan",
     "qual": 34,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19299,7 +20151,10 @@
   },
   {
     "_id": "67bf2b166ce910b1b1aa7000",
-    "teamNumber": "1937",
+    "teamNumber": {
+      "teamNumber": "1937"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -19369,7 +20224,10 @@
     "_id": "67bf2c1e6ce910b1b1aa7015",
     "scouterName": "Leehe",
     "qual": 35,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -19435,7 +20293,10 @@
     "_id": "67bf2c2f6ce910b1b1aa7016",
     "scouterName": "Leehe",
     "qual": 34,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19503,7 +20364,10 @@
     "_id": "67bf2ca36ce910b1b1aa701a",
     "scouterName": "Ohad",
     "qual": 35,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19571,7 +20435,10 @@
     "_id": "67bf2cad6ce910b1b1aa701b",
     "scouterName": "Daniel",
     "qual": 35,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19639,7 +20506,10 @@
     "_id": "67bf2cbb6ce910b1b1aa701c",
     "scouterName": "Matan",
     "qual": 35,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19705,7 +20575,10 @@
   },
   {
     "_id": "67bf2cc46ce910b1b1aa7027",
-    "teamNumber": "3075",
+    "teamNumber": {
+      "teamNumber": "3075"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -19775,7 +20648,10 @@
     "_id": "67bf2e476ce910b1b1aa7035",
     "scouterName": "Ohad",
     "qual": 36,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19843,7 +20719,10 @@
     "_id": "67bf2e4d6ce910b1b1aa7036",
     "scouterName": "Leehe",
     "qual": 36,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -19909,7 +20788,10 @@
   },
   {
     "_id": "67bf2e536ce910b1b1aa7037",
-    "teamNumber": "7845",
+    "teamNumber": {
+      "teamNumber": "7845"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -19979,7 +20861,10 @@
     "_id": "67bf2e726ce910b1b1aa7043",
     "scouterName": "Noam",
     "qual": 36,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -20047,7 +20932,10 @@
     "_id": "67bf2e776ce910b1b1aa7044",
     "scouterName": "Noam",
     "qual": 35,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -20115,7 +21003,10 @@
     "_id": "67bf2e806ce910b1b1aa7045",
     "scouterName": "Matan",
     "qual": 36,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20183,7 +21074,10 @@
     "_id": "67bf2e976ce910b1b1aa7064",
     "scouterName": "Daniel",
     "qual": 36,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20251,7 +21145,10 @@
     "_id": "67bf2ef36ce910b1b1aa7066",
     "scouterName": "Alon",
     "qual": 33,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20319,7 +21216,10 @@
     "_id": "67bf2f3b6ce910b1b1aa729d",
     "scouterName": "Alon",
     "qual": 34,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20387,7 +21287,10 @@
     "_id": "67bf2f3d6ce910b1b1aa72d8",
     "scouterName": "Alon",
     "qual": 35,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20455,7 +21358,10 @@
     "_id": "67bf2f416ce910b1b1aa735b",
     "scouterName": "Alon",
     "qual": 36,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20523,7 +21429,10 @@
     "_id": "67bf302a6ce910b1b1aa7560",
     "scouterName": "Ohad",
     "qual": 37,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20591,7 +21500,10 @@
     "_id": "67bf30326ce910b1b1aa7561",
     "scouterName": "Shahar Perets",
     "qual": 37,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -20659,7 +21571,10 @@
     "_id": "67bf30396ce910b1b1aa7563",
     "scouterName": "Daniel",
     "qual": 37,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -20727,7 +21642,10 @@
     "_id": "67bf304d6ce910b1b1aa7567",
     "scouterName": "Leehe",
     "qual": 37,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20795,7 +21713,10 @@
     "_id": "67bf311d6ce910b1b1aa7569",
     "scouterName": "Alon",
     "qual": 37,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20863,7 +21784,10 @@
     "_id": "67bf31d96ce910b1b1aa7608",
     "scouterName": "Ohad",
     "qual": 38,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20931,7 +21855,10 @@
     "_id": "67bf32066ce910b1b1aa7613",
     "scouterName": "Daniel",
     "qual": 38,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -20999,7 +21926,10 @@
     "_id": "67bf321d6ce910b1b1aa7617",
     "scouterName": "Leehe",
     "qual": 38,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21067,7 +21997,10 @@
     "_id": "67bf322a6ce910b1b1aa7619",
     "scouterName": "Matan",
     "qual": 38,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21135,7 +22068,10 @@
     "_id": "67bf32796ce910b1b1aa761f",
     "scouterName": "Alon",
     "qual": 38,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -21203,7 +22139,10 @@
     "_id": "67bf32e66ce910b1b1aa7620",
     "scouterName": "Noam",
     "qual": 38,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21271,7 +22210,10 @@
     "_id": "67bf33f36ce910b1b1aa7622",
     "scouterName": "Ohad",
     "qual": 39,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21339,7 +22281,10 @@
     "_id": "67bf33fd6ce910b1b1aa762b",
     "scouterName": "Leehe",
     "qual": 39,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -21405,7 +22350,10 @@
   },
   {
     "_id": "67bf34036ce910b1b1aa762e",
-    "teamNumber": "1580",
+    "teamNumber": {
+      "teamNumber": "1580"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -21475,7 +22423,10 @@
     "_id": "67bf341f6ce910b1b1aa7631",
     "scouterName": "Noam",
     "qual": 39,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21543,7 +22494,10 @@
     "_id": "67bf34496ce910b1b1aa7632",
     "scouterName": "Daniel",
     "qual": 39,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21611,7 +22565,10 @@
     "_id": "67bf34a86ce910b1b1aa763c",
     "scouterName": "Alon",
     "qual": 39,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -21679,7 +22636,10 @@
     "_id": "67bf363c6ce910b1b1aa764c",
     "scouterName": "Leehe",
     "qual": 40,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21747,7 +22707,10 @@
     "_id": "67bf363c6ce910b1b1aa764d",
     "scouterName": "Daniel",
     "qual": 40,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21815,7 +22778,10 @@
     "_id": "67bf36406ce910b1b1aa764e",
     "scouterName": "Ohad",
     "qual": 40,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21883,7 +22849,10 @@
     "_id": "67bf36436ce910b1b1aa7655",
     "scouterName": "Alon",
     "qual": 40,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -21951,7 +22920,10 @@
     "_id": "67bf36716ce910b1b1aa766d",
     "scouterName": "Noam",
     "qual": 0,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22019,7 +22991,10 @@
     "_id": "67bf37496ce910b1b1aa7678",
     "scouterName": "Matan",
     "qual": 40,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22087,7 +23062,10 @@
     "_id": "67bf374a6ce910b1b1aa767a",
     "scouterName": "Matan",
     "qual": 39,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22155,7 +23133,10 @@
     "_id": "67bf378b6ce910b1b1aa7685",
     "scouterName": "Ran",
     "qual": 41,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": true,
     "climb": "Off Barge",
     "comment": "",
@@ -22221,7 +23202,10 @@
     "_id": "67bf38a26ce910b1b1aa7693",
     "scouterName": "Maya",
     "qual": 41,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22289,7 +23273,10 @@
     "_id": "67bf38d06ce910b1b1aa7694",
     "scouterName": "itamar",
     "qual": 41,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -22357,7 +23344,10 @@
     "_id": "67bf39086ce910b1b1aa7695",
     "scouterName": "Yotam Cohen",
     "qual": 41,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22425,7 +23415,10 @@
     "_id": "67bf393b6ce910b1b1aa7696",
     "scouterName": "Emily",
     "qual": 41,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22493,7 +23486,10 @@
     "_id": "67bf3ab56ce910b1b1aa7697",
     "scouterName": "Ran",
     "qual": 42,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": 3,
@@ -22561,7 +23557,10 @@
     "_id": "67bf3ad06ce910b1b1aa7698",
     "scouterName": "itamar",
     "qual": 42,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22629,7 +23628,10 @@
     "_id": "67bf3ad66ce910b1b1aa7699",
     "scouterName": "Yotam Cohen",
     "qual": 42,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22697,7 +23699,10 @@
     "_id": "67bf3af66ce910b1b1aa769a",
     "scouterName": "Maya",
     "qual": 42,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22765,7 +23770,10 @@
     "_id": "67bf3b2a6ce910b1b1aa769b",
     "scouterName": "Emily",
     "qual": 42,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22833,7 +23841,10 @@
     "_id": "67bf3cd06ce910b1b1aa769e",
     "scouterName": "Ran",
     "qual": 43,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22901,7 +23912,10 @@
     "_id": "67bf3ce66ce910b1b1aa76a1",
     "scouterName": "itamar",
     "qual": 43,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -22969,7 +23983,10 @@
     "_id": "67bf3d096ce910b1b1aa76a2",
     "scouterName": "Maya",
     "qual": 43,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -23037,7 +24054,10 @@
     "_id": "67bf3d576ce910b1b1aa76a3",
     "scouterName": "Emily",
     "qual": 43,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -23105,7 +24125,10 @@
     "_id": "67bf3d5b6ce910b1b1aa76a5",
     "scouterName": "אלינה",
     "qual": 41,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -23171,7 +24194,10 @@
   },
   {
     "_id": "67bf3d636ce910b1b1aa76a6",
-    "teamNumber": "9740",
+    "teamNumber": {
+      "teamNumber": "9740"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -23239,7 +24265,10 @@
   },
   {
     "_id": "67bf3da16ce910b1b1aa76a7",
-    "teamNumber": "2679",
+    "teamNumber": {
+      "teamNumber": "2679"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -23307,7 +24336,10 @@
   },
   {
     "_id": "67bf3dc36ce910b1b1aa76a8",
-    "teamNumber": "1580",
+    "teamNumber": {
+      "teamNumber": "1580"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -23377,7 +24409,10 @@
     "_id": "67bf3dfb6ce910b1b1aa76a9",
     "scouterName": "אלינה",
     "qual": 43,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": 5,
     "defensiveEvasion": "undefined",
@@ -23443,7 +24478,10 @@
   },
   {
     "_id": "67bf3e0e6ce910b1b1aa76aa",
-    "teamNumber": "5715",
+    "teamNumber": {
+      "teamNumber": "5715"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -23513,7 +24551,10 @@
     "_id": "67bf3f156ce910b1b1aa76af",
     "scouterName": "Ran",
     "qual": 44,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": 3,
@@ -23581,7 +24622,10 @@
     "_id": "67bf3f186ce910b1b1aa76b0",
     "scouterName": "אלינה",
     "qual": 44,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -23649,7 +24693,10 @@
     "_id": "67bf3f4b6ce910b1b1aa76b1",
     "scouterName": "itamar",
     "qual": 44,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -23717,7 +24764,10 @@
     "_id": "67bf3fa96ce910b1b1aa76b3",
     "scouterName": "Maya",
     "qual": 43,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 1,
@@ -23783,7 +24833,10 @@
   },
   {
     "_id": "67bf3fd36ce910b1b1aa76b4",
-    "teamNumber": "3388",
+    "teamNumber": {
+      "teamNumber": "3388"
+    },
+
     "teleReefPick": {
       "algea": {
         "netScore": 0,
@@ -23853,7 +24906,10 @@
     "_id": "67bf41276ce910b1b1aa76b5",
     "scouterName": "itamar",
     "qual": 45,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -23921,7 +24977,10 @@
     "_id": "67bf41386ce910b1b1aa76b6",
     "scouterName": "Maya",
     "qual": 44,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -23989,7 +25048,10 @@
     "_id": "67bf41446ce910b1b1aa76b7",
     "scouterName": "Emily",
     "qual": 44,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24057,7 +25119,10 @@
     "_id": "67bf41466ce910b1b1aa76b8",
     "scouterName": "Ran",
     "qual": 45,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24125,7 +25190,10 @@
     "_id": "67bf41616ce910b1b1aa76b9",
     "scouterName": "אלינה",
     "qual": 45,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24193,7 +25261,10 @@
     "_id": "67bf41666ce910b1b1aa76ba",
     "scouterName": "Yotam Cohen",
     "qual": 43,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24261,7 +25332,10 @@
     "_id": "67bf41e56ce910b1b1aa76bb",
     "scouterName": "Yotam Cohen",
     "qual": 45,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -24329,7 +25403,10 @@
     "_id": "67bf41ec6ce910b1b1aa76bc",
     "scouterName": "Yotam Cohen",
     "qual": 44,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -24397,7 +25474,10 @@
     "_id": "67bff5eaecebe6f2f54b1f3c",
     "scouterName": "Amir",
     "qual": 31,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -24465,7 +25545,10 @@
     "_id": "67bff5ebecebe6f2f54b1f3d",
     "scouterName": "Amir",
     "qual": 32,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24533,7 +25616,10 @@
     "_id": "67c00063ecebe6f2f54b1f3e",
     "scouterName": "Ran",
     "qual": 46,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24601,7 +25687,10 @@
     "_id": "67c0006cecebe6f2f54b1f3f",
     "scouterName": "Amir",
     "qual": 46,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24669,7 +25758,10 @@
     "_id": "67c00074ecebe6f2f54b1f40",
     "scouterName": "Aya",
     "qual": 46,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24737,7 +25829,10 @@
     "_id": "67c0007becebe6f2f54b1f41",
     "scouterName": "Yotam Cohen",
     "qual": 46,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24805,7 +25900,10 @@
     "_id": "67c00086ecebe6f2f54b1f42",
     "scouterName": "Dana",
     "qual": 46,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -24873,7 +25971,10 @@
     "_id": "67c0008aecebe6f2f54b1f43",
     "scouterName": "itamar",
     "qual": 46,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -24941,7 +26042,10 @@
     "_id": "67c000ceecebe6f2f54b1f44",
     "scouterName": "Yoni",
     "qual": 46,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -25009,7 +26113,10 @@
     "_id": "67c00249ecebe6f2f54b1f45",
     "scouterName": "Amir",
     "qual": 47,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25077,7 +26184,10 @@
     "_id": "67c0024cecebe6f2f54b1f46",
     "scouterName": "Yotam Cohen",
     "qual": 47,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25145,7 +26255,10 @@
     "_id": "67c00265ecebe6f2f54b1f47",
     "scouterName": "Ran",
     "qual": 47,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -25213,7 +26326,10 @@
     "_id": "67c00266ecebe6f2f54b1f48",
     "scouterName": "Aya",
     "qual": 47,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -25281,7 +26397,10 @@
     "_id": "67c0027fecebe6f2f54b1f49",
     "scouterName": "Dana",
     "qual": 47,
-    "teamNumber": 1578,
+    "teamNumber": {
+      "teamNumber": 1578
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -25349,7 +26468,10 @@
     "_id": "67c0049fecebe6f2f54b1f4a",
     "scouterName": "Ran",
     "qual": 48,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25417,7 +26539,10 @@
     "_id": "67c004a0ecebe6f2f54b1f4b",
     "scouterName": "Yotam Cohen",
     "qual": 48,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25485,7 +26610,10 @@
     "_id": "67c004a7ecebe6f2f54b1f4c",
     "scouterName": "Dana",
     "qual": 48,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25553,7 +26681,10 @@
     "_id": "67c004abecebe6f2f54b1f4d",
     "scouterName": "Amir",
     "qual": 48,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25621,7 +26752,10 @@
     "_id": "67c004b5ecebe6f2f54b1f4e",
     "scouterName": "Aya",
     "qual": 48,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25689,7 +26823,10 @@
     "_id": "67c004ccecebe6f2f54b1f4f",
     "scouterName": "Ohad",
     "qual": 48,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25757,7 +26894,10 @@
     "_id": "67c0075becebe6f2f54b1f50",
     "scouterName": "Aya",
     "qual": 49,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25825,7 +26965,10 @@
     "_id": "67c00761ecebe6f2f54b1f51",
     "scouterName": "Amir",
     "qual": 49,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -25893,7 +27036,10 @@
     "_id": "67c0076fecebe6f2f54b1f52",
     "scouterName": "Ran",
     "qual": 49,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -25961,7 +27107,10 @@
     "_id": "67c00784ecebe6f2f54b1f53",
     "scouterName": "Yotam Cohen",
     "qual": 48,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -26029,7 +27178,10 @@
     "_id": "67c0078becebe6f2f54b1f54",
     "scouterName": "Dana",
     "qual": 49,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26097,7 +27249,10 @@
     "_id": "67c00a1aecebe6f2f54b1f55",
     "scouterName": "Aya",
     "qual": 50,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26165,7 +27320,10 @@
     "_id": "67c00a20ecebe6f2f54b1f56",
     "scouterName": "Amir",
     "qual": 50,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26233,7 +27391,10 @@
     "_id": "67c00a27ecebe6f2f54b1f57",
     "scouterName": "Ran",
     "qual": 50,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26301,7 +27462,10 @@
     "_id": "67c00a2aecebe6f2f54b1f58",
     "scouterName": "Dana",
     "qual": 50,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26369,7 +27533,10 @@
     "_id": "67c00a2becebe6f2f54b1f59",
     "scouterName": "Yotam Cohen",
     "qual": 50,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -26437,7 +27604,10 @@
     "_id": "67c00b31ecebe6f2f54b1f5a",
     "scouterName": "itamar",
     "qual": 48,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26505,7 +27675,10 @@
     "_id": "67c00b32ecebe6f2f54b1f5b",
     "scouterName": "itamar",
     "qual": 49,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26573,7 +27746,10 @@
     "_id": "67c00b34ecebe6f2f54b1f5c",
     "scouterName": "itamar",
     "qual": 50,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -26641,7 +27817,10 @@
     "_id": "67c00b40ecebe6f2f54b1f5d",
     "scouterName": "itamar",
     "qual": 47,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -26709,7 +27888,10 @@
     "_id": "67c00c2decebe6f2f54b1f5e",
     "scouterName": "Yotam Cohen",
     "qual": 51,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26777,7 +27959,10 @@
     "_id": "67c00c30ecebe6f2f54b1f5f",
     "scouterName": "Aya",
     "qual": 51,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -26845,7 +28030,10 @@
     "_id": "67c00c31ecebe6f2f54b1f60",
     "scouterName": "Amir",
     "qual": 51,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -26913,7 +28101,10 @@
     "_id": "67c00c33ecebe6f2f54b1f61",
     "scouterName": "Dana",
     "qual": 51,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -26981,7 +28172,10 @@
     "_id": "67c00c3becebe6f2f54b1f62",
     "scouterName": "Ran",
     "qual": 51,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27049,7 +28243,10 @@
     "_id": "67c00e89ecebe6f2f54b1f63",
     "scouterName": "Yotam Cohen",
     "qual": 52,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27117,7 +28314,10 @@
     "_id": "67c00e8cecebe6f2f54b1f64",
     "scouterName": "Amir",
     "qual": 52,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27185,7 +28385,10 @@
     "_id": "67c00e9aecebe6f2f54b1f65",
     "scouterName": "itamar",
     "qual": 51,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27253,7 +28456,10 @@
     "_id": "67c00e9decebe6f2f54b1f66",
     "scouterName": "itamar",
     "qual": 52,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27321,7 +28527,10 @@
     "_id": "67c00ea1ecebe6f2f54b1f67",
     "scouterName": "Dana",
     "qual": 52,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -27389,7 +28598,10 @@
     "_id": "67c00eaaecebe6f2f54b1f68",
     "scouterName": "Ran",
     "qual": 52,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27457,7 +28669,10 @@
     "_id": "67c01024ecebe6f2f54b1f69",
     "scouterName": "אלינה",
     "qual": 53,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27525,7 +28740,10 @@
     "_id": "67c01030ecebe6f2f54b1f6a",
     "scouterName": "Noa",
     "qual": 53,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27593,7 +28811,10 @@
     "_id": "67c01033ecebe6f2f54b1f6b",
     "scouterName": "Itai almog",
     "qual": 53,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -27661,7 +28882,10 @@
     "_id": "67c01053ecebe6f2f54b1f6c",
     "scouterName": "Maya",
     "qual": 53,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27729,7 +28953,10 @@
     "_id": "67c01060ecebe6f2f54b1f6d",
     "scouterName": "Tomer",
     "qual": 53,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27797,7 +29024,10 @@
     "_id": "67c011e0ecebe6f2f54b1f6e",
     "scouterName": "Itai almog",
     "qual": 54,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -27865,7 +29095,10 @@
     "_id": "67c011f0ecebe6f2f54b1f6f",
     "scouterName": "Noa",
     "qual": 54,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -27933,7 +29166,10 @@
     "_id": "67c011f1ecebe6f2f54b1f70",
     "scouterName": "אלינה",
     "qual": 54,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28001,7 +29237,10 @@
     "_id": "67c011f3ecebe6f2f54b1f71",
     "scouterName": "Tomer",
     "qual": 54,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -28069,7 +29308,10 @@
     "_id": "67c011f7ecebe6f2f54b1f72",
     "scouterName": "Adam",
     "qual": 54,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28137,7 +29379,10 @@
     "_id": "67c011fdecebe6f2f54b1f73",
     "scouterName": "Maya",
     "qual": 54,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -28205,7 +29450,10 @@
     "_id": "67c0140eecebe6f2f54b1f74",
     "scouterName": "Maya",
     "qual": 55,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -28273,7 +29521,10 @@
     "_id": "67c0140fecebe6f2f54b1f75",
     "scouterName": "Adam",
     "qual": 55,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28341,7 +29592,10 @@
     "_id": "67c0141fecebe6f2f54b1f76",
     "scouterName": "אלינה",
     "qual": 55,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28409,7 +29663,10 @@
     "_id": "67c01422ecebe6f2f54b1f77",
     "scouterName": "Itai almog",
     "qual": 55,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28477,7 +29734,10 @@
     "_id": "67c01439ecebe6f2f54b1f78",
     "scouterName": "Tomer",
     "qual": 55,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28545,7 +29805,10 @@
     "_id": "67c0144aecebe6f2f54b1f79",
     "scouterName": "Noa",
     "qual": 55,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28613,7 +29876,10 @@
     "_id": "67c015efecebe6f2f54b1f7a",
     "scouterName": "Tomer",
     "qual": 56,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28681,7 +29947,10 @@
     "_id": "67c015f1ecebe6f2f54b1f7b",
     "scouterName": "Maya",
     "qual": 56,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -28749,7 +30018,10 @@
     "_id": "67c015f6ecebe6f2f54b1f7c",
     "scouterName": "Itai almog",
     "qual": 56,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28817,7 +30089,10 @@
     "_id": "67c01615ecebe6f2f54b1f7d",
     "scouterName": "Adam",
     "qual": 56,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -28885,7 +30160,10 @@
     "_id": "67c01627ecebe6f2f54b1f7e",
     "scouterName": "אלינה",
     "qual": 56,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -28953,7 +30231,10 @@
     "_id": "67c017f3ecebe6f2f54b1f7f",
     "scouterName": "Adam",
     "qual": 57,
-    "teamNumber": 4320,
+    "teamNumber": {
+      "teamNumber": 4320
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29021,7 +30302,10 @@
     "_id": "67c017fbecebe6f2f54b1f80",
     "scouterName": "אלינה",
     "qual": 57,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29089,7 +30373,10 @@
     "_id": "67c0182becebe6f2f54b1f81",
     "scouterName": "Maya",
     "qual": 57,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29157,7 +30444,10 @@
     "_id": "67c0182decebe6f2f54b1f82",
     "scouterName": "Tomer",
     "qual": 57,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29225,7 +30515,10 @@
     "_id": "67c0185becebe6f2f54b1f83",
     "scouterName": "Noa",
     "qual": 57,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -29293,7 +30586,10 @@
     "_id": "67c019a3ecebe6f2f54b1f84",
     "scouterName": "Maya",
     "qual": 58,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 4,
@@ -29361,7 +30657,10 @@
     "_id": "67c019beecebe6f2f54b1f85",
     "scouterName": "Noa",
     "qual": 58,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29429,7 +30728,10 @@
     "_id": "67c019c0ecebe6f2f54b1f86",
     "scouterName": "Itai almog",
     "qual": 57,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29497,7 +30799,10 @@
     "_id": "67c019c1ecebe6f2f54b1f87",
     "scouterName": "Itai almog",
     "qual": 58,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29565,7 +30870,10 @@
     "_id": "67c019c4ecebe6f2f54b1f88",
     "scouterName": "אלינה",
     "qual": 58,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29633,7 +30941,10 @@
     "_id": "67c019d4ecebe6f2f54b1f89",
     "scouterName": "Tomer",
     "qual": 58,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -29701,7 +31012,10 @@
     "_id": "67c01c64ecebe6f2f54b1f8a",
     "scouterName": "Noa",
     "qual": 59,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29769,7 +31083,10 @@
     "_id": "67c01c65ecebe6f2f54b1f8b",
     "scouterName": "Adam",
     "qual": 58,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 3,
@@ -29837,7 +31154,10 @@
     "_id": "67c01c69ecebe6f2f54b1f8c",
     "scouterName": "אלינה",
     "qual": 59,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29905,7 +31225,10 @@
     "_id": "67c01cb2ecebe6f2f54b1f8d",
     "scouterName": "Maya",
     "qual": 59,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -29973,7 +31296,10 @@
     "_id": "67c01ceeecebe6f2f54b1f8e",
     "scouterName": "Itai almog",
     "qual": 59,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30041,7 +31367,10 @@
     "_id": "67c01cf4ecebe6f2f54b1f8f",
     "scouterName": "Tomer",
     "qual": 59,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30109,7 +31438,10 @@
     "_id": "67c01d7aecebe6f2f54b1f90",
     "scouterName": "Adam",
     "qual": 59,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30177,7 +31509,10 @@
     "_id": "67c01e85ecebe6f2f54b1f91",
     "scouterName": "Itai almog",
     "qual": 60,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -30245,7 +31580,10 @@
     "_id": "67c01e90ecebe6f2f54b1f92",
     "scouterName": "אלינה",
     "qual": 60,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30313,7 +31651,10 @@
     "_id": "67c01e91ecebe6f2f54b1f93",
     "scouterName": "Tomer",
     "qual": 60,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30381,7 +31722,10 @@
     "_id": "67c01e91ecebe6f2f54b1f94",
     "scouterName": "Maya",
     "qual": 60,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -30449,7 +31793,10 @@
     "_id": "67c01e9fecebe6f2f54b1f95",
     "scouterName": "Noa",
     "qual": 60,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30517,7 +31864,10 @@
     "_id": "67c02057ecebe6f2f54b1f96",
     "scouterName": "Maya",
     "qual": 61,
-    "teamNumber": 1580,
+    "teamNumber": {
+      "teamNumber": 1580
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -30585,7 +31935,10 @@
     "_id": "67c02057ecebe6f2f54b1f97",
     "scouterName": "Noa",
     "qual": 61,
-    "teamNumber": 5715,
+    "teamNumber": {
+      "teamNumber": 5715
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30653,7 +32006,10 @@
     "_id": "67c0205fecebe6f2f54b1f98",
     "scouterName": "Tomer",
     "qual": 61,
-    "teamNumber": 4586,
+    "teamNumber": {
+      "teamNumber": 4586
+    },
+
     "noShow": false,
     "defense": 4,
     "defensiveEvasion": "undefined",
@@ -30721,7 +32077,10 @@
     "_id": "67c02078ecebe6f2f54b1f99",
     "scouterName": "אלינה",
     "qual": 61,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30789,7 +32148,10 @@
     "_id": "67c02246ecebe6f2f54b1f9a",
     "scouterName": "Noa",
     "qual": 62,
-    "teamNumber": 5135,
+    "teamNumber": {
+      "teamNumber": 5135
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30857,7 +32219,10 @@
     "_id": "67c0225aecebe6f2f54b1f9b",
     "scouterName": "Tomer",
     "qual": 62,
-    "teamNumber": 5987,
+    "teamNumber": {
+      "teamNumber": 5987
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30925,7 +32290,10 @@
     "_id": "67c0225eecebe6f2f54b1f9c",
     "scouterName": "Maya",
     "qual": 62,
-    "teamNumber": 1954,
+    "teamNumber": {
+      "teamNumber": 1954
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -30993,7 +32361,10 @@
     "_id": "67c02291ecebe6f2f54b1f9d",
     "scouterName": "אלינה",
     "qual": 62,
-    "teamNumber": 5990,
+    "teamNumber": {
+      "teamNumber": 5990
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31061,7 +32432,10 @@
     "_id": "67c022f3ecebe6f2f54b1f9e",
     "scouterName": "Itai almog",
     "qual": 62,
-    "teamNumber": 1657,
+    "teamNumber": {
+      "teamNumber": 1657
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31129,7 +32503,10 @@
     "_id": "67c02341ecebe6f2f54b1f9f",
     "scouterName": "Itai almog",
     "qual": 61,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31197,7 +32574,10 @@
     "_id": "67c023e2ecebe6f2f54b1fa0",
     "scouterName": "Adam",
     "qual": 62,
-    "teamNumber": 3075,
+    "teamNumber": {
+      "teamNumber": 3075
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31265,7 +32645,10 @@
     "_id": "67c023e6ecebe6f2f54b1fa1",
     "scouterName": "Adam",
     "qual": 61,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31333,7 +32716,10 @@
     "_id": "67c023e6ecebe6f2f54b1fa2",
     "scouterName": "Adam",
     "qual": 60,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31401,7 +32787,10 @@
     "_id": "67c024beecebe6f2f54b1fa3",
     "scouterName": "אלינה",
     "qual": 63,
-    "teamNumber": 7039,
+    "teamNumber": {
+      "teamNumber": 7039
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31469,7 +32858,10 @@
     "_id": "67c024c1ecebe6f2f54b1fa4",
     "scouterName": "Maya",
     "qual": 63,
-    "teamNumber": 1576,
+    "teamNumber": {
+      "teamNumber": 1576
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31537,7 +32929,10 @@
     "_id": "67c024ccecebe6f2f54b1fa5",
     "scouterName": "Itai almog",
     "qual": 63,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31605,7 +33000,10 @@
     "_id": "67c024d0ecebe6f2f54b1fa6",
     "scouterName": "Noa",
     "qual": 63,
-    "teamNumber": 3316,
+    "teamNumber": {
+      "teamNumber": 3316
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31673,7 +33071,10 @@
     "_id": "67c024e4ecebe6f2f54b1fa7",
     "scouterName": "Ohad ",
     "qual": 63,
-    "teamNumber": 3339,
+    "teamNumber": {
+      "teamNumber": 3339
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31741,7 +33142,10 @@
     "_id": "67c026e8ecebe6f2f54b1fa8",
     "scouterName": "Noa",
     "qual": 64,
-    "teamNumber": 9740,
+    "teamNumber": {
+      "teamNumber": 9740
+    },
+
     "noShow": false,
     "defense": 1,
     "defensiveEvasion": "undefined",
@@ -31809,7 +33213,10 @@
     "_id": "67c026ebecebe6f2f54b1fa9",
     "scouterName": "Ohad ",
     "qual": 64,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31877,7 +33284,10 @@
     "_id": "67c026f3ecebe6f2f54b1faa",
     "scouterName": "אלינה",
     "qual": 64,
-    "teamNumber": 4590,
+    "teamNumber": {
+      "teamNumber": 4590
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -31945,7 +33355,10 @@
     "_id": "67c02730ecebe6f2f54b1fab",
     "scouterName": "Tomer",
     "qual": 64,
-    "teamNumber": 5554,
+    "teamNumber": {
+      "teamNumber": 5554
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32013,7 +33426,10 @@
     "_id": "67c02733ecebe6f2f54b1fac",
     "scouterName": "Tomer",
     "qual": 63,
-    "teamNumber": 3211,
+    "teamNumber": {
+      "teamNumber": 3211
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32081,7 +33497,10 @@
     "_id": "67c02738ecebe6f2f54b1fad",
     "scouterName": "Maya",
     "qual": 64,
-    "teamNumber": 1574,
+    "teamNumber": {
+      "teamNumber": 1574
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32149,7 +33568,10 @@
     "_id": "67c027c8ecebe6f2f54b1fae",
     "scouterName": "Itai almog",
     "qual": 64,
-    "teamNumber": 6740,
+    "teamNumber": {
+      "teamNumber": 6740
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32217,7 +33639,10 @@
     "_id": "67c02864ecebe6f2f54b1faf",
     "scouterName": "Adam",
     "qual": 63,
-    "teamNumber": 1937,
+    "teamNumber": {
+      "teamNumber": 1937
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32285,7 +33710,10 @@
     "_id": "67c02864ecebe6f2f54b1fb0",
     "scouterName": "Adam",
     "qual": 64,
-    "teamNumber": 6168,
+    "teamNumber": {
+      "teamNumber": 6168
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32353,7 +33781,10 @@
     "_id": "67c0292decebe6f2f54b1fb1",
     "scouterName": "Ohad",
     "qual": 65,
-    "teamNumber": 10139,
+    "teamNumber": {
+      "teamNumber": 10139
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32421,7 +33852,10 @@
     "_id": "67c02933ecebe6f2f54b1fb2",
     "scouterName": "Matan",
     "qual": 65,
-    "teamNumber": 5614,
+    "teamNumber": {
+      "teamNumber": 5614
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32489,7 +33923,10 @@
     "_id": "67c02940ecebe6f2f54b1fb3",
     "scouterName": "Noam",
     "qual": 66,
-    "teamNumber": 2231,
+    "teamNumber": {
+      "teamNumber": 2231
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 2,
@@ -32557,7 +33994,10 @@
     "_id": "67c02969ecebe6f2f54b1fb4",
     "scouterName": "Shahar Perets",
     "qual": 65,
-    "teamNumber": 7845,
+    "teamNumber": {
+      "teamNumber": 7845
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 4,
@@ -32625,7 +34065,10 @@
     "_id": "67c029daecebe6f2f54b1fb5",
     "scouterName": "Alon",
     "qual": 65,
-    "teamNumber": 2679,
+    "teamNumber": {
+      "teamNumber": 2679
+    },
+
     "noShow": false,
     "defense": 2,
     "defensiveEvasion": "undefined",
@@ -32693,7 +34136,10 @@
     "_id": "67c02bf2ecebe6f2f54b1fb6",
     "scouterName": "Ohad",
     "qual": 66,
-    "teamNumber": 3388,
+    "teamNumber": {
+      "teamNumber": 3388
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32761,7 +34207,10 @@
     "_id": "67c02bf5ecebe6f2f54b1fb7",
     "scouterName": "Matan",
     "qual": 66,
-    "teamNumber": 7112,
+    "teamNumber": {
+      "teamNumber": 7112
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32829,7 +34278,10 @@
     "_id": "67c02c06ecebe6f2f54b1fb8",
     "scouterName": "Daniel",
     "qual": 66,
-    "teamNumber": 4744,
+    "teamNumber": {
+      "teamNumber": 4744
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
@@ -32897,7 +34349,10 @@
     "_id": "67c02c0fecebe6f2f54b1fb9",
     "scouterName": "Noam",
     "qual": 66,
-    "teamNumber": 2230,
+    "teamNumber": {
+      "teamNumber": 2230
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": 1,
@@ -32965,7 +34420,10 @@
     "_id": "67c02c28ecebe6f2f54b1fba",
     "scouterName": "Alon",
     "qual": 66,
-    "teamNumber": 2212,
+    "teamNumber": {
+      "teamNumber": 2212
+    },
+
     "noShow": false,
     "defense": 3,
     "defensiveEvasion": "undefined",
@@ -33033,7 +34491,10 @@
     "_id": "67c02c2cecebe6f2f54b1fbb",
     "scouterName": "Shahar Perets",
     "qual": 66,
-    "teamNumber": 9739,
+    "teamNumber": {
+      "teamNumber": 9739
+    },
+
     "noShow": false,
     "defense": "undefined",
     "defensiveEvasion": "undefined",
