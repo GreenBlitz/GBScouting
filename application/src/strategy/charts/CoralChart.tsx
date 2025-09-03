@@ -74,7 +74,13 @@ const CoralChart: React.FC<CoralChartProps> = ({ corals }) => {
     }
   }, [coralElements]);
 
-  return <>{coralElements}</>;
+  return <>
+    <div className="flex justify-center">
+      <div className="grid grid-cols-3 gap-4">
+        {coralElements}
+      </div>
+    </div>
+  </>;;
 };
 
 export default CoralChart;
