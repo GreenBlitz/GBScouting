@@ -45,6 +45,7 @@ const Tinder: React.FC = () => {
   const [ranking, setRanking] = useState<TeamInfo[]>([]);
   const [recency, setRecency] = useState<number>(5);
   const [currentID, setID] = useState(0);
+  const [showRanking, setShowing] = useState(false);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -106,34 +107,46 @@ const Tinder: React.FC = () => {
   return (
     <div>
       <div className="flex flex-col md:flex-row items-stretch gap-4">
-        <div className="flex-1 min-w-0">
-          <TeamCard
-            teamInfo={ranking[currentID] || defaultTeam}
-            onSwipe={() => choose(currentID)}
-          />
-        </div>
-        {/* <div className="w-full md:w-80 mt-5">
-          <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-72 overflow-y-auto">
-            <div className="space-y-2">
-              {ranking.map((item, index) => (
-                <TeamListItem
-                  key={item.stats.Team}
-                  ref={(el) => (itemRefs.current[index] = el)}
-                  team={item.stats.Team}
-                  index={index}
-                  isHighlited={index === currentID || index === currentID + 1}
-                />
-              ))}
+        {showRanking ? (
+          <div className="w-full md:w-80 mt-5 mx-auto">
+            <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-72 overflow-y-auto">
+              <div className="space-y-2">
+                {ranking.map((item, index) => (
+                  <TeamListItem
+                    key={item.stats.Team}
+                    ref={(el) => (itemRefs.current[index] = el)}
+                    team={item.stats.Team}
+                    index={index}
+                    isHighlited={index === currentID || index === currentID + 1}
+                    goToItem={() => setID(index)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div> */}
-        <div className="flex-1 min-w-0">
-          <TeamCard
-            teamInfo={ranking[currentID + 1] || defaultTeam}
-            onSwipe={() => choose(currentID + 1)}
-          />
-        </div>
+        ) : (
+          <>
+            <div className="flex-1 min-w-0">
+              <TeamCard
+                teamInfo={ranking[currentID] || defaultTeam}
+                onSwipe={() => choose(currentID)}
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <TeamCard
+                teamInfo={ranking[currentID + 1] || defaultTeam}
+                onSwipe={() => choose(currentID + 1)}
+              />
+            </div>
+          </>
+        )}
       </div>
+      <button className="p-4" onClick={() => setShowing((prev) => !prev)}>
+        Show
+      </button>
+      <button className="p-4" onClick={() => setID(0)}>
+        Go To Start
+      </button>
     </div>
   );
 };
@@ -142,9 +155,10 @@ interface TeamListItemProps {
   team: number;
   index: number;
   isHighlited: boolean;
+  goToItem: () => void;
 }
 const TeamListItem = forwardRef<HTMLDivElement, TeamListItemProps>(
-  ({ team, index, isHighlited }, ref) => {
+  ({ team, index, isHighlited, goToItem }, ref) => {
     return (
       <div
         ref={ref}
@@ -153,6 +167,7 @@ const TeamListItem = forwardRef<HTMLDivElement, TeamListItemProps>(
             ? "bg-blue-400 border-l-4 border-blue-500"
             : "hover:bg-gray-50"
         }`}
+        onClick={goToItem}
       >
         <div className="flex items-center space-x-3">
           <span
