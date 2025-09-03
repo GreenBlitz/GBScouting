@@ -14,8 +14,10 @@ const roundToDecimals = (x: number, decimals: number = 0) => {
 
 const TeamCard: React.FC<TeamCardProps> = ({ stats, onSwipe }) => {
   return (
-    <div className="mx-auto p-5 m-10 rounded-xl bg-green-800">
-      <h1 className="font-bold text-3xl">{FRCTeamList[stats.Team]}</h1>
+    <div className="mx-auto p-5 mt-10 rounded-xl bg-green-800">
+      <h1 className="font-bold text-3xl">
+        {(FRCTeamList[stats.Team] || "").slice(0, 18)}
+      </h1>
       <h2 className="font-semibold text-2xl">{stats.Team}</h2>
       <h3 className="text-xl">
         Average Points: {roundToDecimals(stats.Points, 2)}
