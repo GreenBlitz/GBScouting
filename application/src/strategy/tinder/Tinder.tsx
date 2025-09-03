@@ -6,12 +6,38 @@ import { fetchTeams } from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
 
-const defaultSort = (team1: GridItems, team2: GridItems): number => {
-  return team2.Points - team1.Points;
+export interface TeamInfo {
+  stats: GridItems;
+  data: TeamData;
+}
+
+const defaultTeam: TeamInfo = {
+  stats: {
+    Team: 0,
+    Points: 0,
+    Corals: 0,
+    Objects: 0,
+    Net: 0,
+    Processor: 0,
+    Auto: 0,
+    L1: 0,
+    L2: 0,
+    L3: 0,
+    L4: 0,
+    Defense: 0,
+    Evasion: 0,
+    Climb: 0,
+    "Middle Auto": 0,
+  },
+  data: new TeamData([]),
+};
+
+const defaultSort = (team1: TeamInfo, team2: TeamInfo): number => {
+  return team2.stats.Points - team1.stats.Points;
 }; // sorts from best to worst points
 
 const Tinder: React.FC = () => {
-  const [ranking, setRanking] = useState<GridItems[]>([]);
+  const [ranking, setRanking] = useState<TeamInfo[]>([]);
   const [recency, setRecency] = useState<number>(5);
   const [currentID, setID] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -19,12 +45,15 @@ const Tinder: React.FC = () => {
   useEffect(() => {
     fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
       .then((teams) =>
-        Object.entries(teams).map(([team, matches]) =>
-          processTeamData(
-            parseInt(team),
-            new TeamData(useRecent(mergeSimilarMatches(matches), recency))
-          )
-        )
+        Object.entries(teams).map(([team, matches]) => {
+          const teamData = new TeamData(
+            useRecent(mergeSimilarMatches(matches), recency)
+          );
+          return {
+            stats: processTeamData(parseInt(team), teamData),
+            data: teamData,
+          };
+        })
       )
       .then((data) => data.sort(defaultSort))
       .then(setRanking);
@@ -57,28 +86,28 @@ const Tinder: React.FC = () => {
       <div className="flex flex-col md:flex-row items-stretch gap-4">
         <div className="flex-1 min-w-0">
           <TeamCard
-            stats={ranking[currentID] || {}}
+            teamInfo={ranking[currentID] || defaultTeam}
             onSwipe={() => choose(currentID)}
           />
         </div>
-        <div className="w-full md:w-80 mt-5">
+        {/* <div className="w-full md:w-80 mt-5">
           <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-72 overflow-y-auto">
             <div className="space-y-2">
               {ranking.map((item, index) => (
                 <TeamListItem
-                  key={item.Team}
+                  key={item.stats.Team}
                   ref={(el) => (itemRefs.current[index] = el)}
-                  team={item.Team}
+                  team={item.stats.Team}
                   index={index}
                   isHighlited={index === currentID || index === currentID + 1}
                 />
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="flex-1 min-w-0">
           <TeamCard
-            stats={ranking[currentID + 1] || {}}
+            teamInfo={ranking[currentID + 1] || defaultTeam}
             onSwipe={() => choose(currentID + 1)}
           />
         </div>
