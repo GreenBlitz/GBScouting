@@ -13,6 +13,7 @@ const defaultSort = (team1: GridItems, team2: GridItems): number => {
 const Tinder: React.FC = () => {
   const [ranking, setRanking] = useState<GridItems[]>([]);
   const [recency, setRecency] = useState<number>(5);
+  const [currentID, setID] = useState(0);
 
   useEffect(() => {
     fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
@@ -28,6 +29,18 @@ const Tinder: React.FC = () => {
       .then(setRanking);
   }, [recency]);
 
+  const choose = (index: number) => {
+    if (index !== currentID) {
+      const temp = ranking[currentID];
+      ranking[currentID] = ranking[currentID + 1];
+      ranking[currentID + 1] = temp;
+    }
+
+    setID((prevID) => prevID + 1);
+  };
+
+  console.log(ranking);
+
   return (
     <div>
       {/* <div className="float-left ml-10">
@@ -36,8 +49,14 @@ const Tinder: React.FC = () => {
         ))}
       </div> */}
       <div className="flex flex-row">
-        <TeamCard stats={ranking[0] || {}} />
-        <TeamCard stats={ranking[1] || {}} />
+        <TeamCard
+          stats={ranking[currentID] || {}}
+          onSwipe={() => choose(currentID)}
+        />
+        <TeamCard
+          stats={ranking[currentID + 1] || {}}
+          onSwipe={() => choose(currentID + 1)}
+        />
       </div>
     </div>
   );
