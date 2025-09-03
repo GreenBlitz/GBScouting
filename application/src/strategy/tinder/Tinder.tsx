@@ -88,7 +88,9 @@ const Tinder: React.FC = () => {
       updateStorage(ranking);
       setRanking(ranking);
     }
-
+    if (currentID + 2 >= ranking.length) {
+      setID(0);
+    }
     setID((prevID) => prevID + 1);
   };
 
