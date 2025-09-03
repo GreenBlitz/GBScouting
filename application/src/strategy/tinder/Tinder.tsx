@@ -11,6 +11,8 @@ export interface TeamInfo {
   data: TeamData;
 }
 
+const tinderStorageKey = "tinder";
+
 const defaultTeam: TeamInfo = {
   stats: {
     Team: 0,
@@ -37,6 +39,9 @@ const defaultSort = (team1: TeamInfo, team2: TeamInfo): number => {
 }; // sorts from best to worst points
 
 const Tinder: React.FC = () => {
+  const getTeamsStorage = (): number[] =>
+    JSON.parse(localStorage.getItem(tinderStorageKey) || "[]");
+
   const [ranking, setRanking] = useState<TeamInfo[]>([]);
   const [recency, setRecency] = useState<number>(5);
   const [currentID, setID] = useState(0);
@@ -55,15 +60,32 @@ const Tinder: React.FC = () => {
           };
         })
       )
-      .then((data) => data.sort(defaultSort))
+      .then((data) => {
+        const storedOrder = getTeamsStorage();
+        if (storedOrder.length > 0) {
+          return storedOrder.map(
+            (teamNumber) =>
+              data.find((item) => item.stats.Team === teamNumber) || defaultTeam
+          );
+        }
+        return data.sort(defaultSort);
+      })
       .then(setRanking);
   }, [recency]);
+
+  const updateStorage = (newRanking: TeamInfo[]) =>
+    localStorage.setItem(
+      tinderStorageKey,
+      JSON.stringify(newRanking.map((rank) => rank.stats.Team))
+    );
 
   const choose = (index: number) => {
     if (index !== currentID) {
       const temp = ranking[currentID];
       ranking[currentID] = ranking[currentID + 1];
       ranking[currentID + 1] = temp;
+      updateStorage(ranking);
+      setRanking(ranking);
     }
 
     setID((prevID) => prevID + 1);
