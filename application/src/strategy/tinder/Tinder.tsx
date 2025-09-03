@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { useRecent, mergeSimilarMatches } from "../../components/TeamPicker";
 import { TeamData } from "../../TeamData";
-import { fetchTeams } from "../../utils/Fetches";
+import { fetchData, fetchTeams } from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
 
@@ -46,6 +46,7 @@ const Tinder: React.FC = () => {
   const [recency, setRecency] = useState<number>(5);
   const [currentID, setID] = useState(0);
   const [showRanking, setShowing] = useState(false);
+  const [name, setName] = useState("");
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -149,6 +150,24 @@ const Tinder: React.FC = () => {
       <button className="p-4" onClick={() => setID(0)}>
         Go To Start
       </button>
+      <div>
+        <input
+          type="text"
+          onChange={(event) => setName(event.currentTarget.value)}
+        ></input>
+        <button
+          className="p-4"
+          onClick={() =>
+            fetchData(
+              `Tinder/${name}`,
+              "POST",
+              JSON.stringify(ranking.map((team) => team.stats.Team))
+            ).then((response) => alert(JSON.stringify(response)))
+          }
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 };

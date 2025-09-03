@@ -55,6 +55,38 @@ export async function applyRoutes(app: Express, db: Db, dirName: string) {
     }
   });
 
+  app.post("/Tinder/:name", async (req: Request, res: Response) => {
+    if (!db) {
+      return res.status(500).send("Database not connected");
+    }
+    const tinderCollection = db.collection("tinder");
+
+    const tinderData = { name: req.params.name, ranking: req.body };
+
+    try {
+      const result = await tinderCollection.insertOne(tinderData);
+      res.status(201).json(result);
+    } catch (e) {
+      res.status(500).json({ error: "Failed to insert data" });
+    }
+  });
+
+  app.get("/Tinder", async (req: Request, res: Response) => {
+    if (!db) {
+      return res.status(500).send("Databse not connected");
+    }
+
+    const tinderCollection = db.collection("tinder");
+
+    try {
+      const result = await tinderCollection.find().toArray();
+
+      res.status(201).json(result);
+    } catch (e) {
+      res.status(500).json({ error: "Failed to fetch data" });
+    }
+  });
+
   const getterAuthToken = (() => {
     try {
       return fs.readFileSync(path.resolve(dirName, "get-token.txt")).toString();
@@ -181,8 +213,7 @@ export async function applyRoutes(app: Express, db: Db, dirName: string) {
         .filter((match) => teamNumbers.includes(match.teamNumber.teamNumber));
       const teamMatchesRecord = teamNumbers.reduce((acc, teamNumber) => {
         acc[teamNumber] = matches.filter(
-          (match) =>
-            match.teamNumber.teamNumber === teamNumber
+          (match) => match.teamNumber.teamNumber === teamNumber
         );
         return acc;
       }, {} as Record<number, typeof matches>);
