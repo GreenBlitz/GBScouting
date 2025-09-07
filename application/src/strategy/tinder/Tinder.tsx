@@ -118,7 +118,7 @@ const Tinder: React.FC = () => {
   const maxObjects = useMemo(
     () =>
       getHighestCoral(ranking[currentID]?.data, ranking[currentID + 1]?.data),
-    [currentID]
+    [currentID, ranking]
   );
 
   console.log("Max objcet", maxObjects);

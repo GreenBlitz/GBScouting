@@ -10,6 +10,7 @@ import {
   UsedAlgea,
 } from "./utils/SeasonUI";
 import {
+  Level,
   Levels,
   PickValues,
 } from "./scouter/input-types/reef-levels/ReefPickInput";
@@ -136,6 +137,20 @@ export class TeamData {
     );
   }
 
+  getCoralLevelAsLine(level: keyof Levels) {
+    const auto = this.getAsLine("autoReefPick", ["levels", level, "score"]);
+    const tele = this.getAsLine("teleReefPick", ["levels", level, "score"]);
+
+    const total = Object.assign(
+      {},
+      ...Object.entries(auto).map(([key, value]) => ({
+        [key]: value + tele[key],
+      }))
+    );
+
+    return total;
+  }
+
   getAlgeaDataAsLine(
     reefPick: keyof Match,
     field: keyof UsedAlgea
@@ -152,6 +167,20 @@ export class TeamData {
         };
       })
     );
+  }
+
+  getTotalAlgeaDataAsLine(field: keyof UsedAlgea) {
+    const auto = this.getAlgeaDataAsLine("autoReefPick", field);
+    const tele = this.getAlgeaDataAsLine("autoReefPick", field);
+
+    const total = Object.assign(
+      {},
+      ...Object.entries(auto).map(([key, value]) => ({
+        [key]: value + tele[key],
+      }))
+    );
+
+    return total;
   }
 
   getComments(): Comment[] {
@@ -299,6 +328,10 @@ export class TeamData {
             acc,
             Object.values(match.levels).reduce(
               (acc, item) => Math.max(acc, item.score),
+              0
+            ),
+            Object.values(match.algea).reduce(
+              (acc, item) => Math.max(acc, item),
               0
             )
           ),

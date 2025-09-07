@@ -4,6 +4,7 @@ import LineChart from "../charts/LineChart";
 import { TeamInfo } from "./Tinder";
 import { reefColorsScore } from "../team-tab/sections/StrategyTeleoperated";
 import { matchFieldNames } from "../../utils/Match";
+import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
 
 interface TeamCardProps {
   teamInfo: TeamInfo;
@@ -19,7 +20,7 @@ const roundToDecimals = (x: number, decimals: number = 0) => {
 const TeamCard: React.FC<TeamCardProps> = ({
   teamInfo: { stats, data },
   onSwipe,
-  max
+  max,
 }) => {
   return (
     <div className="mx-auto p-5 mt-10 rounded-xl bg-green-800 w-96">
@@ -45,27 +46,17 @@ const TeamCard: React.FC<TeamCardProps> = ({
                 key,
                 {
                   color: value,
-                  data: data.getAsLine(matchFieldNames.teleReefPick, [
-                    "levels",
-                    key,
-                    "score",
-                  ]),
+                  data: data.getCoralLevelAsLine(key as keyof Levels),
                 },
               ])
             ),
             Net: {
               color: "#172db8",
-              data: data.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "netScore"
-              ),
+              data: data.getTotalAlgeaDataAsLine("netScore"),
             },
             Processor: {
               color: "#8fb4ff",
-              data: data.getAlgeaDataAsLine(
-                matchFieldNames.teleReefPick,
-                "processor"
-              ),
+              data: data.getTotalAlgeaDataAsLine("processor"),
             },
           }}
         />
