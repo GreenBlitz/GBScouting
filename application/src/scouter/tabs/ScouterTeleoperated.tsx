@@ -7,12 +7,6 @@ import { blue } from "@mui/material/colors";
 const ScouterTeleoperated: React.FC = () => {
   return <>
     <ScouterPartialTeleoperated />
-    <div className="defens" style={ {backgroundColor: "#263163"} }>
-        {ScouterInputs.create([
-            ScouterInputs.defense,
-            ScouterInputs.defensiveEvasion,
-          ])}
-    </div>
   </>
 };
 
