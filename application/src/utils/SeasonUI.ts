@@ -35,7 +35,10 @@ export const noteCategories = [
   "overall",
 ] as const;
 
-export type Notes = Record<(typeof noteCategories)[number], string>;
+export type Notes = Record<
+  (typeof noteCategories)[number],
+  { value: string; score: number }
+>;
 
 export const DCMPMatches: MatchTeams[] = [
   { blueAlliance: [4661, 3316, 4338], redAlliance: [5990, 5951, 5135] },

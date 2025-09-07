@@ -1,11 +1,37 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { StorageBacked, useStorage } from "../utils/FolderStorage";
 import { DCMPMatches, noteCategories, Notes } from "../utils/SeasonUI";
+import { FRCTeamList } from "../utils/Utils";
 
 const defaultNotes: Notes = noteCategories.reduce((acc, value) => {
-  acc[value] = "";
+  acc[value] = { value: "", score: 0 };
   return acc;
 }, {}) as Notes;
+
+const ScoreScale: React.FC<{
+  category: keyof Notes;
+  currentScore: number;
+  handleScoreChange: (category: keyof Notes, score: number) => void;
+}> = ({ category, currentScore, handleScoreChange }) => (
+  <div className="flex items-center space-x-2">
+    <span className="text-xs text-gray-500">Score:</span>
+    <div className="flex space-x-2">
+      {[1, 2, 3, 4, 5, 6, 7].map((score) => (
+        <button
+          key={score}
+          onClick={() => handleScoreChange(category, score)}
+          className={`w-8 h-8 rounded-full text-sm font-medium transition-colors duration-200 flex items-center justify-center ${
+            currentScore === score
+              ? "bg-blue-600 text-white shadow-md"
+              : "bg-gray-200 text-gray-600 hover:bg-gray-300 hover:shadow-sm"
+          }`}
+        >
+          {score}
+        </button>
+      ))}
+    </div>
+  </div>
+);
 
 const TeamElement: React.FC<{
   team: number;
@@ -15,29 +41,54 @@ const TeamElement: React.FC<{
   const teamNotes = currentTeamNotes || defaultNotes;
 
   const handleNoteChange = (category: keyof Notes, value: string) => {
-    const updatedNotes = { ...teamNotes, [category]: value };
+    const currentScore = teamNotes[category]?.score || 0;
+    const updatedNotes = {
+      ...teamNotes,
+      [category]: { value, score: currentScore },
+    };
     setTeamNotes(updatedNotes);
   };
 
+  const handleScoreChange = (category: keyof Notes, score: number) => {
+    const currentValue = teamNotes[category]?.value || "";
+    const updatedNotes = {
+      ...teamNotes,
+      [category]: { value: currentValue, score },
+    };
+    setTeamNotes(updatedNotes);
+  };
+
+  const teamName = FRCTeamList[team] || "Unknown Team";
+
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-4 hover:shadow-lg transition-shadow duration-200">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold text-gray-800">Team {team}</h3>
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 mb-3 hover:shadow-lg transition-shadow duration-200">
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <h3 className="text-xl font-bold text-gray-800">Team {team}</h3>
+          <p className="text-sm text-gray-600 font-medium">{teamName}</p>
+        </div>
         <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {noteCategories.map((category) => (
           <div key={category} className="space-y-2">
-            <label
-              htmlFor={`${team}-${category}`}
-              className="block text-sm font-medium text-gray-700 capitalize"
-            >
-              {category}
-            </label>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor={`${team}-${category}`}
+                className="block text-sm font-medium text-gray-700 capitalize"
+              >
+                {category}
+              </label>
+              <ScoreScale
+                category={category}
+                currentScore={teamNotes[category]?.score || 0}
+                handleScoreChange={handleScoreChange}
+              />
+            </div>
             <textarea
               id={`${team}-${category}`}
-              value={teamNotes[category] || ""}
+              value={teamNotes[category]?.value || ""}
               onChange={(e) => handleNoteChange(category, e.target.value)}
               placeholder={`Enter ${category} notes...`}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors duration-200"
@@ -50,7 +101,11 @@ const TeamElement: React.FC<{
       <div className="mt-4 pt-4 border-t border-gray-200">
         <div className="flex items-center justify-between text-sm text-gray-500">
           <span>
-            Total characters: {Object.values(teamNotes).join("").length}
+            Total characters:{" "}
+            {Object.values(teamNotes).reduce(
+              (total, note) => total + (note?.value?.length || 0),
+              0
+            )}
           </span>
           <span className="text-green-600 font-medium">✓ Auto-saved</span>
         </div>
@@ -78,10 +133,10 @@ const NoteTab: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
             <h1 className="text-3xl font-bold text-gray-900">Team Notes</h1>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
@@ -113,7 +168,7 @@ const NoteTab: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
@@ -128,7 +183,10 @@ const NoteTab: React.FC = () => {
                   </span>
                 </div>
                 <span className="text-sm text-gray-500">
-                  Teams: {teams.join(", ")}
+                  Teams:{" "}
+                  {teams
+                    .map((team) => `${team} ${FRCTeamList[team] || ""}`)
+                    .join(", ")}
                 </span>
               </div>
               <span className="text-sm text-gray-500">
@@ -138,7 +196,7 @@ const NoteTab: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4">
           {teams.map((team) => (
             <TeamElement
               key={team}
