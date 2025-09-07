@@ -250,8 +250,10 @@ const StrategyTeleoperated: React.FC = () => {
               <p className="text-sm text-gray-500 font-medium">
                 Qual #{comment.qual}
               </p>
-              <p className="text-base text-gray-800">{comment.body}</p>
-            </div>
+              <p className="text-base text-gray-800">
+              {comment.body.length > 1 && comment.body}
+            </p>
+          </div>
           ))}
         </div>
       </div>
