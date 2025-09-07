@@ -8,6 +8,7 @@ import { matchFieldNames } from "../../utils/Match";
 interface TeamCardProps {
   teamInfo: TeamInfo;
   onSwipe: () => void;
+  max?: number;
 }
 
 const roundToDecimals = (x: number, decimals: number = 0) => {
@@ -18,6 +19,7 @@ const roundToDecimals = (x: number, decimals: number = 0) => {
 const TeamCard: React.FC<TeamCardProps> = ({
   teamInfo: { stats, data },
   onSwipe,
+  max
 }) => {
   return (
     <div className="mx-auto p-5 mt-10 rounded-xl bg-green-800 w-96">
@@ -36,6 +38,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
       </h3>
       <div className="bg-green-900 mx-auto">
         <LineChart
+          max={max}
           dataSets={{
             ...Object.fromEntries(
               Object.entries(reefColorsScore).map(([key, value]) => [

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { useRecent, mergeSimilarMatches } from "../../components/TeamPicker";
 import { TeamData } from "../../TeamData";
@@ -37,6 +37,16 @@ const defaultTeam: TeamInfo = {
 const defaultSort = (team1: TeamInfo, team2: TeamInfo): number => {
   return team2.stats.Points - team1.stats.Points;
 }; // sorts from best to worst points
+
+const getHighestCoral = (
+  team1: TeamData | undefined,
+  team2: TeamData | undefined
+) => {
+  return Math.max(
+    team1 ? team1.getHighestObjects() : 0,
+    team2 ? team2.getHighestObjects() : 0
+  );
+};
 
 const Tinder: React.FC = () => {
   const getTeamsStorage = (): number[] =>
@@ -95,8 +105,6 @@ const Tinder: React.FC = () => {
     setID((prevID) => prevID + 1);
   };
 
-  console.log(ranking);
-
   useEffect(() => {
     const primary = itemRefs.current[currentID];
     const secondary = itemRefs.current[currentID + 1];
@@ -106,6 +114,14 @@ const Tinder: React.FC = () => {
       secondary.scrollIntoView({ block: "center" });
     }
   }, [currentID, ranking.length]);
+
+  const maxObjects = useMemo(
+    () =>
+      getHighestCoral(ranking[currentID]?.data, ranking[currentID + 1]?.data),
+    [currentID]
+  );
+
+  console.log("Max objcet", maxObjects);
 
   return (
     <div>
@@ -133,12 +149,14 @@ const Tinder: React.FC = () => {
               <TeamCard
                 teamInfo={ranking[currentID] || defaultTeam}
                 onSwipe={() => choose(currentID)}
+                max={maxObjects}
               />
             </div>
             <div className="flex-1 min-w-0">
               <TeamCard
                 teamInfo={ranking[currentID + 1] || defaultTeam}
                 onSwipe={() => choose(currentID + 1)}
+                max={maxObjects}
               />
             </div>
           </>

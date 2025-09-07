@@ -19,8 +19,14 @@ interface LineChartProps {
   dataSets: Record<string, DataSet>;
   height?: number;
   width?: number;
+  max?: number;
 }
-const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
+const LineChart: React.FC<LineChartProps> = ({
+  dataSets,
+  height,
+  width,
+  max,
+}) => {
   const data: ChartData<"line", number[], string> = {
     labels: Object.keys(Object.values(dataSets)[0].data),
 
@@ -45,6 +51,7 @@ const LineChart: React.FC<LineChartProps> = ({ dataSets, height, width }) => {
           responsive: true,
           scales: {
             y: {
+              max,
               beginAtZero: true,
             },
           },

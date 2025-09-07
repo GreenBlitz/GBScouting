@@ -190,6 +190,22 @@ export class TeamData {
     );
   }
 
+  getAutoObjectsAsLine() {
+    return Object.assign(
+      {},
+      ...Object.values(this.matches).map((match) => {
+        return {
+          [TeamData.stringedQual(match.qual)]:
+            match.autoReefPick.levels.L1.score +
+            match.autoReefPick.levels.L2.score +
+            match.autoReefPick.levels.L3.score +
+            match.autoReefPick.levels.L4.score +
+            match.autoReefPick.algea.netScore +
+            match.autoReefPick.algea.processor,
+        };
+      })
+    );
+  }
   getScores(): Record<string, number> {
     return Object.assign(
       {},
@@ -236,6 +252,58 @@ export class TeamData {
         .reduce((accumulator, value) => accumulator + value, 0) /
       this.matches.length
     );
+  }
+
+  getHighestObjects(): number {
+    return this.matches
+      .map<PickValues>((match) => ({
+        levels: {
+          L1: {
+            score:
+              match.autoReefPick.levels.L1.score +
+              match.teleReefPick.levels.L1.score,
+            miss: 0,
+          },
+          L2: {
+            score:
+              match.autoReefPick.levels.L2.score +
+              match.teleReefPick.levels.L2.score,
+            miss: 0,
+          },
+          L3: {
+            score:
+              match.autoReefPick.levels.L3.score +
+              match.teleReefPick.levels.L3.score,
+            miss: 0,
+          },
+          L4: {
+            score:
+              match.autoReefPick.levels.L4.score +
+              match.teleReefPick.levels.L4.score,
+            miss: 0,
+          },
+        },
+        algea: {
+          netScore:
+            match.autoReefPick.algea.netScore +
+            match.teleReefPick.algea.netScore,
+          netMiss: 0,
+          processor:
+            match.autoReefPick.algea.processor +
+            match.teleReefPick.algea.processor,
+        },
+      }))
+      .reduce(
+        (acc, match) =>
+          Math.max(
+            acc,
+            Object.values(match.levels).reduce(
+              (acc, item) => Math.max(acc, item.score),
+              0
+            )
+          ),
+        0
+      );
   }
 
   getAccuracy(
