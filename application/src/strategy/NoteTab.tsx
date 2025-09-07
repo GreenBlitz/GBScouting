@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { StorageBacked, useStorage } from "../utils/FolderStorage";
 import { DCMPMatches, noteCategories, Notes } from "../utils/SeasonUI";
 import { FRCTeamList } from "../utils/Utils";
+import { postNotes } from "../utils/Fetches";
 
 const defaultNotes: Notes = noteCategories.reduce((acc, value) => {
   acc[value] = { value: "", score: 0 };
@@ -121,8 +122,8 @@ const NoteTab: React.FC = () => {
   );
 
   const [qual, setQual] = useState(1);
-
   const [isBlueSide, setSide] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
 
   const teams = useMemo(
     () =>
@@ -131,6 +132,27 @@ const NoteTab: React.FC = () => {
         : DCMPMatches[qual].redAlliance,
     [isBlueSide, qual]
   );
+
+  const handleSaveToDatabase = async () => {
+    setIsSaving(true);
+    try {
+      // Filter notes to only include current teams
+      const currentTeamNotes = teams.reduce((acc, team) => {
+        if (notes[team]) {
+          acc[team] = notes[team];
+        }
+        return acc;
+      }, {} as Record<number, Notes>);
+
+      await postNotes(currentTeamNotes, qual);
+      alert("Notes saved successfully to database!");
+    } catch (error) {
+      console.error("Error saving notes:", error);
+      alert("Failed to save notes to database. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -154,6 +176,17 @@ const NoteTab: React.FC = () => {
                     </option>
                   ))}
                 </select>
+                <button
+                  onClick={handleSaveToDatabase}
+                  disabled={isSaving}
+                  className={`px-4 py-1 rounded-md font-medium transition-colors duration-200 ${
+                    isSaving
+                      ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                      : "bg-green-600 text-white hover:bg-green-700"
+                  }`}
+                >
+                  {isSaving ? "Saving..." : "Save to DB"}
+                </button>
               </div>
               <button
                 onClick={() => setSide((prev) => !prev)}
