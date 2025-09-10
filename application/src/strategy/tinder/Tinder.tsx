@@ -5,10 +5,12 @@ import { TeamData } from "../../TeamData";
 import { fetchData, fetchTeams } from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
+import { Notes } from "../../utils/SeasonUI";
 
 export interface TeamInfo {
   stats: GridItems;
   data: TeamData;
+  notes: Notes;
 }
 
 const tinderStorageKey = "tinder";
@@ -32,6 +34,15 @@ const defaultTeam: TeamInfo = {
     "Middle Auto": 0,
   },
   data: new TeamData([]),
+  notes: {
+    overall: "pretty chill",
+    defense: "not really good",
+    evasion: "",
+    net: "ok",
+    coral: "very good",
+    climb: "",
+    driving: "",
+  },
 };
 
 const defaultSort = (team1: TeamInfo, team2: TeamInfo): number => {
@@ -69,6 +80,7 @@ const Tinder: React.FC = () => {
           return {
             stats: processTeamData(parseInt(team), teamData),
             data: teamData,
+            notes: defaultTeam.notes,
           };
         })
       )
