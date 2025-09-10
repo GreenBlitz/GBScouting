@@ -14,7 +14,7 @@ const NavItem: React.FC<NavItemProps> = ({ name, path }) => {
     <li>
       <Link
         to={path}
-        className="text-dark-text hover:text-primary-400 transition-colors"
+        className="text-dark-text hover:text-primary-400 transition-colors whitespace-nowrap px-2 py-1 rounded-md hover:bg-dark-card/60"
       >
         {name}
       </Link>
@@ -25,8 +25,8 @@ const NavItem: React.FC<NavItemProps> = ({ name, path }) => {
 const Strategy: React.FC = () => {
   const setReload = useState(false)[1];
   const navBar = (
-    <nav className="bg-dark-card shadow-lg ">
-      <ul className="flex items-center justify-center space-x-6 py-4">
+    <nav className="bg-dark-card shadow-lg w-full">
+      <ul className="flex items-center md:justify-center justify-start gap-x-6 gap-y-2 py-4 px-4 w-full overflow-x-auto md:overflow-visible flex-nowrap md:flex-wrap">
         <li>
           <NavItem path="/strategy/compare" name="Comparison" />
         </li>
