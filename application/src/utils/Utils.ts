@@ -39,6 +39,7 @@ export const FRCTeamList: Record<number, string> = {
   2230: "General Angels",
   2231: "OnyxTronix",
   2630: "Thunderbolts",
+  2679: "Atlantis",
   3065: "Jatt High School",
   3075: "Ha-Dream Team",
   3083: "Artemis",
