@@ -239,13 +239,23 @@ const StrategyTeleoperated: React.FC = () => {
       </div>
 
       <br />
-      <div>
-        <h1>Comments</h1>
-        {teamData?.getComments().map((comment) => (
-          <h3 style={{ border: "solid" }}>
-            {"Qual #" + comment.qual + ": " + comment.body}
-          </h3>
-        ))}
+        <div className="p-4">
+        <h1 className="text-2xl font-bold mb-4">Comments</h1>
+        <div className="space-y-3">
+          {teamData?.getComments().map((comment, i) => (
+            <div
+              key={i}
+              className="rounded-2xl border border-gray-300 p-3 shadow-sm bg-white"
+            >
+              <p className="text-sm text-gray-500 font-medium">
+                Qual #{comment.qual}
+              </p>
+              <p className="text-base text-gray-800">
+              {comment.body.length > 1 && comment.body}
+            </p>
+          </div>
+          ))}
+        </div>
       </div>
       <br />
       <div className="mb-10">
