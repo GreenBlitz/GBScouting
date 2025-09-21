@@ -554,11 +554,6 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["endgameCollection", serdeCollectedObjects()],
   ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
-  ["defense", serdeOptional(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT))],
-  [
-    "defensiveEvasion",
-    serdeOptional(serdeUnsignedInt(DEFENSE_RATING_BIT_COUNT)),
-  ],
   ["scouterName", serdeString()],
   ["noShow", serdeBool()],
   ["comment", serdeString()],
