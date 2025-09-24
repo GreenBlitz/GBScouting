@@ -1,6 +1,6 @@
 import { authorizationStorage } from "./FolderStorage";
 import { Match } from "./Match";
-import { DCMPMatches, Notes } from "./SeasonUI";
+import { DCMPMatches, Notes, QualNotes } from "./SeasonUI";
 
 export const getServerHostname = () => {
   return location.host;
@@ -19,7 +19,7 @@ export async function fetchData(
   body?: string,
   authorization: string = ""
 ) {
-  return await fetch(`https://${getServerHostname()}/${field}`, {
+  return await fetch(`http://${getServerHostname()}/${field}`, {
     method: method,
     mode: "cors",
     headers: {
@@ -174,13 +174,8 @@ export async function fetchMatchResults(matchNumber: string) {
   }
 }
 
-export async function postNotes(notes: Record<number, Notes>, qual: number) {
-  await alert("Started Sending Notes for qual: " + qual);
-  return await fetchData(
-    `notes/${qual.toString()}`,
-    "POST",
-    JSON.stringify(notes)
-  );
+export async function postNotes(notes: QualNotes[]) {
+  return await fetchData(`team_notes`, "POST", JSON.stringify({ notes }));
 }
 
 export async function fetchNotes(teamNumber: number) {

@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { StorageBacked, useStorage } from "../utils/FolderStorage";
-import { DCMPMatches, noteCategories, Notes } from "../utils/SeasonUI";
+import {
+  DCMPMatches,
+  HashedQualTeam,
+  noteCategories,
+  Notes,
+  QualNotes,
+} from "../utils/SeasonUI";
 import { FRCTeamList } from "../utils/Utils";
 import { postNotes } from "../utils/Fetches";
 
@@ -33,6 +39,9 @@ const ScoreScale: React.FC<{
     </div>
   </div>
 );
+
+const hashTeamQual = (team: number, qual: number): HashedQualTeam =>
+  `frc${team} qual${qual}`;
 
 const TeamElement: React.FC<{
   team: number;
@@ -120,7 +129,7 @@ const TeamElement: React.FC<{
 };
 
 const NoteTab: React.FC = () => {
-  const [notes, setNotes] = useStorage<Record<number, Notes>>(
+  const [notes, setNotes] = useStorage<QualNotes>(
     new StorageBacked("teamNotes", localStorage),
     {}
   );
@@ -139,23 +148,6 @@ const NoteTab: React.FC = () => {
 
   const handleSaveToDatabase = async () => {
     setIsSaving(true);
-    try {
-      // Filter notes to only include current teams
-      const currentTeamNotes = teams.reduce((acc, team) => {
-        if (notes[team]) {
-          acc[team] = notes[team];
-        }
-        return acc;
-      }, {} as Record<number, Notes>);
-
-      await postNotes(currentTeamNotes, qual);
-      alert("Notes saved successfully to database!");
-    } catch (error) {
-      console.error("Error saving notes:", error);
-      alert("Failed to save notes to database. Please try again.");
-    } finally {
-      setIsSaving(false);
-    }
   };
 
   return (
@@ -239,10 +231,13 @@ const NoteTab: React.FC = () => {
               key={team}
               team={team}
               setTeamNotes={(teamNotes) => {
-                const updatedNotes = { ...notes, [team]: teamNotes };
+                const updatedNotes = {
+                  ...notes,
+                  [hashTeamQual(team, qual)]: teamNotes,
+                };
                 setNotes(updatedNotes);
               }}
-              currentTeamNotes={notes[team] || defaultNotes}
+              currentTeamNotes={notes[hashTeamQual(team, qual)] || defaultNotes}
               isBlueAlliance={isBlueSide}
             />
           ))}
