@@ -38,7 +38,8 @@ const TeamElement: React.FC<{
   team: number;
   currentTeamNotes: Notes;
   setTeamNotes: (content: Notes) => void;
-}> = ({ team, currentTeamNotes, setTeamNotes }) => {
+  isBlueAlliance: boolean;
+}> = ({ team, currentTeamNotes, setTeamNotes, isBlueAlliance }) => {
   const teamNotes = currentTeamNotes || defaultNotes;
 
   const handleNoteChange = (category: keyof Notes, value: string) => {
@@ -68,7 +69,11 @@ const TeamElement: React.FC<{
           <h3 className="text-xl font-bold text-gray-800">Team {team}</h3>
           <p className="text-sm text-gray-600 font-medium">{teamName}</p>
         </div>
-        <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+        <div
+          className={`w-3 h-3 bg-${
+            isBlueAlliance ? "blue" : "red"
+          }-500 rounded-full`}
+        ></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -108,7 +113,6 @@ const TeamElement: React.FC<{
               0
             )}
           </span>
-          <span className="text-green-600 font-medium">✓ Auto-saved</span>
         </div>
       </div>
     </div>
@@ -155,14 +159,14 @@ const NoteTab: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="min-h-screen bg-gray-800 p-4">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold text-gray-900">Team Notes</h1>
+            <h1 className="text-3xl font-bold text-gray-100">Team Notes</h1>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-sm font-medium text-gray-300">
                   Qualification:
                 </span>
                 <select
@@ -185,7 +189,7 @@ const NoteTab: React.FC = () => {
                       : "bg-green-600 text-white hover:bg-green-700"
                   }`}
                 >
-                  {isSaving ? "Saving..." : "Save to DB"}
+                  {isSaving ? "Saving..." : "Save"}
                 </button>
               </div>
               <button
@@ -239,6 +243,7 @@ const NoteTab: React.FC = () => {
                 setNotes(updatedNotes);
               }}
               currentTeamNotes={notes[team] || defaultNotes}
+              isBlueAlliance={isBlueSide}
             />
           ))}
         </div>
