@@ -6,6 +6,7 @@ import { fetchData, fetchTeams } from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
 import { Notes } from "../../utils/SeasonUI";
+import { InitialRanker } from "./InitialRanker";
 
 export interface TeamInfo {
   stats: GridItems;
@@ -133,7 +134,7 @@ const Tinder: React.FC = () => {
     [currentID, ranking]
   );
 
-  console.log("Max objcet", maxObjects);
+  const [showInitialRanker, setShowInitialRanker] = useState(false);
 
   return (
     <div>
@@ -177,6 +178,29 @@ const Tinder: React.FC = () => {
       <button className="p-4" onClick={() => setShowing((prev) => !prev)}>
         Show
       </button>
+      <button
+        className="p-4"
+        onClick={() => setShowInitialRanker(true)}
+      >
+        Open Initial Ranker
+      </button>
+      {showInitialRanker && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowInitialRanker(false)}
+            >
+              ✕
+            </button>
+            <InitialRanker
+              ranking={ranking}
+              setRanking={setRanking}
+              onClose={() => setShowInitialRanker(false)}
+            />
+          </div>
+        </div>
+      )}
       <button className="p-4" onClick={() => setID(0)}>
         Go To Start
       </button>
@@ -192,7 +216,7 @@ const Tinder: React.FC = () => {
               `Tinder/${name}`,
               "POST",
               JSON.stringify(ranking.map((team) => team.stats.Team))
-            ).then((response) => alert(JSON.stringify(response)))
+            ).then((response: any) => alert(JSON.stringify(response)))
           }
         >
           Save
