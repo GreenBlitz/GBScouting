@@ -41,50 +41,25 @@ const Slider: React.FC<SliderProps> = ({ categoryChoices }) => {
 
   return (
     <div className="flex items-center">
+        
       {currentChoices.map((selectedChoice, index) => (
-        <div className="flex flex-row mx-5" key={selectedChoice.category}>
-          <select
-            onChange={(event) =>
-              setCurrentChoices((prev) => {
-                prev[index] = {
-                  category: event.currentTarget.value,
-                  percentage: prev[index].percentage,
-                };
-                return prev;
-              })
-            }
-            id={index.toString()}
-            name={index.toString()}
-          >
-            {categoryChoices
-              .filter(
-                (category) =>
-                  !currentChoices.some(
-                    (choice, i) => choice.category === category && i !== index
-                  )
+        <ChoiceItem
+          choice={selectedChoice}
+          updateChoice={(choice) =>
+            setCurrentChoices((prev) => {
+              const newPrev = [...prev];
+              newPrev[index] = choice;
+              return newPrev;
+            })
+          }
+          index={index}
+          otherChoices={categoryChoices.filter(
+            (category) =>
+              !currentChoices.some(
+                (choice, i) => choice.category === category && i !== index
               )
-              .map((category) => (
-                <option
-                  value={category}
-                  selected={category === selectedChoice.category}
-                >
-                  {category}
-                </option>
-              ))}
-          </select>
-          <input
-            type="number"
-            onChange={(event) =>
-              setCurrentChoices((prev) => {
-                prev[index].percentage = parseInt(event.currentTarget.value);
-                return prev;
-              })
-            }
-            min="0"
-            max="100"
-            defaultValue={selectedChoice.percentage}
-          />
-        </div>
+          )}
+        />
       ))}
       <button
         className="ml-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-1 px-2 rounded"
@@ -112,6 +87,50 @@ const Slider: React.FC<SliderProps> = ({ categoryChoices }) => {
           -
         </button>
       )}
+    </div>
+  );
+};
+
+const ChoiceItem: React.FC<{
+  readonly choice: Choice;
+  updateChoice: (choice: Choice) => void;
+  index: number;
+  otherChoices: string[];
+}> = ({ choice, updateChoice, otherChoices, index }) => {
+  return (
+    <div className="flex flex-row mx-5" key={choice.category}>
+      <select
+        onChange={(event) =>
+          updateChoice({
+            category: event.currentTarget.value,
+            percentage: choice.percentage,
+          })
+        }
+        id={choice.category + index}
+        name={choice.category + index}
+      >
+        {otherChoices.map((category) => (
+          <option
+            value={category}
+            selected={category === choice.category}
+            id={category}
+          >
+            {category}
+          </option>
+        ))}
+      </select>
+      <input
+        type="number"
+        onChange={(event) =>
+          updateChoice({
+            category: choice.category,
+            percentage: event.currentTarget.valueAsNumber,
+          })
+        }
+        min="0"
+        max="100"
+        defaultValue={choice.percentage}
+      />
     </div>
   );
 };
