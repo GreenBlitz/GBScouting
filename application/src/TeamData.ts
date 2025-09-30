@@ -25,6 +25,18 @@ interface UsedNotes {
   body: Notes;
 }
 
+interface Stats {
+  Objects: number;
+  Algea: number;
+  Processor: number;
+  Net: number;
+  Coral: number;
+  L1: number;
+  L2: number;
+  L3: number;
+  L4: number;
+}
+
 export class TeamData {
   public readonly matches: Match[];
   public readonly notes: UsedNotes[];
@@ -692,5 +704,52 @@ export class TeamData {
     return this.matches
       .filter((match) => match.gameSide === "middle")
       .map((match) => TeamData.stringedQual(match.qual));
+  }
+
+  getTeleopStats(): Stats {
+    return this.getStats("teleReefPick");
+  }
+
+  getAutoStats(): Stats {
+    return this.getStats("autoReefPick");
+  }
+
+  getStats(reefPick: "teleReefPick" | "autoReefPick"): Stats {
+    return this.matches.reduce(
+      (acc, match) => ({
+        Objects:
+          acc.Objects +
+          match[reefPick].levels.L1.score +
+          match[reefPick].levels.L2.score +
+          match[reefPick].levels.L3.score +
+          match[reefPick].levels.L4.score +
+          match[reefPick].algea.netScore +
+          match[reefPick].algea.processor,
+        Algea: acc.Algea + match[reefPick].algea.netScore,
+        Processor: acc.Processor + match[reefPick].algea.processor,
+        Net: acc.Net + match[reefPick].algea.netScore,
+        Coral:
+          acc.Coral +
+          match[reefPick].levels.L1.score +
+          match[reefPick].levels.L2.score +
+          match[reefPick].levels.L3.score +
+          match[reefPick].levels.L4.score,
+        L1: acc.L1 + match[reefPick].levels.L1.score,
+        L2: acc.L2 + match[reefPick].levels.L2.score,
+        L3: acc.L3 + match[reefPick].levels.L3.score,
+        L4: acc.L4 + match[reefPick].levels.L4.score,
+      }),
+      {
+        Objects: 0,
+        Algea: 0,
+        Processor: 0,
+        Net: 0,
+        Coral: 0,
+        L1: 0,
+        L2: 0,
+        L3: 0,
+        L4: 0,
+      }
+    );
   }
 }

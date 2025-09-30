@@ -104,12 +104,15 @@ const Tinder: React.FC = () => {
       JSON.stringify(newRanking.map((rank) => rank.stats.Team))
     );
 
+  useEffect(() => {
+    updateStorage(ranking);
+  }, [ranking]);
+
   const choose = (index: number) => {
     if (index !== currentID) {
       const temp = ranking[currentID];
       ranking[currentID] = ranking[currentID + 1];
       ranking[currentID + 1] = temp;
-      updateStorage(ranking);
       setRanking(ranking);
     }
     if (currentID + 2 >= ranking.length) {
@@ -190,11 +193,7 @@ const Tinder: React.FC = () => {
             >
               ✕
             </button>
-            <InitialRanker
-              ranking={ranking}
-              setRanking={setRanking}
-              onClose={() => setShowInitialRanker(false)}
-            />
+            <InitialRanker ranking={ranking} setRanking={setRanking} />
           </div>
         </div>
       )}

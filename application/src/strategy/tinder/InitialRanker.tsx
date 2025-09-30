@@ -1,10 +1,12 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import MultiProgress from "react-multi-progress";
 import { randomColor } from "../../utils/Color";
+import { TeamInfo } from "./Tinder";
+import { rankingStorage } from "../../utils/FolderStorage";
 
 const teleopCategories = {
   Algea: "#3cb44b", // Red
-  Corals: "#e6194b", // Green
+  Coral: "#e6194b", // Green
   Net: "#ffe119", // Yellow
   Processor: "#4363d8", // Blue
   L1: "#f58231", // Orange
@@ -13,6 +15,68 @@ const teleopCategories = {
   L4: "#f032e6", // Magenta
 } as const;
 
+const calculateValue = (stat: number, percentage: number) =>
+  stat * (percentage / 100);
+
+const getTeleopScore = (team: TeamInfo, teleopSliders: Choice[]) => {
+  return teleopSliders.reduce(
+    (acc, curr) =>
+      acc +
+      (() => {
+        const data = team.data.getTeleopStats();
+        return data[curr.category as keyof typeof data]
+          ? calculateValue(
+              data[curr.category as keyof typeof data],
+              curr.percentage
+            )
+          : 0;
+      })(),
+    0
+  );
+};
+
+const getAutoScore = (team: TeamInfo, autoSliders: Choice[]) => {
+  return autoSliders.reduce(
+    (acc, curr) =>
+      acc +
+      (() => {
+        const data = team.data.getTeleopStats();
+        return data[curr.category as keyof typeof data]
+          ? calculateValue(
+              data[curr.category as keyof typeof data],
+              curr.percentage
+            )
+          : 0;
+      })(),
+    0
+  );
+};
+
+const getGameScore = (
+  teleopScore: number,
+  autoScore: number,
+  superScore: number,
+  endgameScore: number,
+  gameSliders: Choice[]
+) => {
+  return gameSliders.reduce(
+    (acc, curr) =>
+      acc +
+      (() => {
+        if (curr.category === "Teleop")
+          return calculateValue(teleopScore, curr.percentage);
+        if (curr.category === "Auto")
+          return calculateValue(autoScore, curr.percentage);
+        if (curr.category === "Super")
+          return calculateValue(superScore, curr.percentage);
+        if (curr.category === "Endgame")
+          return calculateValue(endgameScore, curr.percentage);
+        return 0;
+      })(),
+    0
+  );
+};
+
 const autoCategories = {
   Algea: "#27ae60",
   Corals: "#2980b9",
@@ -20,6 +84,8 @@ const autoCategories = {
   Processor: "#2ecc71",
   L1: "#f39c12",
   L2: "#d35400",
+  L3: "#c0392b",
+  L4: "#7f8c8d",
 } as const;
 
 const superCategories = {
@@ -35,13 +101,60 @@ const gameCategories = {
   Super: "#7f8c8d",
 } as const;
 
-export const InitialRanker: React.FC<any> = () => {
+interface InitialRankerProps {
+  ranking: TeamInfo[];
+  setRanking: (ranking: TeamInfo[]) => void;
+}
+export const InitialRanker: React.FC<InitialRankerProps> = ({
+  ranking,
+  setRanking,
+}) => {
+  const getSlidersStorage = (): Record<string, Choice[]> => {
+    const stored = rankingStorage.entries();
+    return stored
+      .map(([key, value]) => ({ [key]: JSON.parse(value || "[]") }))
+      .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+  };
+  const rank = () => {
+    const sliders = getSlidersStorage();
+    const newRanking = ranking
+      .map((team) => ({
+        info: team,
+        score: score(team, sliders),
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    console.log(newRanking);
+    setRanking(newRanking.map((item) => item.info));
+  };
+
+  const score = (team: TeamInfo, sliders: Record<string, Choice[]>) => {
+    const autoScore = getAutoScore(team, sliders["Auto"] || []);
+    const teleopScore = getTeleopScore(team, sliders["Teleop"] || []);
+    const superScore = 0; //getSuperScore(team, sliders["Super"] || []);
+    const endgameScore = team.stats.Climb; //getEndgameScore(team, sliders["Endgame"] || []);
+    return getGameScore(
+      teleopScore,
+      autoScore,
+      superScore,
+      endgameScore,
+      sliders["Game"] || []
+    );
+  };
+
   return (
     <>
       <Slider name="Auto" categories={autoCategories} />
       <Slider name="Teleop" categories={teleopCategories} />
       <Slider name="Super" categories={superCategories} />
       <Slider name="Game" categories={gameCategories} />
+      <button
+        className="ml-2 bg-orange-200 hover:bg-orange-300 text-orange-800 font-bold py-5 px-10 rounded"
+        type="button"
+        onClick={rank}
+      >
+        Rank
+      </button>
     </>
   );
 };
@@ -63,6 +176,11 @@ const Slider: React.FC<SliderProps> = ({ categories, name }) => {
       percentage: 100,
     },
   ]);
+
+  useEffect(
+    () => rankingStorage.setItem(name, JSON.stringify(currentChoices)),
+    [currentChoices]
+  );
 
   const addChoice = (choice: Choice) =>
     setCurrentChoices((prev) => [...prev, choice]);
@@ -146,7 +264,7 @@ const ChoiceItem: React.FC<{
   otherChoices: string[];
 }> = ({ choice, updateChoice, totalPercentage, otherChoices, index }) => {
   return (
-    <div className="flex flex-row mx-5" key={choice.category}>
+    <div className="flex flex-row mx-2" key={choice.category}>
       <select
         onChange={(event) =>
           updateChoice({
@@ -168,6 +286,7 @@ const ChoiceItem: React.FC<{
         ))}
       </select>
       <input
+        className="ml-2 border border-gray-300 rounded-md w-20 text-center"
         type="number"
         onChange={(event) =>
           updateChoice({

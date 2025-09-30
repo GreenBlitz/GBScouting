@@ -126,3 +126,5 @@ export class StorageBackedInput<T> extends StorageBacked<T> {
 
 
 export const authorizationStorage: StorageBacked<string> = new StorageBacked("strategy/auth",localFolder);
+
+export const rankingStorage = new FolderStorage(localStorage, "ranking/");
