@@ -11,29 +11,31 @@ const noteCategories = [
   "overall",
 ] as const;
 
-type Notes = Record<
+export type Notes = Record<
   (typeof noteCategories)[number],
   { value: string; score: number }
 >;
 
-type QualNote = {
-  qual: number;
-  team: number;
-  note: Notes;
-};
+export type HashedQualTeam = `frc${number} qual${number}`;
+
+export type QualNotes = Record<HashedQualTeam, Notes>;
 
 export function applyRoutes(app: Express, db: Db) {
   // Define routes
   app.post("/team_notes", async (req, res) => {
-    const notes: QualNote[] = req.body.notes;
+    const { notes, user }: { notes: QualNotes; user: string } = req.body;
 
     const notesCollection = db.collection("notes");
 
     try {
-      const currentNotes = await notesCollection.find().toArray();
-      const stringedMatch = JSON.stringify(notes);
+      await notesCollection.deleteMany({ user });
+      notesCollection.insertMany(
+        Object.entries(notes).map(([team, note]) => ({ team, ...note, user }))
+      );
+      res.status(200).json({ message: "Notes saved successfully" });
     } catch (error) {
       console.log(error);
+      res.status(500).json({ message: "Error saving notes" });
     }
   });
 }

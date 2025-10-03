@@ -174,8 +174,8 @@ export async function fetchMatchResults(matchNumber: string) {
   }
 }
 
-export async function postNotes(notes: QualNotes[]) {
-  return await fetchData(`team_notes`, "POST", JSON.stringify({ notes }));
+export async function postNotes(notes: QualNotes, user: string) {
+  return await fetchData(`team_notes`, "POST", JSON.stringify({ notes, user }));
 }
 
 export async function fetchNotes(teamNumber: number) {

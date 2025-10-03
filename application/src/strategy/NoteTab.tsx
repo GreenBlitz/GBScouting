@@ -134,6 +134,11 @@ const NoteTab: React.FC = () => {
     {}
   );
 
+  const [user, _setUser] = useStorage<string>(
+    new StorageBacked("user", localStorage),
+    Math.random().toString(36).substring(2, 10)
+  );
+
   const [qual, setQual] = useState(1);
   const [isBlueSide, setSide] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -148,6 +153,8 @@ const NoteTab: React.FC = () => {
 
   const handleSaveToDatabase = async () => {
     setIsSaving(true);
+    await postNotes(notes, user);
+    setIsSaving(false);
   };
 
   return (

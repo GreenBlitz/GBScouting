@@ -132,6 +132,10 @@ export const authorizationStorage: StorageBacked<string> = new StorageBacked(
 export function useStorage<T>(storage: StorageBacked<T>, defaultValue: T) {
   const startingValue = storage.get();
 
+  if (!startingValue) {
+    storage.set(defaultValue);
+  }
+
   const [stored, setStored] = useState<T>(startingValue || defaultValue);
 
   const updateValue = (newValue: T) => {
