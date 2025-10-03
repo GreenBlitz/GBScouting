@@ -157,6 +157,13 @@ const NoteTab: React.FC = () => {
     setIsSaving(false);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleSaveToDatabase();
+    }, 60 * 1000); // Save every 60 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-800 p-4">
       <div className="max-w-7xl mx-auto">
@@ -166,7 +173,7 @@ const NoteTab: React.FC = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <span className="text-sm font-medium text-gray-300">
-                  Qualification:
+                  Qualifier:
                 </span>
                 <select
                   value={qual}
@@ -179,17 +186,6 @@ const NoteTab: React.FC = () => {
                     </option>
                   ))}
                 </select>
-                <button
-                  onClick={handleSaveToDatabase}
-                  disabled={isSaving}
-                  className={`px-4 py-1 rounded-md font-medium transition-colors duration-200 ${
-                    isSaving
-                      ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                      : "bg-green-600 text-white hover:bg-green-700"
-                  }`}
-                >
-                  {isSaving ? "Saving..." : "Save"}
-                </button>
               </div>
               <button
                 onClick={() => setSide((prev) => !prev)}
