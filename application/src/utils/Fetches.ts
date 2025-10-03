@@ -1,6 +1,6 @@
 import { authorizationStorage } from "./FolderStorage";
 import { Match } from "./Match";
-import { DCMPMatches, Notes } from "./SeasonUI";
+import { DCMPMatches, Notes, QualNotes } from "./SeasonUI";
 
 export const getServerHostname = () => {
   return location.host;
@@ -174,16 +174,11 @@ export async function fetchMatchResults(matchNumber: string) {
   }
 }
 
-export async function postNotes(notes: Record<number, Notes>, qual: number) {
-  await alert("Started Sending Notes for qual: " + qual);
-  return await fetchData(
-    `notes/${qual.toString()}`,
-    "POST",
-    JSON.stringify(notes)
-  );
+export async function postNotes(notes: QualNotes, user: string) {
+  return await fetchData(`team_notes`, "POST", JSON.stringify({ notes, user }));
 }
 
-export async function fetchNotes(teamNumber: number) {
+export async function fetchNotes(teamNumber: number): Promise<QualNotes> {
   return await fetchData(`team_notes/${teamNumber}`);
 }
 

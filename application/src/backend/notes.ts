@@ -1,64 +1,63 @@
 import { Express, Request, Response } from "express";
 import { Db } from "mongodb";
 
+const noteCategories = [
+  "defense",
+  "evasion",
+  "net",
+  "coral",
+  "climb",
+  "driving",
+  "overall",
+] as const;
+
+type Notes = Record<
+  (typeof noteCategories)[number],
+  { value: string; score: number }
+>;
+
+type HashedQualTeam = `frc${number} qual${number}`;
+
+type QualNotes = Record<HashedQualTeam, Notes>;
+
 export function applyRoutes(app: Express, db: Db) {
   // Define routes
-  app.post("/notes/:qual", async (req: Request, res: Response) => {
-    if (!db) {
-      return res.status(500).send("Database not connected");
-    }
+  app.post("/team_notes", async (req, res) => {
+    const { notes, user }: { notes: QualNotes; user: string } = req.body;
+
     const notesCollection = db.collection("notes");
 
-    const newNotes = {
-      qual: req.params.qual,
-      body: req.body,
-    };
-
     try {
-      const notes = await notesCollection.find().toArray();
-      const stringedNotes = JSON.stringify(newNotes);
-      const similarMatch = notes.find((value) => {
-        const { _id, ...unIdDValue } = value;
-        const jsoned = JSON.stringify(unIdDValue);
-        return stringedNotes === jsoned;
-      });
-
-      if (similarMatch) {
-        res.status(401).send("Notes Already In Database");
-        return;
-      }
-
-      const result = await notesCollection.insertOne(newNotes);
-
-      res.status(201).json(result);
+      await notesCollection.deleteMany({ user });
+      notesCollection.insertMany(
+        Object.entries(notes).map(([team, note]) => ({ team, ...note, user }))
+      );
+      res.status(200).json({ message: "Notes saved successfully" });
     } catch (error) {
-      res.status(500).json({ error: "Failed to insert data" });
+      console.log(error);
+      res.status(500).json({ message: "Error saving notes" });
     }
   });
 
   app.get("/team_notes/:team", async (req: Request, res: Response) => {
-    if (!db) {
-      return res.status(500).send("Database not connected");
-    }
+    const team = req.params.team;
+
     const notesCollection = db.collection("notes");
+
     try {
-      const items = (await notesCollection.find().toArray())
-        .map((item) => {
-          const found = Object.entries(item.body).find(
-            ([teamNumber, _]) => teamNumber === req.params.team
-          );
-          if (!found) {
-            return undefined;
-          }
-          return {
-            qual: item.qual,
-            body: found[1],
-          };
-        })
-        .filter((item) => item);
-      res.status(200).json(items);
+      const notesCursor = notesCollection.find({
+        team: new RegExp(`^frc${team} qual`),
+      });
+      const notesArray = await notesCursor.toArray();
+      const notes: QualNotes = notesArray.reduce((acc, curr) => {
+        const { user, team, ...note } = curr;
+        acc[team] = note as unknown as Notes;
+        return acc;
+      }, {} as QualNotes);
+      res.status(200).json(notes);
     } catch (error) {
-      res.status(500).send(error);
+      console.log(error);
+      res.status(500).json({ message: "Error retrieving notes" });
     }
   });
 }

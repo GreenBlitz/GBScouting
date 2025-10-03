@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default class FolderStorage {
   private prefix: string;
   public readonly parent: Storage | FolderStorage;
@@ -61,8 +63,6 @@ export const sessionFolder = new FolderStorage(sessionStorage);
 
 export const inputFolder = localFolder.with("inputs/");
 
-
-
 export class StorageBacked<T> {
   public readonly name: string;
   private readonly storage: FolderStorage | Storage;
@@ -124,7 +124,25 @@ export class StorageBackedInput<T> extends StorageBacked<T> {
   }
 }
 
-
-export const authorizationStorage: StorageBacked<string> = new StorageBacked("strategy/auth",localFolder);
+export const authorizationStorage: StorageBacked<string> = new StorageBacked(
+  "strategy/auth",
+  localFolder
+);
 
 export const rankingStorage = new FolderStorage(localStorage, "ranking/");
+export function useStorage<T>(storage: StorageBacked<T>, defaultValue: T) {
+  const startingValue = storage.get();
+
+  if (!startingValue) {
+    storage.set(defaultValue);
+  }
+
+  const [stored, setStored] = useState<T>(startingValue || defaultValue);
+
+  const updateValue = (newValue: T) => {
+    setStored(newValue);
+    storage.set(newValue);
+  };
+
+  return [stored, updateValue] as const;
+}
