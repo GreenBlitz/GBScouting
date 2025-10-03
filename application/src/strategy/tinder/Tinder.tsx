@@ -2,16 +2,16 @@ import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { useRecent, mergeSimilarMatches } from "../../components/TeamPicker";
 import { TeamData } from "../../TeamData";
-import { fetchData, fetchTeams } from "../../utils/Fetches";
+import { fetchData, fetchNotes, fetchTeams } from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
-import { Notes } from "../../utils/SeasonUI";
+import { QualNotes, TeamNotes } from "../../utils/SeasonUI";
 import { InitialRanker } from "./InitialRanker";
 
 export interface TeamInfo {
   stats: GridItems;
   data: TeamData;
-  notes: Notes;
+  notes: TeamNotes;
 }
 
 const tinderStorageKey = "tinder";
@@ -35,16 +35,19 @@ const defaultTeam: TeamInfo = {
     "Middle Auto": 0,
   },
   data: new TeamData([]),
-  notes: {
-    overall: "pretty chill",
-    defense: "not really good",
-    evasion: "",
-    net: "ok",
-    coral: "very good",
-    climb: "",
-    driving: "",
-  },
+  notes: {},
 };
+
+const extractTeamNotes = (team: string, qualNotes: QualNotes) =>
+  Object.entries(qualNotes).reduce((acc, [key, note]) => {
+    const teamMatch =
+      key.includes(`frc${team} `) && key.match(/frc(\d+) qual\d+/);
+    if (teamMatch) {
+      const teamNumber = parseInt(teamMatch[1]);
+      acc[teamNumber] = note;
+    }
+    return acc;
+  }, {} as TeamNotes);
 
 const defaultSort = (team1: TeamInfo, team2: TeamInfo): number => {
   return team2.stats.Points - team1.stats.Points;
@@ -72,8 +75,11 @@ const Tinder: React.FC = () => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
-      .then((teams) =>
+    Promise.all([
+      fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key))),
+      fetchNotes(),
+    ])
+      .then(([teams, notes]) =>
         Object.entries(teams).map(([team, matches]) => {
           const teamData = new TeamData(
             useRecent(mergeSimilarMatches(matches), recency)
@@ -81,7 +87,7 @@ const Tinder: React.FC = () => {
           return {
             stats: processTeamData(parseInt(team), teamData),
             data: teamData,
-            notes: defaultTeam.notes,
+            notes: extractTeamNotes(team,notes),
           };
         })
       )

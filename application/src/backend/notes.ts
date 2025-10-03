@@ -39,7 +39,7 @@ export function applyRoutes(app: Express, db: Db) {
     }
   });
 
-  app.get("/team_notes/:team", async (req: Request, res: Response) => {
+  app.get("/team_notes/team/:team", async (req: Request, res: Response) => {
     const team = req.params.team;
 
     const notesCollection = db.collection("notes");
@@ -48,6 +48,23 @@ export function applyRoutes(app: Express, db: Db) {
       const notesCursor = notesCollection.find({
         team: new RegExp(`^frc${team} qual`),
       });
+      const notesArray = await notesCursor.toArray();
+      const notes: QualNotes = notesArray.reduce((acc, curr) => {
+        const { user, team, ...note } = curr;
+        acc[team] = note as unknown as Notes;
+        return acc;
+      }, {} as QualNotes);
+      res.status(200).json(notes);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error retrieving notes" });
+    }
+  });
+
+  app.get("/team_notes/all", async (req: Request, res: Response) => {
+    const notesCollection = db.collection("notes");
+    try {
+      const notesCursor = notesCollection.find({});
       const notesArray = await notesCursor.toArray();
       const notes: QualNotes = notesArray.reduce((acc, curr) => {
         const { user, team, ...note } = curr;

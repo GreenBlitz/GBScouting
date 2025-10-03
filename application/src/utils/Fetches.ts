@@ -178,8 +178,10 @@ export async function postNotes(notes: QualNotes, user: string) {
   return await fetchData(`team_notes`, "POST", JSON.stringify({ notes, user }));
 }
 
-export async function fetchNotes(teamNumber: number): Promise<QualNotes> {
-  return await fetchData(`team_notes/${teamNumber}`);
+export async function fetchNotes(teamNumber?: number): Promise<QualNotes> {
+  return teamNumber
+    ? await fetchData(`team_notes/team/${teamNumber}`)
+    : await fetchData(`team_notes/all`);
 }
 
 export interface MatchResults {
