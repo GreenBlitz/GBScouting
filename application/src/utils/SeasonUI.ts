@@ -25,15 +25,24 @@ export interface UsedAlgea {
   processor: number;
 }
 
-export interface Notes {
-  defense: string;
-  evasion: string;
-  net: string;
-  coral: string;
-  climb: string;
-  driving: string;
-  overall: string;
-}
+export const noteCategories = [
+  "defense",
+  "evasion",
+  "net",
+  "coral",
+  "climb",
+  "driving",
+  "overall",
+] as const;
+
+export type Notes = Record<
+  (typeof noteCategories)[number],
+  { value: string; score: number }
+>;
+
+export type HashedQualTeam = `frc${number} qual${number}`;
+
+export type QualNotes = Record<HashedQualTeam, Notes>;
 
 export const DCMPMatches: MatchTeams[] = [
   { blueAlliance: [4661, 3316, 4338], redAlliance: [5990, 5951, 5135] },
