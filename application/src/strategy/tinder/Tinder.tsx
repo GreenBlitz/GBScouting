@@ -80,9 +80,18 @@ const Tinder: React.FC = () => {
   const [ranking, setRanking] = useState<TeamInfo[]>([]);
   const [recency, setRecency] = useState<number>(5);
   const [currentID, setID] = useState(0);
-  const [showRanking, setShowing] = useState(false);
   const [name, setName] = useState("");
+  const [saveNames, setSaveNames] = useState<string[]>([]);
+  const [masterRanking, setMasterRanking] = useState<number[]>([]);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const rankingDiff = useMemo(() => {
+    console.log("Ranking", ranking, masterRanking);
+    return ranking.map(
+      (value, index) =>
+        masterRanking.findIndex((team) => team === value.stats.Team) - index
+    );
+  }, [ranking, masterRanking]);
 
   useEffect(() => {
     Promise.all([
@@ -114,6 +123,11 @@ const Tinder: React.FC = () => {
       .then(setRanking);
   }, [recency]);
 
+  useEffect(() => {
+    fetchData("Tinder/master", "GET").then(setMasterRanking);
+    fetchData("TinderSaves", "GET").then(setSaveNames);
+  }, []);
+
   const updateStorage = (newRanking: TeamInfo[]) =>
     localStorage.setItem(
       tinderStorageKey,
@@ -121,15 +135,18 @@ const Tinder: React.FC = () => {
     );
 
   useEffect(() => {
-    updateStorage(ranking);
+    ranking.length > 0 && updateStorage(ranking);
   }, [ranking]);
 
   const choose = (index: number) => {
     if (index !== currentID) {
-      const temp = ranking[currentID];
-      ranking[currentID] = ranking[currentID + 1];
-      ranking[currentID + 1] = temp;
-      setRanking(ranking);
+      setRanking((prev) => {
+        const newRanking = [...prev];
+        const temp = newRanking[currentID];
+        newRanking[currentID] = newRanking[currentID + 1];
+        newRanking[currentID + 1] = temp;
+        return newRanking;
+      });
     }
     if (currentID + 2 >= ranking.length) {
       setID(0);
@@ -147,6 +164,19 @@ const Tinder: React.FC = () => {
     }
   }, [currentID, ranking.length]);
 
+  const loadSave = (name: string) => {
+    fetchData(`Tinder/${name}`, "GET")
+      .then((response: number[]) =>
+        setRanking((prev) =>
+          response.map(
+            (teamNumber: number) =>
+              prev.find((item) => item.stats.Team === teamNumber) || defaultTeam
+          )
+        )
+      )
+      .then(() => alert("loaded!"));
+  };
+
   const maxObjects = useMemo(
     () =>
       getHighestCoral(ranking[currentID]?.data, ranking[currentID + 1]?.data),
@@ -158,9 +188,16 @@ const Tinder: React.FC = () => {
   return (
     <div>
       <div className="flex flex-col md:flex-row items-stretch gap-4">
-        {showRanking ? (
-          <div className="w-full md:w-80 mt-5 mx-auto">
-            <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-72 overflow-y-auto">
+        <>
+          <div className="flex-1 min-w-0">
+            <TeamCard
+              teamInfo={ranking[currentID] || defaultTeam}
+              onSwipe={() => choose(currentID)}
+              max={maxObjects}
+            />
+          </div>
+          <div className="w-full md:w-80 my-auto mx-auto">
+            <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-96 overflow-y-auto">
               <div className="space-y-2">
                 {ranking.map((item, index) => (
                   <TeamListItem
@@ -170,37 +207,22 @@ const Tinder: React.FC = () => {
                     index={index}
                     isHighlited={index === currentID || index === currentID + 1}
                     goToItem={() => setID(index)}
+                    diffOffset={rankingDiff[index]}
                   />
                 ))}
               </div>
             </div>
           </div>
-        ) : (
-          <>
-            <div className="flex-1 min-w-0">
-              <TeamCard
-                teamInfo={ranking[currentID] || defaultTeam}
-                onSwipe={() => choose(currentID)}
-                max={maxObjects}
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <TeamCard
-                teamInfo={ranking[currentID + 1] || defaultTeam}
-                onSwipe={() => choose(currentID + 1)}
-                max={maxObjects}
-              />
-            </div>
-          </>
-        )}
+          <div className="flex-1 min-w-0">
+            <TeamCard
+              teamInfo={ranking[currentID + 1] || defaultTeam}
+              onSwipe={() => choose(currentID + 1)}
+              max={maxObjects}
+            />
+          </div>
+        </>
       </div>
       <div className="flex gap-4 justify-center mt-6">
-        <button
-          className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition duration-150 ease-in-out"
-          onClick={() => setShowing((prev) => !prev)}
-        >
-          {showRanking ? "Tinder" : "Ranking"}
-        </button>
         <button
           className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow transition duration-150 ease-in-out"
           onClick={() => setShowInitialRanker(true)}
@@ -228,23 +250,52 @@ const Tinder: React.FC = () => {
         </div>
       )}
 
-      <div>
+      <div className="flex flex-col md:flex-row items-center gap-4 mt-8 justify-center">
         <input
           type="text"
+          placeholder="Enter save name"
+          value={name}
           onChange={(event) => setName(event.currentTarget.value)}
-        ></input>
+          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm w-64"
+        />
         <button
-          className="p-4"
+          className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition duration-150 ease-in-out"
           onClick={() =>
             fetchData(
               `Tinder/${name}`,
               "POST",
               JSON.stringify(ranking.map((team) => team.stats.Team))
-            ).then((response: any) => alert(JSON.stringify(response)))
+            ).then(() => alert("saved!"))
           }
+          disabled={!name.trim()}
         >
           Save
         </button>
+        <button
+          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow transition duration-150 ease-in-out"
+          onClick={() => loadSave(name)}
+          disabled={!name.trim()}
+        >
+          Load
+        </button>
+      </div>
+      <div className="flex flex-col items-center mt-6">
+        <div className="font-semibold mb-2">Saved Rankings:</div>
+        <div className="flex flex-wrap gap-2">
+          {saveNames.length === 0 ? (
+            <span className="text-gray-500">No saves yet.</span>
+          ) : (
+            saveNames.map((save) => (
+              <button
+                key={save}
+                className="px-4 py-1 bg-orange-600 hover:bg-orange-700 rounded shadow text-sm"
+                onClick={() => loadSave(save)}
+              >
+                {save}
+              </button>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
@@ -255,9 +306,10 @@ interface TeamListItemProps {
   index: number;
   isHighlited: boolean;
   goToItem: () => void;
+  diffOffset: number;
 }
 const TeamListItem = forwardRef<HTMLDivElement, TeamListItemProps>(
-  ({ team, index, isHighlited, goToItem }, ref) => {
+  ({ team, index, isHighlited, goToItem, diffOffset }, ref) => {
     return (
       <div
         ref={ref}
@@ -280,8 +332,16 @@ const TeamListItem = forwardRef<HTMLDivElement, TeamListItemProps>(
           >
             {index + 1}
           </span>
+          <span className="text-blue-800 text-red-800 w-0 h-0"></span>
           <span className="font-medium text-gray-900 text-sm md:text-base">
-            {FRCTeamList[team] + " " + team}
+            {FRCTeamList[team] + " " + team}{" "}
+            <span
+              className={`text-${
+                diffOffset > 0 ? "blue" : diffOffset < 0 ? "red" : "black"
+              }-800 font-semibold`}
+            >
+              ({diffOffset > 0 ? "+" + diffOffset : diffOffset})
+            </span>
           </span>
         </div>
       </div>

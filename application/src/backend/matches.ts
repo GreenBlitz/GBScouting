@@ -64,6 +64,7 @@ export async function applyRoutes(app: Express, db: Db, dirName: string) {
     const tinderData = { name: req.params.name, ranking: req.body };
 
     try {
+      await tinderCollection.deleteMany({ name: req.params.name });
       const result = await tinderCollection.insertOne(tinderData);
       res.status(201).json(result);
     } catch (e) {
@@ -71,17 +72,34 @@ export async function applyRoutes(app: Express, db: Db, dirName: string) {
     }
   });
 
-  app.get("/Tinder", async (req: Request, res: Response) => {
+  app.get("/Tinder/:name", async (req: Request, res: Response) => {
     if (!db) {
       return res.status(500).send("Databse not connected");
     }
 
+    const name = req.params.name;
+
+    const tinderCollection = db.collection("tinder");
+
+    try {
+      const result = await tinderCollection.find({ name }).toArray();
+
+      const ranking = result[0].ranking;
+      res.status(201).json(ranking);
+    } catch (e) {
+      res.status(500).json({ error: "Failed to fetch data" });
+    }
+  });
+  app.get("/TinderSaves", async (req: Request, res: Response) => {
+    if (!db) {
+      return res.status(500).send("Databse not connected");
+    }
     const tinderCollection = db.collection("tinder");
 
     try {
       const result = await tinderCollection.find().toArray();
-
-      res.status(201).json(result);
+      const names = result.map((item) => item.name);
+      res.status(201).json(names);
     } catch (e) {
       res.status(500).json({ error: "Failed to fetch data" });
     }

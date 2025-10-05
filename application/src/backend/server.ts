@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import { Db, MongoClient } from "mongodb";
 import ViteExpress from "vite-express";
 import fs from "fs";
-import path from "path";
 import https from "https";
 import cors from "cors";
 import * as matches from "./matches.js";

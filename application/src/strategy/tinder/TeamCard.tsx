@@ -25,8 +25,6 @@ const TeamCard: React.FC<TeamCardProps> = ({
 }) => {
   const [isNotes, setNotes] = useState(false);
 
-  console.log(notes);
-
   return (
     <div className="mx-auto p-5 mt-10 rounded-xl bg-green-800 w-96">
       {isNotes ? (
