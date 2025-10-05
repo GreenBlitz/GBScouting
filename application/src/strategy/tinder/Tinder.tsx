@@ -85,13 +85,12 @@ const Tinder: React.FC = () => {
   const [masterRanking, setMasterRanking] = useState<number[]>([]);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const rankingDiff = useMemo(() => {
-    console.log("Ranking", ranking, masterRanking);
-    return ranking.map(
+  const rankingDiff = useMemo(() =>
+    ranking.map(
       (value, index) =>
         masterRanking.findIndex((team) => team === value.stats.Team) - index
-    );
-  }, [ranking, masterRanking]);
+    )
+  , [ranking, masterRanking]);
 
   useEffect(() => {
     Promise.all([

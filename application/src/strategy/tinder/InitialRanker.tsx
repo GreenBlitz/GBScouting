@@ -7,12 +7,19 @@ import { rankingStorage } from "../../utils/FolderStorage";
 const calculateValue = (stat: number, percentage: number) =>
   stat * (percentage / 100);
 
-const getTeleopScore = (team: TeamInfo, teleopSliders: Choice[]) => {
+const getTeleopScore = (
+  team: TeamInfo,
+  teleopSliders: Choice[],
+  scoringMethod: ScoringMethod
+) => {
   return teleopSliders.reduce(
     (acc, curr) =>
       acc +
       (() => {
-        const data = team.data.getTeleopStats();
+        const data =
+          scoringMethod === "objectCount"
+            ? team.data.getTeleopStats()
+            : team.data.getTeleopPointsStats();
         return data[curr.category as keyof typeof data]
           ? calculateValue(
               data[curr.category as keyof typeof data],
@@ -24,12 +31,19 @@ const getTeleopScore = (team: TeamInfo, teleopSliders: Choice[]) => {
   );
 };
 
-const getAutoScore = (team: TeamInfo, autoSliders: Choice[]) => {
+const getAutoScore = (
+  team: TeamInfo,
+  autoSliders: Choice[],
+  scoringMethod: ScoringMethod
+) => {
   return autoSliders.reduce(
     (acc, curr) =>
       acc +
       (() => {
-        const data = team.data.getTeleopStats();
+        const data =
+          scoringMethod === "objectCount"
+            ? team.data.getAutoStats()
+            : team.data.getAutoPointsStats();
         return data[curr.category as keyof typeof data]
           ? calculateValue(
               data[curr.category as keyof typeof data],
@@ -98,10 +112,14 @@ interface InitialRankerProps {
   ranking: TeamInfo[];
   setRanking: (ranking: TeamInfo[]) => void;
 }
+
+type ScoringMethod = "score" | "objectCount";
 export const InitialRanker: React.FC<InitialRankerProps> = ({
   ranking,
   setRanking,
 }) => {
+  const [scoringMethod, setScoringMethod] = useState<ScoringMethod>("score");
+
   const getSlidersStorage = (): Record<string, Choice[]> => {
     const stored = rankingStorage.entries();
     return stored
@@ -113,7 +131,7 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
     const newRanking = ranking
       .map((team) => ({
         info: team,
-        score: score(team, sliders),
+        score: score(team, sliders, scoringMethod),
       }))
       .sort((a, b) => b.score - a.score);
 
@@ -121,9 +139,17 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
     setRanking(newRanking.map((item) => item.info));
   };
 
-  const score = (team: TeamInfo, sliders: Record<string, Choice[]>) => {
-    const autoScore = getAutoScore(team, sliders["Auto"] || []);
-    const teleopScore = getTeleopScore(team, sliders["Teleop"] || []);
+  const score = (
+    team: TeamInfo,
+    sliders: Record<string, Choice[]>,
+    scoringMethod: ScoringMethod
+  ) => {
+    const autoScore = getAutoScore(team, sliders["Auto"] || [], scoringMethod);
+    const teleopScore = getTeleopScore(
+      team,
+      sliders["Teleop"] || [],
+      scoringMethod
+    );
     const superScore = 0; //getSuperScore(team, sliders["Super"] || []);
     const endgameScore = team.stats.Climb; //getEndgameScore(team, sliders["Endgame"] || []);
     return getGameScore(
@@ -137,6 +163,19 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
 
   return (
     <>
+      <div className="mb-6">
+        <label className="mr-4 font-semibold text-black">Ranking Method:</label>
+        <select
+          className="border border-gray-300 rounded-md px-2 py-1"
+          onChange={(e) => {
+            setScoringMethod(e.currentTarget.value as ScoringMethod);
+          }}
+          defaultValue="score"
+        >
+          <option value="score">Score</option>
+          <option value="objectCount">Object Count</option>
+        </select>
+      </div>
       <Slider name="Auto" categories={autoCategories} />
       <Slider name="Teleop" categories={teleopCategories} />
       <Slider name="Super" categories={superCategories} />

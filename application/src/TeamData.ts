@@ -717,38 +717,150 @@ export class TeamData {
   }
 
   getStats(reefPick: "teleReefPick" | "autoReefPick"): Stats {
+    const dividing = this.matches.length > 0 ? this.matches.length : 1;
     return this.matches.reduce(
       (acc, match) => ({
         Objects:
           acc.Objects +
-          match[reefPick].levels.L1.score +
-          match[reefPick].levels.L2.score +
-          match[reefPick].levels.L3.score +
-          match[reefPick].levels.L4.score +
-          match[reefPick].algea.netScore +
-          match[reefPick].algea.processor,
-        Algea: acc.Algea + match[reefPick].algea.netScore,
-        Processor: acc.Processor + match[reefPick].algea.processor,
-        Net: acc.Net + match[reefPick].algea.netScore,
+          (match[reefPick].levels.L1.score +
+            match[reefPick].levels.L2.score +
+            match[reefPick].levels.L3.score +
+            match[reefPick].levels.L4.score +
+            match[reefPick].algea.netScore +
+            match[reefPick].algea.processor) /
+            dividing,
+        Algea: acc.Algea + match[reefPick].algea.netScore / dividing,
+        Processor: acc.Processor + match[reefPick].algea.processor / dividing,
+        Net: acc.Net + match[reefPick].algea.netScore / dividing,
         Coral:
           acc.Coral +
-          match[reefPick].levels.L1.score +
-          match[reefPick].levels.L2.score +
-          match[reefPick].levels.L3.score +
-          match[reefPick].levels.L4.score,
-        L1: acc.L1 + match[reefPick].levels.L1.score,
-        L2: acc.L2 + match[reefPick].levels.L2.score,
-        L3: acc.L3 + match[reefPick].levels.L3.score,
-        L4: acc.L4 + match[reefPick].levels.L4.score,
+          (match[reefPick].levels.L1.score +
+            match[reefPick].levels.L2.score +
+            match[reefPick].levels.L3.score +
+            match[reefPick].levels.L4.score) /
+            dividing,
+        L1: acc.L1 + match[reefPick].levels.L1.score / dividing,
+        L2: acc.L2 + match[reefPick].levels.L2.score / dividing,
+        L3: acc.L3 + match[reefPick].levels.L3.score / dividing,
+        L4: acc.L4 + match[reefPick].levels.L4.score / dividing,
         LowCoral:
           acc.LowCoral +
-          match[reefPick].levels.L1.score +
-          match[reefPick].levels.L2.score,
+          (match[reefPick].levels.L1.score + match[reefPick].levels.L2.score) /
+            dividing,
         HighCoral:
           acc.HighCoral +
-          match[reefPick].levels.L3.score +
-          match[reefPick].levels.L4.score,
+          (match[reefPick].levels.L3.score + match[reefPick].levels.L4.score) /
+            dividing,
       }),
+      {
+        Objects: 0,
+        Algea: 0,
+        Processor: 0,
+        Net: 0,
+        Coral: 0,
+        L1: 0,
+        L2: 0,
+        L3: 0,
+        L4: 0,
+        LowCoral: 0,
+        HighCoral: 0,
+      }
+    );
+  }
+
+  getAutoPointsStats(): Stats {
+    const dividing = this.matches.length > 0 ? this.matches.length : 1;
+    return this.matches.reduce(
+      (acc, match) => {
+        const pick = match.autoReefPick;
+        const objectScores = {
+          L1: (pick.levels.L1.score * 3) / dividing,
+          L2: (pick.levels.L2.score * 4) / dividing,
+          L3: (pick.levels.L3.score * 6) / dividing,
+          L4: (pick.levels.L4.score * 7) / dividing,
+          Net: (pick.algea.netScore * 4) / dividing,
+          Processor: (pick.algea.processor * 2) / dividing,
+        };
+        return {
+          Objects:
+            objectScores.L1 +
+            objectScores.L2 +
+            objectScores.L3 +
+            objectScores.L4 +
+            objectScores.Net +
+            objectScores.Processor +
+            acc.Objects,
+          Algea: objectScores.Net + acc.Algea,
+          Processor: objectScores.Processor + acc.Processor,
+          Net: objectScores.Net + acc.Net,
+          Coral:
+            objectScores.L1 +
+            objectScores.L2 +
+            objectScores.L3 +
+            objectScores.L4 +
+            acc.Coral,
+          L1: objectScores.L1 + acc.L1,
+          L2: objectScores.L2 + acc.L2,
+          L3: objectScores.L3 + acc.L3,
+          L4: objectScores.L4 + acc.L4,
+          LowCoral: objectScores.L1 + objectScores.L2 + acc.LowCoral,
+          HighCoral: objectScores.L3 + objectScores.L4 + acc.HighCoral,
+        };
+      },
+      {
+        Objects: 0,
+        Algea: 0,
+        Processor: 0,
+        Net: 0,
+        Coral: 0,
+        L1: 0,
+        L2: 0,
+        L3: 0,
+        L4: 0,
+        LowCoral: 0,
+        HighCoral: 0,
+      }
+    );
+  }
+  getTeleopPointsStats(): Stats {
+    const dividing = this.matches.length > 0 ? this.matches.length : 1;
+    return this.matches.reduce(
+      (acc, match) => {
+        const pick = match.autoReefPick;
+        const objectScores = {
+          L1: (pick.levels.L1.score * 2) / dividing,
+          L2: (pick.levels.L2.score * 3) / dividing,
+          L3: (pick.levels.L3.score * 4) / dividing,
+          L4: (pick.levels.L4.score * 5) / dividing,
+          Net: (pick.algea.netScore * 4) / dividing,
+          Processor: (pick.algea.processor * 2) / dividing,
+        };
+        return {
+          Objects:
+            objectScores.L1 +
+            objectScores.L2 +
+            objectScores.L3 +
+            objectScores.L4 +
+            objectScores.Net +
+            objectScores.Processor +
+            acc.Objects,
+          Algea: objectScores.Net + acc.Algea,
+          Processor: objectScores.Processor + acc.Processor,
+          Net: objectScores.Net + acc.Net,
+          Coral:
+            objectScores.L1 +
+            objectScores.L2 +
+            objectScores.L3 +
+            objectScores.L4 +
+            acc.Coral,
+          L1: objectScores.L1 + acc.L1,
+          L2: objectScores.L2 + acc.L2,
+          L3: objectScores.L3 + acc.L3,
+          L4: objectScores.L4 + acc.L4,
+          LowCoral: objectScores.L1 + objectScores.L2 + acc.LowCoral,
+          HighCoral: objectScores.L3 + objectScores.L4 + acc.HighCoral,
+        };
+      },
       {
         Objects: 0,
         Algea: 0,
