@@ -160,6 +160,7 @@ const NoteTab: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleSaveToDatabase();
+      console.log("Auto-saved notes to database");
     }, 60 * 1000); // Save every 60 seconds
     return () => clearInterval(interval);
   }, []);
@@ -186,6 +187,17 @@ const NoteTab: React.FC = () => {
                     </option>
                   ))}
                 </select>
+                <button
+                  onClick={handleSaveToDatabase}
+                  disabled={isSaving}
+                  className={`ml-2 px-3 py-1 rounded-md font-medium transition-colors duration-200 ${
+                    isSaving
+                      ? "bg-gray-400 text-gray-100 cursor-not-allowed"
+                      : "bg-green-600 text-white hover:bg-green-700"
+                  }`}
+                >
+                  {isSaving ? "Saving..." : "Save"}
+                </button>
               </div>
               <button
                 onClick={() => setSide((prev) => !prev)}

@@ -35,6 +35,8 @@ interface Stats {
   L2: number;
   L3: number;
   L4: number;
+  HighCoral: number;
+  LowCoral: number;
 }
 
 export class TeamData {
@@ -738,6 +740,14 @@ export class TeamData {
         L2: acc.L2 + match[reefPick].levels.L2.score,
         L3: acc.L3 + match[reefPick].levels.L3.score,
         L4: acc.L4 + match[reefPick].levels.L4.score,
+        LowCoral:
+          acc.LowCoral +
+          match[reefPick].levels.L1.score +
+          match[reefPick].levels.L2.score,
+        HighCoral:
+          acc.HighCoral +
+          match[reefPick].levels.L3.score +
+          match[reefPick].levels.L4.score,
       }),
       {
         Objects: 0,
@@ -749,6 +759,8 @@ export class TeamData {
         L2: 0,
         L3: 0,
         L4: 0,
+        LowCoral: 0,
+        HighCoral: 0,
       }
     );
   }

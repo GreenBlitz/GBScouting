@@ -4,17 +4,6 @@ import { randomColor } from "../../utils/Color";
 import { TeamInfo } from "./Tinder";
 import { rankingStorage } from "../../utils/FolderStorage";
 
-const teleopCategories = {
-  Algea: "#3cb44b", // Red
-  Coral: "#e6194b", // Green
-  Net: "#ffe119", // Yellow
-  Processor: "#4363d8", // Blue
-  L1: "#f58231", // Orange
-  L2: "#911eb4", // Purple
-  L3: "#46f0f0", // Cyan
-  L4: "#f032e6", // Magenta
-} as const;
-
 const calculateValue = (stat: number, percentage: number) =>
   stat * (percentage / 100);
 
@@ -77,16 +66,20 @@ const getGameScore = (
   );
 };
 
-const autoCategories = {
-  Algea: "#27ae60",
-  Corals: "#2980b9",
-  Net: "#8e44ad",
-  Processor: "#2ecc71",
-  L1: "#f39c12",
-  L2: "#d35400",
-  L3: "#c0392b",
-  L4: "#7f8c8d",
+const teleopCategories = {
+  Algea: "#3cb44b", // Red
+  Coral: "#e6194b", // Green
+  Net: "#ffe119", // Yellow
+  Processor: "#4363d8", // Blue
+  L1: "#f58231", // Orange
+  L2: "#911eb4", // Purple
+  L3: "#46f0f0", // Cyan
+  L4: "#f032e6", // Magenta
+  LowCoral: "#bcf60c", // Lime
+  HighCoral: "#fabebe", // Pink
 } as const;
+
+const autoCategories = teleopCategories;
 
 const superCategories = {
   Driving: "#34495e",
@@ -170,12 +163,23 @@ interface Choice {
 }
 const Slider: React.FC<SliderProps> = ({ categories, name }) => {
   const categoryChoices = useMemo(() => Object.keys(categories), [categories]);
-  const [currentChoices, setCurrentChoices] = useState<Choice[]>([
-    {
-      category: categoryChoices[0],
-      percentage: 100,
-    },
-  ]);
+
+  const getStartingChoices = (): Choice[] => {
+    const stored = rankingStorage.getItem(name);
+    if (stored) {
+      return JSON.parse(stored) as Choice[];
+    }
+    return [
+      {
+        category: categoryChoices[0],
+        percentage: 50,
+      },
+    ];
+  };
+
+  const [currentChoices, setCurrentChoices] = useState<Choice[]>(
+    getStartingChoices()
+  );
 
   useEffect(
     () => rankingStorage.setItem(name, JSON.stringify(currentChoices)),
@@ -220,6 +224,7 @@ const Slider: React.FC<SliderProps> = ({ categories, name }) => {
                 )
             )}
             totalPercentage={totalPercentage}
+            colors={categories}
           />
         ))}
         <button
@@ -262,7 +267,15 @@ const ChoiceItem: React.FC<{
   index: number;
   totalPercentage: number;
   otherChoices: string[];
-}> = ({ choice, updateChoice, totalPercentage, otherChoices, index }) => {
+  colors: Record<string, string>;
+}> = ({
+  choice,
+  updateChoice,
+  totalPercentage,
+  otherChoices,
+  index,
+  colors,
+}) => {
   return (
     <div className="flex flex-row mx-2" key={choice.category}>
       <select
@@ -274,12 +287,14 @@ const ChoiceItem: React.FC<{
         }
         id={choice.category + index}
         name={choice.category + index}
+        style={{ color: colors[choice.category] }}
       >
         {otherChoices.map((category) => (
           <option
             value={category}
             selected={category === choice.category}
             id={category}
+            style={{ color: colors[category] }}
           >
             {category}
           </option>
@@ -297,6 +312,7 @@ const ChoiceItem: React.FC<{
         min="0"
         max={100 - totalPercentage + choice.percentage}
         defaultValue={choice.percentage}
+        style={{ color: colors[choice.category] }}
       />
     </div>
   );
