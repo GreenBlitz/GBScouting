@@ -40,11 +40,10 @@ const defaultTeam: TeamInfo = {
 
 const extractTeamNotes = (team: string, qualNotes: QualNotes) =>
   Object.entries(qualNotes).reduce((acc, [key, note]) => {
-    const teamMatch =
-      key.includes(`frc${team} `) && key.match(/frc(\d+) qual\d+/);
+    const teamMatch = key.includes(`frc${team} `);
+    const qual = parseInt(key.match(/qual(\d+)/)?.[1] || "0");
     if (teamMatch) {
-      const teamNumber = parseInt(teamMatch[1]);
-      acc[teamNumber] = note;
+      acc[qual] = note;
     }
     return acc;
   }, {} as TeamNotes);
@@ -87,7 +86,7 @@ const Tinder: React.FC = () => {
           return {
             stats: processTeamData(parseInt(team), teamData),
             data: teamData,
-            notes: extractTeamNotes(team,notes),
+            notes: extractTeamNotes(team, notes),
           };
         })
       )
