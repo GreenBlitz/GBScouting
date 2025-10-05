@@ -95,15 +95,17 @@ const TeamCard: React.FC<TeamCardProps> = ({
           </div>
         </>
       )}
-      <button
-        className="p-4 bg-purple-950"
-        onClick={() => setNotes((prev) => !prev)}
-      >
-        Switch
-      </button>
-      <button className="p-4 bg-green-950" onClick={onSwipe}>
-        Choose
-      </button>
+      <div className="mt-5">
+        <button
+          className="p-4 bg-purple-950"
+          onClick={() => setNotes((prev) => !prev)}
+        >
+          {isNotes ? "Stats" : "Notes"}
+        </button>
+        <button className="p-4 bg-green-950" onClick={onSwipe}>
+          Choose
+        </button>
+      </div>
     </div>
   );
 };

@@ -194,12 +194,26 @@ const Tinder: React.FC = () => {
           </>
         )}
       </div>
-      <button className="p-4" onClick={() => setShowing((prev) => !prev)}>
-        Show
-      </button>
-      <button className="p-4" onClick={() => setShowInitialRanker(true)}>
-        Open Initial Ranker
-      </button>
+      <div className="flex gap-4 justify-center mt-6">
+        <button
+          className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition duration-150 ease-in-out"
+          onClick={() => setShowing((prev) => !prev)}
+        >
+          {showRanking ? "Tinder" : "Ranking"}
+        </button>
+        <button
+          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow transition duration-150 ease-in-out"
+          onClick={() => setShowInitialRanker(true)}
+        >
+          Slider Picker
+        </button>
+        <button
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow transition duration-150 ease-in-out"
+          onClick={() => setID(0)}
+        >
+          Go To #1
+        </button>
+      </div>
       {showInitialRanker && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl relative">
@@ -213,9 +227,7 @@ const Tinder: React.FC = () => {
           </div>
         </div>
       )}
-      <button className="p-4" onClick={() => setID(0)}>
-        Go To Start
-      </button>
+
       <div>
         <input
           type="text"
