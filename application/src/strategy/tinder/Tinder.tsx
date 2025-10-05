@@ -62,6 +62,17 @@ const getHighestCoral = (
   );
 };
 
+const useRecentNotes = (notes: TeamNotes, recency: number): TeamNotes =>
+  Object.fromEntries(
+    Object.entries(notes).filter(([qual]) =>
+      Object.keys(notes)
+        .map(Number)
+        .sort((a, b) => b - a)
+        .slice(0, recency)
+        .includes(Number(qual))
+    )
+  );
+
 const Tinder: React.FC = () => {
   const getTeamsStorage = (): number[] =>
     JSON.parse(localStorage.getItem(tinderStorageKey) || "[]");
@@ -86,7 +97,7 @@ const Tinder: React.FC = () => {
           return {
             stats: processTeamData(parseInt(team), teamData),
             data: teamData,
-            notes: extractTeamNotes(team, notes),
+            notes: useRecentNotes(extractTeamNotes(team, notes), recency),
           };
         })
       )
