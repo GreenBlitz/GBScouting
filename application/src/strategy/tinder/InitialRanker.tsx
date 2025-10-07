@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import MultiProgress from "react-multi-progress";
 import { randomColor } from "../../utils/Color";
-import { TeamInfo } from "./Tinder";
+import { RankingInfo, TeamInfo } from "./Tinder";
 import { rankingStorage } from "../../utils/FolderStorage";
 import { Notes, TeamNotes } from "../../utils/SeasonUI";
 import { defaultNotes } from "../NoteTab";
@@ -153,14 +153,15 @@ const gameCategories = {
 
 interface InitialRankerProps {
   ranking: TeamInfo[];
-  setRanking: (ranking: TeamInfo[]) => void;
+  setRanking: (ranking: RankingInfo[]) => void;
 }
 
 type ScoringMethod = "score" | "objectCount";
-type ScoreBreakdown = {
+export type ScoreBreakdown = {
   teleop: number;
   auto: number;
   super: number;
+  endgame: number;
   game: number;
 };
 export const InitialRanker: React.FC<InitialRankerProps> = ({
@@ -186,7 +187,7 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
       .sort((a, b) => b.score.game - a.score.game);
 
     console.log(newRanking);
-    setRanking(newRanking.map((item) => item.info));
+    setRanking(newRanking);
   };
 
   const score = (
@@ -206,6 +207,7 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
       auto: autoScore,
       teleop: teleopScore,
       super: superScore,
+      endgame: endgameScore,
       game: getGameScore(
         teleopScore,
         autoScore,

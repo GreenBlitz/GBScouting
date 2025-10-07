@@ -6,7 +6,7 @@ import { fetchData, fetchNotes, fetchTeams } from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
 import { QualNotes, TeamNotes } from "../../utils/SeasonUI";
-import { InitialRanker } from "./InitialRanker";
+import { InitialRanker, ScoreBreakdown } from "./InitialRanker";
 
 export interface TeamInfo {
   stats: GridItems;
@@ -73,11 +73,29 @@ const useRecentNotes = (notes: TeamNotes, recency: number): TeamNotes =>
     )
   );
 
+export type RankingInfo = {
+  info: TeamInfo;
+  score: ScoreBreakdown;
+};
+
+const defaultScoreBreakdown: ScoreBreakdown = {
+  teleop: 0,
+  auto: 0,
+  super: 0,
+  game: 0,
+  endgame: 0,
+};
+
+const defaultRanking = {
+  info: defaultTeam,
+  score: defaultScoreBreakdown,
+};
+
 const Tinder: React.FC = () => {
   const getTeamsStorage = (): number[] =>
     JSON.parse(localStorage.getItem(tinderStorageKey) || "[]");
 
-  const [ranking, setRanking] = useState<TeamInfo[]>([]);
+  const [ranking, setRanking] = useState<RankingInfo[]>([]);
   const [recency, setRecency] = useState<number>(5);
   const [currentID, setID] = useState(0);
   const [name, setName] = useState("");
@@ -89,7 +107,8 @@ const Tinder: React.FC = () => {
     () =>
       ranking.map(
         (value, index) =>
-          masterRanking.findIndex((team) => team === value.stats.Team) - index
+          masterRanking.findIndex((team) => team === value.info.stats.Team) -
+          index
       ),
     [ranking, masterRanking]
   );
@@ -103,9 +122,12 @@ const Tinder: React.FC = () => {
         Object.entries(teams).map(([team, matches]) => {
           const teamData = new TeamData(useRecent(matches, recency));
           return {
-            stats: processTeamData(parseInt(team), teamData),
-            data: teamData,
-            notes: useRecentNotes(extractTeamNotes(team, notes), recency),
+            info: {
+              stats: processTeamData(parseInt(team), teamData),
+              data: teamData,
+              notes: useRecentNotes(extractTeamNotes(team, notes), recency),
+            },
+            score: defaultScoreBreakdown,
           };
         })
       )
@@ -114,10 +136,11 @@ const Tinder: React.FC = () => {
         if (storedOrder.length > 0) {
           return storedOrder.map(
             (teamNumber) =>
-              data.find((item) => item.stats.Team === teamNumber) || defaultTeam
+              data.find((item) => item.info.stats.Team === teamNumber) ||
+              defaultRanking
           );
         }
-        return data.sort(defaultSort);
+        return data.sort((team1, team2) => defaultSort(team1.info, team2.info));
       })
       .then(setRanking);
   }, [recency]);
@@ -127,10 +150,10 @@ const Tinder: React.FC = () => {
     fetchData("TinderSaves", "GET").then(setSaveNames);
   }, []);
 
-  const updateStorage = (newRanking: TeamInfo[]) =>
+  const updateStorage = (newRanking: RankingInfo[]) =>
     localStorage.setItem(
       tinderStorageKey,
-      JSON.stringify(newRanking.map((rank) => rank.stats.Team))
+      JSON.stringify(newRanking.map((rank) => rank.info.stats.Team))
     );
 
   useEffect(() => {
@@ -169,7 +192,8 @@ const Tinder: React.FC = () => {
         setRanking((prev) =>
           response.map(
             (teamNumber: number) =>
-              prev.find((item) => item.stats.Team === teamNumber) || defaultTeam
+              prev.find((item) => item.info.stats.Team === teamNumber) ||
+              defaultRanking
           )
         )
       )
@@ -178,7 +202,10 @@ const Tinder: React.FC = () => {
 
   const maxObjects = useMemo(
     () =>
-      getHighestCoral(ranking[currentID]?.data, ranking[currentID + 1]?.data),
+      getHighestCoral(
+        ranking[currentID]?.info.data,
+        ranking[currentID + 1]?.info.data
+      ),
     [currentID, ranking]
   );
 
@@ -190,7 +217,7 @@ const Tinder: React.FC = () => {
         <>
           <div className="flex-1 min-w-0">
             <TeamCard
-              teamInfo={ranking[currentID] || defaultTeam}
+              teamInfo={ranking[currentID]?.info || defaultTeam}
               onSwipe={() => choose(currentID)}
               max={maxObjects}
             />
@@ -200,13 +227,14 @@ const Tinder: React.FC = () => {
               <div className="space-y-2">
                 {ranking.map((item, index) => (
                   <TeamListItem
-                    key={item.stats.Team}
+                    key={item.info.stats.Team}
                     ref={(el) => (itemRefs.current[index] = el)}
-                    team={item.stats.Team}
+                    team={item.info.stats.Team}
                     index={index}
                     isHighlited={index === currentID || index === currentID + 1}
                     goToItem={() => setID(index)}
                     diffOffset={rankingDiff[index]}
+                    scoreBreakdown={item.score}
                   />
                 ))}
               </div>
@@ -214,7 +242,7 @@ const Tinder: React.FC = () => {
           </div>
           <div className="flex-1 min-w-0">
             <TeamCard
-              teamInfo={ranking[currentID + 1] || defaultTeam}
+              teamInfo={ranking[currentID + 1]?.info || defaultTeam}
               onSwipe={() => choose(currentID + 1)}
               max={maxObjects}
             />
@@ -244,7 +272,10 @@ const Tinder: React.FC = () => {
             >
               ✕
             </button>
-            <InitialRanker ranking={ranking} setRanking={setRanking} />
+            <InitialRanker
+              ranking={ranking.map((value) => value.info)}
+              setRanking={setRanking}
+            />
           </div>
         </div>
       )}
@@ -263,7 +294,7 @@ const Tinder: React.FC = () => {
             fetchData(
               `Tinder/${name}`,
               "POST",
-              JSON.stringify(ranking.map((team) => team.stats.Team))
+              JSON.stringify(ranking.map((team) => team.info.stats.Team))
             ).then(() => alert("saved!"))
           }
           disabled={!name.trim()}
@@ -306,42 +337,80 @@ interface TeamListItemProps {
   isHighlited: boolean;
   goToItem: () => void;
   diffOffset: number;
+  scoreBreakdown: ScoreBreakdown;
 }
+interface TeamListItemProps {
+  team: number;
+  index: number;
+  isHighlited: boolean;
+  goToItem: () => void;
+  diffOffset: number;
+  scoreBreakdown: ScoreBreakdown;
+}
+
 const TeamListItem = forwardRef<HTMLDivElement, TeamListItemProps>(
-  ({ team, index, isHighlited, goToItem, diffOffset }, ref) => {
+  ({ team, index, isHighlited, goToItem, diffOffset, scoreBreakdown }, ref) => {
+    const trim = (n: number) => n.toString().slice(0, 5);
     return (
       <div
         ref={ref}
-        className={`flex items-center justify-between p-2 rounded-md transition-colors ${
+        className={`flex flex-col p-2 rounded-md transition-colors cursor-pointer ${
           isHighlited
             ? "bg-blue-400 border-l-4 border-blue-500"
             : "hover:bg-gray-50"
         }`}
         onClick={goToItem}
       >
-        <div className="flex items-center space-x-3">
-          <span
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              index < 3
-                ? "bg-yellow-500 text-white"
-                : index < 10
-                ? "bg-gray-500 text-black"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            {index + 1}
-          </span>
-          <span className="text-blue-800 text-red-800 w-0 h-0"></span>
-          <span className="font-medium text-gray-900 text-sm md:text-base">
-            {FRCTeamList[team] + " " + team}{" "}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
             <span
-              className={`text-${
-                diffOffset > 0 ? "blue" : diffOffset < 0 ? "red" : "black"
-              }-800 font-semibold`}
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                index < 3
+                  ? "bg-yellow-500 text-white"
+                  : index < 10
+                  ? "bg-gray-500 text-black"
+                  : "bg-gray-200 text-gray-700"
+              }`}
             >
-              ({diffOffset > 0 ? "+" + diffOffset : diffOffset})
+              {index + 1}
             </span>
-          </span>
+
+            <div className="flex flex-col">
+              <span className="font-medium text-gray-900 text-sm md:text-base">
+                {FRCTeamList[team]} {team}{" "}
+                <span
+                  className={`text-${
+                    diffOffset > 0 ? "blue" : diffOffset < 0 ? "red" : "gray"
+                  }-700 font-semibold`}
+                >
+                  ({diffOffset > 0 ? "+" + diffOffset : diffOffset})
+                </span>
+              </span>
+
+              <div className="flex space-x-4 text-xs text-gray-700 mt-1">
+                <div>
+                  <span className="font-semibold text-blue-700">Auto:</span>{" "}
+                  {trim(scoreBreakdown.auto)}
+                </div>
+                <div>
+                  <span className="font-semibold text-pink-700">Teleop:</span>{" "}
+                  {trim(scoreBreakdown.teleop)}
+                </div>
+                <div>
+                  <span className="font-semibold text-purple-700">Super:</span>{" "}
+                  {trim(scoreBreakdown.super)}
+                </div>
+                <div>
+                  <span className="font-semibold text-orange-700">Game:</span>{" "}
+                  {trim(scoreBreakdown.game)}
+                </div>
+                <div>
+                  <span className="font-semibold text-red-700">End:</span>{" "}
+                  {trim(scoreBreakdown.endgame)}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
