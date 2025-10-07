@@ -27,6 +27,7 @@ const LineChart: React.FC<LineChartProps> = ({
   width,
   max,
 }) => {
+  console.log(dataSets);
   const data: ChartData<"line", number[], string> = {
     labels: Object.keys(Object.values(dataSets)[0].data),
 

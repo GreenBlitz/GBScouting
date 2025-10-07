@@ -146,8 +146,29 @@ const ComparisonTab: React.FC = () => {
             title="Comparison"
             subtitle="Between FRC Teams"
           />
-          {/* <LineChart 
-          dataSets={Object.assign({},...teams.map((team) => field.startsWith("L") ?team.getCoralLevelAsLine(field as keyof Levels) : team.getTotalAlgeaDataAsLine("netScore"))}/> */}
+          {teams.length > 0 && (
+            <LineChart
+              dataSets={Object.assign(
+                {},
+                ...teams.map((team) => ({
+                  [team.matches[0].teamNumber.teamNumber]: {
+                    data: TeamData.deNumberLineData(
+                      field.startsWith("L")
+                        ? team.getCoralLevelAsLine(field as keyof Levels)
+                        : field === "Net"
+                        ? team.getTotalAlgeaDataAsLine("netScore")
+                        : field === "Processor"
+                        ? team.getTotalAlgeaDataAsLine("processor")
+                        : field === "Score"
+                        ? team.getScores()
+                        : team.getTeleopObjectsAsLine()
+                    ),
+                    color: randomColor(),
+                  },
+                }))
+              )}
+            />
+          )}
           <MultiRadarChart
             dataSets={Object.assign(
               {},

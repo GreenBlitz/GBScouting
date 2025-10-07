@@ -147,7 +147,7 @@ export class TeamData {
     );
   }
 
-  getCoralLevelAsLine(level: keyof Levels) {
+  getCoralLevelAsLine(level: keyof Levels): Record<string, number> {
     const auto = this.getAsLine("autoReefPick", ["levels", level, "score"]);
     const tele = this.getAsLine("teleReefPick", ["levels", level, "score"]);
 
@@ -176,6 +176,13 @@ export class TeamData {
             .algea[field],
         };
       })
+    );
+  }
+
+  static deNumberLineData(lineData: Record<string, number>) {
+    return Object.assign(
+      {},
+      ...Object.values(lineData).map((item, index) => ({ [index]: item }))
     );
   }
 
