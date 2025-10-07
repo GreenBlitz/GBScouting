@@ -48,7 +48,7 @@ const QualTab: React.FC = () => {
   const [allMatches, setAllMatches] = useState<MatchTeams[]>([defaultMatch]);
 
   const currentTeams = useMemo(
-    () => allMatches[currentQual - 1],
+    () => allMatches[currentQual - 1] || defaultMatch,
     [allMatches, currentQual]
   );
   useEffect(() => {
