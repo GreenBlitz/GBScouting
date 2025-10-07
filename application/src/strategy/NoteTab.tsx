@@ -18,7 +18,7 @@ export const defaultNotes: Notes = noteCategories.reduce((acc, value) => {
 const ScoreScale: React.FC<{
   category: keyof Notes;
   currentScore: number;
-  handleScoreChange: (category: keyof Notes, score: number) => void;
+  handleScoreChange: (category: keyof Notes, score: number | undefined) => void;
 }> = ({ category, currentScore, handleScoreChange }) => (
   <div className="flex items-center space-x-2">
     <span className="text-xs text-gray-500">Score:</span>
@@ -36,6 +36,13 @@ const ScoreScale: React.FC<{
           {score}
         </button>
       ))}
+      <button
+        key="N"
+        onClick={() => handleScoreChange(category, undefined)}
+        className={`w-8 h-8 rounded-full text-sm font-medium transition-colors duration-200 flex items-center justify-center ${"bg-gray-200 text-gray-600 hover:bg-gray-300 hover:shadow-sm"}`}
+      >
+        N
+      </button>
     </div>
   </div>
 );
@@ -60,7 +67,10 @@ const TeamElement: React.FC<{
     setTeamNotes(updatedNotes);
   };
 
-  const handleScoreChange = (category: keyof Notes, score: number) => {
+  const handleScoreChange = (
+    category: keyof Notes,
+    score: number | undefined
+  ) => {
     const currentValue = teamNotes[category]?.value || "";
     const updatedNotes = {
       ...teamNotes,
