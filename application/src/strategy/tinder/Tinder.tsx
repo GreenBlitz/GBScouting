@@ -7,6 +7,7 @@ import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
 import { QualNotes, TeamNotes } from "../../utils/SeasonUI";
 import { InitialRanker, ScoreBreakdown } from "./InitialRanker";
+import { Mode } from "../qual-tab/QualTab";
 
 export interface TeamInfo {
   stats: GridItems;
@@ -211,6 +212,8 @@ const Tinder: React.FC = () => {
 
   const [showInitialRanker, setShowInitialRanker] = useState(false);
 
+  const [mode, setMode] = useState<Mode>("tele");
+
   return (
     <div>
       <div className="flex flex-col md:flex-row items-stretch gap-4">
@@ -219,11 +222,11 @@ const Tinder: React.FC = () => {
             <TeamCard
               teamInfo={ranking[currentID]?.info || defaultTeam}
               onSwipe={() => choose(currentID)}
-              max={maxObjects}
+              mode={mode}
             />
           </div>
           <div className="w-full md:w-80 my-auto mx-auto">
-            <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-96 overflow-y-auto">
+            <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-60 overflow-y-auto">
               <div className="space-y-2">
                 {ranking.map((item, index) => (
                   <TeamListItem
@@ -239,12 +242,24 @@ const Tinder: React.FC = () => {
                 ))}
               </div>
             </div>
+            <div className="flex items-center space-x-2 justify-center">
+              <label className="font-semibold text-white">Mode:</label>
+              <select
+                value={mode}
+                onChange={(e) => setMode(e.target.value as Mode)}
+                className="border border-gray-300 rounded-md p-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                <option value="tele">Tele</option>
+                <option value="auto">Auto</option>
+                <option value="misc">Misc</option>
+              </select>
+            </div>
           </div>
           <div className="flex-1 min-w-0">
             <TeamCard
               teamInfo={ranking[currentID + 1]?.info || defaultTeam}
               onSwipe={() => choose(currentID + 1)}
-              max={maxObjects}
+              mode={mode}
             />
           </div>
         </>

@@ -14,7 +14,7 @@ interface TeamInfo {
   notes: TeamNotes;
 }
 
-type Mode = "tele" | "auto" | "misc";
+export type Mode = "tele" | "auto" | "misc";
 
 const QualTab: React.FC = () => {
   const [recency, setRecency] = useState(5);
@@ -133,7 +133,7 @@ interface TeamCardProps {
   teamInfo: TeamInfo;
   mode: Mode;
 }
-const TeamCard: React.FC<TeamCardProps> = ({ side, teamInfo, mode }) => {
+export const TeamCard: React.FC<TeamCardProps> = ({ side, teamInfo, mode }) => {
   const trim = (value: number | string) => value.toString().slice(0, 5);
 
   const stats = useMemo(
@@ -157,7 +157,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ side, teamInfo, mode }) => {
 
   const textStyle = "text-l my-2";
   return (
-    <div className={`bg-${side}-400 m-2 w-40 h-48`}>
+    <div className={`bg-${side}-400 m-2 w-40 h-48 p-2 rounded-xl`}>
       <h1 className="font-bold text-xl">
         {teamInfo.stats.Team.toString() +
           " " +

@@ -190,7 +190,6 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
       }))
       .sort((a, b) => b.score.game - a.score.game);
 
-    console.log(newRanking);
     setRanking(newRanking);
   };
 
