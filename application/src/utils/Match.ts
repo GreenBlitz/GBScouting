@@ -165,12 +165,13 @@ export const mergeMatches: (matches: Match[]) => Match = (matches: Match[]) => {
       ]),
       coralGroundCollected: mergeBooleanFields([
         "endgameCollection",
-        "coralGround",
+        "coralGroundCollected",
       ]),
       coralFeederCollected: mergeBooleanFields([
         "endgameCollection",
         "coralFeederCollected",
       ]),
+      algeaSteal: mergeBooleanFields(["endgameCollection", "algeaSteal"]),
     },
   };
 };

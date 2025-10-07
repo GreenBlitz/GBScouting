@@ -17,6 +17,7 @@ interface AbstractAbilities<T> {
   "Algea Ground": T;
   "Coral Feeder": T;
   "Coral Ground": T;
+  "Algea Steal": T;
   Net: T;
   Processor: T;
 }
@@ -35,6 +36,7 @@ function processTeamData(teamNumber: number, data: TeamData): Abilities {
     "Algea Ground": data.getCollectionPercentage("algeaGroundCollected").value,
     "Coral Feeder": data.getCollectionPercentage("coralFeederCollected").value,
     "Coral Ground": data.getCollectionPercentage("coralGroundCollected").value,
+    "Algea Steal": data.getCollectionPercentage("algeaSteal").value,
     Net: data.getReefPickPercentage(["algea", "netScore"]).value,
     Processor: data.getReefPickPercentage(["algea", "processor"]).value,
     
@@ -156,6 +158,7 @@ const AbilityTab: React.FC = () => {
     "Algea Ground": false,
     "Coral Feeder": false,
     "Coral Ground": false,
+    "Algea Steal": false,
     Net: false,
     Processor: false,
   });

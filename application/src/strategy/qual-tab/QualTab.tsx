@@ -15,6 +15,7 @@ import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
 import LineChart from "../charts/LineChart";
 import { reefColorsScore } from "../team-tab/sections/StrategyTeleoperated";
 import BarChart from "../charts/BarChart";
+import { compileNotes } from "../tinder/InitialRanker";
 
 interface TeamInfo {
   stats: GridItems;
@@ -216,7 +217,9 @@ export const TeamCard: React.FC<TeamCardProps> = ({
             -{" "}
             {trim(getBestLevel(teamInfo.data.getAverageAutoCorals())[1].score)}
           </h2>
-          <h2 className={textStyle}>Algea Avg: {trim(stats.Algea)}</h2>
+          <h2 className={textStyle}>
+            Algea Avg: {trim(teamInfo.data.getAverageAlgeaAuto())}
+          </h2>
         </>
       )}
       {mode === "tele" && (
@@ -230,6 +233,21 @@ export const TeamCard: React.FC<TeamCardProps> = ({
           <h2 className={textStyle}>Algea Avg: {trim(stats.Algea)}</h2>
           <h2 className={textStyle}>
             Times Defended: {teamInfo.data.getTimesDefended()}
+          </h2>
+        </>
+      )}
+      {mode === "misc" && (
+        <>
+          <h2 className={textStyle}>
+            Climb Percent:{" "}
+            {trim(teamInfo.data.getClimbPercentage("Deep Cage").value)}
+          </h2>
+          <h2 className={textStyle}>
+            Avg Algea Stolen:{" "}
+            {trim(teamInfo.data.getCollectionPercentage("algeaSteal").value)}
+          </h2>
+          <h2 className={textStyle}>
+            Driving Score: {trim(compileNotes(teamInfo.notes).driving.score)}
           </h2>
         </>
       )}

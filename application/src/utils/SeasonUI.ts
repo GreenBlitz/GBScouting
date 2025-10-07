@@ -11,6 +11,7 @@ interface AbstractCollection<T> {
   algeaReefCollected: T;
   algeaReefDropped: T;
   algeaGroundCollected: T;
+  algeaSteal: T;
 
   coralGroundCollected: T;
   coralFeederCollected: T;

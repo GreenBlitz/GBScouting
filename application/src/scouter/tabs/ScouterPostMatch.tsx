@@ -5,7 +5,6 @@ const ScouterPostMatch: React.FC = () => {
   return (
     <>
       {ScouterInputs.create([
-        ScouterInputs.climb,
         ScouterInputs.comment,
         ScouterInputs.endgameCollection,
       ])}

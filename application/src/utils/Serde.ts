@@ -494,6 +494,7 @@ function serdeCollectedObjects(): Serde<Collection> {
     objectsSerder.serializer(serializedData, objects.coralGroundCollected);
     objectsSerder.serializer(serializedData, objects.algeaReefCollected);
     objectsSerder.serializer(serializedData, objects.algeaReefDropped);
+    objectsSerder.serializer(serializedData, objects.algeaSteal);
   }
   function deserializer(serializedData: BitArray): Collection {
     return {
@@ -502,6 +503,7 @@ function serdeCollectedObjects(): Serde<Collection> {
       coralGroundCollected: objectsSerder.deserializer(serializedData),
       algeaReefCollected: objectsSerder.deserializer(serializedData),
       algeaReefDropped: objectsSerder.deserializer(serializedData),
+      algeaSteal: objectsSerder.deserializer(serializedData),
     };
   }
   return {
@@ -552,7 +554,6 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["teleReefPick", serdeReefPick()],
   ["autoReefPick", serdeReefPick()],
   ["endgameCollection", serdeCollectedObjects()],
-  ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
   ["scouterName", serdeString()],
   ["noShow", serdeBool()],

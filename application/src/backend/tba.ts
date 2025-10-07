@@ -10,14 +10,14 @@ export function applyRoutes(app: Express, dirName: string) {
   const tbaKey = fs
     .readFileSync(path.resolve(dirName, "TBAkey.txt"), "utf8")
     .trim();
+  const headers = {
+    "X-TBA-Auth-Key": tbaKey,
+    "Content-Type": "application/json",
+  };
   // Define routes
   app.get("/TBA/rankings", async (req, res) => {
     try {
       // Set request headers
-      const headers = {
-        "X-TBA-Auth-Key": tbaKey,
-        "Content-Type": "application/json",
-      };
 
       // Fetch rankings from The Blue Alliance API
       const response = await axios.get(
@@ -35,12 +35,6 @@ export function applyRoutes(app: Express, dirName: string) {
 
   app.get("/TBA/matches", async (req, res) => {
     try {
-      // Set request headers
-      const headers = {
-        "X-TBA-Auth-Key": tbaKey,
-        "Content-Type": "application/json",
-      };
-
       // Fetch rankings from The Blue Alliance API
       const response = await axios.get(
         `https://www.thebluealliance.com/api/v3/event/${currentDistrict}/matches`,
@@ -58,12 +52,6 @@ export function applyRoutes(app: Express, dirName: string) {
   app.get("/TBA/match/:matchNumber", async (req: Request, res: Response) => {
     try {
       const matchKey = currentDistrict + req.params.matchNumber; // Get match key from request
-
-      // Set headers for API request
-      const headers = {
-        "X-TBA-Auth-Key": tbaKey, // Authentication key
-        "Content-Type": "application/json",
-      };
 
       // Fetch match data from The Blue Alliance API
       const response = await axios.get(

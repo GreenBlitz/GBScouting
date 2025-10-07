@@ -99,6 +99,18 @@ class CollectionInput extends ScouterInput<
       </button>
     );
 
+    const algeaStealButton = (
+      <button
+        className={`${
+          this.state.objectives.algeaSteal ? "button-green" : "button-red"
+        } big-button mx-0`}
+        onClick={() => this.updateCollection("algeaSteal")}
+      >
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Steal</h2>
+        <img className="mt-6" src={AlgeaSVG} width={60} alt="Algea Icon" />
+      </button>
+    );
+
     return (
       <div className="flex flex-col items-center">
         <h2 className="text-xl">Did The Robot Do:</h2>
@@ -106,6 +118,7 @@ class CollectionInput extends ScouterInput<
           {algeaGroundButton}
           {algeaCollectedButton}
           {algeaDroppedButton}
+          {algeaStealButton}
         </div>
         <div className="rower">
           {coralFeederButton}
@@ -123,6 +136,7 @@ class CollectionInput extends ScouterInput<
 
   initialValue(props: InputProps<Collection>): Collection {
     return {
+      algeaSteal: false,
       algeaReefCollected: false,
       algeaReefDropped: false,
       algeaGroundCollected: false,

@@ -109,6 +109,7 @@ const bbbMatchToMatch = (bbbMatch: Record<string, string>) => {
       algeaGroundCollected: bbbMatch["G_AlgaeFloorCollect"] === "TRUE",
       coralGroundCollected: bbbMatch["G_CoralFloorCollect"] === "TRUE",
       coralFeederCollected: false, //they don't collect this data
+      algeaSteal: false,
     },
   };
 };

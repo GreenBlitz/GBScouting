@@ -617,6 +617,7 @@ export class TeamData {
             +collection.coralGroundCollected + accumulator.coralGroundCollected,
           coralFeederCollected:
             +collection.coralFeederCollected + accumulator.coralFeederCollected,
+          algeaSteal: +collection.algeaSteal || 0 + accumulator.algeaSteal,
         };
       },
       {
@@ -625,6 +626,7 @@ export class TeamData {
         algeaGroundCollected: 0,
         coralGroundCollected: 0,
         coralFeederCollected: 0,
+        algeaSteal: 0,
       }
     );
   }
@@ -746,6 +748,28 @@ export class TeamData {
 
   getAutoStats(): Stats {
     return this.getStats("autoReefPick");
+  }
+
+  getAverageAlgeaAuto(): number {
+    const algeaGames = this.matches.filter(
+      (match) =>
+        match.autoReefPick.algea.netScore &&
+        match.autoReefPick.algea.processor > 0
+    );
+
+    if (algeaGames.length === 0) {
+      return 0;
+    }
+
+    return (
+      algeaGames.reduce(
+        (acc, value) =>
+          acc +
+          value.autoReefPick.algea.netScore +
+          value.autoReefPick.algea.processor,
+        0
+      ) / algeaGames.length
+    );
   }
 
   getStats(reefPick: "teleReefPick" | "autoReefPick"): Stats {

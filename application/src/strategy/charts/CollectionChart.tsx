@@ -7,7 +7,6 @@ interface CollectionProps {
   collection: NumberedCollection;
 }
 const CollectionChart: React.FC<CollectionProps> = ({ collection }) => {
-
   return (
     <div className="rower mt-6">
       <button
@@ -54,6 +53,15 @@ const CollectionChart: React.FC<CollectionProps> = ({ collection }) => {
         <h2 className="absolute mb-16 text-2xl font-extrabold">Dropped</h2>
         <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
         {collection.algeaReefDropped}
+      </button>
+      <button
+        className={`${
+          collection.algeaSteal ? "button-green" : "button-red"
+        } big-button ml-0 text-xl`}
+      >
+        <h2 className="absolute mb-16 text-2xl font-extrabold">Steal</h2>
+        <img className="mt-6" src={AlgeaSVG} width={40} alt="Algea Icon" />
+        {collection.algeaSteal}
       </button>
     </div>
   );
