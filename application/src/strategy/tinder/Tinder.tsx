@@ -255,6 +255,7 @@ const Tinder: React.FC = () => {
               <option value="auto">Auto</option>
               <option value="misc">Misc</option>
               <option value="history">History</option>
+              <option value="super">Super</option>
             </select>
           </div>
           <div className="flex items-center space-x-2 justify-center">

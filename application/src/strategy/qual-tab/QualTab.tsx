@@ -11,7 +11,12 @@ import {
 import { FRCTeamList } from "../../utils/Utils";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { useRecentNotes, extractTeamNotes } from "../tinder/Tinder";
-import { DCMPMatches, defaultMatch, TeamNotes } from "../../utils/SeasonUI";
+import {
+  DCMPMatches,
+  defaultMatch,
+  Notes,
+  TeamNotes,
+} from "../../utils/SeasonUI";
 import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
 import LineChart from "../charts/LineChart";
 import { reefColorsScore } from "../team-tab/sections/StrategyTeleoperated";
@@ -32,7 +37,7 @@ const getHighestCoral = (
     team2 ? team2.getHighestObjects() : 0
   );
 };
-export type Mode = "tele" | "auto" | "misc" | "history";
+export type Mode = "tele" | "auto" | "misc" | "history" | "super";
 
 const QualTab: React.FC = () => {
   const [recency, setRecency] = useState(5);
@@ -63,11 +68,14 @@ const QualTab: React.FC = () => {
     Promise.all([
       fetchTeams(currentTeams.blueAlliance.concat(currentTeams.redAlliance)),
       fetchNotes(),
-      fetchClimbs()
+      fetchClimbs(),
     ])
       .then(([teams, notes, climbs]) =>
         Object.entries(teams).map(([team, matches]) => {
-          const teamData = new TeamData(useRecent(matches, recency),TeamData.extractClimbs(team,climbs));
+          const teamData = new TeamData(
+            useRecent(matches, recency),
+            TeamData.extractClimbs(team, climbs)
+          );
           return {
             stats: processTeamData(parseInt(team), teamData),
             data: teamData,
@@ -159,6 +167,7 @@ const QualTab: React.FC = () => {
             <option value="tele">Tele</option>
             <option value="auto">Auto</option>
             <option value="misc">Misc</option>
+            <option value="super">Super</option>
           </select>
         </div>
       </div>
@@ -198,6 +207,8 @@ export const TeamCard: React.FC<TeamCardProps> = ({
         },
       ]
     );
+
+  const notes = useMemo(() => compileNotes(teamInfo.notes), [teamInfo]);
 
   const textStyle = "text-l my-2";
   return (
@@ -282,6 +293,29 @@ export const TeamCard: React.FC<TeamCardProps> = ({
             }}
           />
         </div>
+      )}
+      {mode === "super" && (
+        <>
+          {Object.entries(notes).map(
+            ([noteType, note]) =>
+              note.score > 0 &&
+              note.value.length > 0 && (
+                <div className="rounded-2xl bg-white/5 p-1 shadow-md border border-white/10 hover:bg-white/10 transition">
+                  {note.score > 0 && (
+                    <h1 className="text-m font-semibold text-white mb-2">
+                      {noteType}:{" "}
+                      <span className="text-orange-400">{note.score}</span>
+                    </h1>
+                  )}
+                  {note.value.length > 0 && (
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {note.value}
+                    </p>
+                  )}
+                </div>
+              )
+          )}
+        </>
       )}
     </div>
   );
