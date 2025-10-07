@@ -216,6 +216,21 @@ const StrategyTeleoperated: React.FC = () => {
       <div className="section">
         <Outlet context={{ teamData }} />
       </div>
+      <div className="section grid gap-3">
+        {teamData.matches.map((match, index) => (
+          <div
+            key={index}
+            className="bg-white/10 p-4 rounded-xl shadow-md hover:bg-white/20 transition"
+          >
+            <h2 className="text-lg font-semibold text-white">
+              Qualifier: <span className="text-green-400">{match.qual}</span>
+            </h2>
+            <p className="text-gray-300 mt-1">
+              Climb: <span className="text-blue-400">{match.climb}</span>
+            </p>
+          </div>
+        ))}
+      </div>
       <div className="h-20" />
       <div className="mb-10">
         <h1 className="text-xl mb-5">Overall</h1>
