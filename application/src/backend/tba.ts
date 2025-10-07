@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import { Db } from "mongodb";
 
-const currentDistrict = "2025iscmp";
+const currentDistrict = "2025isios";
 
 export function applyRoutes(app: Express, db: Db, dirName: string) {
   // Read API key from file
