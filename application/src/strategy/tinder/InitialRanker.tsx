@@ -57,7 +57,7 @@ const getAutoScore = (
   );
 };
 
-const compileNotes = (teamNotes: TeamNotes) => {
+export const compileNotes = (teamNotes: TeamNotes) => {
   const length = Object.keys(teamNotes).length;
   const dividing = length > 0 ? length : 1;
   return Object.values(teamNotes).reduce(

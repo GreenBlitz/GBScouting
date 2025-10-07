@@ -180,26 +180,26 @@ const StrategyTeleoperated: React.FC = () => {
           {teamData.notes.map((notes) => (
             <div className="my-5">
               <h1 className="text-xl">Qual {notes.qual}</h1>
-              {notes.body.climb !== "" && (
-                <h2 className="my-1">Climb: {notes.body.climb}</h2>
+              {notes.body.climb.value !== "" && (
+                <h2 className="my-1">Climb: {notes.body.climb.value}</h2>
               )}
-              {notes.body.net !== "" && (
-                <h2 className="my-1">Algae: {notes.body.net}</h2>
+              {notes.body.net.value !== "" && (
+                <h2 className="my-1">Algae: {notes.body.net.value}</h2>
               )}
-              {notes.body.defense !== "" && (
-                <h2 className="my-1">Defense: {notes.body.defense}</h2>
+              {notes.body.defense.value !== "" && (
+                <h2 className="my-1">Defense: {notes.body.defense.value}</h2>
               )}
-              {notes.body.evasion !== "" && (
-                <h2 className="my-1">Evasion: {notes.body.evasion}</h2>
+              {notes.body.evasion.value !== "" && (
+                <h2 className="my-1">Evasion: {notes.body.evasion.value}</h2>
               )}
-              {notes.body.driving !== "" && (
-                <h2 className="my-1">Driving: {notes.body.driving}</h2>
+              {notes.body.driving.value !== "" && (
+                <h2 className="my-1">Driving: {notes.body.driving.value}</h2>
               )}
-              {notes.body.coral !== "" && (
-                <h2 className="my-1">Coral: {notes.body.coral}</h2>
+              {notes.body.coral.value !== "" && (
+                <h2 className="my-1">Coral: {notes.body.coral.value}</h2>
               )}
-              {notes.body.overall !== "" && (
-                <h2 className="my-1">Overall: {notes.body.overall}</h2>
+              {notes.body.overall.value !== "" && (
+                <h2 className="my-1">Overall: {notes.body.overall.value}</h2>
               )}
             </div>
           ))}
