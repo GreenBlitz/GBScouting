@@ -536,6 +536,34 @@ export class TeamData {
   getTeleopCorals() {
     return this.getAverageCorals("teleReefPick");
   }
+
+  getAverageAutoCorals(): Levels {
+    const dividing = this.matches.length > 0 ? this.matches.length : 1;
+    return Object.assign(
+      {},
+      ...Object.entries(this.getAutoCorals()).map(([key, value]) => ({
+        [key]: {
+          ...value,
+          score: value.score / dividing,
+          miss: value.miss / dividing,
+        },
+      }))
+    );
+  }
+  getAverageTeleCorals(): Levels {
+    const dividing = this.matches.length > 0 ? this.matches.length : 1;
+    return Object.assign(
+      {},
+      ...Object.entries(this.getTeleopCorals()).map(([key, value]) => ({
+        [key]: {
+          ...value,
+          score: value.score / dividing,
+          miss: value.miss / dividing,
+        },
+      }))
+    );
+  }
+
   getAutopNet() {
     return this.getAverageNet("autoReefPick");
   }
@@ -872,5 +900,9 @@ export class TeamData {
         HighCoral: 0,
       }
     );
+  }
+
+  getTimesDefended(): number {
+    return this.matches.filter((match) => Boolean(match.defense)).length;
   }
 }

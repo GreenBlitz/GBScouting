@@ -49,6 +49,9 @@ const Strategy: React.FC = () => {
         <li>
           <NavItem path="/strategy/tinder" name="Tinder" />
         </li>
+        <li>
+          <NavItem path="/strategy/qual" name="Qual" />
+        </li>
       </ul>
     </nav>
   );

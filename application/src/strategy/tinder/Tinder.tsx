@@ -38,7 +38,7 @@ const defaultTeam: TeamInfo = {
   notes: {},
 };
 
-const extractTeamNotes = (team: string, qualNotes: QualNotes) =>
+export const extractTeamNotes = (team: string, qualNotes: QualNotes) =>
   Object.entries(qualNotes).reduce((acc, [key, note]) => {
     const teamMatch = key.includes(`frc${team} `);
     const qual = parseInt(key.match(/qual(\d+)/)?.[1] || "0");
@@ -62,7 +62,7 @@ const getHighestCoral = (
   );
 };
 
-const useRecentNotes = (notes: TeamNotes, recency: number): TeamNotes =>
+export const useRecentNotes = (notes: TeamNotes, recency: number): TeamNotes =>
   Object.fromEntries(
     Object.entries(notes).filter(([qual]) =>
       Object.keys(notes)
