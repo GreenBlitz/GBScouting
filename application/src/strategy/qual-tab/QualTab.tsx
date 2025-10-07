@@ -1,11 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRecent } from "../../components/TeamPicker";
 import { TeamData } from "../../TeamData";
-import { fetchTeams, fetchNotes } from "../../utils/Fetches";
+import {
+  fetchTeams,
+  fetchNotes,
+  MatchTeams,
+  fetchAllAwaitingMatches,
+} from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { useRecentNotes, extractTeamNotes } from "../tinder/Tinder";
-import { DCMPMatches, TeamNotes } from "../../utils/SeasonUI";
+import { DCMPMatches, defaultMatch, TeamNotes } from "../../utils/SeasonUI";
 import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
 import LineChart from "../charts/LineChart";
 import { reefColorsScore } from "../team-tab/sections/StrategyTeleoperated";
@@ -33,7 +38,16 @@ const QualTab: React.FC = () => {
   const [currentQual, setQual] = useState(1);
   const [mode, setMode] = useState<Mode>("tele");
 
-  const currentTeams = useMemo(() => DCMPMatches[currentQual], [currentQual]);
+  const [allMatches, setAllMatches] = useState<MatchTeams[]>([defaultMatch]);
+
+  const currentTeams = useMemo(
+    () => allMatches[currentQual - 1],
+    [allMatches, currentQual]
+  );
+  useEffect(() => {
+    fetchAllAwaitingMatches().then((matches) => setAllMatches(matches || []));
+  }, []);
+
   const max = useMemo(
     () =>
       teamsInfo?.reduce(
@@ -59,7 +73,7 @@ const QualTab: React.FC = () => {
         })
       )
       .then(setTeamsInfo);
-  }, [recency, currentQual]);
+  }, [recency, currentQual, allMatches]);
 
   return (
     <>
@@ -110,9 +124,9 @@ const QualTab: React.FC = () => {
             onChange={(e) => setQual(parseInt(e.target.value))}
             className="border border-gray-300 rounded-md p-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
-            {Object.keys(DCMPMatches).map((qual) => (
-              <option key={qual} value={qual}>
-                {qual}
+            {Object.keys(allMatches).map((qual) => (
+              <option key={parseInt(qual) + 1} value={parseInt(qual) + 1}>
+                {parseInt(qual) + 1}
               </option>
             ))}
           </select>

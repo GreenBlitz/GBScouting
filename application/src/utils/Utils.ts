@@ -29,12 +29,14 @@ export interface DataSet {
 }
 
 export const FRCTeamList: Record<number, string> = {
+  0: "No Team",
   1574: "MisCar",
-  1576: "Voltrix",
   1577: "Steampunk",
   1690: "Orbit",
   1937: "Elysium",
   1942: "Cinderella Tel-Nof",
+  1943: "Neat Team",
+  1954: "ElectroBunny",
   2096: "RoboActive",
   2230: "General Angels",
   2231: "OnyxTronix",
@@ -46,23 +48,18 @@ export const FRCTeamList: Record<number, string> = {
   3211: "The Y Team",
   3316: "D-Bug",
   3339: "BumbleB",
-  3388: "Flash in memory of Margarita Gusak",
-  4320: "The Joker",
-  4338: "Falcons",
+  3835: "Vulcan",
   4416: "Skynet",
   4586: "PRIMO",
   4590: "GreenBlitz",
   4661: "Cypher",
   4744: "Ninjas",
   5135: "Black Unicorns",
-  5554: "The Poros Robotics",
+  5291: "Emperius",
   5614: "Team Sycamore",
-  5635: "Demacia",
   5654: "Phoenix",
-  5715: "DRC",
   5928: "MetalBoost",
   5951: "Makers Assemble",
-  5987: "Galaxia in memory of David Zohar",
   5990: "TRIGON",
   6104: "Desert Eagles in memory of Yehonatan Maimon",
   6738: "Excalibur",
@@ -73,12 +70,16 @@ export const FRCTeamList: Record<number, string> = {
   7845: "8BIT",
   8175: "Piece of Mind",
   8223: "Mariners",
+  9304: "legend's",
   9738: "Ionic Bond",
+  9739: "Firefly",
   9740: "CANBus in memory of Roney Tal",
+  9971: "Off-Season Demo Team 9971",
+  9972: "Off-Season Demo Team 9972",
+  10139: "Tsunami",
 };
 
 export const FRCTeamArray = Object.entries(FRCTeamList).map(([key, value]) => ({
-  id: `${key} ${value}`,  // Combine the key (ID) and value (team name)
-  value: Number(key),     // Keep the numeric value for ID
+  id: `${key} ${value}`, // Combine the key (ID) and value (team name)
+  value: Number(key), // Keep the numeric value for ID
 }));
-

@@ -46,6 +46,11 @@ export type QualNotes = Record<HashedQualTeam, Notes>;
 
 export type TeamNotes = Record<number, Notes>;
 
+export const defaultMatch: MatchTeams = {
+  blueAlliance: [0, 0, 0],
+  redAlliance: [0, 0, 0],
+};
+
 export const DCMPMatches: MatchTeams[] = [
   { blueAlliance: [4661, 3316, 4338], redAlliance: [5990, 5951, 5135] },
   { blueAlliance: [4744, 1937, 3339], redAlliance: [3083, 5928, 2630] },

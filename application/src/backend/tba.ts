@@ -6,14 +6,13 @@ import path from "path";
 const currentDistrict = "2025iscmp";
 
 export function applyRoutes(app: Express, dirName: string) {
+  // Read API key from file
+  const tbaKey = fs
+    .readFileSync(path.resolve(dirName, "TBAkey.txt"), "utf8")
+    .trim();
   // Define routes
   app.get("/TBA/rankings", async (req, res) => {
     try {
-      // Read API key from file
-      const tbaKey = fs
-        .readFileSync(path.resolve(dirName, "TBAkey.txt"), "utf8")
-        .trim();
-
       // Set request headers
       const headers = {
         "X-TBA-Auth-Key": tbaKey,
@@ -36,11 +35,6 @@ export function applyRoutes(app: Express, dirName: string) {
 
   app.get("/TBA/matches", async (req, res) => {
     try {
-      // Read API key from file
-      const tbaKey = fs
-        .readFileSync(path.resolve(dirName, "TBAkey.txt"), "utf8")
-        .trim();
-
       // Set request headers
       const headers = {
         "X-TBA-Auth-Key": tbaKey,
@@ -64,11 +58,6 @@ export function applyRoutes(app: Express, dirName: string) {
   app.get("/TBA/match/:matchNumber", async (req: Request, res: Response) => {
     try {
       const matchKey = currentDistrict + req.params.matchNumber; // Get match key from request
-
-      // Read TBA API Key from file
-      const tbaKey = fs
-        .readFileSync(path.resolve(dirName, "TBAkey.txt"), "utf8")
-        .trim();
 
       // Set headers for API request
       const headers = {

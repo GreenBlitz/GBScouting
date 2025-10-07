@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MatchTeams } from "./Fetches";
 
 export default class FolderStorage {
   private prefix: string;
@@ -130,6 +131,8 @@ export const authorizationStorage: StorageBacked<string> = new StorageBacked(
 );
 
 export const rankingStorage = new FolderStorage(localStorage, "ranking/");
+
+export const matchesStorage = new StorageBacked<MatchTeams[]>("matches/saved",localFolder)
 export function useStorage<T>(storage: StorageBacked<T>, defaultValue: T) {
   const startingValue = storage.get();
 

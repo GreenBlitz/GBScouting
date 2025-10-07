@@ -1,14 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { StorageBacked, useStorage } from "../utils/FolderStorage";
 import {
-  DCMPMatches,
+  defaultMatch,
   HashedQualTeam,
   noteCategories,
   Notes,
   QualNotes,
 } from "../utils/SeasonUI";
 import { FRCTeamList } from "../utils/Utils";
-import { postNotes } from "../utils/Fetches";
+import {
+  fetchAllAwaitingMatches,
+  MatchTeams,
+  postNotes,
+} from "../utils/Fetches";
 
 export const defaultNotes: Notes = noteCategories.reduce((acc, value) => {
   acc[value] = { value: "", score: 0 };
@@ -56,6 +60,9 @@ const TeamElement: React.FC<{
   setTeamNotes: (content: Notes) => void;
   isBlueAlliance: boolean;
 }> = ({ team, currentTeamNotes, setTeamNotes, isBlueAlliance }) => {
+  if (team === 0) {
+    return <></>;
+  }
   const teamNotes = currentTeamNotes || defaultNotes;
 
   const handleNoteChange = (category: keyof Notes, value: string) => {
@@ -152,13 +159,18 @@ const NoteTab: React.FC = () => {
   const [qual, setQual] = useState(1);
   const [isBlueSide, setSide] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [allMatches, setAllMatches] = useState<MatchTeams[]>([defaultMatch]);
+
+  useEffect(() => {
+    fetchAllAwaitingMatches().then((matches) => setAllMatches(matches || []));
+  }, []);
 
   const teams = useMemo(
     () =>
       isBlueSide
-        ? DCMPMatches[qual].blueAlliance
-        : DCMPMatches[qual].redAlliance,
-    [isBlueSide, qual]
+        ? allMatches[qual - 1].blueAlliance
+        : allMatches[qual - 1].redAlliance,
+    [isBlueSide, qual, allMatches]
   );
 
   const handleSaveToDatabase = async () => {
@@ -191,8 +203,8 @@ const NoteTab: React.FC = () => {
                   onChange={(e) => setQual(parseInt(e.target.value))}
                   className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  {DCMPMatches.map((_, index) => (
-                    <option key={index} value={index + 1}>
+                  {allMatches.map((_, index) => (
+                    <option key={index + 1} value={index + 1}>
                       Qual {index + 1}
                     </option>
                   ))}
