@@ -214,6 +214,15 @@ const Tinder: React.FC = () => {
 
   const [mode, setMode] = useState<Mode>("tele");
 
+  const max = useMemo(
+    () =>
+      getHighestCoral(
+        ranking[currentID]?.info.data,
+        ranking[currentID + 1]?.info.data
+      ),
+    [currentID]
+  );
+
   return (
     <div>
       <div className="flex flex-col md:flex-row items-stretch gap-4">
@@ -223,6 +232,7 @@ const Tinder: React.FC = () => {
               teamInfo={ranking[currentID]?.info || defaultTeam}
               onSwipe={() => choose(currentID)}
               mode={mode}
+              max={max}
             />
           </div>
           <div className="w-full md:w-80 my-auto mx-auto">
@@ -252,6 +262,7 @@ const Tinder: React.FC = () => {
                 <option value="tele">Tele</option>
                 <option value="auto">Auto</option>
                 <option value="misc">Misc</option>
+                <option value="history">History</option>
               </select>
             </div>
           </div>
@@ -260,6 +271,7 @@ const Tinder: React.FC = () => {
               teamInfo={ranking[currentID + 1]?.info || defaultTeam}
               onSwipe={() => choose(currentID + 1)}
               mode={mode}
+              max={max}
             />
           </div>
         </>

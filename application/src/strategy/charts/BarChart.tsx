@@ -8,10 +8,16 @@ Chart.register(CategoryScale, LinearScale, BarElement);
 interface BarChartProps {
   dataSets: Record<string | number, DataSet>;
   isStacked?: boolean;
+  height?: number;
+  width?: number;
+  max?: number;
 }
 const BarChart: React.FC<BarChartProps> = ({
   dataSets,
   isStacked,
+  height,
+  width,
+  max,
 }: BarChartProps) => {
   const labels = new Set<string>();
   Object.values(dataSets)
@@ -33,8 +39,10 @@ const BarChart: React.FC<BarChartProps> = ({
   };
 
   return (
-    <div style={{ width: "600px" }}>
+    <div style={{ width: width }}>
       <Bar
+        width={width}
+        height={height}
         data={data}
         options={{
           scales: {
@@ -43,6 +51,7 @@ const BarChart: React.FC<BarChartProps> = ({
             },
             y: {
               stacked: isStacked,
+              max,
             },
           },
         }}

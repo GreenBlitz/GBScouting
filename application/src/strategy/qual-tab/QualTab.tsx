@@ -7,14 +7,25 @@ import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { useRecentNotes, extractTeamNotes } from "../tinder/Tinder";
 import { DCMPMatches, TeamNotes } from "../../utils/SeasonUI";
 import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
+import LineChart from "../charts/LineChart";
+import { reefColorsScore } from "../team-tab/sections/StrategyTeleoperated";
+import BarChart from "../charts/BarChart";
 
 interface TeamInfo {
   stats: GridItems;
   data: TeamData;
   notes: TeamNotes;
 }
-
-export type Mode = "tele" | "auto" | "misc";
+const getHighestCoral = (
+  team1: TeamData | undefined,
+  team2: TeamData | undefined
+) => {
+  return Math.max(
+    team1 ? team1.getHighestObjects() : 0,
+    team2 ? team2.getHighestObjects() : 0
+  );
+};
+export type Mode = "tele" | "auto" | "misc" | "history";
 
 const QualTab: React.FC = () => {
   const [recency, setRecency] = useState(5);
@@ -23,6 +34,14 @@ const QualTab: React.FC = () => {
   const [mode, setMode] = useState<Mode>("tele");
 
   const currentTeams = useMemo(() => DCMPMatches[currentQual], [currentQual]);
+  const max = useMemo(
+    () =>
+      teamsInfo?.reduce(
+        (acc, team) => Math.max(team.data.getHighestObjects(), acc),
+        1
+      ) || 1,
+    [teamsInfo]
+  );
 
   useEffect(() => {
     Promise.all([
@@ -60,6 +79,7 @@ const QualTab: React.FC = () => {
                 mode={mode}
                 side="blue"
                 teamInfo={teamInfo}
+                max={max}
               />
             ))}
         </div>
@@ -76,6 +96,7 @@ const QualTab: React.FC = () => {
                 mode={mode}
                 side="red"
                 teamInfo={teamInfo}
+                max={max}
               />
             ))}
         </div>
@@ -132,8 +153,14 @@ interface TeamCardProps {
   side: "blue" | "red";
   teamInfo: TeamInfo;
   mode: Mode;
+  max: number;
 }
-export const TeamCard: React.FC<TeamCardProps> = ({ side, teamInfo, mode }) => {
+export const TeamCard: React.FC<TeamCardProps> = ({
+  side,
+  teamInfo,
+  mode,
+  max,
+}) => {
   const trim = (value: number | string) => value.toString().slice(0, 5);
 
   const stats = useMemo(
@@ -157,7 +184,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({ side, teamInfo, mode }) => {
 
   const textStyle = "text-l my-2";
   return (
-    <div className={`bg-${side}-400 m-2 w-40 h-48 p-2 rounded-xl`}>
+    <div className={`bg-${side}-400 m-2 w-40 h-60 p-2 rounded-xl`}>
       <h1 className="font-bold text-xl">
         {teamInfo.stats.Team.toString() +
           " " +
@@ -187,6 +214,36 @@ export const TeamCard: React.FC<TeamCardProps> = ({ side, teamInfo, mode }) => {
             Times Defended: {teamInfo.data.getTimesDefended()}
           </h2>
         </>
+      )}
+      {mode === "history" && (
+        <div className={`bg-${side}-900 mx-auto"`}>
+          <LineChart
+            max={max}
+            height={600}
+            width={400}
+            dataSets={{
+              ...Object.fromEntries(
+                Object.entries(reefColorsScore).map(([key, value]) => [
+                  key,
+                  {
+                    color: value,
+                    data: teamInfo.data.getCoralLevelAsLine(
+                      key as keyof Levels
+                    ),
+                  },
+                ])
+              ),
+              Net: {
+                color: "#172db8",
+                data: teamInfo.data.getTotalAlgeaDataAsLine("netScore"),
+              },
+              Processor: {
+                color: "#8fb4ff",
+                data: teamInfo.data.getTotalAlgeaDataAsLine("processor"),
+              },
+            }}
+          />
+        </div>
       )}
     </div>
   );
