@@ -216,20 +216,29 @@ const StrategyTeleoperated: React.FC = () => {
       <div className="section">
         <Outlet context={{ teamData }} />
       </div>
-      <div className="section grid gap-3">
-        {teamData.matches.map((match, index) => (
-          <div
-            key={index}
-            className="bg-white/10 p-4 rounded-xl shadow-md hover:bg-white/20 transition"
-          >
-            <h2 className="text-lg font-semibold text-white">
-              Qualifier: <span className="text-green-400">{match.qual}</span>
-            </h2>
-            <p className="text-gray-300 mt-1">
-              Climb: <span className="text-blue-400">{match.climb}</span>
-            </p>
-          </div>
-        ))}
+      <div className="h-2" />
+      <div className="flex flex-wrap justify-center gap-4">
+        {teamData.matches
+          .sort((a, b) =>
+            a.qual > 100
+              ? a.qual - 200 - b.qual
+              : b.qual > 100
+              ? a.qual + 200 - b.qual
+              : a.qual - b.qual
+          )
+          .map((match, index) => (
+            <div
+              key={index}
+              className="bg-white/10 p-4 rounded-xl shadow-md hover:bg-white/20 transition flex flex-col items-center"
+            >
+              <h2 className="text-lg font-semibold  text-green-400">
+                {TeamData.stringedQual(match.qual)}
+              </h2>
+              <p className="text-gray-300 mt-1">
+                Climb: <span className="text-blue-400">{match.climb}</span>
+              </p>
+            </div>
+          ))}
       </div>
       <div className="h-20" />
       <div className="mb-10">

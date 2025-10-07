@@ -12,7 +12,8 @@
     "server": "git pull && npm run docker",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "update": "git pull && npm run full"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
