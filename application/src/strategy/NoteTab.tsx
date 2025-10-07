@@ -165,13 +165,10 @@ const NoteTab: React.FC = () => {
     fetchAllAwaitingMatches().then((matches) => setAllMatches(matches || []));
   }, []);
 
-  const teams = useMemo(
-    () =>
-      isBlueSide
-        ? allMatches[qual - 1].blueAlliance
-        : allMatches[qual - 1].redAlliance,
-    [isBlueSide, qual, allMatches]
-  );
+  const teams = useMemo(() => {
+    const match = allMatches[qual - 1] || defaultMatch;
+    return isBlueSide ? match.blueAlliance : match.redAlliance;
+  }, [isBlueSide, qual, allMatches]);
 
   const handleSaveToDatabase = async () => {
     setIsSaving(true);
