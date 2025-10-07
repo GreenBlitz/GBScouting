@@ -146,8 +146,8 @@ const ComparisonTab: React.FC = () => {
             title="Comparison"
             subtitle="Between FRC Teams"
           />
-          <LineChart 
-          dataSets={Object.assign({},...teams.map((team) => field.startsWith("L") ?team.getCoralLevelAsLine(field as keyof Levels) : team.getTotalAlgeaDataAsLine("netScore"))}/>
+          {/* <LineChart 
+          dataSets={Object.assign({},...teams.map((team) => field.startsWith("L") ?team.getCoralLevelAsLine(field as keyof Levels) : team.getTotalAlgeaDataAsLine("netScore"))}/> */}
           <MultiRadarChart
             dataSets={Object.assign(
               {},

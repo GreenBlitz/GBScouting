@@ -88,7 +88,12 @@ const StrategyAutonomous: React.FC = () => {
         {isLineChart ? (
           <LineChart dataSets={scoringDataSet} />
         ) : (
-          <BarChart dataSets={scoringDataSet} isStacked={true} />
+          <BarChart
+            width={600}
+            height={300}
+            dataSets={scoringDataSet}
+            isStacked={true}
+          />
         )}
       </div>
       <div className="section">
@@ -96,7 +101,12 @@ const StrategyAutonomous: React.FC = () => {
         {isLineChart ? (
           <LineChart dataSets={missDataSet} />
         ) : (
-          <BarChart dataSets={missDataSet} isStacked={true} />
+          <BarChart
+            width={600}
+            height={300}
+            dataSets={missDataSet}
+            isStacked={true}
+          />
         )}
       </div>
       <h1>Started At Middle On: {teamData.getMiddleQuals().toString()}</h1>

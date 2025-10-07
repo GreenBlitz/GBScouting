@@ -138,7 +138,12 @@ const StrategyTeleoperated: React.FC = () => {
           {isLineChart ? (
             <LineChart dataSets={scoringDataSet} />
           ) : (
-            <BarChart dataSets={scoringDataSet} isStacked={true} />
+            <BarChart
+              width={600}
+              height={300}
+              dataSets={scoringDataSet}
+              isStacked={true}
+            />
           )}
         </div>
 
@@ -146,7 +151,12 @@ const StrategyTeleoperated: React.FC = () => {
           {isLineChart ? (
             <LineChart dataSets={missDataSet} />
           ) : (
-            <BarChart dataSets={missDataSet} isStacked={true} />
+            <BarChart
+              width={600}
+              height={300}
+              dataSets={missDataSet}
+              isStacked={true}
+            />
           )}
         </div>
 
@@ -239,7 +249,7 @@ const StrategyTeleoperated: React.FC = () => {
       </div>
 
       <br />
-        <div className="p-4">
+      <div className="p-4">
         <h1 className="text-2xl font-bold mb-4">Comments</h1>
         <div className="space-y-3">
           {teamData?.getComments().map((comment, i) => (
@@ -251,9 +261,9 @@ const StrategyTeleoperated: React.FC = () => {
                 Qual #{comment.qual}
               </p>
               <p className="text-base text-gray-800">
-              {comment.body.length > 1 && comment.body}
-            </p>
-          </div>
+                {comment.body.length > 1 && comment.body}
+              </p>
+            </div>
           ))}
         </div>
       </div>
