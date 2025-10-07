@@ -85,12 +85,14 @@ const Tinder: React.FC = () => {
   const [masterRanking, setMasterRanking] = useState<number[]>([]);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const rankingDiff = useMemo(() =>
-    ranking.map(
-      (value, index) =>
-        masterRanking.findIndex((team) => team === value.stats.Team) - index
-    )
-  , [ranking, masterRanking]);
+  const rankingDiff = useMemo(
+    () =>
+      ranking.map(
+        (value, index) =>
+          masterRanking.findIndex((team) => team === value.stats.Team) - index
+      ),
+    [ranking, masterRanking]
+  );
 
   useEffect(() => {
     Promise.all([
@@ -99,9 +101,7 @@ const Tinder: React.FC = () => {
     ])
       .then(([teams, notes]) =>
         Object.entries(teams).map(([team, matches]) => {
-          const teamData = new TeamData(
-            useRecent(mergeSimilarMatches(matches), recency)
-          );
+          const teamData = new TeamData(useRecent(matches, recency));
           return {
             stats: processTeamData(parseInt(team), teamData),
             data: teamData,

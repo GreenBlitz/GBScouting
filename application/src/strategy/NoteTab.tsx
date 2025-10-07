@@ -10,7 +10,7 @@ import {
 import { FRCTeamList } from "../utils/Utils";
 import { postNotes } from "../utils/Fetches";
 
-const defaultNotes: Notes = noteCategories.reduce((acc, value) => {
+export const defaultNotes: Notes = noteCategories.reduce((acc, value) => {
   acc[value] = { value: "", score: 0 };
   return acc;
 }, {}) as Notes;

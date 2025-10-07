@@ -3,6 +3,8 @@ import MultiProgress from "react-multi-progress";
 import { randomColor } from "../../utils/Color";
 import { TeamInfo } from "./Tinder";
 import { rankingStorage } from "../../utils/FolderStorage";
+import { Notes, TeamNotes } from "../../utils/SeasonUI";
+import { defaultNotes } from "../NoteTab";
 
 const calculateValue = (stat: number, percentage: number) =>
   stat * (percentage / 100);
@@ -55,6 +57,47 @@ const getAutoScore = (
   );
 };
 
+const compileNotes = (teamNotes: TeamNotes) => {
+  const length = Object.keys(teamNotes).length;
+  const dividing = length > 0 ? length : 1;
+  return Object.values(teamNotes).reduce(
+    (acc, notes) =>
+      Object.entries(notes).reduce((noteAcc, [key, note]) => {
+        if (!(key in defaultNotes)) {
+          return noteAcc;
+        }
+        return {
+          ...noteAcc,
+          [key]: {
+            value: note.value + noteAcc[key as keyof Notes].value,
+            score: note.score / dividing + noteAcc[key as keyof Notes].score,
+          },
+        };
+      }, acc),
+    defaultNotes
+  );
+};
+
+const getSuperScore = (team: TeamInfo, superSliders: Choice[]) => {
+  if (team.stats.Team === 4744) {
+    console.log(compileNotes(team.notes));
+  }
+  return superSliders.reduce(
+    (acc, curr) =>
+      acc +
+      (() => {
+        const data = compileNotes(team.notes);
+        return data[curr.category as keyof typeof data]
+          ? calculateValue(
+              data[curr.category as keyof typeof data].score,
+              curr.percentage
+            )
+          : 0;
+      })(),
+    0
+  );
+};
+
 const getGameScore = (
   teleopScore: number,
   autoScore: number,
@@ -96,9 +139,9 @@ const teleopCategories = {
 const autoCategories = teleopCategories;
 
 const superCategories = {
-  Driving: "#34495e",
-  Defense: "#c0392b",
-  Evasion: "#7f8c8d",
+  driving: "#34495e",
+  defense: "#c0392b",
+  evasion: "#7f8c8d",
 } as const;
 
 const gameCategories = {
@@ -114,11 +157,18 @@ interface InitialRankerProps {
 }
 
 type ScoringMethod = "score" | "objectCount";
+type ScoreBreakdown = {
+  teleop: number;
+  auto: number;
+  super: number;
+  game: number;
+};
 export const InitialRanker: React.FC<InitialRankerProps> = ({
   ranking,
   setRanking,
 }) => {
-  const [scoringMethod, setScoringMethod] = useState<ScoringMethod>("score");
+  const [scoringMethod, setScoringMethod] =
+    useState<ScoringMethod>("objectCount");
 
   const getSlidersStorage = (): Record<string, Choice[]> => {
     const stored = rankingStorage.entries();
@@ -133,7 +183,7 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
         info: team,
         score: score(team, sliders, scoringMethod),
       }))
-      .sort((a, b) => b.score - a.score);
+      .sort((a, b) => b.score.game - a.score.game);
 
     console.log(newRanking);
     setRanking(newRanking.map((item) => item.info));
@@ -143,22 +193,27 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
     team: TeamInfo,
     sliders: Record<string, Choice[]>,
     scoringMethod: ScoringMethod
-  ) => {
+  ): ScoreBreakdown => {
     const autoScore = getAutoScore(team, sliders["Auto"] || [], scoringMethod);
     const teleopScore = getTeleopScore(
       team,
       sliders["Teleop"] || [],
       scoringMethod
     );
-    const superScore = 0; //getSuperScore(team, sliders["Super"] || []);
+    const superScore = getSuperScore(team, sliders["Super"] || []);
     const endgameScore = team.stats.Climb; //getEndgameScore(team, sliders["Endgame"] || []);
-    return getGameScore(
-      teleopScore,
-      autoScore,
-      superScore,
-      endgameScore,
-      sliders["Game"] || []
-    );
+    return {
+      auto: autoScore,
+      teleop: teleopScore,
+      super: superScore,
+      game: getGameScore(
+        teleopScore,
+        autoScore,
+        superScore,
+        endgameScore,
+        sliders["Game"] || []
+      ),
+    };
   };
 
   return (
@@ -170,10 +225,10 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
           onChange={(e) => {
             setScoringMethod(e.currentTarget.value as ScoringMethod);
           }}
-          defaultValue="score"
+          defaultValue="objectCount"
         >
-          <option value="score">Score</option>
           <option value="objectCount">Object Count</option>
+          <option value="score">Score</option>
         </select>
       </div>
       <Slider name="Auto" categories={autoCategories} />

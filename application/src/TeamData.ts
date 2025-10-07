@@ -46,11 +46,7 @@ export class TeamData {
   constructor(matches: Match[], notes?: UsedNotes[]) {
     this.matches = [...matches];
 
-    this.notes = (notes || [])
-      .filter((note) =>
-        this.matches.some((match) => match.qual === parseInt(note.qual))
-      )
-      .sort((note1, note2) => parseInt(note1.qual) - parseInt(note2.qual));
+    this.notes = [];
   }
 
   static random(teamNumber: number) {
@@ -185,7 +181,7 @@ export class TeamData {
 
   getTotalAlgeaDataAsLine(field: keyof UsedAlgea) {
     const auto = this.getAlgeaDataAsLine("autoReefPick", field);
-    const tele = this.getAlgeaDataAsLine("autoReefPick", field);
+    const tele = this.getAlgeaDataAsLine("teleReefPick", field);
 
     const total = Object.assign(
       {},
@@ -268,6 +264,7 @@ export class TeamData {
       this.matches.reduce((accumulator, match) => {
         const reef: PickValues = match[reefPick] as PickValues;
         const value = reef.algea[data];
+
         return value + accumulator;
       }, 0) / this.matches.length
     );
