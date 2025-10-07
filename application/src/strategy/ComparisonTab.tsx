@@ -9,6 +9,9 @@ import {
 import { useRecent } from "../components/TeamPicker";
 import { FRCTeamArray } from "../utils/Utils";
 import MultiRadarChart from "./charts/MultiRadarChart";
+import LineChart from "./charts/LineChart";
+import { randomColor } from "../utils/Color";
+import { Levels } from "../scouter/input-types/reef-levels/ReefPickInput";
 
 interface FieldOption {
   name: string;
@@ -143,6 +146,8 @@ const ComparisonTab: React.FC = () => {
             title="Comparison"
             subtitle="Between FRC Teams"
           />
+          <LineChart 
+          dataSets={Object.assign({},...teams.map((team) => field.startsWith("L") ?team.getCoralLevelAsLine(field as keyof Levels) : team.getTotalAlgeaDataAsLine("netScore"))}/>
           <MultiRadarChart
             dataSets={Object.assign(
               {},
