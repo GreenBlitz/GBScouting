@@ -3,12 +3,16 @@ import { TeamData } from "../../TeamData";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import TeamPicker, { mergeSimilarMatches } from "../../components/TeamPicker";
-import { fetchClimbs, fetchTeams } from "../../utils/Fetches";
+import { fetchClimbs, fetchNotes, fetchTeams } from "../../utils/Fetches";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { FRCTeamList } from "../../utils/Utils";
+import { QualNotes, TeamNotes } from "../../utils/SeasonUI";
+import { useRecentNotes, extractTeamNotes } from "../tinder/Tinder";
 
 const TeamTab: React.FC = () => {
   const [teamData, setTeamData] = useState<TeamData>(new TeamData([], {}));
+
+  const [notes, setNotes] = useState<TeamNotes>({});
 
   const [teamTable, setTeamTable] = useState<GridItems[]>([]);
 
@@ -35,11 +39,12 @@ const TeamTab: React.FC = () => {
     updateTeamTable();
   }, []);
 
+
   return (
     <div className="strategy-app">
       <br />
       <br />
-      <TeamPicker setTeamData={setTeamData} defaultRecency={5} />
+      <TeamPicker setNotes={setNotes} setTeamData={setTeamData} defaultRecency={5} />
       <br />
       <nav className="nav-bar">
         <ul>
@@ -51,7 +56,7 @@ const TeamTab: React.FC = () => {
           </li>
         </ul>
       </nav>
-      <Outlet context={{ teamData, teamTable }} />
+      <Outlet context={{ teamData, teamTable, notes }} />
     </div>
   );
 };

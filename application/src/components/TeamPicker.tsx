@@ -8,10 +8,13 @@ import {
 } from "../utils/Fetches";
 import { matchFieldNames } from "../utils/Match";
 import { TeamData } from "../TeamData";
+import { TeamNotes } from "../utils/SeasonUI";
+import { useRecentNotes, extractTeamNotes } from "../strategy/tinder/Tinder";
 
 interface TeamPickerProps {
   setTeamData: (teamData: TeamData) => void;
   defaultRecency: number;
+  setNotes: (notes: TeamNotes) => void;
 }
 
 export function mergeSimilarMatches(matches: Match[]) {
@@ -43,13 +46,28 @@ export function useRecent(matches: Match[], recency: number): Match[] {
 const TeamPicker: React.FC<TeamPickerProps> = ({
   setTeamData,
   defaultRecency,
+  setNotes,
 }) => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [recency, setRecency] = useState<number>(defaultRecency);
 
+  useEffect(() => {
+    async function update() {
+      setNotes(
+        useRecentNotes(
+          extractTeamNotes(
+            (matches[0]?.teamNumber.teamNumber || 0).toString(),
+            await getNotes(matches)
+          ),
+          recency
+        )
+      );
+    }
+    update();
+  }, [matches]);
   const getNotes = async (matches: Match[]) => {
     if (!matches[0]) {
-      return undefined;
+      return {};
     }
     return await fetchNotes(matches[0].teamNumber.teamNumber);
   };

@@ -16,6 +16,8 @@ import BarChart from "../../charts/BarChart";
 import { localFolder, StorageBacked } from "../../../utils/FolderStorage";
 import Collapsible from "react-collapsible";
 import NetChart from "../../charts/NetChart";
+import { QualNotes, TeamNotes } from "../../../utils/SeasonUI";
+import { compileNotes } from "../../tinder/InitialRanker";
 
 export const reefColorsScore = {
   L1: "#e5ffc9",
@@ -37,10 +39,13 @@ export const isLineChartStorage = new StorageBacked<boolean>(
 );
 
 const StrategyTeleoperated: React.FC = () => {
-  const { teamData, teamTable } = useOutletContext<{
+  const { teamData, teamTable, notes } = useOutletContext<{
     teamData: TeamData;
     teamTable: GridItems[];
+    notes: TeamNotes;
   }>();
+
+  const compiledNotes = useMemo(() => compileNotes(notes), [notes]);
 
   const navigate = useNavigate();
 
@@ -171,39 +176,24 @@ const StrategyTeleoperated: React.FC = () => {
         </button>
       </div>
 
-      {teamData.notes.length > 0 && (
-        <Collapsible
-          trigger="Super Scouting"
-          openedClassName="border-2 py-2"
-          className="border-2 py-2"
-        >
-          {teamData.notes.map((notes) => (
-            <div className="my-5">
-              <h1 className="text-xl">Qual {notes.qual}</h1>
-              {notes.body.climb.value !== "" && (
-                <h2 className="my-1">Climb: {notes.body.climb.value}</h2>
+      {Object.entries(compiledNotes).map(
+        ([noteType, note]) =>
+          note.score > 0 &&
+          note.value.length > 0 && (
+            <div className="rounded-2xl bg-white/5 p-1 shadow-md border border-white/10 hover:bg-white/10 transition">
+              {note.score > 0 && (
+                <h1 className="text-m font-semibold text-white mb-2">
+                  {noteType}:{" "}
+                  <span className="text-orange-400">{note.score}</span>
+                </h1>
               )}
-              {notes.body.net.value !== "" && (
-                <h2 className="my-1">Algae: {notes.body.net.value}</h2>
-              )}
-              {notes.body.defense.value !== "" && (
-                <h2 className="my-1">Defense: {notes.body.defense.value}</h2>
-              )}
-              {notes.body.evasion.value !== "" && (
-                <h2 className="my-1">Evasion: {notes.body.evasion.value}</h2>
-              )}
-              {notes.body.driving.value !== "" && (
-                <h2 className="my-1">Driving: {notes.body.driving.value}</h2>
-              )}
-              {notes.body.coral.value !== "" && (
-                <h2 className="my-1">Coral: {notes.body.coral.value}</h2>
-              )}
-              {notes.body.overall.value !== "" && (
-                <h2 className="my-1">Overall: {notes.body.overall.value}</h2>
+              {note.value.length > 0 && (
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {note.value}
+                </p>
               )}
             </div>
-          ))}
-        </Collapsible>
+          )
       )}
 
       <div className="flex flex-col items-center">
