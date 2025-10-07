@@ -5,7 +5,7 @@ import { TeamInfo } from "./Tinder";
 import { reefColorsScore } from "../team-tab/sections/StrategyTeleoperated";
 import { matchFieldNames } from "../../utils/Match";
 import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Mode, TeamCard as QualTeamCard } from "../qual-tab/QualTab";
 
 interface TeamCardProps {
@@ -20,22 +20,25 @@ const roundToDecimals = (x: number, decimals: number = 0) => {
   return Math.round(x * powered) / powered;
 };
 
-const TeamCard: React.FC<TeamCardProps> = ({ teamInfo, onSwipe, mode, max }) => {
+const TeamCard: React.FC<TeamCardProps> = ({
+  teamInfo,
+  onSwipe,
+  mode,
+  max,
+}) => {
   const [isNotes, setNotes] = useState(false);
-  const { stats, data } = teamInfo;
+
 
   return (
     <div className="mx-auto p-5 mt-10 rounded-xl bg-green-800 w-60">
-      
-        <div className="flex justify-center">
-          <QualTeamCard
-            side={"green" as "blue"}
-            teamInfo={teamInfo}
-            mode={mode}
-            max={max}
-          />
-        </div>
-      
+      <div className="flex justify-center">
+        <QualTeamCard
+          side={"green" as "blue"}
+          teamInfo={teamInfo}
+          mode={mode}
+          max={max}
+        />
+      </div>
 
       <button className="p-4 bg-green-950" onClick={onSwipe}>
         Choose

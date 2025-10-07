@@ -168,7 +168,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
       mode === "auto"
         ? teamInfo.data.getAutoStats()
         : teamInfo.data.getTeleopStats(),
-    [mode]
+    [mode, teamInfo]
   );
   const getBestLevel = (reef: Levels) =>
     Object.entries(reef).reduce(

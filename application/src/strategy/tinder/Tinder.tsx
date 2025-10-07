@@ -235,36 +235,18 @@ const Tinder: React.FC = () => {
               max={max}
             />
           </div>
-          <div className="w-full md:w-80 my-auto mx-auto">
-            <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-60 overflow-y-auto">
-              <div className="space-y-2">
-                {ranking.map((item, index) => (
-                  <TeamListItem
-                    key={item.info.stats.Team}
-                    ref={(el) => (itemRefs.current[index] = el)}
-                    team={item.info.stats.Team}
-                    index={index}
-                    isHighlited={index === currentID || index === currentID + 1}
-                    goToItem={() => setID(index)}
-                    diffOffset={rankingDiff[index]}
-                    scoreBreakdown={item.score}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="flex items-center space-x-2 justify-center">
-              <label className="font-semibold text-white">Mode:</label>
-              <select
-                value={mode}
-                onChange={(e) => setMode(e.target.value as Mode)}
-                className="border border-gray-300 rounded-md p-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                <option value="tele">Tele</option>
-                <option value="auto">Auto</option>
-                <option value="misc">Misc</option>
-                <option value="history">History</option>
-              </select>
-            </div>
+          <div className="flex items-center space-x-2 justify-center">
+            <label className="font-semibold text-white">Mode:</label>
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value as Mode)}
+              className="border border-gray-300 rounded-md p-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="tele">Tele</option>
+              <option value="auto">Auto</option>
+              <option value="misc">Misc</option>
+              <option value="history">History</option>
+            </select>
           </div>
           <div className="flex-1 min-w-0">
             <TeamCard
@@ -275,6 +257,24 @@ const Tinder: React.FC = () => {
             />
           </div>
         </>
+      </div>
+      <div className="w-full md:w-80 my-auto mx-auto">
+        <div className="bg-green-700 rounded-lg shadow-md p-4 w-full max-h-60 overflow-y-auto">
+          <div className="space-y-2">
+            {ranking.map((item, index) => (
+              <TeamListItem
+                key={item.info.stats.Team}
+                ref={(el) => (itemRefs.current[index] = el)}
+                team={item.info.stats.Team}
+                index={index}
+                isHighlited={index === currentID || index === currentID + 1}
+                goToItem={() => setID(index)}
+                diffOffset={rankingDiff[index]}
+                scoreBreakdown={item.score}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="flex gap-4 justify-center mt-6">
         <button
