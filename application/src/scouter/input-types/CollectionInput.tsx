@@ -118,11 +118,11 @@ class CollectionInput extends ScouterInput<
           {algeaGroundButton}
           {algeaCollectedButton}
           {algeaDroppedButton}
-          {algeaStealButton}
         </div>
         <div className="rower">
           {coralFeederButton}
           {coralGroundButton}
+          {algeaStealButton}
         </div>
       </div>
     );
