@@ -47,7 +47,7 @@ MongoClient.connect(mongoURI)
     db = client.db("admin");
 
     matches.applyRoutes(app, db, dirName);
-    tba.applyRoutes(app, dirName);
+    tba.applyRoutes(app,db, dirName);
     notes.applyRoutes(app, db);
     sheets.applyRoutes(app, db, dirName);
   })

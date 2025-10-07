@@ -248,6 +248,17 @@ const Tinder: React.FC = () => {
               <option value="history">History</option>
             </select>
           </div>
+          <div className="flex items-center space-x-2 justify-center">
+            <label className="font-semibold text-white">Recency:</label>
+            <input
+              type="number"
+              value={recency}
+              min={1}
+              max={50}
+              onChange={(e) => setRecency(parseInt(e.target.value))}
+              className="w-16 border border-gray-300 rounded-md p-1 text-center text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
           <div className="flex-1 min-w-0">
             <TeamCard
               teamInfo={ranking[currentID + 1]?.info || defaultTeam}

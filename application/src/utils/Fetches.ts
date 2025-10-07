@@ -1,6 +1,6 @@
 import { authorizationStorage, matchesStorage } from "./FolderStorage";
 import { Match } from "./Match";
-import {  QualNotes } from "./SeasonUI";
+import { QualNotes } from "./SeasonUI";
 
 export const getServerHostname = () => {
   return location.host;
@@ -111,6 +111,18 @@ export async function fetchQualificationResults() {
     return qualificationResults;
   } catch (error) {
     console.error("Error fetching qualification results:", error);
+    return null;
+  }
+}
+
+export async function fetchClimbs() {
+  try {
+    const response = await fetchData(`TBA/Climb`);
+    if (!response) throw new Error("No data received");
+
+    return response;
+  } catch (error) {
+    console.error("Error fetching climb results:", error);
     return null;
   }
 }
