@@ -12,7 +12,7 @@ import * as sheets from "./sheets.js";
 const app = express();
 const hostname = "0.0.0.0";
 
-const port = process.env.PRODUCTION ? 443 : 4590;
+const port = process.env.PRODUCTION ? 443 : 443;
 const dirName = process.env.PRODUCTION ? "/app" : "";
 
 // SSL options for HTTPS
