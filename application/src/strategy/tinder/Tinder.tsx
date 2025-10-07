@@ -2,7 +2,12 @@ import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { useRecent, mergeSimilarMatches } from "../../components/TeamPicker";
 import { TeamData } from "../../TeamData";
-import { fetchData, fetchNotes, fetchTeams } from "../../utils/Fetches";
+import {
+  fetchClimbs,
+  fetchData,
+  fetchNotes,
+  fetchTeams,
+} from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import TeamCard from "./TeamCard";
 import { QualNotes, TeamNotes } from "../../utils/SeasonUI";
@@ -118,10 +123,14 @@ const Tinder: React.FC = () => {
     Promise.all([
       fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key))),
       fetchNotes(),
+      fetchClimbs(),
     ])
-      .then(([teams, notes]) =>
+      .then(([teams, notes, climbs]) =>
         Object.entries(teams).map(([team, matches]) => {
-          const teamData = new TeamData(useRecent(matches, recency));
+          const teamData = new TeamData(
+            useRecent(matches, recency),
+            TeamData.extractClimbs(team, climbs)
+          );
           return {
             info: {
               stats: processTeamData(parseInt(team), teamData),

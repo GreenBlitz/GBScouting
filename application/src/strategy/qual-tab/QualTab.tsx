@@ -6,6 +6,7 @@ import {
   fetchNotes,
   MatchTeams,
   fetchAllAwaitingMatches,
+  fetchClimbs,
 } from "../../utils/Fetches";
 import { FRCTeamList } from "../../utils/Utils";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
@@ -62,10 +63,11 @@ const QualTab: React.FC = () => {
     Promise.all([
       fetchTeams(currentTeams.blueAlliance.concat(currentTeams.redAlliance)),
       fetchNotes(),
+      fetchClimbs()
     ])
-      .then(([teams, notes]) =>
+      .then(([teams, notes, climbs]) =>
         Object.entries(teams).map(([team, matches]) => {
-          const teamData = new TeamData(useRecent(matches, recency));
+          const teamData = new TeamData(useRecent(matches, recency),TeamData.extractClimbs(team,climbs));
           return {
             stats: processTeamData(parseInt(team), teamData),
             data: teamData,

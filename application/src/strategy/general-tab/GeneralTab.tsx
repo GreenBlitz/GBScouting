@@ -3,7 +3,7 @@ import TableChart from "../charts/TableChart";
 import { FRCTeamList } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
 import React from "react";
-import { fetchMatchesByCriteria, fetchTeams } from "../../utils/Fetches";
+import { fetchClimbs, fetchMatchesByCriteria, fetchTeams } from "../../utils/Fetches";
 import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 import "./GeneralTable.css";
 import { matchFieldNames } from "../../utils/Match";
@@ -202,12 +202,17 @@ const GeneralTab: React.FC = () => {
   //bruh this is kinda deep
   useEffect(() => {
     async function getGridItems() {
+      const climbs = await fetchClimbs();
+
       return Object.entries(
         await fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
       ).map(([team, matches]) =>
         processTeamData(
           parseInt(team),
-          new TeamData(useRecent(mergeSimilarMatches(matches), recency))
+          new TeamData(
+            useRecent(mergeSimilarMatches(matches), recency),
+            TeamData.extractClimbs(team, climbs)
+          )
         )
       );
     }

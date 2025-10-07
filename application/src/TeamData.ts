@@ -14,6 +14,7 @@ import {
   Levels,
   PickValues,
 } from "./scouter/input-types/reef-levels/ReefPickInput";
+import { TBAClimbMatch } from "./utils/Fetches";
 
 export interface Comment {
   body: string;
@@ -43,15 +44,53 @@ export class TeamData {
   public readonly matches: Match[];
   public readonly notes: UsedNotes[];
 
-  constructor(matches: Match[], notes?: UsedNotes[]) {
-    this.matches = [...matches];
-
+  constructor(
+    matches: Match[],
+    climbs: Record<number, string>,
+    notes?: UsedNotes[]
+  ) {
+    this.matches = [...matches].map((match) => ({
+      ...match,
+      climb: TeamData.TBAClimbToNormal(climbs[match.qual] || ""),
+    }));
     this.notes = [];
+  }
+
+  static extractClimbs(
+    team: number | string,
+    climbs: TBAClimbMatch[]
+  ): Record<number, string> {
+    return Object.assign(
+      {},
+      ...climbs
+        .filter((climb) =>
+          Object.keys(climb.blue)
+            .concat(Object.keys(climb.red))
+            .includes(team.toString())
+        )
+        .map((climb) => ({
+          [climb.qual]:
+            Object.entries(climb.blue)
+              .concat(Object.entries(climb.red))
+              .find(
+                ([climbingTeam, _climbed]) => climbingTeam === team.toString()
+              )?.[1] || "None",
+        }))
+    );
+  }
+
+  static TBAClimbToNormal(climb: string): string {
+    return climb === "Parked"
+      ? "Park"
+      : climb === "DeepCage"
+      ? "Deep Cage"
+      : "Off Barge";
   }
 
   static random(teamNumber: number) {
     return new TeamData(
-      [1, 6, 11, 16, 21, 26].map((qual) => randomMatch(teamNumber, qual))
+      [1, 6, 11, 16, 21, 26].map((qual) => randomMatch(teamNumber, qual)),
+      {}
     );
   }
 

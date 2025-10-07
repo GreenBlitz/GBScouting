@@ -4,6 +4,7 @@ import BoxChart from "./charts/BoxChart";
 import { Match, matchFieldNames } from "../utils/Match";
 import {
   fetchAllTeamMatches,
+  fetchClimbs,
   fetchPaticularTeamMatches,
 } from "../utils/Fetches";
 import { useRecent } from "../components/TeamPicker";
@@ -88,8 +89,16 @@ const ComparisonTab: React.FC = () => {
       }
 
       const fetchedTeams = await fetchPaticularTeamMatches(checkedList);
+      const climbs = await fetchClimbs();
       const teamObjects = Object.values(fetchedTeams).map(
-        (teamMatches) => new TeamData(useRecent(teamMatches, recency))
+        (teamMatches) =>
+          new TeamData(
+            useRecent(teamMatches, recency),
+            TeamData.extractClimbs(
+              teamMatches[0]?.teamNumber.teamNumber || 0,
+              climbs
+            )
+          )
       );
 
       setTeams(teamObjects);

@@ -3,7 +3,7 @@ import TableChart from "../charts/TableChart";
 import { FRCTeamList } from "../../utils/Utils";
 import { TeamData } from "../../TeamData";
 import React from "react";
-import { fetchTeams } from "../../utils/Fetches";
+import { fetchClimbs, fetchTeams } from "../../utils/Fetches";
 import { GridCellParams, GridTreeNode } from "@mui/x-data-grid";
 import "../general-tab/GeneralTable.css";
 import { mergeSimilarMatches } from "../../components/TeamPicker";
@@ -39,7 +39,6 @@ function processTeamData(teamNumber: number, data: TeamData): Abilities {
     "Algea Steal": data.getCollectionPercentage("algeaSteal").value,
     Net: data.getReefPickPercentage(["algea", "netScore"]).value,
     Processor: data.getReefPickPercentage(["algea", "processor"]).value,
-    
   };
 }
 
@@ -135,12 +134,16 @@ const AbilityTab: React.FC = () => {
   //bruh this is kinda deep
   useEffect(() => {
     async function getGridItems() {
+      const climbs = await fetchClimbs();
       return Object.entries(
         await fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
       ).map(([team, matches]) =>
         processTeamData(
           parseInt(team),
-          new TeamData(useRecent(mergeSimilarMatches(matches), recency))
+          new TeamData(
+            useRecent(mergeSimilarMatches(matches), recency),
+            TeamData.extractClimbs(team, climbs)
+          )
         )
       );
     }

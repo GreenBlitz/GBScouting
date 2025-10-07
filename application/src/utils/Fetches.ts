@@ -115,7 +115,15 @@ export async function fetchQualificationResults() {
   }
 }
 
-export async function fetchClimbs() {
+export type TBAClimbMatch = {
+  red: Record<number,string>
+  blue: Record<number,string>
+  qual: number;
+}
+
+export async function fetchClimbs(): Promise<
+  TBAClimbMatch[]
+> {
   try {
     const response = await fetchData(`TBA/Climb`);
     if (!response) throw new Error("No data received");
@@ -123,7 +131,7 @@ export async function fetchClimbs() {
     return response;
   } catch (error) {
     console.error("Error fetching climb results:", error);
-    return null;
+    return [];
   }
 }
 

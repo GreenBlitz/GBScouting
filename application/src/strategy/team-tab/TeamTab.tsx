@@ -3,24 +3,29 @@ import { TeamData } from "../../TeamData";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import TeamPicker, { mergeSimilarMatches } from "../../components/TeamPicker";
-import {  fetchTeams } from "../../utils/Fetches";
+import { fetchClimbs, fetchTeams } from "../../utils/Fetches";
 import { GridItems, processTeamData } from "../general-tab/GeneralTab";
 import { FRCTeamList } from "../../utils/Utils";
 
 const TeamTab: React.FC = () => {
-  const [teamData, setTeamData] = useState<TeamData>(new TeamData([]));
+  const [teamData, setTeamData] = useState<TeamData>(new TeamData([], {}));
 
   const [teamTable, setTeamTable] = useState<GridItems[]>([]);
 
   //bruh this is kinda deep
   useEffect(() => {
     async function getGridItems() {
+      const climbs = await fetchClimbs();
+
       return Object.entries(
         await fetchTeams(Object.keys(FRCTeamList).map((key) => parseInt(key)))
       ).map(([team, matches]) =>
         processTeamData(
           parseInt(team),
-          new TeamData(mergeSimilarMatches(matches))
+          new TeamData(
+            mergeSimilarMatches(matches),
+            TeamData.extractClimbs(team, climbs)
+          )
         )
       );
     }

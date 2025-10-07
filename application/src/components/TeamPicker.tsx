@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Match, mergeMatches } from "../utils/Match";
 import { FRCTeamList, sortMatches } from "../utils/Utils";
-import { fetchMatchesByCriteria, fetchNotes } from "../utils/Fetches";
+import {
+  fetchClimbs,
+  fetchMatchesByCriteria,
+  fetchNotes,
+} from "../utils/Fetches";
 import { matchFieldNames } from "../utils/Match";
 import { TeamData } from "../TeamData";
 
@@ -53,7 +57,15 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
   useEffect(() => {
     const recentMatches = useRecent(matches, recency);
     async function updateTeamData() {
-      setTeamData(new TeamData(recentMatches, await getNotes(recentMatches)));
+      setTeamData(
+        new TeamData(
+          recentMatches,
+          TeamData.extractClimbs(
+            recentMatches[0]?.teamNumber.teamNumber || 0,
+            await fetchClimbs()
+          )
+        )
+      );
     }
     updateTeamData();
   }, [matches, recency]);

@@ -44,6 +44,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
             match.score_breakdown.blue.endGameRobot3,
           ],
         },
+        qual: match.comp_level === "qm" ? match.match_number : -1,
       }))
       .map((match) => ({
         red: Object.assign(
@@ -58,6 +59,7 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
             [team.slice(3)]: match.blue.climbs[index],
           }))
         ),
+        qual: match.qual,
       }));
 
     if (climbingRobots.length > 0) {
