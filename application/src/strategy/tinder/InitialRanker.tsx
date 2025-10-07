@@ -123,6 +123,10 @@ const getGameScore = (
   );
 };
 
+const getEndgameScore = (team: TeamInfo, scoringMethod: ScoringMethod) => {
+  return team.stats.Climb / (scoringMethod === "score" ? 1 : 4);
+};
+
 const teleopCategories = {
   Algea: "#3cb44b", // Red
   Coral: "#e6194b", // Green
@@ -202,7 +206,7 @@ export const InitialRanker: React.FC<InitialRankerProps> = ({
       scoringMethod
     );
     const superScore = getSuperScore(team, sliders["Super"] || []);
-    const endgameScore = team.stats.Climb; //getEndgameScore(team, sliders["Endgame"] || []);
+    const endgameScore = getEndgameScore(team, scoringMethod);
     return {
       auto: autoScore,
       teleop: teleopScore,

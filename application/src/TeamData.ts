@@ -611,7 +611,7 @@ export class TeamData {
     }
 
     return (
-      this.matches.reduce((accumulator, { climb }) => {
+      this.matches.reduce((accumulator, { climb, teamNumber }) => {
         const getValue = () => {
           switch (climb) {
             case "Park":
