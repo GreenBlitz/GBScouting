@@ -184,7 +184,11 @@ export const TeamCard: React.FC<TeamCardProps> = ({
 
   const textStyle = "text-l my-2";
   return (
-    <div className={`bg-${side}-400 m-2 w-40 h-60 p-2 rounded-xl`}>
+    <div
+      className={`bg-${side}-400 m-2 w-${mode === "history" ? "60" : "40"} h-${
+        mode === "history" ? "96" : "60"
+      } p-2 rounded-xl`}
+    >
       <h1 className="font-bold text-xl">
         {teamInfo.stats.Team.toString() +
           " " +
