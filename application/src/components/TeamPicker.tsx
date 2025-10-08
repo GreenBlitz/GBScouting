@@ -99,7 +99,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({
           setMatches(
             await fetchMatchesByCriteria(
               matchFieldNames.teamNumber,
-              event.target.value.slice(0, 4) || "0"
+              event.target.value.slice(0, 5).trim() || "0"
             )
           )
         }
