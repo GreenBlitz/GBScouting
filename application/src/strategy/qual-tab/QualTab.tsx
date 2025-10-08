@@ -19,7 +19,10 @@ import {
 } from "../../utils/SeasonUI";
 import { Levels } from "../../scouter/input-types/reef-levels/ReefPickInput";
 import LineChart from "../charts/LineChart";
-import { reefColorsScore } from "../team-tab/sections/StrategyTeleoperated";
+import {
+  isLineChartStorage,
+  reefColorsScore,
+} from "../team-tab/sections/StrategyTeleoperated";
 import BarChart from "../charts/BarChart";
 import { compileNotes } from "../tinder/InitialRanker";
 
@@ -210,10 +213,12 @@ export const TeamCard: React.FC<TeamCardProps> = ({
 
   const notes = useMemo(() => compileNotes(teamInfo.notes), [teamInfo]);
 
+  const isLineChart = isLineChartStorage.get();
+
   const textStyle = "text-l my-2";
   return (
     <div
-      className={`bg-${side}-400 m-2 w-${mode === "history" ? "60" : "40"} h-${
+      className={`bg-${side}-400 m-2 w-${mode === "history" ? "96" : "40"} h-${
         mode === "history" ? "96" : "60"
       } p-2 rounded-xl`}
     >
@@ -266,32 +271,62 @@ export const TeamCard: React.FC<TeamCardProps> = ({
       )}
       {mode === "history" && (
         <div className={`bg-${side}-900 mx-auto"`}>
-          <LineChart
-            max={max}
-            height={600}
-            width={400}
-            dataSets={{
-              ...Object.fromEntries(
-                Object.entries(reefColorsScore).map(([key, value]) => [
-                  key,
-                  {
-                    color: value,
-                    data: teamInfo.data.getCoralLevelAsLine(
-                      key as keyof Levels
-                    ),
-                  },
-                ])
-              ),
-              Net: {
-                color: "#172db8",
-                data: teamInfo.data.getTotalAlgeaDataAsLine("netScore"),
-              },
-              Processor: {
-                color: "#8fb4ff",
-                data: teamInfo.data.getTotalAlgeaDataAsLine("processor"),
-              },
-            }}
-          />
+          {isLineChart ? (
+            <LineChart
+              max={max}
+              height={600}
+              width={400}
+              dataSets={{
+                ...Object.fromEntries(
+                  Object.entries(reefColorsScore).map(([key, value]) => [
+                    key,
+                    {
+                      color: value,
+                      data: teamInfo.data.getCoralLevelAsLine(
+                        key as keyof Levels
+                      ),
+                    },
+                  ])
+                ),
+                Net: {
+                  color: "#172db8",
+                  data: teamInfo.data.getTotalAlgeaDataAsLine("netScore"),
+                },
+                Processor: {
+                  color: "#8fb4ff",
+                  data: teamInfo.data.getTotalAlgeaDataAsLine("processor"),
+                },
+              }}
+            />
+          ) : (
+            <BarChart
+              isStacked={true}
+              max={max}
+              height={600}
+              width={400}
+              dataSets={{
+                ...Object.fromEntries(
+                  Object.entries(reefColorsScore).map(([key, value]) => [
+                    key,
+                    {
+                      color: value,
+                      data: teamInfo.data.getCoralLevelAsLine(
+                        key as keyof Levels
+                      ),
+                    },
+                  ])
+                ),
+                Net: {
+                  color: "#172db8",
+                  data: teamInfo.data.getTotalAlgeaDataAsLine("netScore"),
+                },
+                Processor: {
+                  color: "#8fb4ff",
+                  data: teamInfo.data.getTotalAlgeaDataAsLine("processor"),
+                },
+              }}
+            />
+          )}
         </div>
       )}
       {mode === "super" && (

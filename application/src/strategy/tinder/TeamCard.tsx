@@ -28,9 +28,8 @@ const TeamCard: React.FC<TeamCardProps> = ({
 }) => {
   const [isNotes, setNotes] = useState(false);
 
-
   return (
-    <div className="mx-auto p-5 mt-10 rounded-xl bg-green-800 w-60">
+    <div className="mx-auto p-5 mt-10 rounded-xl bg-green-800 w-96">
       <div className="flex justify-center">
         <QualTeamCard
           side={"green" as "blue"}
