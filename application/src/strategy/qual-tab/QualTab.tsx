@@ -303,7 +303,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
               isStacked={true}
               max={max}
               height={600}
-              width={400}
+              width={300}
               dataSets={{
                 ...Object.fromEntries(
                   Object.entries(reefColorsScore).map(([key, value]) => [
