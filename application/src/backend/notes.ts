@@ -23,7 +23,10 @@ type QualNotes = Record<HashedQualTeam, Notes>;
 export function applyRoutes(app: Express, db: Db) {
   // Define routes
   app.post("/team_notes", async (req, res) => {
-    const { notes, user }: { notes: QualNotes; user: string } = req.body;
+    
+
+    try {
+      const { notes, user }: { notes: QualNotes; user: string } = req.body;
     if (
       !notes ||
       !user ||
@@ -35,8 +38,6 @@ export function applyRoutes(app: Express, db: Db) {
     }
 
     const notesCollection = db.collection("notes");
-
-    try {
       await notesCollection.deleteMany({ user });
       notesCollection.insertMany(
         Object.entries(notes).map(([team, note]) => ({ team, ...note, user }))
