@@ -340,6 +340,26 @@ export class TeamData {
     );
   }
 
+  getHighestQualObjects(): number {
+    return this.matches
+      .map(
+        (match) =>
+          match.autoReefPick.algea.netScore +
+          match.autoReefPick.algea.processor +
+          match.autoReefPick.levels.L1.score +
+          match.autoReefPick.levels.L2.score +
+          match.autoReefPick.levels.L3.score +
+          match.autoReefPick.levels.L4.score +
+          match.teleReefPick.algea.netScore +
+          match.teleReefPick.algea.processor +
+          match.teleReefPick.levels.L1.score +
+          match.teleReefPick.levels.L2.score +
+          match.teleReefPick.levels.L3.score +
+          match.teleReefPick.levels.L4.score
+      )
+      .reduce((acc, match) => Math.max(acc, match), 0);
+  }
+
   getHighestObjects(): number {
     return this.matches
       .map<PickValues>((match) => ({

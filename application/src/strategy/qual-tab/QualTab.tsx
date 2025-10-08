@@ -108,6 +108,7 @@ const QualTab: React.FC = () => {
                 side="blue"
                 teamInfo={teamInfo}
                 max={max}
+                maxBar={max}
               />
             ))}
         </div>
@@ -125,6 +126,7 @@ const QualTab: React.FC = () => {
                 side="red"
                 teamInfo={teamInfo}
                 max={max}
+                maxBar={max}
               />
             ))}
         </div>
@@ -183,12 +185,14 @@ interface TeamCardProps {
   teamInfo: TeamInfo;
   mode: Mode;
   max: number;
+  maxBar: number;
 }
 export const TeamCard: React.FC<TeamCardProps> = ({
   side,
   teamInfo,
   mode,
   max,
+  maxBar
 }) => {
   const trim = (value: number | string) => value.toString().slice(0, 5);
 
@@ -301,7 +305,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
           ) : (
             <BarChart
               isStacked={true}
-              max={max}
+              max={maxBar}
               height={600}
               width={300}
               dataSets={{

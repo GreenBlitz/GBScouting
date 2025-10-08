@@ -13,6 +13,7 @@ interface TeamCardProps {
   onSwipe: () => void;
   mode: Mode;
   max: number;
+  maxBar: number;
 }
 
 const roundToDecimals = (x: number, decimals: number = 0) => {
@@ -25,6 +26,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
   onSwipe,
   mode,
   max,
+  maxBar
 }) => {
   const [isNotes, setNotes] = useState(false);
 
@@ -36,6 +38,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
           teamInfo={teamInfo}
           mode={mode}
           max={max}
+          maxBar={maxBar}
         />
       </div>
 

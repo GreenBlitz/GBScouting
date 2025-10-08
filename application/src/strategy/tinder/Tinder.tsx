@@ -232,6 +232,18 @@ const Tinder: React.FC = () => {
     [currentID]
   );
 
+  const maxBar = useMemo(
+    () =>
+      Math.max(
+        0,
+        ranking[currentID]?.info.data.getHighestQualObjects(),
+        ranking[currentID + 1]?.info.data.getHighestQualObjects()
+      ),
+    [currentID]
+  );
+
+  console.log(maxBar + "bar");
+
   return (
     <div>
       <div className="flex flex-col md:flex-row items-stretch gap-4">
@@ -242,6 +254,7 @@ const Tinder: React.FC = () => {
               onSwipe={() => choose(currentID)}
               mode={mode}
               max={max}
+              maxBar={maxBar}
             />
           </div>
           <div className="flex items-center space-x-2 justify-center">
@@ -275,6 +288,7 @@ const Tinder: React.FC = () => {
               onSwipe={() => choose(currentID + 1)}
               mode={mode}
               max={max}
+              maxBar={maxBar}
             />
           </div>
         </>
