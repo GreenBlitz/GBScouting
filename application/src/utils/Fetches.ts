@@ -1,6 +1,6 @@
 import { authorizationStorage, matchesStorage } from "./FolderStorage";
 import { Match } from "./Match";
-import { QualNotes } from "./SeasonUI";
+import { IOSMatches, QualNotes } from "./SeasonUI";
 
 export const getServerHostname = () => {
   return location.host;
@@ -140,6 +140,7 @@ export interface MatchTeams {
 
 export async function fetchAllAwaitingMatches() {
   try {
+    return IOSMatches;
     if (matchesStorage.exists()) {
       return matchesStorage.get();
     }
