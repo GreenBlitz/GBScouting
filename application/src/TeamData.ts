@@ -51,7 +51,9 @@ export class TeamData {
   ) {
     this.matches = [...matches].map((match) => ({
       ...match,
-      climb: TeamData.TBAClimbToNormal(climbs[match.qual] || ""),
+      climb: climbs[match.qual]
+        ? TeamData.TBAClimbToNormal(climbs[match.qual])
+        : match.climb,
     }));
     this.notes = [];
   }

@@ -553,6 +553,7 @@ export const qrSerde: FieldsRecordSerde<any> = serdeRecordFieldsBuilder([
   ["teamNumber", serdeTeamNumber()],
   ["teleReefPick", serdeReefPick()],
   ["autoReefPick", serdeReefPick()],
+  ["climb", serdeEnumedString(CLIMB_POSSIBLE_VALUES)],
   ["endgameCollection", serdeCollectedObjects()],
   ["qual", serdeStringifiedNum(QUAL_BIT_COUNT)],
   ["scouterName", serdeString()],
