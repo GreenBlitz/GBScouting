@@ -28,7 +28,8 @@ export function applyRoutes(app: Express, db: Db) {
       !notes ||
       !user ||
       typeof notes !== "object" ||
-      typeof user !== "string"
+      typeof user !== "string" ||
+      Object.entries(notes).length <= 0
     ) {
       return res.status(400).json({ message: "Missing notes or user" });
     }
