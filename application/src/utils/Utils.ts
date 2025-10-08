@@ -58,12 +58,12 @@ export const FRCTeamList: Record<number, string> = {
   5291: "Emperius",
   5614: "Team Sycamore",
   5654: "Phoenix",
+  5715: "DRC",
   5928: "MetalBoost",
   5951: "Makers Assemble",
   5990: "TRIGON",
   6104: "Desert Eagles in memory of Yehonatan Maimon",
   6738: "Excalibur",
-  6740: "G3 - Glue Gun & Glitter",
   7039: "❌⭕",
   7067: "Team Streak",
   7112: "EverGreen",
@@ -74,9 +74,9 @@ export const FRCTeamList: Record<number, string> = {
   9738: "Ionic Bond",
   9739: "Firefly",
   9740: "CANBus in memory of Roney Tal",
-  9971: "Off-Season Demo Team 9971",
-  9972: "Off-Season Demo Team 9972",
   10139: "Tsunami",
+  10935: "RoboRex",
+  11070: "Krono",
 };
 
 export const FRCTeamArray = Object.entries(FRCTeamList).map(([key, value]) => ({

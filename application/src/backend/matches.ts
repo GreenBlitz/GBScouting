@@ -5,26 +5,35 @@ import path from "path";
 
 const dataFolder = "src/data/matches";
 export async function applyRoutes(app: Express, db: Db, dirName: string) {
-  // const presavedData = fs
-  //   .readdirSync(path.resolve(dirName, dataFolder))
-  //   .filter((file) => file.endsWith(".json"))
-  //   .flatMap((file) => {
-  //     const filePath = path.resolve(dirName, dataFolder, file);
-  //     return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  //   });
+  try {
+    const presavedData = fs
+      .readdirSync(path.resolve(dirName, dataFolder))
+      .filter((file) => file.endsWith(".json"))
+      .flatMap((file) => {
+        const filePath = path.resolve(dirName, dataFolder, file);
+        return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      });
 
-  // if (presavedData.length > 0 && db) {
-  //   const matchCollection = db.collection("matches");
-  //   await matchCollection.deleteMany({});
-  //   await matchCollection.insertMany(presavedData);
-  //   console.log(
-  //     `Inserted ${presavedData.length} presaved matches into the database.`
-  //   );
-  // } else {
-  //   console.log("No presaved match data found or database not connected.");
-  // }
+    console.log(
+      presavedData
+        .map((match) => match.teamNumber.teamNumber)
+        .filter((team, index, arr) => arr.findIndex((t) => t === team) === index).sort((a,b) => a -b)
+    );
 
-  
+    if (presavedData.length > 0 && db) {
+      const matchCollection = db.collection("matches");
+      await matchCollection.deleteMany({});
+      await matchCollection.insertMany(presavedData);
+      console.log(
+        `Inserted ${presavedData.length} presaved matches into the database.`
+      );
+    } else {
+      console.log("No presaved match data found or database not connected.");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
   // Define routes
   app.post("/Match", async (req: Request, res: Response) => {
     if (!db) {
