@@ -71,8 +71,8 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
   };
 
-  putClimbsInDatabase();
-  setInterval(putClimbsInDatabase, 60 * 1000 * 5);
+  // putClimbsInDatabase();
+  // setInterval(putClimbsInDatabase, 60 * 1000 * 5);
   // Define routes
   app.get("/TBA/rankings", async (req, res) => {
     try {
