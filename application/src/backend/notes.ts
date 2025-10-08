@@ -24,6 +24,14 @@ export function applyRoutes(app: Express, db: Db) {
   // Define routes
   app.post("/team_notes", async (req, res) => {
     const { notes, user }: { notes: QualNotes; user: string } = req.body;
+    if (
+      !notes ||
+      !user ||
+      typeof notes !== "object" ||
+      typeof user !== "string"
+    ) {
+      return res.status(400).json({ message: "Missing notes or user" });
+    }
 
     const notesCollection = db.collection("notes");
 
