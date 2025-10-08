@@ -27,25 +27,29 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     const data: any[] = response.data;
 
     const climbingRobots = data
-      .map((match) => ({
-        red: {
-          teams: match.alliances.red.team_keys as string[],
-          climbs: [
-            match.score_breakdown.red.endGameRobot1,
-            match.score_breakdown.red.endGameRobot2,
-            match.score_breakdown.red.endGameRobot3,
-          ],
-        },
-        blue: {
-          teams: match.alliances.blue.team_keys as string[],
-          climbs: [
-            match.score_breakdown.blue.endGameRobot1,
-            match.score_breakdown.blue.endGameRobot2,
-            match.score_breakdown.blue.endGameRobot3,
-          ],
-        },
-        qual: match.comp_level === "qm" ? match.match_number : -1,
-      }))
+      .map(
+        (match) =>
+          match.score_breakdown && {
+            red: {
+              teams: match.alliances.red.team_keys as string[],
+              climbs: [
+                match.score_breakdown.red.endGameRobot1,
+                match.score_breakdown.red.endGameRobot2,
+                match.score_breakdown.red.endGameRobot3,
+              ],
+            },
+            blue: {
+              teams: match.alliances.blue.team_keys as string[],
+              climbs: [
+                match.score_breakdown.blue.endGameRobot1,
+                match.score_breakdown.blue.endGameRobot2,
+                match.score_breakdown.blue.endGameRobot3,
+              ],
+            },
+            qual: match.comp_level === "qm" ? match.match_number : -1,
+          }
+      )
+      .filter(Boolean)
       .map((match) => ({
         red: Object.assign(
           {},
@@ -71,8 +75,8 @@ export function applyRoutes(app: Express, db: Db, dirName: string) {
     }
   };
 
-  // putClimbsInDatabase();
-  // setInterval(putClimbsInDatabase, 60 * 1000 * 5);
+  putClimbsInDatabase();
+  setInterval(putClimbsInDatabase, 60 * 1000 * 5);
   // Define routes
   app.get("/TBA/rankings", async (req, res) => {
     try {
