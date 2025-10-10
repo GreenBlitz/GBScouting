@@ -1,0 +1,1071 @@
+{
+  "frc3075 qual3": {
+    "_id": "68e6489148f528bc95595ffd",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": ""
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": ""
+    },
+    "overall": {
+      "value": "לא זזו",
+      "score": 0
+    }
+  },
+  "frc1577 qual3": {
+    "_id": "68e6489148f528bc95595ffe",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "המעלית נתקעה כמה פעמים על הנט",
+      "score": 0
+    },
+    "coral": {
+      "value": "לא משהו - לוקח זמן ומפספס",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "לא וואו - קצת מהסס",
+      "score": 0
+    },
+    "overall": {
+      "value": "נורא לא יציב ומתנדנד המון",
+      "score": 0
+    }
+  },
+  "frc3065 qual3": {
+    "_id": "68e6489148f528bc95595fff",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "קורל טוב",
+      "score": 5
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "",
+      "score": 0
+    }
+  },
+  "frc9991 qual4": {
+    "_id": "68e6489148f528bc95596000",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "לא מדויק\nמאוד מגושם",
+      "score": 0
+    },
+    "overall": {
+      "value": "לא זזו לאיזה חצי דקה",
+      "score": 0
+    }
+  },
+  "frc5614 qual4": {
+    "_id": "68e6489148f528bc95596001",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "לא רע, לא וואו\nלוקח קצת זמן ומפספס לפעמים",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "",
+      "score": 0
+    }
+  },
+  "frc9738 qual5": {
+    "_id": "68e6489148f528bc95596002",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "רע.",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "ממשששש איטי\nנהיגה חרא\nפשוט עמד שם בתחילת המשחק",
+      "score": 2
+    },
+    "overall": {
+      "value": "בעיקרון הוא פשוט לא עושה כלום",
+      "score": 0
+    }
+  },
+  "frc7067 qual5": {
+    "_id": "68e6489148f528bc95596003",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "לוקח שנים להתיישר על הריף",
+      "score": 2
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהיגה ממש לא יעילה\n",
+      "score": 2
+    },
+    "overall": {
+      "value": "",
+      "score": 0
+    }
+  },
+  "frc4744 qual5": {
+    "_id": "68e6489148f528bc95596004",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "הפילו קורל בזמן נסיעה\nשמים קורל טוב",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהיגה בסדר",
+      "score": 0
+    },
+    "overall": {
+      "value": "",
+      "score": 0
+    }
+  },
+  "frc4416 qual6": {
+    "_id": "68e6489148f528bc95596005",
+    "defense": {
+      "value": "",
+      "score": 1
+    },
+    "evasion": {
+      "value": "פשוט עמדו בפידר אחד כל המשחק",
+      "score": 4
+    },
+    "net": {
+      "value": "",
+      "score": 1
+    },
+    "coral": {
+      "value": "",
+      "score": 1
+    },
+    "climb": {
+      "value": "",
+      "score": 1
+    },
+    "driving": {
+      "value": "",
+      "score": 1
+    },
+    "overall": {
+      "value": "",
+      "score": 2
+    }
+  },
+  "frc1954 qual6": {
+    "_id": "68e6489148f528bc95596006",
+    "defense": {
+      "value": ""
+    },
+    "evasion": {
+      "value": ""
+    },
+    "net": {
+      "value": ""
+    },
+    "coral": {
+      "value": ""
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "הרובוט פשוט נתקע רוב המשחק ולא הצליח לזוז לאחר מכן",
+      "score": 1
+    }
+  },
+  "frc1942 qual6": {
+    "_id": "68e6489148f528bc95596007",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "באיסוף הצליחו להרים בלי בעיה ולא הייתה אפשרות לאלגי לברוח",
+      "score": 5
+    },
+    "coral": {
+      "value": "עשו קורלים מהר בסייקלים מהירים",
+      "score": 5
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהיגה מהירה וחלקה, הצליח לעשות סייקלים מאוד מהירים",
+      "score": 6
+    },
+    "overall": {
+      "value": "נהיגה מהירה, איסוף קורלים ואלגי מהיר, ומרכז כובד נמוך.",
+      "score": 5
+    }
+  },
+  "frc9990 qual2": {
+    "_id": "68e683d4dbbe4d3d119e58a1",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "",
+      "score": 0
+    }
+  },
+  "frc2679 qual3": {
+    "_id": "68e683d4dbbe4d3d119e58a2",
+    "defense": {
+      "value": ""
+    },
+    "evasion": {
+      "value": ""
+    },
+    "net": {
+      "value": ""
+    },
+    "coral": {
+      "value": ""
+    },
+    "climb": {
+      "value": ""
+    },
+    "driving": {
+      "value": ""
+    },
+    "overall": {
+      "value": "הקבוצה ה",
+      "score": 0
+    }
+  },
+  "frc6738 qual3": {
+    "_id": "68e683d4dbbe4d3d119e58a3",
+    "defense": {
+      "value": ""
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": ""
+    },
+    "coral": {
+      "value": "הם עשו קורלים במהירות אחלה.",
+      "score": 5
+    },
+    "climb": {
+      "value": "לא תיפסו",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהגו מהר ולא נתקעו בשאר הקבוצות.",
+      "score": 5
+    },
+    "overall": {
+      "value": "",
+      "score": 5
+    }
+  },
+  "frc5951 qual3": {
+    "_id": "68e683d4dbbe4d3d119e58a4",
+    "defense": {
+      "value": ""
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "הם ניקדו את הקורלים במהירות טובה, אבל כל פעם מחדש הם היו צריכים לפחות שתי נסיונות עד שהם יצליחו לאסוף מהפיידר את הקורל",
+      "score": 4
+    },
+    "climb": {
+      "value": "הם טיפסו דיי מהר.",
+      "score": 5
+    },
+    "driving": {
+      "value": "נהגו טוב",
+      "score": 4
+    },
+    "overall": {
+      "value": "",
+      "score": 0
+    }
+  },
+  "frc8175 qual4": {
+    "_id": "68e683d4dbbe4d3d119e58a5",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "אין משהו מיוחד, הם עשו סבבה סך הכל",
+      "score": 3
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהגו לא טוב בכלל, הם נתקעו מלא בקבוצות שאיתן",
+      "score": 2
+    },
+    "overall": {
+      "value": "קבוצה סבירה מינוס.",
+      "score": 3
+    }
+  },
+  "frc4590 qual4": {
+    "_id": "68e683d4dbbe4d3d119e58a6",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "עשינו סייקלים מהירים, לא היה בעיה עם האיסוף שלהם או עם ההתכווננות על הריף.",
+      "score": 5
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהגנו בסדר, הרבה פעמים אנחנו התנדנדנו",
+      "score": 4
+    },
+    "overall": {
+      "value": "",
+      "score": 5
+    }
+  },
+  "frc5135 qual4": {
+    "_id": "68e683d4dbbe4d3d119e58a7",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "לקח להם הרבה זמן לנקד קורלים, והם מסוגלים לעשות רק L 1",
+      "score": 2
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "הם נהגו בסדר נראלי, והרובוט שלהם קטן גם אז אין בעחה של התנגשויות בכלל",
+      "score": 4
+    },
+    "overall": {
+      "value": "",
+      "score": 3
+    }
+  },
+  "frc5990 qual5": {
+    "_id": "68e683d4dbbe4d3d119e58a8",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": ""
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "היו להם סייקלים מהירים של איסוף מהריצפה ולנקד אותם, בשילוב עם נסיעה מהירה מאוד, זה היה ממש יעיל ומהיר.",
+      "score": 7
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהגו מהר וטוב. לא הפריעו לאף אחד, והנסיעות שלהם היו מושלמות.",
+      "score": 6
+    },
+    "overall": {
+      "value": "",
+      "score": 7
+    }
+  },
+  "frc7845 qual5": {
+    "_id": "68e683d4dbbe4d3d119e58a9",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 5
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "",
+      "score": 5
+    }
+  },
+  "frc9739 qual5": {
+    "_id": "68e683d4dbbe4d3d119e58aa",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "הם לא נסעו כל המשחק...",
+      "score": 0
+    }
+  },
+  "frc2230 qual6": {
+    "_id": "68e683d4dbbe4d3d119e58ab",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 4
+    },
+    "net": {
+      "value": "הם קלעו לנט דיי מהר, אבל הם החטיאו קצת, וגם הם צריכים לעצור לגמרי בשביל לקלוע.",
+      "score": 4
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "הנהגים שלהם נתקעו בדברים לא מעט, וגם הם לא תמיד נסו בדרכים האופטימליות.",
+      "score": 3
+    },
+    "overall": {
+      "value": "",
+      "score": 4
+    }
+  },
+  "frc3316 qual6": {
+    "_id": "68e683d4dbbe4d3d119e58ac",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 4
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהגו אחלה, לא משהו מיוחד.",
+      "score": 5
+    },
+    "overall": {
+      "value": "",
+      "score": 4
+    }
+  },
+  "frc1942 qual42": {
+    "_id": "68e79d2db1fb624b27ed029b",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "התמודדו עולה עם ההגנה של 5654",
+      "score": 6
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "הם מחטיאים קצת, אבל מנקדים מהר.",
+      "score": 5
+    },
+    "climb": {
+      "value": "",
+      "score": 4
+    },
+    "driving": {
+      "value": "נהגו טוב וחלק למרות שהגנו עליהם.",
+      "score": 5
+    },
+    "overall": {
+      "value": "",
+      "score": 6
+    }
+  },
+  "frc3083 qual42": {
+    "_id": "68e79d2db1fb624b27ed029c",
+    "defense": {
+      "value": "הגנו בסדר, לא עשו פנלטי",
+      "score": 4
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 4
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "",
+      "score": 4
+    }
+  },
+  "frc9738 qual42": {
+    "_id": "68e79d2db1fb624b27ed029d",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "הרובוט שלהם נפל בתחילת המשחק.",
+      "score": 0
+    }
+  },
+  "frc2096 qual43": {
+    "_id": "68e79d2db1fb624b27ed029e",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "הם בחרו לקחת מהפידר קורלים(איסוף רצפה) למרות שקבוצה אחרת ניסתה לחסום אותו",
+      "score": 5
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 5
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נוהגים חלק",
+      "score": 5
+    },
+    "overall": {
+      "value": "",
+      "score": 5
+    }
+  },
+  "frc5951 qual43": {
+    "_id": "68e79d2db1fb624b27ed029f",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 5
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 5
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהגו חלק, מהר ועשו בחירות חכמות במסלולים שלהם",
+      "score": 6
+    },
+    "overall": {
+      "value": "",
+      "score": 5
+    }
+  },
+  "frc3316 qual43": {
+    "_id": "68e79d2db1fb624b27ed02a0",
+    "defense": {
+      "value": "בא להגן, ולא הלך לו כלכך טוב. באמצע המשחק הקבוצות שנגדו הפסיקו להגיע לפיידר, הוא נשאר באמצע בין שני הפיידרים מבלי לעשות כלום.",
+      "score": 3
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 3
+    },
+    "overall": {
+      "value": "",
+      "score": 3
+    }
+  },
+  "frc5715 qual44": {
+    "_id": "68e79d2db1fb624b27ed02a1",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "ניקדו יחסית לאט.",
+      "score": 4
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נסו עקום.",
+      "score": 3
+    },
+    "overall": {
+      "value": "",
+      "score": 4
+    }
+  },
+  "frc9739 qual44": {
+    "_id": "68e79d2db1fb624b27ed02a2",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 3
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "בתחילת המשחק הם ניסו לעשות קורלים, והם הגיעו לריף הפןך והתחילו להסתובב שם באופן ממש מקוטע. אחרי זה התחיל להיגמר להם המתבר, אז הם הלכו לחנות ונשארו שם עד סוף המשחק",
+      "score": 2
+    },
+    "overall": {
+      "value": "",
+      "score": 3
+    }
+  },
+  "frc5928 qual44": {
+    "_id": "68e79d2db1fb624b27ed02a3",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 4
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נהגו בסדר, אבל כשהם התמקמו לשים קורלים, אז הם נסעו באופן מקוטע ולא יפה.",
+      "score": 4
+    },
+    "overall": {
+      "value": "",
+      "score": 4
+    }
+  },
+  "frc1937 qual45": {
+    "_id": "68e79d2db1fb624b27ed02a4",
+    "defense": {
+      "value": "חסמו את אחד הפידרים בכל המשחק",
+      "score": 4
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 0
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 0
+    },
+    "overall": {
+      "value": "",
+      "score": 0
+    }
+  },
+  "frc1690 qual45": {
+    "_id": "68e79d2db1fb624b27ed02a5",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "",
+      "score": 0
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "מנקדים מהר מאוד בלי לבזבז זמן על התמקמות. ",
+      "score": 7
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "נסיעה חלקה בלי להפריע לשאר הקבוצות בברית.",
+      "score": 6
+    },
+    "overall": {
+      "value": "",
+      "score": 6
+    }
+  },
+  "frc4590 qual45": {
+    "_id": "68e79d2db1fb624b27ed02a6",
+    "defense": {
+      "value": "",
+      "score": 0
+    },
+    "evasion": {
+      "value": "כשהגנו עלינו אנחנו לא הצלחנו בכלל להגיע אל הפידר. זה רם לנו להפריע לאורביט וככה לגרום גם להם לנקד פחות",
+      "score": 3
+    },
+    "net": {
+      "value": "",
+      "score": 0
+    },
+    "coral": {
+      "value": "",
+      "score": 4
+    },
+    "climb": {
+      "value": "",
+      "score": 0
+    },
+    "driving": {
+      "value": "",
+      "score": 5
+    },
+    "overall": {
+      "value": "",
+      "score": 5
+    }
+  }
+}
